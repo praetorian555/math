@@ -4,7 +4,6 @@
 
 TEST(MainTestSuite, FirstTest)
 {
-    HelloWorld();
 }
 
 int main(int argc, char** argv)
