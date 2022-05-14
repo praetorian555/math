@@ -15,8 +15,8 @@ TEST(Point2Tests, GettersSettersConstruction)
 
     {
         Point2f p(10.0f, 15.0f);
-        EXPECT_FLOAT_EQ(p.X, 10.0f);
-        EXPECT_FLOAT_EQ(p.Y, 15.0f);
+        EXPECT_FLOAT_EQ(p.Data[0], 10.0f);
+        EXPECT_FLOAT_EQ(p.Data[1], 15.0f);
     }
 
     {
@@ -30,6 +30,25 @@ TEST(Point2Tests, GettersSettersConstruction)
         p.Set(20.0f, 1);
         EXPECT_FLOAT_EQ(p[1], 20.0f);
     }
+
+    {
+        Point2f p1;
+        p1.Data[0] = 10.0f;
+        p1.Data[1] = 15.0f;
+
+        Point2f p2(p1);
+        EXPECT_FLOAT_EQ(p2.X, 10.0f);
+        EXPECT_FLOAT_EQ(p2.Y, 15.0f);
+    }
+}
+
+TEST(Point2Tests, Nans)
+{
+    Point2f p1(nanf(""), 10.0f);
+    EXPECT_TRUE(p1.HasNaNs());
+
+    Point2f p2(15.0f, nanf(""));
+    EXPECT_TRUE(p2.HasNaNs());
 }
 
 TEST(Point2Tests, Comparison)
@@ -168,6 +187,18 @@ TEST(Point2Tests, Ceil)
 
     EXPECT_FLOAT_EQ(p2.X, 3.0f);
     EXPECT_FLOAT_EQ(p2.Y, -2.0f);
+}
+
+TEST(Point2Tests, Round)
+{
+    Point2f p1(1.3, 2.6);
+    Point2f p2 = Round(p1);
+    EXPECT_FLOAT_EQ(p2.X, 1.0f);
+    EXPECT_FLOAT_EQ(p2.Y, 3.0f);
+
+    Point2f p3(1.5, 3);
+    Point2f p4 = Round(p3);
+    EXPECT_FLOAT_EQ(p4.X, 2.0f);
 }
 
 TEST(Point2Tests, Misc)

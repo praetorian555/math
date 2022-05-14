@@ -7,17 +7,22 @@
 namespace math
 {
 
+// Forward declarations
 template <typename T>
 class Point3;
-
-template <typename T>
-inline bool IsNaN(const T v);
 
 template <typename T>
 class Point2
 {
 public:
-    T X, Y;
+    union
+    {
+        struct
+        {
+            T X, Y;
+        };
+        T Data[2];
+    };
 
 public:
     Point2() : X(0), Y(0) {}

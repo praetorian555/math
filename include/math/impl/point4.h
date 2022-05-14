@@ -6,17 +6,22 @@
 namespace math
 {
 
+// Forward declarations
 template <typename T>
 class Point3;
-
-template <typename T>
-inline bool IsNaN(const T Vec);
 
 template <typename T>
 class Point4
 {
 public:
-    T X, Y, Z, W;
+    union
+    {
+        struct
+        {
+            T X, Y, Z, W;
+        };
+        T Data[4];
+    };
 
 public:
     Point4() : X(0), Y(0), Z(0), W(0) {}
@@ -53,7 +58,7 @@ public:
             return Y;
         if (i == 2)
             return Z;
-        if (i == 3)
+        else
             return W;
     }
 
@@ -170,7 +175,7 @@ public:
     Point4<T> ToEuclidean() const
     {
         MATH_ASSERT(W != 0);
-        real Div = 1 / W;
+        float Div = 1 / W;
         return Point4(X * Div, Y * Div, Z * Div, 1);
     }
 };
@@ -207,6 +212,12 @@ template <typename T>
 Point4<T> Ceil(const Point4<T>& p)
 {
     return Point4<T>(std::ceil(p.X), std::ceil(p.Y), std::ceil(p.Z), std::ceil(p.W));
+}
+
+template <typename T>
+Point4<T> Round(const Point4<T>& p)
+{
+    return Point4<T>(std::roundf(p.X), std::roundf(p.Y), std::roundf(p.Z), std::roundf(p.W));
 }
 
 template <typename T>

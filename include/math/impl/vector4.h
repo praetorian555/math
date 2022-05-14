@@ -73,7 +73,7 @@ public:
             return Y;
         if (i == 2)
             return Z;
-        if (i == 3)
+        else
             return W;
     }
 

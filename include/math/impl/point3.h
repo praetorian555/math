@@ -6,19 +6,24 @@
 namespace math
 {
 
+// Forward declarations
 template <typename T>
 class Point2;
 template <typename T>
 class Point4;
 
 template <typename T>
-inline bool IsNaN(const T v);
-
-template <typename T>
 class Point3
 {
 public:
-    T X, Y, Z;
+    union
+    {
+        struct
+        {
+            T X, Y, Z;
+        };
+        T Data[3];
+    };
 
 public:
     Point3() : X(0), Y(0), Z(0) {}
@@ -186,6 +191,12 @@ template <typename T>
 Point3<T> Ceil(const Point3<T>& p)
 {
     return Point3<T>(std::ceil(p.X), std::ceil(p.Y), std::ceil(p.Z));
+}
+
+template <typename T>
+Point3<T> Round(const Point3<T>& p)
+{
+    return Point3<T>(std::roundf(p.X), std::roundf(p.Y), std::roundf(p.Z));
 }
 
 template <typename T>
