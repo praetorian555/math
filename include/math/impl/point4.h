@@ -19,7 +19,7 @@ public:
     T X, Y, Z, W;
 
 public:
-    Point4() { X = Y = Z = W = 0; }
+    Point4() : X(0), Y(0), Z(0), W(0) {}
     Point4(T X, T Y, T Z, T W) : X(X), Y(Y), Z(Z), W(W) { MATH_ASSERT(!HasNaNs()); }
 
     template <typename U>

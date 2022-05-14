@@ -20,7 +20,7 @@ public:
     T X, Y;
 
 public:
-    Point2() { X = Y = 0; }
+    Point2() : X(0), Y(0) {}
     Point2(T X, T Y) : X(X), Y(Y) { MATH_ASSERT(!HasNaNs()); }
     Point2(const Point2<T>& p3) : X(p3.X), Y(p3.Y) { MATH_ASSERT(!HasNaNs()); }
 

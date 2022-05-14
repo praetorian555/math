@@ -11,7 +11,7 @@ class RNG
 {
 public:
     RNG();
-    RNG(uint64_t startingIndex);
+    explicit RNG(uint64_t startingIndex);
 
     void SetSequence(uint64_t startingIndex);
 

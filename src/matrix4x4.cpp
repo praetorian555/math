@@ -197,7 +197,7 @@ math::Matrix4x4 math::Matrix4x4::Inverse() const
     return Matrix4x4(minv);
 }
 
-math::Matrix4x4 math::Multiply(const Matrix4x4 m1, const Matrix4x4 m2)
+math::Matrix4x4 math::Multiply(const Matrix4x4& m1, const Matrix4x4& m2)
 {
     Matrix4x4 r;
     for (int i = 0; i < 4; ++i)

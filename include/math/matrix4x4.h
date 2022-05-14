@@ -10,7 +10,7 @@ struct Matrix4x4
     float m[4][4];
 
     Matrix4x4();
-    Matrix4x4(const float mat[4][4]);
+    explicit Matrix4x4(const float mat[4][4]);
 
     // clang-format off
     Matrix4x4(float t00, float t01, float t02, float t03,
@@ -27,6 +27,6 @@ struct Matrix4x4
     Matrix4x4 Inverse() const;
 };
 
-Matrix4x4 Multiply(const Matrix4x4 m1, const Matrix4x4 m2);
+Matrix4x4 Multiply(const Matrix4x4& m1, const Matrix4x4& m2);
 
 }  // namespace math

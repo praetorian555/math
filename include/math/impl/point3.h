@@ -21,7 +21,7 @@ public:
     T X, Y, Z;
 
 public:
-    Point3() { X = Y = Z = 0; }
+    Point3() : X(0), Y(0), Z(0) {}
     Point3(T X, T Y, T Z) : X(X), Y(Y), Z(Z) { MATH_ASSERT(!HasNaNs()); }
 
     template <typename U>

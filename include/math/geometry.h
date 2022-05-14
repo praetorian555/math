@@ -51,12 +51,12 @@ math::Vector2<T> math::Vector3<T>::XZ() const
 }
 
 template <typename T>
-math::Vector4<T>::Vector4(const Vector2<T>& XY, T Z, T W) : X(XY.X), Y(XY.Y), Z(Z), W(W)
+math::Vector4<T>::Vector4(const Vector2<T>& XY, T ZZ, T WW) : X(XY.X), Y(XY.Y), Z(ZZ), W(WW)
 {
 }
 
 template <typename T>
-math::Vector4<T>::Vector4(const Vector3<T>& XYZ, T W) : X(XYZ.X), Y(XYZ.Y), Z(XYZ.Z), W(W)
+math::Vector4<T>::Vector4(const Vector3<T>& XYZ, T W) : X(XYZ.X), Y(XYZ.Y), Z(XYZ.Z), W(WW)
 {
 }
 
