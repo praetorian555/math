@@ -38,17 +38,23 @@ public:
             return X;
         if (i == 1)
             return Y;
-        if (i == 2)
+        else
             return Z;
     }
 
     bool HasNaNs() const { return IsNaN(X) || IsNaN(Y) || IsNaN(Z); }
 
-    bool operator==(const Normal3<T>& other) const { return X == other.X && Y == other.Y && Z == other.Z; }
+    bool operator==(const Normal3<T>& other) const
+    {
+        return X == other.X && Y == other.Y && Z == other.Z;
+    }
 
     bool operator!=(const Normal3<T>& other) const { return !(*this == other); }
 
-    Normal3<T> operator+(const Normal3<T>& other) const { return Normal3(X + other.X, Y + other.Y, Z + other.Z); }
+    Normal3<T> operator+(const Normal3<T>& other) const
+    {
+        return Normal3(X + other.X, Y + other.Y, Z + other.Z);
+    }
 
     Normal3<T>& operator+=(const Normal3<T>& other)
     {
@@ -58,7 +64,10 @@ public:
         return *this;
     }
 
-    Normal3<T> operator-(const Normal3<T>& other) const { return Normal3(X - other.X, Y - other.Y, Z - other.Z); }
+    Normal3<T> operator-(const Normal3<T>& other) const
+    {
+        return Normal3(X - other.X, Y - other.Y, Z - other.Z);
+    }
 
     Normal3<T>& operator-=(const Normal3<T>& other)
     {

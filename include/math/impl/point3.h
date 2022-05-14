@@ -54,13 +54,16 @@ public:
             return X;
         if (i == 1)
             return Y;
-        if (i == 2)
+        else
             return Z;
     }
 
     bool HasNaNs() const { return IsNaN(X) || IsNaN(Y) || IsNaN(Z); }
 
-    bool operator==(const Point3<T>& other) const { return X == other.X && Y == other.Y && Z == other.Z; }
+    bool operator==(const Point3<T>& other) const
+    {
+        return X == other.X && Y == other.Y && Z == other.Z;
+    }
 
     bool operator!=(const Point3<T>& other) const { return !(*this == other); }
 
@@ -74,7 +77,10 @@ public:
         return *this;
     }
 
-    Point3<T> operator+(const Point3<T>& other) const { return Point3(X + other.X, Y + other.Y, Z + other.Z); }
+    Point3<T> operator+(const Point3<T>& other) const
+    {
+        return Point3(X + other.X, Y + other.Y, Z + other.Z);
+    }
 
     Point3<T>& operator+=(const Point3<T>& other)
     {
@@ -101,7 +107,10 @@ public:
 
     Point3<T> operator-(const Vector3<T>& v) const { return Point3(X - v.X, Y - v.Y, Z - v.Z); }
 
-    Vector3<T> operator-(const Point3<T>& other) const { return Vector3(X - other.X, Y - other.Y, Z - other.Z); }
+    Vector3<T> operator-(const Point3<T>& other) const
+    {
+        return Vector3(X - other.X, Y - other.Y, Z - other.Z);
+    }
 
     Point3<T>& operator-=(const Vector3<T>& v)
     {

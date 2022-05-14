@@ -41,7 +41,7 @@ int32_t Log2Int(uint32_t v);
 int32_t RoundUpPow2(int32_t v);
 int32_t CountTrailingZeros(uint32_t v);
 
-}  // namespace mathw
+}  // namespace math
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // Implementations

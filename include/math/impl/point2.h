@@ -47,7 +47,7 @@ public:
         MATH_ASSERT(i >= 0 && i < 2);
         if (i == 0)
             return X;
-        if (i == 1)
+        else
             return Y;
     }
 

@@ -2,9 +2,7 @@
 
 #include "gtest/gtest.h"
 
-TEST(MainTestSuite, FirstTest)
-{
-}
+TEST(MainTestSuite, FirstTest) {}
 
 int main(int argc, char** argv)
 {

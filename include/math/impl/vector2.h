@@ -32,7 +32,7 @@ public:
         MATH_ASSERT(i >= 0 && i < 2);
         if (i == 0)
             return X;
-        if (i == 1)
+        else
             return Y;
     }
 
@@ -42,7 +42,10 @@ public:
 
     bool operator!=(const Vector2<T>& other) const { return !(*this == other); }
 
-    Vector2<T> operator+(const Vector2<T>& other) const { return Vector2(X + other.X, Y + other.Y); }
+    Vector2<T> operator+(const Vector2<T>& other) const
+    {
+        return Vector2(X + other.X, Y + other.Y);
+    }
 
     Vector2<T>& operator+=(const Vector2<T>& other)
     {
@@ -51,7 +54,10 @@ public:
         return *this;
     }
 
-    Vector2<T> operator-(const Vector2<T>& other) const { return Vector2(X - other.X, Y - other.Y); }
+    Vector2<T> operator-(const Vector2<T>& other) const
+    {
+        return Vector2(X - other.X, Y - other.Y);
+    }
 
     Vector2<T>& operator-=(const Vector2<T>& other)
     {
@@ -132,13 +138,13 @@ inline T MinComponent(const Vector2<T>& v)
 }
 
 template <typename T>
-inline T MaXComponent(const Vector2<T>& v)
+inline T MaxComponent(const Vector2<T>& v)
 {
-    return std::maX(v.X, v.Y);
+    return std::max(v.X, v.Y);
 }
 
 template <typename T>
-inline int MaXDimension(const Vector2<T>& v)
+inline int MaxDimension(const Vector2<T>& v)
 {
     return (v.X > v.Y) ? 0 : 1;
 }
@@ -150,9 +156,9 @@ Vector2<T> Min(const Vector2<T>& v1, const Vector2<T>& v2)
 }
 
 template <typename T>
-Vector2<T> MaX(const Vector2<T>& v1, const Vector2<T>& v2)
+Vector2<T> Max(const Vector2<T>& v1, const Vector2<T>& v2)
 {
-    return Vector2<T>(std::maX(v1.X, v2.X), std::maX(v1.Y, v2.Y));
+    return Vector2<T>(std::max(v1.X, v2.X), std::max(v1.Y, v2.Y));
 }
 
 template <typename T>

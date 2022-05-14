@@ -53,17 +53,23 @@ public:
             return X;
         if (i == 1)
             return Y;
-        if (i == 2)
+        else
             return Z;
     }
 
     bool HasNaNs() const { return IsNaN(X) || IsNaN(Y) || IsNaN(Z); }
 
-    bool operator==(const Vector3<T>& other) const { return X == other.X && Y == other.Y && Z == other.Z; }
+    bool operator==(const Vector3<T>& other) const
+    {
+        return X == other.X && Y == other.Y && Z == other.Z;
+    }
 
     bool operator!=(const Vector3<T>& other) const { return !(*this == other); }
 
-    Vector3<T> operator+(const Vector3<T>& other) const { return Vector3(X + other.X, Y + other.Y, Z + other.Z); }
+    Vector3<T> operator+(const Vector3<T>& other) const
+    {
+        return Vector3(X + other.X, Y + other.Y, Z + other.Z);
+    }
 
     Vector3<T>& operator+=(const Vector3<T>& other)
     {
@@ -73,7 +79,10 @@ public:
         return *this;
     }
 
-    Vector3<T> operator-(const Vector3<T>& other) const { return Vector3(X - other.X, Y - other.Y, Z - other.Z); }
+    Vector3<T> operator-(const Vector3<T>& other) const
+    {
+        return Vector3(X - other.X, Y - other.Y, Z - other.Z);
+    }
 
     Vector3<T>& operator-=(const Vector3<T>& other)
     {
@@ -93,7 +102,10 @@ public:
         return *this;
     }
 
-    Vector3<T> operator*(const Vector3<T>& Other) const { return Vector3(X * Other.X, Y * Other.Y, Z * Other.Z); }
+    Vector3<T> operator*(const Vector3<T>& Other) const
+    {
+        return Vector3(X * Other.X, Y * Other.Y, Z * Other.Z);
+    }
 
     Vector3<T>& operator*=(const Vector3<T>& Other)
     {
@@ -153,7 +165,8 @@ inline Vector3<T> Cross(const Vector3<T>& v1, const Vector3<T>& v2)
 {
     double v1X = v1.X, v1Y = v1.Y, v1Z = v1.Z;
     double v2X = v2.X, v2Y = v2.Y, v2Z = v2.Z;
-    return Vector3<T>((v1Y * v2Z) - (v1Z * v2Y), (v1Z * v2X) - (v1X * v2Z), (v1X * v2Y) - (v1Y * v2X));
+    return Vector3<T>((v1Y * v2Z) - (v1Z * v2Y), (v1Z * v2X) - (v1X * v2Z),
+                      (v1X * v2Y) - (v1Y * v2X));
 }
 
 template <typename T>
@@ -177,7 +190,7 @@ inline T MinComponent(const Vector3<T>& v)
 template <typename T>
 inline T MaxComponent(const Vector3<T>& v)
 {
-    return std::maX(v.X, std::maX(v.Y, v.Z));
+    return std::max(v.X, std::max(v.Y, v.Z));
 }
 
 template <typename T>
