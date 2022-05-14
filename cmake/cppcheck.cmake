@@ -5,8 +5,6 @@ if (CPPCHECK)
     file(GLOB_RECURSE ALL_CXX_SOURCE_FILES
         ${PROJECT_SOURCE_DIR}/src/*.cpp
         ${PROJECT_SOURCE_DIR}/src/*.c
-        ${PROJECT_SOURCE_DIR}/apps/*.cpp
-        ${PROJECT_SOURCE_DIR}/apps/*.c
         ${PROJECT_SOURCE_DIR}/tests/*.cpp
         ${PROJECT_SOURCE_DIR}/tests/*.c
     )
@@ -19,7 +17,7 @@ if (CPPCHECK)
         --enable=all
         -I ../include
         -I ../src
-        -I ../apps
+        -I ../tests
         --check-config
         -q
         --suppress=missingIncludeSystem
