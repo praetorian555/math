@@ -5,7 +5,7 @@ file(GLOB_RECURSE PRIVATE_SOURCE_LIST CONFIGURE_DEPENDS "${PROJECT_SOURCE_DIR}/t
 add_executable(math_tests ${PRIVATE_SOURCE_LIST})
 
 # add math library dependency
-target_link_libraries(math_tests math)
+target_link_libraries(math_tests math gtest)
 
 # All users of this library will need at least C++17
 target_compile_features(math_tests PUBLIC cxx_std_17)
