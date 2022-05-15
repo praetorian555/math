@@ -7,18 +7,22 @@ namespace math
 {
 
 template <typename T>
-inline bool IsNaN(const T v);
-
-template <typename T>
 class Normal3
 {
 public:
-    T X, Y, Z;
+    union
+    {
+        struct
+        {
+            T X, Y, Z;
+        };
+        T Data[3];
+    };
 
 public:
     Normal3() { X = Y = Z = 0; }
-    Normal3(T X, T Y, T Z) : X(X), Y(Y), Z(Z) { MATH_ASSERT(!HasNaNs()); }
-    explicit Normal3(const Vector3<T>& v) : X(v.X), Y(v.Y), Z(v.Z) { MATH_ASSERT(!HasNaNs()); }
+    Normal3(T X, T Y, T Z) : X(X), Y(Y), Z(Z) {}
+    explicit Normal3(const Vector3<T>& v) : X(v.X), Y(v.Y), Z(v.Z) {}
 
     void Set(T val, int i)
     {

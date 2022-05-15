@@ -7,7 +7,7 @@ namespace math
 
 struct Matrix4x4
 {
-    float m[4][4];
+    float Data[4][4];
 
     Matrix4x4();
     explicit Matrix4x4(const float mat[4][4]);

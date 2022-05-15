@@ -4,48 +4,48 @@
 
 math::Matrix4x4::Matrix4x4()
 {
-    m[0][0] = 1.0f;
-    m[0][1] = 0.0f;
-    m[0][2] = 0.0f;
-    m[0][3] = 0.0f;
+    Data[0][0] = 1.0f;
+    Data[0][1] = 0.0f;
+    Data[0][2] = 0.0f;
+    Data[0][3] = 0.0f;
 
-    m[1][0] = 0.0f;
-    m[1][1] = 1.0f;
-    m[1][2] = 0.0f;
-    m[1][3] = 0.0f;
+    Data[1][0] = 0.0f;
+    Data[1][1] = 1.0f;
+    Data[1][2] = 0.0f;
+    Data[1][3] = 0.0f;
 
-    m[2][0] = 0.0f;
-    m[2][1] = 0.0f;
-    m[2][2] = 1.0f;
-    m[2][3] = 0.0f;
+    Data[2][0] = 0.0f;
+    Data[2][1] = 0.0f;
+    Data[2][2] = 1.0f;
+    Data[2][3] = 0.0f;
 
-    m[3][0] = 0.0f;
-    m[3][1] = 0.0f;
-    m[3][2] = 0.0f;
-    m[3][3] = 1.0f;
+    Data[3][0] = 0.0f;
+    Data[3][1] = 0.0f;
+    Data[3][2] = 0.0f;
+    Data[3][3] = 1.0f;
 }
 
 math::Matrix4x4::Matrix4x4(const float mat[4][4])
 {
-    m[0][0] = mat[0][0];
-    m[0][1] = mat[0][1];
-    m[0][2] = mat[0][2];
-    m[0][3] = mat[0][3];
+    Data[0][0] = mat[0][0];
+    Data[0][1] = mat[0][1];
+    Data[0][2] = mat[0][2];
+    Data[0][3] = mat[0][3];
 
-    m[1][0] = mat[1][0];
-    m[1][1] = mat[1][1];
-    m[1][2] = mat[1][2];
-    m[1][3] = mat[1][3];
+    Data[1][0] = mat[1][0];
+    Data[1][1] = mat[1][1];
+    Data[1][2] = mat[1][2];
+    Data[1][3] = mat[1][3];
 
-    m[2][0] = mat[2][0];
-    m[2][1] = mat[2][1];
-    m[2][2] = mat[2][2];
-    m[2][3] = mat[2][3];
+    Data[2][0] = mat[2][0];
+    Data[2][1] = mat[2][1];
+    Data[2][2] = mat[2][2];
+    Data[2][3] = mat[2][3];
 
-    m[3][0] = mat[3][0];
-    m[3][1] = mat[3][1];
-    m[3][2] = mat[3][2];
-    m[3][3] = mat[3][3];
+    Data[3][0] = mat[3][0];
+    Data[3][1] = mat[3][1];
+    Data[3][2] = mat[3][2];
+    Data[3][3] = mat[3][3];
 }
 
 // clang-format off
@@ -56,25 +56,25 @@ math::Matrix4x4::Matrix4x4(
     float t30, float t31, float t32, float t33)
 // clang-format on
 {
-    m[0][0] = t00;
-    m[0][1] = t01;
-    m[0][2] = t02;
-    m[0][3] = t03;
+    Data[0][0] = t00;
+    Data[0][1] = t01;
+    Data[0][2] = t02;
+    Data[0][3] = t03;
 
-    m[1][0] = t10;
-    m[1][1] = t11;
-    m[1][2] = t12;
-    m[1][3] = t13;
+    Data[1][0] = t10;
+    Data[1][1] = t11;
+    Data[1][2] = t12;
+    Data[1][3] = t13;
 
-    m[2][0] = t20;
-    m[2][1] = t21;
-    m[2][2] = t22;
-    m[2][3] = t23;
+    Data[2][0] = t20;
+    Data[2][1] = t21;
+    Data[2][2] = t22;
+    Data[2][3] = t23;
 
-    m[3][0] = t30;
-    m[3][1] = t31;
-    m[3][2] = t32;
-    m[3][3] = t33;
+    Data[3][0] = t30;
+    Data[3][1] = t31;
+    Data[3][2] = t32;
+    Data[3][3] = t33;
 }
 
 bool math::Matrix4x4::operator==(const Matrix4x4& other) const
@@ -83,7 +83,7 @@ bool math::Matrix4x4::operator==(const Matrix4x4& other) const
     {
         for (int j = 0; j < 4; j++)
         {
-            if (m[i][j] != other.m[i][j])
+            if (Data[i][j] != other.Data[i][j])
             {
                 return false;
             }
@@ -102,10 +102,10 @@ math::Matrix4x4 math::Matrix4x4::Transpose() const
 {
     // clang-format off
     return Matrix4x4(
-        m[0][0], m[1][0], m[2][0], m[3][0],
-        m[0][1], m[1][1], m[2][1], m[3][1],
-        m[0][2], m[1][2], m[2][2], m[3][2],
-        m[0][3], m[1][3], m[2][3], m[3][3]
+        Data[0][0], Data[1][0], Data[2][0], Data[3][0],
+        Data[0][1], Data[1][1], Data[2][1], Data[3][1],
+        Data[0][2], Data[1][2], Data[2][2], Data[3][2],
+        Data[0][3], Data[1][3], Data[2][3], Data[3][3]
     );
     // clang-format on
 }
@@ -117,7 +117,7 @@ math::Matrix4x4 math::Matrix4x4::Inverse() const
     int indxc[4], indxr[4];
     int ipiv[4] = {0, 0, 0, 0};
     float minv[4][4];
-    memcpy(minv, m, 4 * 4 * sizeof(float));
+    memcpy(minv, Data, 4 * 4 * sizeof(float));
     for (int i = 0; i < 4; i++)
     {
         int irow = 0, icol = 0;
@@ -205,10 +205,10 @@ math::Matrix4x4 math::Multiply(const Matrix4x4& m1, const Matrix4x4& m2)
         for (int j = 0; j < 4; ++j)
         {
             // clang-format off
-            r.m[i][j] = m1.m[i][0] * m2.m[0][j] + 
-                        m1.m[i][1] * m2.m[1][j] +
-                        m1.m[i][2] * m2.m[2][j] +
-                        m1.m[i][3] * m2.m[3][j];
+            r.Data[i][j] = m1.Data[i][0] * m2.Data[0][j] + 
+                           m1.Data[i][1] * m2.Data[1][j] +
+                           m1.Data[i][2] * m2.Data[2][j] +
+                           m1.Data[i][3] * m2.Data[3][j];
             // clang-format on
         }
     }

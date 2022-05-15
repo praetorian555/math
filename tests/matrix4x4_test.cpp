@@ -6,12 +6,12 @@ TEST(Matrix4x4Tests, Creation)
 {
     math::Matrix4x4 m1;
 
-    EXPECT_FLOAT_EQ(m1.m[0][0], 1.0f);
-    EXPECT_FLOAT_EQ(m1.m[2][2], 1.0f);
-    EXPECT_FLOAT_EQ(m1.m[2][3], 0.0f);
-    EXPECT_FLOAT_EQ(m1.m[0][2], 0.0f);
-    EXPECT_FLOAT_EQ(m1.m[1][3], 0.0f);
-    EXPECT_FLOAT_EQ(m1.m[1][0], 0.0f);
+    EXPECT_FLOAT_EQ(m1.Data[0][0], 1.0f);
+    EXPECT_FLOAT_EQ(m1.Data[2][2], 1.0f);
+    EXPECT_FLOAT_EQ(m1.Data[2][3], 0.0f);
+    EXPECT_FLOAT_EQ(m1.Data[0][2], 0.0f);
+    EXPECT_FLOAT_EQ(m1.Data[1][3], 0.0f);
+    EXPECT_FLOAT_EQ(m1.Data[1][0], 0.0f);
 
     // clang-format off
     math::Matrix4x4 m2(
@@ -22,12 +22,12 @@ TEST(Matrix4x4Tests, Creation)
     );
     // clang-format on
 
-    EXPECT_FLOAT_EQ(m2.m[0][0], 1.0f);
-    EXPECT_FLOAT_EQ(m2.m[2][2], -5.0f);
-    EXPECT_FLOAT_EQ(m2.m[2][3], -3.0f);
-    EXPECT_FLOAT_EQ(m2.m[0][2], -4.0f);
-    EXPECT_FLOAT_EQ(m2.m[1][3], 10.0f);
-    EXPECT_FLOAT_EQ(m2.m[1][0], 3.0f);
+    EXPECT_FLOAT_EQ(m2.Data[0][0], 1.0f);
+    EXPECT_FLOAT_EQ(m2.Data[2][2], -5.0f);
+    EXPECT_FLOAT_EQ(m2.Data[2][3], -3.0f);
+    EXPECT_FLOAT_EQ(m2.Data[0][2], -4.0f);
+    EXPECT_FLOAT_EQ(m2.Data[1][3], 10.0f);
+    EXPECT_FLOAT_EQ(m2.Data[1][0], 3.0f);
 
     // clang-format off
     float init[4][4] = {
@@ -40,12 +40,12 @@ TEST(Matrix4x4Tests, Creation)
 
     math::Matrix4x4 m3(init);
 
-    EXPECT_FLOAT_EQ(m3.m[0][0], 1.0f);
-    EXPECT_FLOAT_EQ(m3.m[2][2], -5.0f);
-    EXPECT_FLOAT_EQ(m3.m[2][3], -3.0f);
-    EXPECT_FLOAT_EQ(m3.m[0][2], -4.0f);
-    EXPECT_FLOAT_EQ(m3.m[1][3], 10.0f);
-    EXPECT_FLOAT_EQ(m3.m[1][0], 3.0f);
+    EXPECT_FLOAT_EQ(m3.Data[0][0], 1.0f);
+    EXPECT_FLOAT_EQ(m3.Data[2][2], -5.0f);
+    EXPECT_FLOAT_EQ(m3.Data[2][3], -3.0f);
+    EXPECT_FLOAT_EQ(m3.Data[0][2], -4.0f);
+    EXPECT_FLOAT_EQ(m3.Data[1][3], 10.0f);
+    EXPECT_FLOAT_EQ(m3.Data[1][0], 3.0f);
 }
 
 TEST(Matrix4x4Tests, Comparison)
@@ -89,42 +89,42 @@ TEST(Matrix4x4Tests, Transpose)
 
     math::Matrix4x4 m2 = m1.Transpose();
 
-    EXPECT_FLOAT_EQ(m2.m[0][0], 1.0f);
-    EXPECT_FLOAT_EQ(m2.m[2][2], -5.0f);
-    EXPECT_FLOAT_EQ(m2.m[2][3], -1.0f);
-    EXPECT_FLOAT_EQ(m2.m[0][2], 7.0f);
-    EXPECT_FLOAT_EQ(m2.m[1][3], -2.0f);
-    EXPECT_FLOAT_EQ(m2.m[1][0], 4.0f);
+    EXPECT_FLOAT_EQ(m2.Data[0][0], 1.0f);
+    EXPECT_FLOAT_EQ(m2.Data[2][2], -5.0f);
+    EXPECT_FLOAT_EQ(m2.Data[2][3], -1.0f);
+    EXPECT_FLOAT_EQ(m2.Data[0][2], 7.0f);
+    EXPECT_FLOAT_EQ(m2.Data[1][3], -2.0f);
+    EXPECT_FLOAT_EQ(m2.Data[1][0], 4.0f);
 }
 
 TEST(Matrix4x4Tests, Inverse)
 {
     math::Matrix4x4 m1;
 
-    m1.m[0][3] = 5.0f;
-    m1.m[1][3] = 10.0f;
-    m1.m[2][3] = -2.0f;
+    m1.Data[0][3] = 5.0f;
+    m1.Data[1][3] = 10.0f;
+    m1.Data[2][3] = -2.0f;
 
     math::Matrix4x4 m2 = m1.Inverse();
 
-    EXPECT_FLOAT_EQ(m2.m[0][3], -5.0f);
-    EXPECT_FLOAT_EQ(m2.m[1][3], -10.0f);
-    EXPECT_FLOAT_EQ(m2.m[2][3], 2.0f);
+    EXPECT_FLOAT_EQ(m2.Data[0][3], -5.0f);
+    EXPECT_FLOAT_EQ(m2.Data[1][3], -10.0f);
+    EXPECT_FLOAT_EQ(m2.Data[2][3], 2.0f);
 }
 
 TEST(Matrix4x4Tests, Multiply)
 {
     math::Matrix4x4 m1;
 
-    m1.m[0][3] = 5.0f;
-    m1.m[1][3] = 10.0f;
-    m1.m[2][3] = -2.0f;
+    m1.Data[0][3] = 5.0f;
+    m1.Data[1][3] = 10.0f;
+    m1.Data[2][3] = -2.0f;
 
     math::Matrix4x4 m2;
 
     math::Matrix4x4 m3 = Multiply(m1, m2);
 
-    EXPECT_FLOAT_EQ(m3.m[0][3], 5.0f);
-    EXPECT_FLOAT_EQ(m3.m[1][3], 10.0f);
-    EXPECT_FLOAT_EQ(m3.m[2][3], -2.0f);
+    EXPECT_FLOAT_EQ(m3.Data[0][3], 5.0f);
+    EXPECT_FLOAT_EQ(m3.Data[1][3], 10.0f);
+    EXPECT_FLOAT_EQ(m3.Data[2][3], -2.0f);
 }

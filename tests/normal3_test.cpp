@@ -24,11 +24,11 @@ TEST(Normal3Tests, GettersSettersConstruction)
     {
         Normal3f n;
         n.X = 5.0f;
-        EXPECT_FLOAT_EQ(n.X, 5.0f);
+        EXPECT_FLOAT_EQ(n.Data[0], 5.0f);
         n.Y = 10.0f;
-        EXPECT_FLOAT_EQ(n.Y, 10.0f);
+        EXPECT_FLOAT_EQ(n.Data[1], 10.0f);
         n.Z = 50.0f;
-        EXPECT_FLOAT_EQ(n.Z, 50.0f);
+        EXPECT_FLOAT_EQ(n.Data[2], 50.0f);
         n.Set(15.0f, 0);
         EXPECT_FLOAT_EQ(n[0], 15.0f);
         n.Set(20.0f, 1);
@@ -36,6 +36,18 @@ TEST(Normal3Tests, GettersSettersConstruction)
         n.Set(55.0f, 2);
         EXPECT_FLOAT_EQ(n[2], 55.0f);
     }
+}
+
+TEST(Normal3Tests, Nans)
+{
+    Normal3f n1(nanf(""), 10, 15);
+    EXPECT_TRUE(n1.HasNaNs());
+
+    Normal3f n2(15, nanf(""), 10);
+    EXPECT_TRUE(n2.HasNaNs());
+
+    Normal3f n3(15, 10, nanf(""));
+    EXPECT_TRUE(n3.HasNaNs());
 }
 
 TEST(Normal3Tests, Comparison)
@@ -135,6 +147,14 @@ TEST(Normal3Tests, Abs)
     EXPECT_FLOAT_EQ(a.X, 5.0f);
     EXPECT_FLOAT_EQ(a.Y, 10.0f);
     EXPECT_FLOAT_EQ(a.Z, 15.0f);
+}
+
+TEST(Normal3Tests, Length)
+{
+    Normal3f n1(3, 4, 5);
+
+    EXPECT_FLOAT_EQ(n1.Length(), std::sqrt(50));
+    EXPECT_FLOAT_EQ(n1.LengthSquared(), 50);
 }
 
 TEST(Normal3Tests, Dot)
