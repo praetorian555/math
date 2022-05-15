@@ -1,7 +1,7 @@
 #include "math/rotator.h"
 
+#include "math/base.h"
 #include "math/geometry.h"
-#include "math/utils.h"
 
 math::Rotator::Rotator(float Pitch, float Yaw, float Roll) : Pitch(Pitch), Yaw(Yaw), Roll(Roll) {}
 
@@ -44,4 +44,9 @@ math::Rotator& math::Rotator::operator*=(float Val)
     Roll *= Val;
 
     return *this;
+}
+
+math::Rotator math::operator*(float Val, const Rotator& Other)
+{
+    return Other * Val;
 }

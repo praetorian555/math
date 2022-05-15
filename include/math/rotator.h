@@ -42,4 +42,6 @@ struct Rotator
     Rotator& operator*=(float Val);
 };
 
+Rotator operator*(float Val, const Rotator& Other);
+
 }  // namespace math
