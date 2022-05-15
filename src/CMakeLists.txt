@@ -31,7 +31,10 @@ source_group(
   TREE "${PROJECT_SOURCE_DIR}/src"
   PREFIX "Implementation"
   FILES ${PRIVATE_SOURCE_LIST})
-source_group(
-  TREE "${PROJECT_SOURCE_DIR}/build/src/CMakeFiles/math.dir/Unity"
-  PREFIX "Unity"
-  FILES ${UNITY_SOURCE_LIST})
+
+if (ENABLE_UNITY)
+  source_group(
+    TREE "${PROJECT_SOURCE_DIR}/build/src/CMakeFiles/math.dir/Unity"
+    PREFIX "Unity"
+    FILES ${UNITY_SOURCE_LIST})
+endif()

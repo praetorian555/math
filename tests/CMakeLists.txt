@@ -22,8 +22,13 @@ endif()
 source_group(
   TREE "${PROJECT_SOURCE_DIR}/tests"
   PREFIX "Tests"
-  FILES ${PRIVATE_SOURCE_LIST})
+  FILES ${PRIVATE_SOURCE_LIST}
+)
+
+if (ENABLE_UNITY)
   source_group(
     TREE "${PROJECT_SOURCE_DIR}/build/tests/CMakeFiles/math_tests.dir/Unity"
     PREFIX "Unity"
-    FILES ${UNITY_SOURCE_LIST})
+    FILES ${UNITY_SOURCE_LIST}
+  )
+endif()

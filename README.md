@@ -37,4 +37,8 @@ The clang-format target will apply formatting to all files under apps, include a
 
 If you are using MSVC compiler you can use address sanitizer tool by setting the ADDRESS_SANITIZER flag when invoking the cmake command:
 
-	cmake -S <root_project_dir> -B <build_dir> -DADDRESS_SANITIZER=ON 
+	cmake -S <root_project_dir> -B <build_dir> -DADDRESS_SANITIZER=ON
+
+If you want to use Unity builds use ENABLE_UNITY when invoking the cmake command:
+
+	make -S <root_project_dir> -B <build_dir> -DENABLE_UNITY=ON

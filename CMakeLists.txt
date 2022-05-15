@@ -9,6 +9,9 @@ project(
 # Include utils script
 include(cmake/utils.cmake)
 
+option(ADDRESS_SANITIZER "Enable address sanitizer for MSVC builds" OFF)
+option(ENABLE_UNITY "Enable unity builds" OFF)
+
 # Only do these if this is the main project, and not if it is included through add_subdirectory
 if (CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
 
@@ -17,6 +20,8 @@ if (CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
 
 	# Configuration types
 	SET(CMAKE_CONFIGURATION_TYPES "Debug;Release" CACHE STRING "Configs" FORCE)
+
+	message(INFO ${ENABLE_UNITY})
 
  	# Let's nicely support folders in IDEs
   	set_property(GLOBAL PROPERTY USE_FOLDERS ON)
