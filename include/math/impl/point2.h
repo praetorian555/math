@@ -26,8 +26,8 @@ public:
 
 public:
     Point2() : X(0), Y(0) {}
-    Point2(T X, T Y) : X(X), Y(Y) { MATH_ASSERT(!HasNaNs()); }
-    Point2(const Point2<T>& p3) : X(p3.X), Y(p3.Y) { MATH_ASSERT(!HasNaNs()); }
+    Point2(T X, T Y) : X(X), Y(Y) {}
+    Point2(const Point2<T>& p3) : X(p3.X), Y(p3.Y) {}
 
     template <typename U>
     explicit Point2(const Point2<U>& p) : X((T)p.X), Y((T)p.Y)

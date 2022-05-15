@@ -27,7 +27,7 @@ public:
 
 public:
     Point3() : X(0), Y(0), Z(0) {}
-    Point3(T X, T Y, T Z) : X(X), Y(Y), Z(Z) { MATH_ASSERT(!HasNaNs()); }
+    Point3(T X, T Y, T Z) : X(X), Y(Y), Z(Z) {}
 
     template <typename U>
     explicit Point3(const Point3<U>& p) : X((T)p.X), Y((T)p.Y), Z((T)p.Z)
