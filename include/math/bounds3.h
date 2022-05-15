@@ -79,7 +79,7 @@ public:
         return d.X * d.Y * d.Z;
     }
 
-    int MaXimumExtent() const
+    int MaximumExtent() const
     {
         Vector3<T> d = Diagonal();
         if (d.X > d.Y && d.X > d.Z)
@@ -92,7 +92,8 @@ public:
 
     Point3<T> Lerp(const Point3<float>& t) const
     {
-        return Point3<T>(Lerp(t.X, Min.X, Max.X), Lerp(t.Y, Min.Y, Max.Y), Lerp(t.Z, Min.Z, Max.Z));
+        return Point3<T>(math::Lerp(t.X, Min.X, Max.X), math::Lerp(t.Y, Min.Y, Max.Y),
+                         math::Lerp(t.Z, Min.Z, Max.Z));
     }
 
     Vector3<T> Offset(const Point3<T>& p) const

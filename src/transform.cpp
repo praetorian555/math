@@ -79,17 +79,6 @@ math::Transform math::Transform::operator*(const Transform& other) const
     return Transform(m, minv);
 }
 
-bool math::Transform::SwapsHandedness() const
-{
-    float det = m_Matrix.Data[0][0] * (m_Matrix.Data[1][1] * m_Matrix.Data[2][2] -
-                                       m_Matrix.Data[1][2] * m_Matrix.Data[2][1]) -
-                m_Matrix.Data[0][1] * (m_Matrix.Data[1][0] * m_Matrix.Data[2][2] -
-                                       m_Matrix.Data[1][2] * m_Matrix.Data[2][0]) +
-                m_Matrix.Data[0][2] * (m_Matrix.Data[1][0] * m_Matrix.Data[2][1] -
-                                       m_Matrix.Data[1][1] * m_Matrix.Data[2][0]);
-    return det < 0;
-}
-
 math::Transform math::Translate(const Vector3<float>& delta)
 {
     // clang-format off
@@ -210,40 +199,6 @@ math::Transform math::Rotate(float theta, const Vector3<float>& axis)
 math::Transform math::Rotate(math::Rotator Rotator)
 {
     return RotateY(Rotator.Yaw) * RotateZ(Rotator.Pitch) * RotateX(Rotator.Roll);
-}
-
-math::Transform math::LookAt(const Point3<float>& pos,
-                             const Point3<float>& look,
-                             const Vector3<float>& up)
-{
-    math::Matrix4x4 cameraToWorld;
-
-    cameraToWorld.Data[0][3] = pos.X;
-    cameraToWorld.Data[1][3] = pos.Y;
-    cameraToWorld.Data[2][3] = pos.Z;
-    cameraToWorld.Data[3][3] = 1;
-
-    // This is z-axis in left-handend system, if we used right-handed we would have to negate it
-    Vector3<float> zAxis = Normalize(look - pos);
-    Vector3<float> xAxis = Cross(Normalize(up), zAxis);
-    Vector3<float> yAxis = Cross(zAxis, xAxis);
-
-    cameraToWorld.Data[0][0] = xAxis.X;
-    cameraToWorld.Data[1][0] = xAxis.Y;
-    cameraToWorld.Data[2][0] = xAxis.Z;
-    cameraToWorld.Data[3][0] = 0.0f;
-
-    cameraToWorld.Data[0][1] = yAxis.X;
-    cameraToWorld.Data[1][1] = yAxis.Y;
-    cameraToWorld.Data[2][1] = yAxis.Z;
-    cameraToWorld.Data[3][1] = 0.0f;
-
-    cameraToWorld.Data[0][2] = zAxis.X;
-    cameraToWorld.Data[1][2] = zAxis.Y;
-    cameraToWorld.Data[2][2] = zAxis.Z;
-    cameraToWorld.Data[3][2] = 0.0f;
-
-    return Transform(cameraToWorld.Inverse(), cameraToWorld);
 }
 
 math::Bounds3<float> math::Transform::operator()(const Bounds3<float>& b) const

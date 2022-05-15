@@ -21,7 +21,7 @@ public:
         Max = Point2<T>(maxNum, maxNum);
     }
 
-    Bounds2(const Point2<T>& p) : Min(p), Max(p) {}
+    explicit Bounds2(const Point2<T>& p) : Min(p), Max(p) {}
 
     Bounds2(const Point2<T>& p1, const Point2<T>& p2)
         : Min(std::min(p1.X, p2.X), std::min(p1.Y, p2.Y)),
@@ -30,7 +30,7 @@ public:
     }
 
     template <typename U>
-    Bounds2(const Bounds2<U>& other) : Min((Point2<T>)other.Min), Max((Point2<T>)other.Max)
+    explicit Bounds2(const Bounds2<U>& other) : Min((Point2<T>)other.Min), Max((Point2<T>)other.Max)
     {
     }
 
@@ -41,8 +41,7 @@ public:
         {
             return Min;
         }
-
-        if (i == 1)
+        else
         {
             return Max;
         }
@@ -55,8 +54,7 @@ public:
         {
             return Min;
         }
-
-        if (i == 1)
+        else
         {
             return Max;
         }
@@ -81,9 +79,9 @@ public:
         return d.X > d.Y ? 0 : 1;
     }
 
-    Point2<T> Lerp(const Point2r& t) const
+    Point2<T> Lerp(const Point2<float>& t) const
     {
-        return Point2<T>(Lerp(t.X, Min.X, Max.X), Lerp(t.Y, Min.Y, Max.Y));
+        return Point2<T>(math::Lerp(t.X, Min.X, Max.X), math::Lerp(t.Y, Min.Y, Max.Y));
     }
 
     Vector2<T> Offset(const Point2<T>& p) const
@@ -96,7 +94,7 @@ public:
         return o;
     }
 
-    void BoundingSphere(Point2<T>* center, real* radius) const
+    void BoundingSphere(Point2<T>* center, float* radius) const
     {
         *center = (Min + Max) / 2;
         *radius = Inside(*center, *this) ? Distance(*center, Max) : 0;

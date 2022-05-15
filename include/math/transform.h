@@ -32,8 +32,6 @@ public:
 
     Transform operator*(const Transform& other) const;
 
-    bool SwapsHandedness() const;
-
     template <typename T>
     Vector3<T> operator()(const Vector3<T>& v) const;
     template <typename T>
@@ -69,7 +67,6 @@ Transform RotateY(float theta);
 Transform RotateZ(float theta);
 Transform Rotate(float theta, const Vector3<float>& axis);
 Transform Rotate(Rotator Rotator);
-Transform LookAt(const Point3<float>& pos, const Point3<float>& look, const Vector3<float>& up);
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
