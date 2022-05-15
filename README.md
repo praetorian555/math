@@ -35,10 +35,10 @@ If you installed the _clang-format_ and _cppcheck*_ tools you will have access t
 
 The clang-format target will apply formatting to all files under apps, include and src folders. The cppcheck target will apply static-code analysis on all cpp and c files nder apps and src folders.
 
-If you are using MSVC compiler you can use address sanitizer tool by setting the ADDRESS_SANITIZER flag when invoking the cmake command:
+If you are using MSVC compiler you can use address sanitizer tool by setting the MATH_SANITIZER flag when invoking the cmake command:
 
-	cmake -S <root_project_dir> -B <build_dir> -DADDRESS_SANITIZER=ON
+	cmake -S <root_project_dir> -B <build_dir> -DMATH_SANITIZER=ON
 
-If you want to use Unity builds use ENABLE_UNITY when invoking the cmake command:
+If you want to use Unity builds use MATH_UNITY when invoking the cmake command:
 
-	make -S <root_project_dir> -B <build_dir> -DENABLE_UNITY=ON
+	make -S <root_project_dir> -B <build_dir> -DMATH_UNITY=ON

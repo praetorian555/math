@@ -15,7 +15,7 @@ target_compile_features(math_tests PUBLIC cxx_std_17)
 target_compile_options(math_tests PRIVATE $<$<CXX_COMPILER_ID:MSVC>:/MP>)
 
 # Enable unity build
-if (ENABLE_UNITY)
+if (MATH_UNITY)
     set_target_properties(math_tests PROPERTIES UNITY_BUILD TRUE)
 endif()
 
@@ -25,7 +25,7 @@ source_group(
   FILES ${PRIVATE_SOURCE_LIST}
 )
 
-if (ENABLE_UNITY)
+if (MATH_UNITY)
   source_group(
     TREE "${PROJECT_SOURCE_DIR}/build/tests/CMakeFiles/math_tests.dir/Unity"
     PREFIX "Unity"
