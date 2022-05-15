@@ -25,21 +25,21 @@ static constexpr float Infinity = std::numeric_limits<float>::infinity();
 // Functions
 
 template <typename T>
-bool IsNaN(const T v);
+bool IsNaN(const T Value);
 template <typename T, typename V, typename U>
-T Clamp(T val, V low, U high);
+T Clamp(T Value, V Low, U High);
 template <typename T>
-T Mod(T a, T b);
+T Mod(T A, T B);
 template <typename T>
-T Lerp(float t, T p0, T p1);
+float Lerp(float Parameter, T P0, T P1);
 template <typename T>
-bool IsPowerOf2(T v);
-float Radians(float deg);
-float Degrees(float rad);
-float Log2(float x);
-int32_t Log2Int(uint32_t v);
-int32_t RoundUpPow2(int32_t v);
-int32_t CountTrailingZeros(uint32_t v);
+bool IsPowerOf2(T Value);
+float Radians(float Degrees);
+float Degrees(float Radians);
+float Log2(float Value);
+int32_t Log2Int(uint32_t Value);
+int32_t RoundUpPow2(int32_t Value);
+int32_t CountTrailingZeros(uint32_t Value);
 
 }  // namespace math
 
@@ -48,32 +48,45 @@ int32_t CountTrailingZeros(uint32_t v);
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 template <typename T>
-inline bool math::IsNaN(const T v)
+inline bool math::IsNaN(const T Value)
 {
-    return std::isnan(v);
+    return std::isnan(Value);
 }
+
+template <>
+bool math::IsNaN(const int Value);
 
 template <typename T, typename V, typename U>
-T Clamp(T val, V low, U high)
+T math::Clamp(T Value, V Low, U High)
 {
-    return val < low ? low : (val > high ? high : val);
+    return Value < Low ? Low : (Value > High ? High : Value);
 }
 
 template <typename T>
-T Mod(T a, T b)
+T math::Mod(T A, T B)
 {
-    T result = a - (a / b) * b;
-    return (T)((result < 0) ? result + b : result);
+    T Result = A - (A / B) * B;
+    return (T)((Result < 0) ? Result + B : Result);
+}
+
+template <>
+float math::Mod(float A, float B);
+template <>
+double math::Mod(double A, double B);
+
+template <typename T>
+float math::Lerp(float Parameter, T P0, T P1)
+{
+    return (1 - Parameter) * P0 + Parameter * P1;
 }
 
 template <typename T>
-T Lerp(float t, T p0, T p1)
+bool math::IsPowerOf2(T Value)
 {
-    return (1 - t) * p0 + t * p1;
+    return Value && !(Value & (Value - 1));
 }
 
-template <typename T>
-inline bool IsPowerOf2(T v)
-{
-    return v && !(v & (v - 1));
-}
+template <>
+bool math::IsPowerOf2(float Value);
+template <>
+bool math::IsPowerOf2(double Value);

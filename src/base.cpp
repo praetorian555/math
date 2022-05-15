@@ -3,7 +3,7 @@
 #include "math/geometry.h"
 
 template <>
-inline bool math::IsNaN<int>(const int v)
+bool math::IsNaN(const int Value)
 {
     return false;
 }
@@ -21,56 +21,74 @@ bool math::Point3<int>::HasNaNs() const
 }
 
 template <>
-float math::Mod(float a, float b)
+float math::Mod(float A, float B)
 {
-    return std::fmod(a, b);
+    return std::fmodf(A, B);
 }
 
-float math::Radians(float deg)
+template <>
+double math::Mod(double A, double B)
 {
-    return (Pi / 180) * deg;
+    return std::fmod(A, B);
 }
 
-float math::Degrees(float rad)
+template <>
+bool math::IsPowerOf2(float Value)
 {
-    return (180 / Pi) * rad;
+    return false;
 }
 
-float math::Log2(float x)
+template <>
+bool math::IsPowerOf2(double Value)
 {
-    const float invLog2 = 1.442695040888963387004650940071;
-    return std::log(x) * invLog2;
+    return false;
 }
 
-int32_t math::Log2Int(uint32_t v)
+float math::Radians(float Degrees)
+{
+    return (Pi / 180) * Degrees;
+}
+
+float math::Degrees(float Radians)
+{
+    return (180 / Pi) * Radians;
+}
+
+float math::Log2(float Value)
+{
+    constexpr float InvLog2 = 1.442695040888963387004650940071;
+    return std::log(Value) * InvLog2;
+}
+
+int32_t math::Log2Int(uint32_t Value)
 {
 #if defined(_MSC_VER)
-    unsigned long firstOneIndex = 0;
-    _BitScanReverse(&firstOneIndex, v);
-    return firstOneIndex;
+    unsigned long FirstOneIndex = 0;
+    _BitScanReverse(&FirstOneIndex, Value);
+    return FirstOneIndex;
 #else
-    return 31 - __builtin_clz(v);
+    return 31 - __builtin_clz(Value);
 #endif
 }
 
-int32_t math::RoundUpPow2(int32_t v)
+int32_t math::RoundUpPow2(int32_t Value)
 {
-    v--;
-    v |= v >> 1;
-    v |= v >> 2;
-    v |= v >> 4;
-    v |= v >> 8;
-    v |= v >> 16;
-    return v + 1;
+    Value--;
+    Value |= Value >> 1;
+    Value |= Value >> 2;
+    Value |= Value >> 4;
+    Value |= Value >> 8;
+    Value |= Value >> 16;
+    return Value + 1;
 }
 
-int32_t math::CountTrailingZeros(uint32_t v)
+int32_t math::CountTrailingZeros(uint32_t Value)
 {
 #if defined(_MSC_VER)
-    unsigned long firstOneIndex = 0;
-    _BitScanReverse(&firstOneIndex, v);
-    return 32 - firstOneIndex;
+    unsigned long FirstOneIndex = 0;
+    _BitScanReverse(&FirstOneIndex, Value);
+    return 32 - FirstOneIndex;
 #else
-    return __builtin_ctz(v);
+    return __builtin_ctz(Value);
 #endif
 }
