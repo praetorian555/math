@@ -28,7 +28,7 @@ math::Vector4<T>::Vector4(const Point4<T>& p) : X(p.X), Y(p.Y), Z(p.Z), W(p.W)
 }
 
 template <typename T>
-math::Vector3<T>::Vector3(const Vector2<T>& XY, T Z) : X(XY.X), Y(XY.Y), Z(Z)
+math::Vector3<T>::Vector3(const Vector2<T>& XY, T ZZ) : X(XY.X), Y(XY.Y), Z(ZZ)
 {
 }
 
@@ -56,7 +56,7 @@ math::Vector4<T>::Vector4(const Vector2<T>& XY, T ZZ, T WW) : X(XY.X), Y(XY.Y), 
 }
 
 template <typename T>
-math::Vector4<T>::Vector4(const Vector3<T>& XYZ, T W) : X(XYZ.X), Y(XYZ.Y), Z(XYZ.Z), W(WW)
+math::Vector4<T>::Vector4(const Vector3<T>& XYZ, T WW) : X(XYZ.X), Y(XYZ.Y), Z(XYZ.Z), W(WW)
 {
 }
 

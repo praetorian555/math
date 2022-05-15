@@ -6,17 +6,25 @@ namespace math
 {
 
 template <typename T>
-inline bool IsNaN(const T v);
-
-template <typename T>
 class Vector2
 {
 public:
-    T X, Y;
+    union
+    {
+        struct
+        {
+            T X, Y;
+        };
+        struct
+        {
+            T R, G;
+        };
+        T Data[2];
+    };
 
 public:
     Vector2() { X = Y = 0; }
-    Vector2(T X, T Y) : X(X), Y(Y) { MATH_ASSERT(!HasNaNs()); }
+    Vector2(T X, T Y) : X(X), Y(Y) {}
 
     void Set(T val, int i)
     {

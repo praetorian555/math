@@ -14,21 +14,30 @@ TEST(Vector2Tests, GettersSettersConstruction)
 
     {
         Vector2f vec(10.0f, 15.0f);
-        EXPECT_FLOAT_EQ(vec.X, 10.0f);
-        EXPECT_FLOAT_EQ(vec.Y, 15.0f);
+        EXPECT_FLOAT_EQ(vec.R, 10.0f);
+        EXPECT_FLOAT_EQ(vec.G, 15.0f);
     }
 
     {
         Vector2f vec;
         vec.X = 5.0f;
-        EXPECT_FLOAT_EQ(vec.X, 5.0f);
+        EXPECT_FLOAT_EQ(vec.Data[0], 5.0f);
         vec.Y = 10.0f;
-        EXPECT_FLOAT_EQ(vec.Y, 10.0f);
+        EXPECT_FLOAT_EQ(vec.Data[1], 10.0f);
         vec.Set(15.0f, 0);
         EXPECT_FLOAT_EQ(vec[0], 15.0f);
         vec.Set(20.0f, 1);
         EXPECT_FLOAT_EQ(vec[1], 20.0f);
     }
+}
+
+TEST(Vector2Tests, Nans)
+{
+    Vector2f p1(nanf(""), 10.0f);
+    EXPECT_TRUE(p1.HasNaNs());
+
+    Vector2f p2(15.0f, nanf(""));
+    EXPECT_TRUE(p2.HasNaNs());
 }
 
 TEST(Vector2Tests, Comparison)
@@ -119,6 +128,14 @@ TEST(Vector2Tests, Abs)
     EXPECT_FLOAT_EQ(a.Y, 10.0f);
 }
 
+TEST(Vector2Tests, Length)
+{
+    Vector2f p1(3, 4);
+
+    EXPECT_FLOAT_EQ(p1.Length(), 5);
+    EXPECT_FLOAT_EQ(p1.LengthSquared(), 25);
+}
+
 TEST(Vector2Tests, Dot)
 {
     Vector2f vec1(1, 2);
@@ -127,6 +144,14 @@ TEST(Vector2Tests, Dot)
 
     EXPECT_FLOAT_EQ(Dot(vec1, vec2), 11.0f);
     EXPECT_FLOAT_EQ(AbsDot(vec1, vec3), 11.0f);
+}
+
+TEST(Vector2Tests, Cross)
+{
+    Vector2f vec1(0, 1);
+    Vector2f vec2(1, 0);
+
+    EXPECT_EQ(-1, Cross(vec1, vec2));
 }
 
 TEST(Vector2Tests, Normalize)

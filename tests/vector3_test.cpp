@@ -3,6 +3,9 @@
 #include "math/math.h"
 
 using Vector3f = math::Vector3<float>;
+using Vector2f = math::Vector2<float>;
+using Point3f = math::Point3<float>;
+using Normal3f = math::Normal3<float>;
 
 TEST(Vector3Tests, GettersSettersConstruction)
 {
@@ -15,19 +18,19 @@ TEST(Vector3Tests, GettersSettersConstruction)
 
     {
         Vector3f vec(10.0f, 15.0f, 20.0f);
-        EXPECT_FLOAT_EQ(vec.X, 10.0f);
-        EXPECT_FLOAT_EQ(vec.Y, 15.0f);
-        EXPECT_FLOAT_EQ(vec.Z, 20.0f);
+        EXPECT_FLOAT_EQ(vec.R, 10.0f);
+        EXPECT_FLOAT_EQ(vec.G, 15.0f);
+        EXPECT_FLOAT_EQ(vec.B, 20.0f);
     }
 
     {
         Vector3f vec;
         vec.X = 5.0f;
-        EXPECT_FLOAT_EQ(vec.X, 5.0f);
+        EXPECT_FLOAT_EQ(vec.Data[0], 5.0f);
         vec.Y = 10.0f;
-        EXPECT_FLOAT_EQ(vec.Y, 10.0f);
+        EXPECT_FLOAT_EQ(vec.Data[1], 10.0f);
         vec.Z = 50.0f;
-        EXPECT_FLOAT_EQ(vec.Z, 50.0f);
+        EXPECT_FLOAT_EQ(vec.Data[2], 50.0f);
         vec.Set(15.0f, 0);
         EXPECT_FLOAT_EQ(vec[0], 15.0f);
         vec.Set(20.0f, 1);
@@ -35,6 +38,57 @@ TEST(Vector3Tests, GettersSettersConstruction)
         vec.Set(55.0f, 2);
         EXPECT_FLOAT_EQ(vec[2], 55.0f);
     }
+
+    {
+        Vector2f vec2(10, 15);
+        Vector3f vec3(vec2, 20);
+        EXPECT_FLOAT_EQ(vec3.X, 10);
+        EXPECT_FLOAT_EQ(vec3.Y, 15);
+        EXPECT_FLOAT_EQ(vec3.Z, 20);
+    }
+
+    {
+        Point3f p(10, 15, 20);
+        Vector3f v(p);
+        EXPECT_FLOAT_EQ(v.X, 10);
+        EXPECT_FLOAT_EQ(v.Y, 15);
+        EXPECT_FLOAT_EQ(v.Z, 20);
+    }
+
+    {
+        Normal3f n(10, 15, 20);
+        Vector3f v(n);
+        EXPECT_FLOAT_EQ(v.X, 10);
+        EXPECT_FLOAT_EQ(v.Y, 15);
+        EXPECT_FLOAT_EQ(v.Z, 20);
+    }
+}
+
+TEST(Vector3Tests, ToVector2)
+{
+    Vector3f v(10, 15, 20);
+
+    Vector2f v1 = v.XY();
+    Vector2f v2 = v.XZ();
+    Vector2f v3 = v.YZ();
+    EXPECT_FLOAT_EQ(v1.X, 10);
+    EXPECT_FLOAT_EQ(v1.Y, 15);
+    EXPECT_FLOAT_EQ(v2.X, 10);
+    EXPECT_FLOAT_EQ(v2.Y, 20);
+    EXPECT_FLOAT_EQ(v3.X, 15);
+    EXPECT_FLOAT_EQ(v3.Y, 20);
+}
+
+TEST(Vector3Tests, Nans)
+{
+    Vector3f v1(nanf(""), 10, 15);
+    EXPECT_TRUE(v1.HasNaNs());
+
+    Vector3f v2(15, nanf(""), 10);
+    EXPECT_TRUE(v2.HasNaNs());
+
+    Vector3f v3(15, 10, nanf(""));
+    EXPECT_TRUE(v3.HasNaNs());
 }
 
 TEST(Vector3Tests, Comparison)
@@ -100,6 +154,22 @@ TEST(Vector3Tests, MultiplicationScalar)
     EXPECT_FLOAT_EQ(vec3.Z, 60.0f);
 }
 
+TEST(Vector3Tests, Multiplication)
+{
+    Vector3f vec1(1, 2, 3);
+    Vector3f vec2(2, 3, 4);
+
+    Vector3f vec3 = vec1 * vec2;
+    EXPECT_FLOAT_EQ(vec3.X, 2.0f);
+    EXPECT_FLOAT_EQ(vec3.Y, 6.0f);
+    EXPECT_FLOAT_EQ(vec3.Z, 12.0f);
+
+    vec2 *= vec1;
+    EXPECT_FLOAT_EQ(vec2.X, 2.0f);
+    EXPECT_FLOAT_EQ(vec2.Y, 6.0f);
+    EXPECT_FLOAT_EQ(vec2.Z, 12.0f);
+}
+
 TEST(Vector3Tests, DivisionScalar)
 {
     Vector3f vec1(20.0f, 40.0f, 60.0f);
@@ -136,6 +206,14 @@ TEST(Vector3Tests, Abs)
     EXPECT_FLOAT_EQ(a.Z, 15.0f);
 }
 
+TEST(Vector3Tests, Length)
+{
+    Vector3f v1(3, 4, 5);
+
+    EXPECT_FLOAT_EQ(v1.Length(), std::sqrt(50));
+    EXPECT_FLOAT_EQ(v1.LengthSquared(), 50);
+}
+
 TEST(Vector3Tests, Dot)
 {
     Vector3f vec1(1, 2, 3);
@@ -154,6 +232,14 @@ TEST(Vector3Tests, Cross)
 
     Vector3f c = Cross(x, y);
     EXPECT_TRUE(c == z);
+}
+
+TEST(Vector2Tests, Cross2D)
+{
+    Vector3f vec1(0, 1, 1);
+    Vector3f vec2(1, 0, 2);
+
+    EXPECT_EQ(-1, Cross2D(vec1, vec2));
 }
 
 TEST(Vector3Tests, Normalize)
@@ -189,14 +275,21 @@ TEST(Vector3Tests, Misc)
     EXPECT_FLOAT_EQ(perm.Z, 1.0f);
 }
 
-TEST(Vector3Tests, CoordinateSystem)
+TEST(Vector3Tests, Reflection)
 {
-    Vector3f x(1, 0, 0);
-    Vector3f y, z;
+    Vector3f Incidence(1, 0, 0);
+    Vector3f Normal(0, 1, 0);
+    Vector3f Reflection = math::Reflect(Incidence, Normal);
+    EXPECT_FLOAT_EQ(Reflection.X, -1.0f);
+    EXPECT_FLOAT_EQ(Reflection.Y, 0.0f);
+    EXPECT_FLOAT_EQ(Reflection.Z, 0.0f);
+}
 
-    CoordinateSystem(x, &y, &z);
-
-    EXPECT_FLOAT_EQ(Dot(x, y), 0);
-    EXPECT_FLOAT_EQ(Dot(x, z), 0);
-    EXPECT_FLOAT_EQ(Dot(z, y), 0);
+TEST(Vector3Tests, Clamp)
+{
+    Vector3f v1(2, -5, 10);
+    Vector3f v2 = math::Clamp(v1, 0, 5);
+    EXPECT_FLOAT_EQ(v2.X, 2);
+    EXPECT_FLOAT_EQ(v2.Y, 0);
+    EXPECT_FLOAT_EQ(v2.Z, 5);
 }

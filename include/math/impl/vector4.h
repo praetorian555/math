@@ -5,6 +5,7 @@
 namespace math
 {
 
+// Forward declarations
 template <typename T>
 class Vector2;
 template <typename T>
@@ -28,12 +29,12 @@ public:
         {
             T R, G, B, A;
         };
-        T Elements[4];
+        T Data[4];
     };
 
 public:
     Vector4() { X = Y = Z = W = 0; }
-    Vector4(T X, T Y, T Z, T W) : X(X), Y(Y), Z(Z), W(W) { MATH_ASSERT(!HasNaNs()); }
+    Vector4(T X, T Y, T Z, T W) : X(X), Y(Y), Z(Z), W(W) {}
     explicit Vector4(const Point4<T>& p);
 
     explicit Vector4(const Vector2<T>& XY, T Z = 0, T W = 0);
@@ -102,7 +103,7 @@ public:
 
     Vector4<T> operator-(const Vector4<T>& other) const
     {
-        return Vector4(X - other.X, Y - other.Y, Z - other.Z, W + other.W);
+        return Vector4(X - other.X, Y - other.Y, Z - other.Z, W - other.W);
     }
 
     Vector4<T>& operator-=(const Vector4<T>& other)
@@ -130,6 +131,15 @@ public:
         Y *= scalar;
         Z *= scalar;
         W *= scalar;
+        return *this;
+    }
+
+    Vector4<T>& operator*=(const Vector4<T>& Other)
+    {
+        X *= Other.X;
+        Y *= Other.Y;
+        Z *= Other.Z;
+        W *= Other.W;
         return *this;
     }
 

@@ -5,9 +5,7 @@
 namespace math
 {
 
-template <typename T>
-inline bool IsNaN(const T v);
-
+// Forward declarations
 template <typename T>
 class Vector2;
 template <typename T>
@@ -21,11 +19,22 @@ template <typename T>
 class Vector3
 {
 public:
-    T X, Y, Z;
+    union
+    {
+        struct
+        {
+            T X, Y, Z;
+        };
+        struct
+        {
+            T R, G, B;
+        };
+        T Data[3];
+    };
 
 public:
     Vector3() { X = Y = Z = 0; }
-    Vector3(T X, T Y, T Z) : X(X), Y(Y), Z(Z) { MATH_ASSERT(!HasNaNs()); }
+    Vector3(T X, T Y, T Z) : X(X), Y(Y), Z(Z) {}
     explicit Vector3(const Normal3<T>& n);
     explicit Vector3(const Point3<T>& p);
 
@@ -218,22 +227,9 @@ Vector3<T> Permute(const Vector3<T>& v, int X, int Y, int Z)
 }
 
 template <typename T>
-inline void CoordinateSystem(const Vector3<T>& v1, Vector3<T>* v2, Vector3<T>* v3)
-{
-    if (std::abs(v1.X) > std::abs(v1.Y))
-    {
-        *v2 = Vector3<T>(-v1.Z, 0, v1.X) / std::sqrt(v1.X * v1.X + v1.Z * v1.Z);
-    }
-    else
-    {
-        *v2 = Vector3<T>(0, v1.Z, -v1.Y) / std::sqrt(v1.Y * v1.Y + v1.Z * v1.Z);
-    }
-    *v3 = Cross(v1, *v2);
-}
-
-template <typename T>
 inline Vector3<T> Reflect(const Vector3<T>& Incidence, const Vector3<T>& Normal)
 {
+    assert(Dot(Incidence, Normal) >= 0);
     return 2 * Dot(Incidence, Normal) * Normal - Incidence;
 }
 
