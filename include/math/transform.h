@@ -17,6 +17,8 @@ public:
     explicit Transform(const Matrix4x4& mat);
     Transform(const Matrix4x4& mat, const Matrix4x4& invMat);
 
+    Transform& operator=(const Matrix4x4& Matrix);
+
     const Matrix4x4& GetMatrix() const { return m_Matrix; }
     const Matrix4x4& GetInverse() const { return m_MatrixInverse; }
 

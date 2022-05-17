@@ -1,5 +1,8 @@
 #pragma once
 
+#undef max
+#undef min
+
 #include "math/base.h"
 #include "math/impl/point2.h"
 

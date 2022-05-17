@@ -15,6 +15,13 @@ math::Transform::Transform(const math::Matrix4x4& mat, const math::Matrix4x4& in
 {
 }
 
+math::Transform& math::Transform::operator=(const Matrix4x4& Matrix)
+{
+    m_Matrix = Matrix;
+    m_MatrixInverse = Matrix.Inverse();
+    return *this;
+}
+
 math::Transform math::Inverse(const Transform& t)
 {
     return Transform(t.m_MatrixInverse, t.m_Matrix);
