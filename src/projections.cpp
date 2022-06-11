@@ -1,5 +1,8 @@
 #include "math/projections.h"
 
+#include <cassert>
+#include <cmath>
+
 math::Matrix4x4 math::Orhographic_LH_N0(float Left,
                                         float Right,
                                         float Bottom,

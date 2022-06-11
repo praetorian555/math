@@ -1,9 +1,10 @@
 ﻿#include <gtest/gtest.h>
 
-#include "math/math.h"
+#include "math/normal3.h"
+#include "math/vector3.h"
 
-using Normal3f = math::Normal3<float>;
-using Vector3f = math::Vector3<float>;
+using Normal3f = math::Normal3;
+using Vector3f = math::Vector3;
 
 TEST(Normal3Tests, GettersSettersConstruction)
 {

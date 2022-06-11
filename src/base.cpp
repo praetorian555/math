@@ -1,57 +1,31 @@
 #include "math/base.h"
 
-#include "math/geometry.h"
+#include <intrin.h>
+#include <cmath>
 
-template <>
-bool math::IsNaN(const int Value)
+bool math::IsNaN(float Value)
 {
-    return false;
+    return std::isnan(Value);
 }
 
-template <>
-bool math::Point2<int>::HasNaNs() const
+float math::Clamp(float Value, float Low, float High)
 {
-    return false;
+    return Value < Low ? Low : (Value > High ? High : Value);
 }
 
-template <>
-bool math::Point3<int>::HasNaNs() const
-{
-    return false;
-}
-
-template <>
 float math::Mod(float A, float B)
 {
     return std::fmodf(A, B);
 }
 
-template <>
-double math::Mod(double A, double B)
-{
-    return std::fmod(A, B);
-}
-
-template <>
-bool math::IsPowerOf2(float Value)
-{
-    return false;
-}
-
-template <>
-bool math::IsPowerOf2(double Value)
-{
-    return false;
-}
-
 float math::Radians(float Degrees)
 {
-    return (Pi / 180) * Degrees;
+    return (kPi / 180) * Degrees;
 }
 
 float math::Degrees(float Radians)
 {
-    return (180 / Pi) * Radians;
+    return (180 / kPi) * Radians;
 }
 
 float math::Log2(float Value)
@@ -91,4 +65,14 @@ int32_t math::CountTrailingZeros(uint32_t Value)
 #else
     return __builtin_ctz(Value);
 #endif
+}
+
+float math::Lerp(float Parameter, float P0, float P1)
+{
+    return (1 - Parameter) * P0 + Parameter * P1;
+}
+
+bool math::IsPowerOf2(int Value)
+{
+    return Value && !(Value & (Value - 1));
 }

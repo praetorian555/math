@@ -1,8 +1,8 @@
 ﻿#include <gtest/gtest.h>
 
-#include "math/math.h"
+#include "math/transform.h"
 
-using Vector3f = math::Vector3<float>;
+using Vector3f = math::Vector3;
 
 TEST(TransformTests, Creation)
 {

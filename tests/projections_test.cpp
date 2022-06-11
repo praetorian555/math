@@ -1,8 +1,9 @@
 #include <gtest/gtest.h>
 
-#include "math/math.h"
+#include "math/projections.h"
+#include "math/transform.h"
 
-using Point3f = math::Point3<float>;
+using Point3f = math::Point3;
 
 TEST(ProjectionsTests, Orthographic_LH_N0)
 {

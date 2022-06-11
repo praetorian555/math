@@ -1,9 +1,10 @@
 #include <gtest/gtest.h>
 
-#include "math/math.h"
+#include "math/point4.h"
+#include "math/vector4.h"
 
-using Point4f = math::Point4<float>;
-using Vector4f = math::Vector4<float>;
+using Point4f = math::Point4;
+using Vector4f = math::Vector4;
 
 TEST(Point4Tests, GettersSettersConstruction)
 {

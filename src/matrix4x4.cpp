@@ -1,6 +1,9 @@
 ﻿#include "math/matrix4x4.h"
 
-#include <string_view>
+#include <cassert>
+#include <cstring>
+#include <cmath>
+#include <utility>
 
 math::Matrix4x4::Matrix4x4()
 {
@@ -77,13 +80,13 @@ math::Matrix4x4::Matrix4x4(
     Data[3][3] = t33;
 }
 
-bool math::Matrix4x4::operator==(const Matrix4x4& other) const
+bool math::Matrix4x4::operator==(const Matrix4x4& Other) const
 {
     for (int i = 0; i < 4; i++)
     {
         for (int j = 0; j < 4; j++)
         {
-            if (Data[i][j] != other.Data[i][j])
+            if (Data[i][j] != Other.Data[i][j])
             {
                 return false;
             }
@@ -93,9 +96,9 @@ bool math::Matrix4x4::operator==(const Matrix4x4& other) const
     return true;
 }
 
-bool math::Matrix4x4::operator!=(const Matrix4x4& other) const
+bool math::Matrix4x4::operator!=(const Matrix4x4& Other) const
 {
-    return !(*this == other);
+    return !(*this == Other);
 }
 
 math::Matrix4x4 math::Matrix4x4::Transpose() const
@@ -141,7 +144,7 @@ math::Matrix4x4 math::Matrix4x4::Inverse() const
                     else if (ipiv[k] > 1)
                     {
                         // Singluar matrix
-                        MATH_ASSERT(false);
+                        assert(false);
                     }
                 }
             }
@@ -160,7 +163,7 @@ math::Matrix4x4 math::Matrix4x4::Inverse() const
         if (minv[icol][icol] == 0.f)
         {
             // Singluar matrix
-            MATH_ASSERT(false);
+            assert(false);
         }
 
         // Set $m[icol][icol]$ to one by scaling row _icol_ appropriately
@@ -169,7 +172,7 @@ math::Matrix4x4 math::Matrix4x4::Inverse() const
         for (int j = 0; j < 4; j++)
             minv[icol][j] *= pivinv;
 
-        // Subtract this row from others to zero out their columns
+        // Subtract this row from Others to zero out their columns
         for (int j = 0; j < 4; j++)
         {
             if (j != icol)

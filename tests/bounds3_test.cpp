@@ -1,10 +1,10 @@
 ﻿#include <gtest/gtest.h>
 
-#include "math/math.h"
+#include "math/bounds3.h"
 
-using Point3f = math::Point3<float>;
-using Bounds3f = math::Bounds3<float>;
-using Vector3f = math::Vector3<float>;
+using Point3f = math::Point3;
+using Bounds3f = math::Bounds3;
+using Vector3f = math::Vector3;
 
 TEST(Bounds3Tests, Creation)
 {
@@ -131,7 +131,7 @@ TEST(Bounds3Tests, BoundingSphere)
     Point3f center;
     float radius;
 
-    b.BoundingSphere(&center, &radius);
+    b.BoundingSphere(center, radius);
 
     EXPECT_EQ(center, Point3f(3, 3, 3));
     EXPECT_FLOAT_EQ(radius, std::sqrt(3));

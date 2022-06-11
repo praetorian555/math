@@ -3,7 +3,7 @@
 #include "math/rng.h"
 #include "math/rotator.h"
 
-using Vector3f = math::Vector3<float>;
+using Vector3f = math::Vector3;
 
 TEST(RotatorTests, Constructors)
 {

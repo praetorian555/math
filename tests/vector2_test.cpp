@@ -1,8 +1,8 @@
 ﻿#include <gtest/gtest.h>
 
-#include "math/math.h"
+#include "math/vector2.h"
 
-using Vector2f = math::Vector2<float>;
+using Vector2f = math::Vector2;
 
 TEST(Vector2Tests, GettersSettersConstruction)
 {
@@ -33,11 +33,11 @@ TEST(Vector2Tests, GettersSettersConstruction)
 
 TEST(Vector2Tests, Nans)
 {
-    Vector2f p1(nanf(""), 10.0f);
-    EXPECT_TRUE(p1.HasNaNs());
+    Vector2f P1(nanf(""), 10.0f);
+    EXPECT_TRUE(P1.HasNaNs());
 
-    Vector2f p2(15.0f, nanf(""));
-    EXPECT_TRUE(p2.HasNaNs());
+    Vector2f P2(15.0f, nanf(""));
+    EXPECT_TRUE(P2.HasNaNs());
 }
 
 TEST(Vector2Tests, Comparison)
@@ -130,10 +130,10 @@ TEST(Vector2Tests, Abs)
 
 TEST(Vector2Tests, Length)
 {
-    Vector2f p1(3, 4);
+    Vector2f P1(3, 4);
 
-    EXPECT_FLOAT_EQ(p1.Length(), 5);
-    EXPECT_FLOAT_EQ(p1.LengthSquared(), 25);
+    EXPECT_FLOAT_EQ(P1.Length(), 5);
+    EXPECT_FLOAT_EQ(P1.LengthSquared(), 25);
 }
 
 TEST(Vector2Tests, Dot)

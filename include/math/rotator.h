@@ -1,7 +1,6 @@
 #pragma once
 
-#include "math/base.h"
-#include "math/impl/vector3.h"
+#include "math/vector3.h"
 
 namespace math
 {
@@ -33,7 +32,7 @@ struct Rotator
     /**
      * Returns normalized vector in the direction defined by the rotator.
      */
-    Vector3<float> ToVector();
+    Vector3 ToVector();
 
     Rotator operator+(Rotator Other) const;
     Rotator& operator+=(Rotator Other);

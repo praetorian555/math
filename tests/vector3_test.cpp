@@ -1,11 +1,14 @@
 ﻿#include <gtest/gtest.h>
 
-#include "math/math.h"
+#include "math/vector2.h"
+#include "math/vector3.h"
+#include "math/point3.h"
+#include "math/normal3.h"
 
-using Vector3f = math::Vector3<float>;
-using Vector2f = math::Vector2<float>;
-using Point3f = math::Point3<float>;
-using Normal3f = math::Normal3<float>;
+using Vector3f = math::Vector3;
+using Vector2f = math::Vector2;
+using Point3f = math::Point3;
+using Normal3f = math::Normal3;
 
 TEST(Vector3Tests, GettersSettersConstruction)
 {

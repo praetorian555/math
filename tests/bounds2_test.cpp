@@ -2,9 +2,9 @@
 
 #include "math/math.h"
 
-using Point2f = math::Point2<float>;
-using Vector2f = math::Vector2<float>;
-using Bounds2f = math::Bounds2<float>;
+using Point2f = math::Point2;
+using Vector2f = math::Vector2;
+using Bounds2f = math::Bounds2;
 
 TEST(Bounds2Tests, Creation)
 {
@@ -125,7 +125,7 @@ TEST(Bounds2Tests, BoundingSphere)
     Point2f center;
     float radius;
 
-    b.BoundingSphere(&center, &radius);
+    b.BoundingSphere(center, radius);
 
     EXPECT_EQ(center, Point2f(3, 3));
     EXPECT_FLOAT_EQ(radius, std::sqrt(2));

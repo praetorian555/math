@@ -2,8 +2,8 @@
 
 #include "math/math.h"
 
-using Point3f = math::Point3<float>;
-using Vector3f = math::Vector3<float>;
+using Point3f = math::Point3;
+using Vector3f = math::Vector3;
 
 TEST(Point3Tests, GettersSettersConstruction)
 {

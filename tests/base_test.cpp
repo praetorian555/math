@@ -12,6 +12,14 @@ TEST(BaseTests, NaN)
     EXPECT_TRUE(math::IsNaN(c));
 }
 
+TEST(BaseTests, Constants)
+{
+    EXPECT_FLOAT_EQ(math::kInfinity, std::numeric_limits<float>::infinity());
+    EXPECT_FLOAT_EQ(math::kNegativeInfinity, -std::numeric_limits<float>::infinity());
+    EXPECT_FLOAT_EQ(math::kSmallestFloat, std::numeric_limits<float>::lowest());
+    EXPECT_FLOAT_EQ(math::kLargestFloat, std::numeric_limits<float>::max());
+}
+
 TEST(BaseTests, Clamp)
 {
     const int V1 = math::Clamp(10, -2, 5);
@@ -50,20 +58,18 @@ TEST(BaseTests, Power2)
     EXPECT_TRUE(math::IsPowerOf2(4));
     EXPECT_TRUE(math::IsPowerOf2(128));
     EXPECT_FALSE(math::IsPowerOf2(125));
-    EXPECT_FALSE(math::IsPowerOf2(2.5));
-    EXPECT_FALSE(math::IsPowerOf2(10.5f));
 }
 
 TEST(BaseTests, Radians)
 {
-    EXPECT_FLOAT_EQ(math::Pi, math::Radians(180));
-    EXPECT_FLOAT_EQ(math::PiOver2, math::Radians(90));
+    EXPECT_FLOAT_EQ(math::kPi, math::Radians(180));
+    EXPECT_FLOAT_EQ(math::kPiOver2, math::Radians(90));
 }
 
 TEST(BaseTests, Degrees)
 {
-    EXPECT_FLOAT_EQ(180, math::Degrees(math::Pi));
-    EXPECT_FLOAT_EQ(90, math::Degrees(math::PiOver2));
+    EXPECT_FLOAT_EQ(180, math::Degrees(math::kPi));
+    EXPECT_FLOAT_EQ(90, math::Degrees(math::kPiOver2));
 }
 
 TEST(BaseTests, Log2)

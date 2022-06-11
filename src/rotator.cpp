@@ -1,11 +1,10 @@
 #include "math/rotator.h"
 
-#include "math/base.h"
-#include "math/geometry.h"
+#include <cmath>
 
 math::Rotator::Rotator(float Pitch, float Yaw, float Roll) : Pitch(Pitch), Yaw(Yaw), Roll(Roll) {}
 
-math::Vector3<float> math::Rotator::ToVector()
+math::Vector3 math::Rotator::ToVector()
 {
     const float PitchNoWinding = std::fmod(Pitch, 360.0f);
     const float YawNoWinding = std::fmod(Yaw, 360.0f);
@@ -15,7 +14,7 @@ math::Vector3<float> math::Rotator::ToVector()
     const float SY = std::sin(math::Radians(YawNoWinding));
     const float CY = std::cos(math::Radians(YawNoWinding));
 
-    return Vector3<float>{CP * CY, SP, -CP * SY};
+    return Vector3{CP * CY, SP, -CP * SY};
 }
 
 math::Rotator math::Rotator::operator+(Rotator Other) const

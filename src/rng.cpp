@@ -1,10 +1,11 @@
 ﻿#include "math/rng.h"
 
-#include <algorithm>
+#include <cassert>
+#include <cmath>
 
 static constexpr auto DEFAULT_STATE = 0x853c49e6748fea9bULL;
 static constexpr auto DEFAULT_STREAM = 0xda3e39cb94b95bdbULL;
-static constexpr auto MULT = 0x5851f42d4c957f2dULL;
+static constexpr auto MULfloat = 0x5851f42d4c957f2dULL;
 // Largest floating-point constant less then 1
 static constexpr float ONE_MINUS_EPSILON = 0x1.fffffep-1;
 
@@ -27,7 +28,7 @@ void math::RNG::SetSequence(uint64_t StartingIndex)
 uint32_t math::RNG::UniformUInt32()
 {
     const uint64_t OldState = m_State;
-    m_State = OldState * MULT + m_Inc;
+    m_State = OldState * MULfloat + m_Inc;
     const uint32_t XorShifted = (uint32_t)(((OldState >> 18u) ^ OldState) >> 27u);
     const uint32_t Rot = (uint32_t)(OldState >> 59u);
     return (XorShifted >> Rot) | (XorShifted << ((~Rot + 1u) & 31));
@@ -48,12 +49,12 @@ uint32_t math::RNG::UniformUInt32(uint32_t Limit)
 
 float math::RNG::UniformReal()
 {
-    return std::min(ONE_MINUS_EPSILON, UniformUInt32() * 0x1p-32f);
+    return std::fmin(ONE_MINUS_EPSILON, UniformUInt32() * 0x1p-32f);
 }
 
 float math::RNG::UniformRealInRange(float Start, float End)
 {
-    MATH_ASSERT(Start <= End);
+    assert(Start <= End);
 
     const float Value = UniformReal();
     return Start + Value * (End - Start);
