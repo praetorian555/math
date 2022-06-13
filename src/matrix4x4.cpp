@@ -1,8 +1,8 @@
 ﻿#include "math/matrix4x4.h"
 
 #include <cassert>
-#include <cstring>
 #include <cmath>
+#include <cstring>
 #include <utility>
 
 math::Matrix4x4::Matrix4x4()

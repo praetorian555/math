@@ -50,7 +50,7 @@ public:
     Vector3& operator+=(const Vector3& Other);
     Vector3 operator-(const Vector3& Other) const;
     Vector3& operator-=(const Vector3& Other);
- 
+
     Vector3 operator*(float Scalar) const;
     Vector3& operator*=(float Scalar);
     Vector3 operator*(const Vector3& Other) const;

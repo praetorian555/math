@@ -10,7 +10,7 @@ math::Vector3::Vector3(const Normal3& N) : X(N.X), Y(N.Y), Z(N.Z) {}
 
 math::Vector3::Vector3(const Point3& P) : X(P.X), Y(P.Y), Z(P.Z) {}
 
-math::Vector3::Vector3(const Vector2& XY, float Z) : X(XY.X), Y(XY.Y), Z(Z) {}
+math::Vector3::Vector3(const Vector2& XY, float ZZ) : X(XY.X), Y(XY.Y), Z(ZZ) {}
 
 math::Vector2 math::Vector3::XY() const
 {
@@ -161,7 +161,8 @@ math::Vector3 math::Cross(const Vector3& Vec1, const Vector3& Vec2)
 {
     double Vec1X = Vec1.X, Vec1Y = Vec1.Y, Vec1Z = Vec1.Z;
     double Vec2X = Vec2.X, Vec2Y = Vec2.Y, Vec2Z = Vec2.Z;
-    return Vector3((Vec1Y * Vec2Z) - (Vec1Z * Vec2Y), (Vec1Z * Vec2X) - (Vec1X * Vec2Z), (Vec1X * Vec2Y) - (Vec1Y * Vec2X));
+    return Vector3((Vec1Y * Vec2Z) - (Vec1Z * Vec2Y), (Vec1Z * Vec2X) - (Vec1X * Vec2Z),
+                   (Vec1X * Vec2Y) - (Vec1Y * Vec2X));
 }
 
 float math::Cross2D(const Vector3& Vec1, const Vector3& Vec2)

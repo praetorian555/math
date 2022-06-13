@@ -3,8 +3,8 @@
 #include <cassert>
 #include <cmath>
 
-#include "math/point4.h"
 #include "math/normal3.h"
+#include "math/point4.h"
 
 math::Transform::Transform(const float mat[4][4])
     : m_Matrix(mat), m_MatrixInverse(m_Matrix.Inverse())
@@ -211,7 +211,7 @@ math::Transform math::Rotate(float theta, const Vector3& axis)
 
 math::Transform math::Rotate(math::Rotator Rotator)
 {
-    return RotateY(Rotator.Yaw) * RotateZ(Rotator.Pitch) * RotateX(Rotator.Roll);
+    return RotateZ(Rotator.Pitch) * RotateY(Rotator.Yaw) * RotateX(Rotator.Roll);
 }
 
 math::Bounds3 math::Transform::operator()(const Bounds3& b) const
@@ -243,13 +243,13 @@ math::Point3 math::Transform::operator()(const Point3& p) const
     float x = p.X, y = p.Y, z = p.Z;
 
     float xp = m_Matrix.Data[0][0] * x + m_Matrix.Data[0][1] * y + m_Matrix.Data[0][2] * z +
-           m_Matrix.Data[0][3];
+               m_Matrix.Data[0][3];
     float yp = m_Matrix.Data[1][0] * x + m_Matrix.Data[1][1] * y + m_Matrix.Data[1][2] * z +
-           m_Matrix.Data[1][3];
+               m_Matrix.Data[1][3];
     float zp = m_Matrix.Data[2][0] * x + m_Matrix.Data[2][1] * y + m_Matrix.Data[2][2] * z +
-           m_Matrix.Data[2][3];
+               m_Matrix.Data[2][3];
     float wp = m_Matrix.Data[3][0] * x + m_Matrix.Data[3][1] * y + m_Matrix.Data[3][2] * z +
-           m_Matrix.Data[3][3];
+               m_Matrix.Data[3][3];
 
     assert(wp != 0);
 
@@ -268,13 +268,13 @@ math::Point4 math::Transform::operator()(const Point4& p) const
     float x = p.X, y = p.Y, z = p.Z;
 
     float xp = m_Matrix.Data[0][0] * x + m_Matrix.Data[0][1] * y + m_Matrix.Data[0][2] * z +
-           m_Matrix.Data[0][3];
+               m_Matrix.Data[0][3];
     float yp = m_Matrix.Data[1][0] * x + m_Matrix.Data[1][1] * y + m_Matrix.Data[1][2] * z +
-           m_Matrix.Data[1][3];
+               m_Matrix.Data[1][3];
     float zp = m_Matrix.Data[2][0] * x + m_Matrix.Data[2][1] * y + m_Matrix.Data[2][2] * z +
-           m_Matrix.Data[2][3];
+               m_Matrix.Data[2][3];
     float wp = m_Matrix.Data[3][0] * x + m_Matrix.Data[3][1] * y + m_Matrix.Data[3][2] * z +
-           m_Matrix.Data[3][3];
+               m_Matrix.Data[3][3];
 
     assert(wp != 0);
     return Point4(xp, yp, zp, wp);

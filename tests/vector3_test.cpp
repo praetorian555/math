@@ -1,9 +1,9 @@
 ﻿#include <gtest/gtest.h>
 
+#include "math/normal3.h"
+#include "math/point3.h"
 #include "math/vector2.h"
 #include "math/vector3.h"
-#include "math/point3.h"
-#include "math/normal3.h"
 
 using Vector3f = math::Vector3;
 using Vector2f = math::Vector2;

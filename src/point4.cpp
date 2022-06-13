@@ -136,7 +136,6 @@ math::Point4 math::operator*(float Scalar, const Point4& Vec)
     return Vec * Scalar;
 }
 
-
 float math::Distance(const Point4& P1, const Point4& P2)
 {
     return (P1 - P2).Length();

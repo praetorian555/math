@@ -9,9 +9,9 @@
 
 math::Vector4::Vector4(const Point4& P) : X(P.X), Y(P.Y), Z(P.Z), W(P.W) {}
 
-math::Vector4::Vector4(const Vector2& XY, float Z, float W) : X(XY.X), Y(XY.Y), Z(Z), W(W) {}
+math::Vector4::Vector4(const Vector2& XY, float ZZ, float WW) : X(XY.X), Y(XY.Y), Z(ZZ), W(WW) {}
 
-math::Vector4::Vector4(const Vector3& XYZ, float W) : X(XYZ.X), Y(XYZ.Y), Z(XYZ.Z), W(W) {}
+math::Vector4::Vector4(const Vector3& XYZ, float WW) : X(XYZ.X), Y(XYZ.Y), Z(XYZ.Z), W(WW) {}
 
 math::Vector2 math::Vector4::XY() const
 {

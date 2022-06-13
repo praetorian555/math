@@ -4,9 +4,8 @@
 #include <cmath>
 
 math::Bounds2::Bounds2()
+    : Min(Point2(kSmallestFloat, kSmallestFloat)), Max(Point2(kLargestFloat, kLargestFloat))
 {
-    Min = Point2(kSmallestFloat, kSmallestFloat);
-    Max = Point2(kLargestFloat, kLargestFloat);
 }
 
 math::Bounds2::Bounds2(const Point2& P) : Min(P), Max(P) {}
@@ -79,7 +78,7 @@ math::Vector2 math::Bounds2::Extent() const
 }
 
 math::Bounds2 math::Union(const Bounds2& B, const Point2& P)
-{                              
+{
     return Bounds2(Point2(std::fmin(B.Min.X, P.X), std::fmin(B.Min.Y, P.Y)),
                    Point2(std::fmax(B.Max.X, P.X), std::fmax(B.Max.Y, P.Y)));
 }

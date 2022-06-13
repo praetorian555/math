@@ -105,8 +105,9 @@ math::Vector3 math::Bounds3::Extent() const
 
 math::Bounds3 math::Union(const Bounds3& B, const Point3& P)
 {
-    return Bounds3(Point3(std::fmin(B.Min.X, P.X), std::fmin(B.Min.Y, P.Y), std::fmin(B.Min.Z, P.Z)),
-                   Point3(std::fmax(B.Max.X, P.X), std::fmax(B.Max.Y, P.Y), std::fmax(B.Max.Z, P.Z)));
+    return Bounds3(
+        Point3(std::fmin(B.Min.X, P.X), std::fmin(B.Min.Y, P.Y), std::fmin(B.Min.Z, P.Z)),
+        Point3(std::fmax(B.Max.X, P.X), std::fmax(B.Max.Y, P.Y), std::fmax(B.Max.Z, P.Z)));
 }
 
 math::Bounds3 math::Union(const Bounds3& B1, const Bounds3& B2)
