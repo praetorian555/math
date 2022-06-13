@@ -61,6 +61,7 @@ Transform RotateX(float theta);
 Transform RotateY(float theta);
 Transform RotateZ(float theta);
 Transform Rotate(float theta, const Vector3& axis);
+// This applies angle around x then around y and then around z axis
 Transform Rotate(Rotator Rotator);
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////

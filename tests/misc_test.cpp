@@ -52,6 +52,25 @@ TEST(RotatorTests, ToVector)
     }
 }
 
+TEST(RotatorTests, Euler)
+{
+    math::Rotator R(10, 15, 20);
+    math::Vector3 Eul = R.ToEuler();
+    EXPECT_FLOAT_EQ(R.Roll, Eul.X);
+    EXPECT_FLOAT_EQ(R.Yaw, Eul.Y);
+    EXPECT_FLOAT_EQ(R.Pitch, Eul.Z);
+}
+
+TEST(RotatorTests, Compare)
+{
+    math::Rotator R1(10, 15, 20);
+    math::Rotator R2(15, 10, 20);
+    math::Rotator R3(10, 15, 20);
+
+    EXPECT_TRUE(R1 == R3);
+    EXPECT_TRUE(R1 != R2);
+}
+
 TEST(RotatorTests, Addition)
 {
     math::Rotator R1(10, 15, 34);
@@ -66,6 +85,27 @@ TEST(RotatorTests, Addition)
     EXPECT_FLOAT_EQ(R1.Pitch, 22);
     EXPECT_FLOAT_EQ(R1.Yaw, 38);
     EXPECT_FLOAT_EQ(R1.Roll, 98);
+
+    R2.Add(3, 2, 1);
+    EXPECT_FLOAT_EQ(R2.Pitch, 15);
+    EXPECT_FLOAT_EQ(R2.Yaw, 25);
+    EXPECT_FLOAT_EQ(R2.Roll, 65);
+}
+
+TEST(RotatorTests, Subtraction)
+{
+    math::Rotator R1(10, 15, 34);
+    math::Rotator R2(12, 23, 64);
+
+    math::Rotator R3 = R1 - R2;
+    EXPECT_FLOAT_EQ(R3.Pitch, -2);
+    EXPECT_FLOAT_EQ(R3.Yaw, -8);
+    EXPECT_FLOAT_EQ(R3.Roll, -30);
+
+    R1 -= R2;
+    EXPECT_FLOAT_EQ(R1.Pitch, -2);
+    EXPECT_FLOAT_EQ(R1.Yaw, -8);
+    EXPECT_FLOAT_EQ(R1.Roll, -30);
 }
 
 TEST(RotatorTests, MultiplicationScalar)
@@ -81,6 +121,19 @@ TEST(RotatorTests, MultiplicationScalar)
     EXPECT_FLOAT_EQ(R1.Pitch, 20);
     EXPECT_FLOAT_EQ(R1.Yaw, 30);
     EXPECT_FLOAT_EQ(R1.Roll, 68);
+}
+
+TEST(RotatorTests, RotateVector)
+{
+    math::Vector3 Vec(1, 0, 0);
+    math::Rotator R(90, 90, 0);
+    math::Vector3 RotVec = R.RotateVector(Vec);
+    RotVec = math::Normalize(RotVec);
+    EXPECT_LT(RotVec.X, 1e-6);
+    EXPECT_GT(RotVec.X, -1e-6);
+    EXPECT_LT(RotVec.Y, 1e-6);
+    EXPECT_GT(RotVec.Y, -1e-6);
+    EXPECT_EQ(RotVec.Z, -1);
 }
 
 TEST(RNGTests, UniformLimit)

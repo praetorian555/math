@@ -7,8 +7,8 @@ namespace math
 
 /**
  * Orientation expressed in angle rotations around axes of coordinate system. Always in degrees.
- * Default orientation (all zeros) means that the forward vector is along the negative z-axis, right
- * vector is along x-axis and up vector is along the y-axis.
+ * Default orientation (all zeros) means that the forward vector is along the x-axis, up vector is
+ * along the y-axis and right vector is along the z-axis.
  */
 struct Rotator
 {
@@ -18,7 +18,9 @@ struct Rotator
      */
     float Pitch = 0;
 
-    /** Rotation around the up axis (around Y axis), Running in circles +Left, -Right. */
+    /**
+     * Rotation around the up axis (around Y axis), Running in circles +Left, -Right.
+     */
     float Yaw = 0;
 
     /**
@@ -27,18 +29,37 @@ struct Rotator
     float Roll = 0;
 
     Rotator() = default;
+
+    /**
+     * Constructor. Angles are in degrees.
+     */
     Rotator(float Pitch, float Yaw, float Roll);
 
     /**
      * Returns normalized vector in the direction defined by the rotator.
      */
-    Vector3 ToVector();
+    Vector3 ToVector() const;
 
-    Rotator operator+(Rotator Other) const;
-    Rotator& operator+=(Rotator Other);
+    /**
+     * Returns a vector where each component stores the rotation angle in degrees around
+     * corresponding axis.
+     */
+    Vector3 ToEuler() const;
+
+    bool operator==(const Rotator& Other) const;
+    bool operator!=(const Rotator& Other) const;
+
+    Rotator operator+(const Rotator& Other) const;
+    Rotator& operator+=(const Rotator& Other);
+    Rotator operator-(const Rotator& Other) const;
+    Rotator& operator-=(const Rotator& Other);
 
     Rotator operator*(float Val) const;
     Rotator& operator*=(float Val);
+
+    void Add(float DeltaPitch, float DeltaYaw, float DeltaRoll);
+
+    Vector3 RotateVector(const Vector3& Vec) const;
 };
 
 Rotator operator*(float Val, const Rotator& Other);
