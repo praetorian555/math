@@ -10,8 +10,8 @@ add_library(math ${PRIVATE_SOURCE_LIST} ${PUBLIC_SOURCE_LIST})
 target_include_directories(math PUBLIC ${PROJECT_SOURCE_DIR}/include)
 target_include_directories(math PRIVATE ${PROJECT_SOURCE_DIR}/src)
 
-# All users of this library will need at least C++17
-target_compile_features(math PUBLIC cxx_std_17)
+# All users of this library will need at least C++20
+target_compile_features(math PUBLIC cxx_std_20)
 
 # Compiler options
 target_compile_options(math PRIVATE $<$<CXX_COMPILER_ID:MSVC>:/MP>)

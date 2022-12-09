@@ -8,8 +8,8 @@ add_executable(math_tests ${PRIVATE_SOURCE_LIST})
 # add math library dependency
 target_link_libraries(math_tests math gtest)
 
-# All users of this library will need at least C++17
-target_compile_features(math_tests PUBLIC cxx_std_17)
+# All users of this library will need at least C++20
+target_compile_features(math_tests PUBLIC cxx_std_20)
 
 # Compiler options
 target_compile_options(math_tests PRIVATE $<$<CXX_COMPILER_ID:MSVC>:/MP>)
