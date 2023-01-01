@@ -167,8 +167,8 @@ math::Matrix4x4 math::Matrix4x4::Inverse() const
         }
 
         // Set $m[icol][icol]$ to one by scaling row _icol_ appropriately
-        float pivinv = 1. / minv[icol][icol];
-        minv[icol][icol] = 1.;
+        float pivinv = 1.0f / minv[icol][icol];
+        minv[icol][icol] = 1.0f;
         for (int j = 0; j < 4; j++)
             minv[icol][j] *= pivinv;
 

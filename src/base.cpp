@@ -30,7 +30,7 @@ float math::Degrees(float Radians)
 
 float math::Log2(float Value)
 {
-    constexpr float InvLog2 = 1.442695040888963387004650940071;
+    constexpr float InvLog2 = 1.442695040888963387004650940071f;
     return std::log(Value) * InvLog2;
 }
 

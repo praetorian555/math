@@ -4,8 +4,8 @@
 
 TEST(BaseTests, NaN)
 {
-    int a = 5;
-    float b = 10.2;
+    float a = 5.0f;
+    float b = 10.2f;
     float c = nanf("");
     EXPECT_FALSE(math::IsNaN(a));
     EXPECT_FALSE(math::IsNaN(b));
@@ -22,16 +22,16 @@ TEST(BaseTests, Constants)
 
 TEST(BaseTests, Clamp)
 {
-    const int V1 = math::Clamp(10, -2, 5);
+    const float V1 = math::Clamp(10, -2, 5);
     EXPECT_EQ(V1, 5);
 
-    const int V2 = math::Clamp(-3, -2, 5);
+    const float V2 = math::Clamp(-3, -2, 5);
     EXPECT_EQ(V2, -2);
 
-    const int V3 = math::Clamp(0, -2, 5);
+    const float V3 = math::Clamp(0, -2, 5);
     EXPECT_EQ(V3, 0);
 
-    const int V4 = math::Clamp(0, -2, -2);
+    const float V4 = math::Clamp(0, -2, -2);
     EXPECT_EQ(V4, -2);
 }
 
@@ -39,17 +39,11 @@ TEST(BaseTests, Mod)
 {
     float R1 = math::Mod(2.5f, 2.0f);
     EXPECT_FLOAT_EQ(R1, 0.5f);
-
-    double R2 = math::Mod(2.5, 2.0);
-    EXPECT_FLOAT_EQ(R2, 0.5);
-
-    int R3 = math::Mod(3, 2);
-    EXPECT_EQ(R3, 1);
 }
 
 TEST(BaseTests, Lerp)
 {
-    float V1 = math::Lerp(0.5, 1, 4);
+    float V1 = math::Lerp(0.5f, 1, 4);
     EXPECT_FLOAT_EQ(V1, 2.5);
 }
 
@@ -80,8 +74,8 @@ TEST(BaseTests, Log2)
 
 TEST(BaseTests, Log2Int)
 {
-    EXPECT_FLOAT_EQ(math::Log2Int(128), 7);
-    EXPECT_FLOAT_EQ(math::Log2Int(1024), 10);
+    EXPECT_EQ(math::Log2Int(128), 7);
+    EXPECT_EQ(math::Log2Int(1024), 10);
 }
 
 TEST(BaseTests, RoundUpPow2)

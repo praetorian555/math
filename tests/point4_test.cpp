@@ -221,7 +221,7 @@ TEST(Point4Tests, Lerp)
 
 TEST(Point4Tests, Floor)
 {
-    Point4f p1(2.3, 2.67, -2.5, -1.2);
+    Point4f p1(2.3f, 2.67f, -2.5f, -1.2f);
     Point4f p2 = Floor(p1);
 
     EXPECT_FLOAT_EQ(p2.X, 2.0f);
@@ -232,7 +232,7 @@ TEST(Point4Tests, Floor)
 
 TEST(Point4Tests, Ceil)
 {
-    Point4f p1(2.3, 2.67, -2.5, -1.2);
+    Point4f p1(2.3f, 2.67f, -2.5f, -1.2f);
     Point4f p2 = Ceil(p1);
 
     EXPECT_FLOAT_EQ(p2.X, 3.0f);

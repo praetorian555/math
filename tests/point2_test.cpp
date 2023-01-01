@@ -174,7 +174,7 @@ TEST(Point2Tests, Lerp)
 
 TEST(Point2Tests, Floor)
 {
-    Point2f p1(2.3, -2.5);
+    Point2f p1(2.3f, -2.5f);
     Point2f p2 = Floor(p1);
 
     EXPECT_FLOAT_EQ(p2.X, 2.0f);
@@ -183,7 +183,7 @@ TEST(Point2Tests, Floor)
 
 TEST(Point2Tests, Ceil)
 {
-    Point2f p1(2.3, -2.5);
+    Point2f p1(2.3f, -2.5f);
     Point2f p2 = Ceil(p1);
 
     EXPECT_FLOAT_EQ(p2.X, 3.0f);
@@ -192,20 +192,20 @@ TEST(Point2Tests, Ceil)
 
 TEST(Point2Tests, Round)
 {
-    Point2f p1(1.3, 2.6);
+    Point2f p1(1.3f, 2.6f);
     Point2f p2 = Round(p1);
     EXPECT_FLOAT_EQ(p2.X, 1.0f);
     EXPECT_FLOAT_EQ(p2.Y, 3.0f);
 
-    Point2f p3(1.5, 3);
+    Point2f p3(1.5f, 3.0f);
     Point2f p4 = Round(p3);
     EXPECT_FLOAT_EQ(p4.X, 2.0f);
 }
 
 TEST(Point2Tests, Misc)
 {
-    Point2f p1(1, 2);
-    Point2f p2(3, -2);
+    Point2f p1(1.0f, 2.0f);
+    Point2f p2(3.0f, -2.0f);
     Point2f min = Min(p1, p2);
     Point2f max = Max(p1, p2);
 

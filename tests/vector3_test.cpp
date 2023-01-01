@@ -213,7 +213,7 @@ TEST(Vector3Tests, Length)
 {
     Vector3f v1(3, 4, 5);
 
-    EXPECT_FLOAT_EQ(v1.Length(), std::sqrt(50));
+    EXPECT_FLOAT_EQ(v1.Length(), std::sqrtf(50));
     EXPECT_FLOAT_EQ(v1.LengthSquared(), 50);
 }
 

@@ -159,8 +159,8 @@ float math::AbsDot(const Vector3& Vec1, const Vector3& Vec2)
 
 math::Vector3 math::Cross(const Vector3& Vec1, const Vector3& Vec2)
 {
-    double Vec1X = Vec1.X, Vec1Y = Vec1.Y, Vec1Z = Vec1.Z;
-    double Vec2X = Vec2.X, Vec2Y = Vec2.Y, Vec2Z = Vec2.Z;
+    float Vec1X = Vec1.X, Vec1Y = Vec1.Y, Vec1Z = Vec1.Z;
+    float Vec2X = Vec2.X, Vec2Y = Vec2.Y, Vec2Z = Vec2.Z;
     return Vector3((Vec1Y * Vec2Z) - (Vec1Z * Vec2Y), (Vec1Z * Vec2X) - (Vec1X * Vec2Z),
                    (Vec1X * Vec2Y) - (Vec1Y * Vec2X));
 }

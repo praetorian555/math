@@ -186,7 +186,7 @@ TEST(Point3Tests, Lerp)
 
 TEST(Point3Tests, Floor)
 {
-    Point3f p1(2.3, 2.67, -2.5);
+    Point3f p1(2.3f, 2.67f, -2.5f);
     Point3f p2 = Floor(p1);
 
     EXPECT_FLOAT_EQ(p2.X, 2.0f);
@@ -196,7 +196,7 @@ TEST(Point3Tests, Floor)
 
 TEST(Point3Tests, Ceil)
 {
-    Point3f p1(2.3, 2.67, -2.5);
+    Point3f p1(2.3f, 2.67f, -2.5f);
     Point3f p2 = Ceil(p1);
 
     EXPECT_FLOAT_EQ(p2.X, 3.0f);

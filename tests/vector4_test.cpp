@@ -270,7 +270,7 @@ TEST(Vector4Tests, Length)
 {
     Vector4f v1(3, 4, 5, 6);
 
-    EXPECT_FLOAT_EQ(v1.Length(), std::sqrt(86));
+    EXPECT_FLOAT_EQ(v1.Length(), std::sqrtf(86));
     EXPECT_FLOAT_EQ(v1.LengthSquared(), 86);
 }
 

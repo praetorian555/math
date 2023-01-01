@@ -134,7 +134,7 @@ TEST(Bounds3Tests, BoundingSphere)
     b.BoundingSphere(center, radius);
 
     EXPECT_EQ(center, Point3f(3, 3, 3));
-    EXPECT_FLOAT_EQ(radius, std::sqrt(3));
+    EXPECT_FLOAT_EQ(radius, std::sqrtf(3));
 }
 
 TEST(Bounds3Tests, Extent)

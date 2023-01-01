@@ -87,7 +87,7 @@ TEST(ProjectionsTests, Orthographic_RH_N1)
 
 TEST(ProjectionsTests, Perspective_LH_N0)
 {
-    math::Matrix4x4 Mat = math::Perspective_LH_N0(90, 1, 0.1, 100);
+    math::Matrix4x4 Mat = math::Perspective_LH_N0(90, 1, 0.1f, 100);
     math::Transform T(Mat);
 
     {
@@ -108,13 +108,13 @@ TEST(ProjectionsTests, Perspective_LH_N0)
 
 TEST(ProjectionsTests, Perspective_LH_N1)
 {
-    math::Matrix4x4 Mat = math::Perspective_LH_N1(90, 1, 0.1, 100);
+    math::Matrix4x4 Mat = math::Perspective_LH_N1(90, 1, 0.1f, 100);
     math::Transform T(Mat);
 
     {
-        Point3f Res = T(Point3f(200, 100, 0.15));
-        EXPECT_FLOAT_EQ(Res.X, 200 / 0.15);
-        EXPECT_FLOAT_EQ(Res.Y, 100 / 0.15);
+        Point3f Res = T(Point3f(200, 100, 0.15f));
+        EXPECT_FLOAT_EQ(Res.X, 200 / 0.15f);
+        EXPECT_FLOAT_EQ(Res.Y, 100 / 0.15f);
         EXPECT_GT(Res.Z, -1.0f);
         EXPECT_LT(Res.Z, 0);
     }
@@ -129,7 +129,7 @@ TEST(ProjectionsTests, Perspective_LH_N1)
 
 TEST(ProjectionsTests, Perspective_RH_N0)
 {
-    math::Matrix4x4 Mat = math::Perspective_RH_N0(90, 1, 0.1, 100);
+    math::Matrix4x4 Mat = math::Perspective_RH_N0(90, 1, 0.1f, 100);
     math::Transform T(Mat);
 
     {
@@ -150,20 +150,20 @@ TEST(ProjectionsTests, Perspective_RH_N0)
     {
         Point3f Res = T(Point3f(-200, 100, -200));
         EXPECT_FLOAT_EQ(Res.X, -1);
-        EXPECT_FLOAT_EQ(Res.Y, 0.5);
+        EXPECT_FLOAT_EQ(Res.Y, 0.5f);
         EXPECT_TRUE(Res.Z < 0 || Res.Z > 1);
     }
 }
 
 TEST(ProjectionsTests, Perspective_RH_N1)
 {
-    math::Matrix4x4 Mat = math::Perspective_RH_N1(90, 1, 0.1, 100);
+    math::Matrix4x4 Mat = math::Perspective_RH_N1(90, 1, 0.1f, 100);
     math::Transform T(Mat);
 
     {
-        Point3f Res = T(Point3f(200, 100, -0.15));
-        EXPECT_FLOAT_EQ(Res.X, 200 / 0.15);
-        EXPECT_FLOAT_EQ(Res.Y, 100 / 0.15);
+        Point3f Res = T(Point3f(200, 100, -0.15f));
+        EXPECT_FLOAT_EQ(Res.X, 200 / 0.15f);
+        EXPECT_FLOAT_EQ(Res.Y, 100 / 0.15f);
         EXPECT_GT(Res.Z, -1.0f);
         EXPECT_LT(Res.Z, 0);
     }
