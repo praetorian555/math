@@ -11,9 +11,6 @@ target_link_libraries(math_tests math gtest)
 # All users of this library will need at least C++20
 target_compile_features(math_tests PUBLIC cxx_std_20)
 
-# Compiler options
-target_compile_options(math_tests PRIVATE $<$<CXX_COMPILER_ID:MSVC>:/MP>)
-
 # Enable unity build
 if (MATH_UNITY)
     set_target_properties(math_tests PROPERTIES UNITY_BUILD TRUE)

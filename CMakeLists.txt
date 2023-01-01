@@ -51,6 +51,14 @@ endif()
 	add_subdirectory(src)
 
 if (CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
+	include(FetchContent)
+
+	FetchContent_Declare(
+		gtest
+		GIT_REPOSITORY https://github.com/google/googletest
+		GIT_TAG        58d77fa8070e8cec2dc1ed015d66b454c8d78850 # release-1.12.1
+	)
+	FetchContent_MakeAvailable(gtest)
 
 	# The executable code is here
 	add_subdirectory(tests)
