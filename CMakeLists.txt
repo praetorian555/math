@@ -30,9 +30,9 @@ if (CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
 
   	# Setup address sanitizer if this option is selected
   	if (MATH_SANITIZER)
-		add_compile_options(
-			# For MSVC compilers activate address sanitizer
-	  		$<$<CXX_COMPILER_ID:MSVC>:/fsanitize=address>)
+		if (MSVC)
+			add_compile_options(/fsanitize=address)
+		endif()
 	endif()
 
   	# Include cmake scripts here
@@ -42,10 +42,10 @@ if (CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
 	# Turn on warnings as errors
 	# Ignore warning for nameless structs
 	add_compile_options(/W4 /WX /wd4201)
-endif()
 
-	# Adds external dependencies
-	add_subdirectory(extern)
+	# Multiprocessor compilation
+	add_compile_options(/MP)
+endif()
 
   	# The compiled library code is here
 	add_subdirectory(src)
