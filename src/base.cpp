@@ -39,7 +39,7 @@ float math::Log2(float Value)
 int32_t math::Log2Int(uint32_t Value)
 {
 #if defined(_MSC_VER)
-    unsigned long FirstOneIndex = 0;
+    unsigned long FirstOneIndex = 0; // NOLINT
     _BitScanReverse(&FirstOneIndex, Value);
     return static_cast<int32_t>(FirstOneIndex);
 #else
@@ -65,7 +65,7 @@ int32_t math::RoundUpPow2(int32_t Value)
 int32_t math::CountTrailingZeros(uint32_t Value)
 {
 #if defined(_MSC_VER)
-    unsigned long FirstOneIndex = 0;
+    unsigned long FirstOneIndex = 0; // NOLINT
     _BitScanReverse(&FirstOneIndex, Value);
     constexpr int32_t BitsInInt32 = 32;
     return BitsInInt32 - static_cast<int32_t>(FirstOneIndex);

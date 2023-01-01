@@ -149,14 +149,14 @@ math::Vector4& math::Vector4::operator*=(const Vector4& Other)
 math::Vector4 math::Vector4::operator/(float Scalar) const
 {
     assert(Scalar != 0);
-    const float Rec = (float)1 / Scalar;
+    const float Rec = 1.0f / Scalar;
     return {X * Rec, Y * Rec, Z * Rec, W * Rec};
 }
 
 math::Vector4& math::Vector4::operator/=(float Scalar)
 {
     assert(Scalar != 0);
-    const float Rec = (float)1 / Scalar;
+    const float Rec = 1.0f / Scalar;
     X *= Rec;
     Y *= Rec;
     Z *= Rec;

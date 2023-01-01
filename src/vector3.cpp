@@ -109,14 +109,14 @@ math::Vector3& math::Vector3::operator*=(const Vector3& Other)
 math::Vector3 math::Vector3::operator/(float Scalar) const
 {
     assert(Scalar != 0);
-    const float Rec = (float)1 / Scalar;
+    const float Rec = 1.0f / Scalar;
     return {X * Rec, Y * Rec, Z * Rec};
 }
 
 math::Vector3& math::Vector3::operator/=(float Scalar)
 {
     assert(Scalar != 0);
-    const float Rec = (float)1 / Scalar;
+    const float Rec = 1.0f / Scalar;
     X *= Rec;
     Y *= Rec;
     Z *= Rec;

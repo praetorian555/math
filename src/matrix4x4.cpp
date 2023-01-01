@@ -140,7 +140,7 @@ math::Matrix4x4 math::Matrix4x4::Inverse() const
                 {
                     if (std::abs(minv[j][k]) >= big)
                     {
-                        big = float(std::abs(minv[j][k]));
+                        big = std::abs(minv[j][k]);
                         irow = j;
                         icol = k;
                     }
