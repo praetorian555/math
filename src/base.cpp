@@ -20,12 +20,14 @@ float math::Mod(float A, float B)
 
 float math::Radians(float Degrees)
 {
-    return (kPi / 180) * Degrees;
+    constexpr float kHalfCircleDegrees = 180.0f;
+    return (kPi / kHalfCircleDegrees) * Degrees;
 }
 
 float math::Degrees(float Radians)
 {
-    return (180 / kPi) * Radians;
+    constexpr float kHalfCircleDegrees = 180.0f;
+    return (kHalfCircleDegrees / kPi) * Radians;
 }
 
 float math::Log2(float Value)
@@ -39,7 +41,7 @@ int32_t math::Log2Int(uint32_t Value)
 #if defined(_MSC_VER)
     unsigned long FirstOneIndex = 0;
     _BitScanReverse(&FirstOneIndex, Value);
-    return FirstOneIndex;
+    return static_cast<int32_t>(FirstOneIndex);
 #else
     return 31 - __builtin_clz(Value);
 #endif
@@ -47,12 +49,16 @@ int32_t math::Log2Int(uint32_t Value)
 
 int32_t math::RoundUpPow2(int32_t Value)
 {
+    constexpr int ShiftHalfByte = 4;
+    constexpr int ShiftByte = 8;
+    constexpr int ShiftTwoBytes = 16;
+
     Value--;
     Value |= Value >> 1;
     Value |= Value >> 2;
-    Value |= Value >> 4;
-    Value |= Value >> 8;
-    Value |= Value >> 16;
+    Value |= Value >> ShiftHalfByte;
+    Value |= Value >> ShiftByte;
+    Value |= Value >> ShiftTwoBytes;
     return Value + 1;
 }
 
@@ -61,7 +67,8 @@ int32_t math::CountTrailingZeros(uint32_t Value)
 #if defined(_MSC_VER)
     unsigned long FirstOneIndex = 0;
     _BitScanReverse(&FirstOneIndex, Value);
-    return 32 - FirstOneIndex;
+    constexpr int32_t BitsInInt32 = 32;
+    return BitsInInt32 - static_cast<int32_t>(FirstOneIndex);
 #else
     return __builtin_ctz(Value);
 #endif
@@ -74,5 +81,5 @@ float math::Lerp(float Parameter, float P0, float P1)
 
 bool math::IsPowerOf2(int Value)
 {
-    return Value && !(Value & (Value - 1));
+    return (Value != 0) && ((Value & (Value - 1)) == 0);
 }

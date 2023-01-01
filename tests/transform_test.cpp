@@ -7,7 +7,7 @@ using Vector3f = math::Vector3;
 TEST(TransformTests, Creation)
 {
     // clang-format off
-    float init[4][4] = {
+    const math::Array2D<float, 4, 4>& init = {
         1.0f, 4.0f, -4.0f, 5.0f,
         3.0f, -2.0f, 1.0f, 10.0f,
         7.0f, 10.0f, -5.0f, -3.0f,

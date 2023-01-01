@@ -75,8 +75,8 @@ math::Matrix4x4 math::Perspective_LH_N0(float VerticalFOV, float AspectRatio, fl
 {
     assert(AspectRatio != 0);
 
-    float InvFOVY = 1.0f / std::tan(math::Radians(VerticalFOV) / 2);
-    float InvAspectRatio = 1 / AspectRatio;
+    const float InvFOVY = 1.0f / std::tan(math::Radians(VerticalFOV) / 2);
+    const float InvAspectRatio = 1 / AspectRatio;
 
     Matrix4x4 Mat;
     Mat.Data[0][0] = InvFOVY * InvAspectRatio;
@@ -92,8 +92,8 @@ math::Matrix4x4 math::Perspective_LH_N1(float VerticalFOV, float AspectRatio, fl
 {
     assert(AspectRatio != 0);
 
-    float InvFOVY = 1.0f / std::tan(math::Radians(VerticalFOV) / 2);
-    float InvAspectRatio = 1 / AspectRatio;
+    const float InvFOVY = 1.0f / std::tan(math::Radians(VerticalFOV) / 2);
+    const float InvAspectRatio = 1 / AspectRatio;
 
     Matrix4x4 Mat;
     Mat.Data[0][0] = InvFOVY * InvAspectRatio;
@@ -109,8 +109,8 @@ math::Matrix4x4 math::Perspective_RH_N0(float VerticalFOV, float AspectRatio, fl
 {
     assert(AspectRatio != 0);
 
-    float InvFOVY = 1.0f / std::tan(math::Radians(VerticalFOV) / 2);
-    float InvAspectRatio = 1 / AspectRatio;
+    const float InvFOVY = 1.0f / std::tan(math::Radians(VerticalFOV) / 2);
+    const float InvAspectRatio = 1 / AspectRatio;
 
     Matrix4x4 Mat;
     Mat.Data[0][0] = InvFOVY * InvAspectRatio;
@@ -130,8 +130,8 @@ math::Matrix4x4 math::Perspective_RH_N1(float VerticalFOV, float AspectRatio, fl
 {
     assert(AspectRatio != 0);
 
-    float InvFOVY = 1.0f / std::tan(math::Radians(VerticalFOV) / 2);
-    float InvAspectRatio = 1 / AspectRatio;
+    const float InvFOVY = 1.0f / std::tan(math::Radians(VerticalFOV) / 2);
+    const float InvAspectRatio = 1 / AspectRatio;
 
     Matrix4x4 Mat;
     Mat.Data[0][0] = InvFOVY * InvAspectRatio;

@@ -71,8 +71,8 @@ int MaxDimension(const Normal3& v);
 Normal3 Min(const Normal3& N1, const Normal3& N2);
 Normal3 Max(const Normal3& Vec1, const Normal3& Vec2);
 
-Normal3 Permute(const Normal3& v, int X, int Y, int Z);
+Normal3 Permute(const Normal3& N, int X, int Y, int Z);
 
-Normal3 Faceforward(const Normal3& n, const Vector3& v);
+Normal3 Faceforward(const Normal3& N, const Vector3& Vec);
 
 }  // namespace math

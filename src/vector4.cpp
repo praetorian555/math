@@ -92,7 +92,7 @@ bool math::Vector4::operator!=(const Vector4& Other) const
 
 math::Vector4 math::Vector4::operator+(const Vector4& Other) const
 {
-    return Vector4(X + Other.X, Y + Other.Y, Z + Other.Z, W + Other.W);
+    return {X + Other.X, Y + Other.Y, Z + Other.Z, W + Other.W};
 }
 
 math::Vector4& math::Vector4::operator+=(const Vector4& Other)
@@ -106,7 +106,7 @@ math::Vector4& math::Vector4::operator+=(const Vector4& Other)
 
 math::Vector4 math::Vector4::operator-(const Vector4& Other) const
 {
-    return Vector4(X - Other.X, Y - Other.Y, Z - Other.Z, W - Other.W);
+    return {X - Other.X, Y - Other.Y, Z - Other.Z, W - Other.W};
 }
 
 math::Vector4& math::Vector4::operator-=(const Vector4& Other)
@@ -120,12 +120,12 @@ math::Vector4& math::Vector4::operator-=(const Vector4& Other)
 
 math::Vector4 math::Vector4::operator*(float Scalar) const
 {
-    return Vector4(X * Scalar, Y * Scalar, Z * Scalar, W * Scalar);
+    return {X * Scalar, Y * Scalar, Z * Scalar, W * Scalar};
 }
 
 math::Vector4 math::Vector4::operator*(const Vector4& Other) const
 {
-    return Vector4(X * Other.X, Y * Other.Y, Z * Other.Z, W * Other.W);
+    return {X * Other.X, Y * Other.Y, Z * Other.Z, W * Other.W};
 }
 
 math::Vector4& math::Vector4::operator*=(float Scalar)
@@ -149,14 +149,14 @@ math::Vector4& math::Vector4::operator*=(const Vector4& Other)
 math::Vector4 math::Vector4::operator/(float Scalar) const
 {
     assert(Scalar != 0);
-    float Rec = (float)1 / Scalar;
-    return Vector4(X * Rec, Y * Rec, Z * Rec, W * Rec);
+    const float Rec = (float)1 / Scalar;
+    return {X * Rec, Y * Rec, Z * Rec, W * Rec};
 }
 
 math::Vector4& math::Vector4::operator/=(float Scalar)
 {
     assert(Scalar != 0);
-    float Rec = (float)1 / Scalar;
+    const float Rec = (float)1 / Scalar;
     X *= Rec;
     Y *= Rec;
     Z *= Rec;
@@ -166,12 +166,12 @@ math::Vector4& math::Vector4::operator/=(float Scalar)
 
 math::Vector4 math::Vector4::operator-() const
 {
-    return Vector4(-X, -Y, -Z, -W);
+    return {-X, -Y, -Z, -W};
 }
 
 math::Vector4 math::Vector4::Abs() const
 {
-    return Vector4(std::abs(X), std::abs(Y), std::abs(Z), std::abs(W));
+    return {std::abs(X), std::abs(Y), std::abs(Z), std::abs(W)};
 }
 
 float math::Vector4::LengthSquared() const
@@ -205,23 +205,23 @@ math::Vector4 math::Normalize(const Vector4& Vec)
 
 math::Vector4 math::Min(const Vector4& Vec1, const Vector4& Vec2)
 {
-    return Vector4(std::fmin(Vec1.X, Vec2.X), std::fmin(Vec1.Y, Vec2.Y), std::fmin(Vec1.Z, Vec2.Z),
-                   std::fmin(Vec1.W, Vec2.W));
+    return {std::fmin(Vec1.X, Vec2.X), std::fmin(Vec1.Y, Vec2.Y), std::fmin(Vec1.Z, Vec2.Z),
+            std::fmin(Vec1.W, Vec2.W)};
 }
 
 math::Vector4 math::Max(const Vector4& Vec1, const Vector4& Vec2)
 {
-    return Vector4(std::fmax(Vec1.X, Vec2.X), std::fmax(Vec1.Y, Vec2.Y), std::fmax(Vec1.Z, Vec2.Z),
-                   std::fmax(Vec1.W, Vec2.W));
+    return {std::fmax(Vec1.X, Vec2.X), std::fmax(Vec1.Y, Vec2.Y), std::fmax(Vec1.Z, Vec2.Z),
+            std::fmax(Vec1.W, Vec2.W)};
 }
 
 math::Vector4 math::Permute(const Vector4& Vec, int X, int Y, int Z, int W)
 {
-    return Vector4(Vec[X], Vec[Y], Vec[Z], Vec[W]);
+    return {Vec[X], Vec[Y], Vec[Z], Vec[W]};
 }
 
 math::Vector4 math::Clamp(const Vector4& Val, float Low, float High)
 {
-    return Vector4(Clamp(Val.X, Low, High), Clamp(Val.Y, Low, High), Clamp(Val.Z, Low, High),
-                   Clamp(Val.W, Low, High));
+    return {Clamp(Val.X, Low, High), Clamp(Val.Y, Low, High), Clamp(Val.Z, Low, High),
+            Clamp(Val.W, Low, High)};
 }

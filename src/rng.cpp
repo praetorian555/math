@@ -29,9 +29,10 @@ uint32_t math::RNG::UniformUInt32()
 {
     const uint64_t OldState = m_State;
     m_State = OldState * MULfloat + m_Inc;
-    const uint32_t XorShifted = (uint32_t)(((OldState >> 18u) ^ OldState) >> 27u);
-    const uint32_t Rot = (uint32_t)(OldState >> 59u);
-    return (XorShifted >> Rot) | (XorShifted << ((~Rot + 1u) & 31));
+    const auto XorShifted = static_cast<uint32_t>(((OldState >> 18u) ^ OldState) >> 27u);
+    const auto Rot = static_cast<uint32_t>(OldState >> 59u);
+    constexpr uint32_t IgnoreHighestBitMask = 31u;
+    return (XorShifted >> Rot) | (XorShifted << ((~Rot + 1u) & IgnoreHighestBitMask));
 }
 
 uint32_t math::RNG::UniformUInt32(uint32_t Limit)
@@ -49,7 +50,8 @@ uint32_t math::RNG::UniformUInt32(uint32_t Limit)
 
 float math::RNG::UniformReal()
 {
-    return std::fmin(ONE_MINUS_EPSILON, UniformUInt32() * 0x1p-32f);
+    constexpr float Scalar = 0x1p-32f;
+    return std::fmin(ONE_MINUS_EPSILON, static_cast<float>(UniformUInt32()) * Scalar);
 }
 
 float math::RNG::UniformRealInRange(float Start, float End)

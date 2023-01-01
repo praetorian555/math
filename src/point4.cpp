@@ -37,7 +37,7 @@ bool math::Point4::operator!=(const Point4& Other) const
 
 math::Point4 math::Point4::operator+(const Vector4& Vec) const
 {
-    return Point4(X + Vec.X, Y + Vec.Y, Z + Vec.Z, W + Vec.W);
+    return {X + Vec.X, Y + Vec.Y, Z + Vec.Z, W + Vec.W};
 }
 
 math::Point4& math::Point4::operator+=(const Vector4& Vec)
@@ -51,7 +51,7 @@ math::Point4& math::Point4::operator+=(const Vector4& Vec)
 
 math::Point4 math::Point4::operator+(const Point4& Other) const
 {
-    return Point4(X + Other.X, Y + Other.Y, Z + Other.Z, W + Other.W);
+    return {X + Other.X, Y + Other.Y, Z + Other.Z, W + Other.W};
 }
 
 math::Point4& math::Point4::operator+=(const Point4& Other)
@@ -65,12 +65,12 @@ math::Point4& math::Point4::operator+=(const Point4& Other)
 
 math::Point4 math::Point4::operator-(const Vector4& Vec) const
 {
-    return Point4(X - Vec.X, Y - Vec.Y, Z - Vec.Z, W - Vec.W);
+    return {X - Vec.X, Y - Vec.Y, Z - Vec.Z, W - Vec.W};
 }
 
 math::Vector4 math::Point4::operator-(const Point4& Other) const
 {
-    return Vector4(X - Other.X, Y - Other.Y, Z - Other.Z, W - Other.W);
+    return {X - Other.X, Y - Other.Y, Z - Other.Z, W - Other.W};
 }
 
 math::Point4& math::Point4::operator-=(const Vector4& Vec)
@@ -84,7 +84,7 @@ math::Point4& math::Point4::operator-=(const Vector4& Vec)
 
 math::Point4 math::Point4::operator*(float Scalar) const
 {
-    return Point4(X * Scalar, Y * Scalar, Z * Scalar, W * Scalar);
+    return {X * Scalar, Y * Scalar, Z * Scalar, W * Scalar};
 }
 
 math::Point4& math::Point4::operator*=(float Scalar)
@@ -99,14 +99,14 @@ math::Point4& math::Point4::operator*=(float Scalar)
 math::Point4 math::Point4::operator/(float Scalar) const
 {
     assert(Scalar != 0);
-    const float Rec = (float)1 / Scalar;
-    return Point4(X * Rec, Y * Rec, Z * Rec, W * Rec);
+    const float Rec = 1.0f / Scalar;
+    return {X * Rec, Y * Rec, Z * Rec, W * Rec};
 }
 
 math::Point4& math::Point4::operator/=(float Scalar)
 {
     assert(Scalar != 0);
-    const float Rec = (float)1 / Scalar;
+    const float Rec = 1.0f / Scalar;
     X *= Rec;
     Y *= Rec;
     Z *= Rec;
@@ -116,19 +116,19 @@ math::Point4& math::Point4::operator/=(float Scalar)
 
 math::Point4 math::Point4::operator-() const
 {
-    return Point4(-X, -Y, -Z, -W);
+    return {-X, -Y, -Z, -W};
 }
 
 math::Point4 math::Point4::Abs() const
 {
-    return Point4(std::abs(X), std::abs(Y), std::abs(Z), std::abs(W));
+    return {std::abs(X), std::abs(Y), std::abs(Z), std::abs(W)};
 }
 
 math::Point4 math::Point4::ToEuclidean() const
 {
     assert(W != 0);
     const float Div = 1 / W;
-    return Point4(X * Div, Y * Div, Z * Div, 1);
+    return {X * Div, Y * Div, Z * Div, 1};
 }
 
 math::Point4 math::operator*(float Scalar, const Point4& Vec)
@@ -153,32 +153,32 @@ math::Point4 math::Lerp(float t, const Point4& P1, const Point4& P2)
 
 math::Point4 math::Floor(const Point4& P)
 {
-    return Point4(std::floor(P.X), std::floor(P.Y), std::floor(P.Z), std::floor(P.W));
+    return {std::floor(P.X), std::floor(P.Y), std::floor(P.Z), std::floor(P.W)};
 }
 
 math::Point4 math::Ceil(const Point4& P)
 {
-    return Point4(std::ceil(P.X), std::ceil(P.Y), std::ceil(P.Z), std::ceil(P.W));
+    return {std::ceil(P.X), std::ceil(P.Y), std::ceil(P.Z), std::ceil(P.W)};
 }
 
 math::Point4 math::Round(const Point4& P)
 {
-    return Point4(std::roundf(P.X), std::roundf(P.Y), std::roundf(P.Z), std::roundf(P.W));
+    return {std::roundf(P.X), std::roundf(P.Y), std::roundf(P.Z), std::roundf(P.W)};
 }
 
 math::Point4 math::Min(const Point4& P1, const Point4& P2)
 {
-    return Point4(std::fmin(P1.X, P2.X), std::fmin(P1.Y, P2.Y), std::fmin(P1.Z, P2.Z),
-                  std::fmin(P1.W, P2.W));
+    return {std::fmin(P1.X, P2.X), std::fmin(P1.Y, P2.Y), std::fmin(P1.Z, P2.Z),
+            std::fmin(P1.W, P2.W)};
 }
 
-math::Point4 math::Max(const Point4& Vec1, const Point4& Vec2)
+math::Point4 math::Max(const Point4& P1, const Point4& P2)
 {
-    return Point4(std::fmax(Vec1.X, Vec2.X), std::fmax(Vec1.Y, Vec2.Y), std::fmax(Vec1.Z, Vec2.Z),
-                  std::fmax(Vec1.W, Vec2.W));
+    return {std::fmax(P1.X, P2.X), std::fmax(P1.Y, P2.Y), std::fmax(P1.Z, P2.Z),
+            std::fmax(P1.W, P2.W)};
 }
 
-math::Point4 math::Permute(const Point4& Vec, int X, int Y, int Z, int W)
+math::Point4 math::Permute(const Point4& P, int X, int Y, int Z, int W)
 {
-    return Point4(Vec[X], Vec[Y], Vec[Z], Vec[W]);
+    return {P[X], P[Y], P[Z], P[W]};
 }

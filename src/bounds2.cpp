@@ -30,7 +30,7 @@ math::Point2& math::Bounds2::operator[](int Index)
 
 math::Point2 math::Bounds2::Corner(int Corner) const
 {
-    return Point2((*this)[(Corner & 1)].X, (*this)[(Corner & 2) ? 1 : 0].Y);
+    return {(*this)[(Corner & 1)].X, (*this)[(Corner & 2) >> 1].Y};
 }
 
 math::Vector2 math::Bounds2::Diagonal() const
@@ -52,16 +52,20 @@ int math::Bounds2::MaximumExtent() const
 
 math::Point2 math::Bounds2::Lerp(const Point2& t) const
 {
-    return Point2(math::Lerp(t.X, Min.X, Max.X), math::Lerp(t.Y, Min.Y, Max.Y));
+    return {math::Lerp(t.X, Min.X, Max.X), math::Lerp(t.Y, Min.Y, Max.Y)};
 }
 
 math::Vector2 math::Bounds2::Offset(const Point2& P) const
 {
     Vector2 Off = P - Min;
     if (Max.X > Min.X)
+    {
         Off.X /= Max.X - Min.X;
+    }
     if (Max.Y > Min.Y)
+    {
         Off.Y /= Max.Y - Min.Y;
+    }
     return Off;
 }
 
@@ -73,32 +77,31 @@ void math::Bounds2::BoundingSphere(Point2& Center, float& Radius) const
 
 math::Vector2 math::Bounds2::Extent() const
 {
-    Vector2 Extent{std::abs(Max.X - Min.X), std::abs(Max.Y - Min.Y)};
-    return Extent;
+    return {std::abs(Max.X - Min.X), std::abs(Max.Y - Min.Y)};
 }
 
 math::Bounds2 math::Union(const Bounds2& B, const Point2& P)
 {
-    return Bounds2(Point2(std::fmin(B.Min.X, P.X), std::fmin(B.Min.Y, P.Y)),
-                   Point2(std::fmax(B.Max.X, P.X), std::fmax(B.Max.Y, P.Y)));
+    return {Point2(std::fmin(B.Min.X, P.X), std::fmin(B.Min.Y, P.Y)),
+            Point2(std::fmax(B.Max.X, P.X), std::fmax(B.Max.Y, P.Y))};
 }
 
 math::Bounds2 math::Union(const Bounds2& B1, const Bounds2& B2)
 {
-    return Bounds2(Point2(std::fmin(B1.Min.X, B2.Min.X), std::fmin(B1.Min.Y, B2.Min.Y)),
-                   Point2(std::fmax(B1.Max.X, B2.Max.X), std::fmax(B1.Max.Y, B2.Max.Y)));
+    return {Point2(std::fmin(B1.Min.X, B2.Min.X), std::fmin(B1.Min.Y, B2.Min.Y)),
+            Point2(std::fmax(B1.Max.X, B2.Max.X), std::fmax(B1.Max.Y, B2.Max.Y))};
 }
 
 math::Bounds2 math::Intersect(const Bounds2& B1, const Bounds2& B2)
 {
-    return Bounds2(Point2(std::fmax(B1.Min.X, B2.Min.X), std::fmax(B1.Min.Y, B2.Min.Y)),
-                   Point2(std::fmin(B1.Max.X, B2.Max.X), std::fmin(B1.Max.Y, B2.Max.Y)));
+    return {Point2(std::fmax(B1.Min.X, B2.Min.X), std::fmax(B1.Min.Y, B2.Min.Y)),
+            Point2(std::fmin(B1.Max.X, B2.Max.X), std::fmin(B1.Max.Y, B2.Max.Y))};
 }
 
 bool math::Overlaps(const Bounds2& B1, const Bounds2& B2)
 {
-    bool X = (B1.Max.X >= B2.Min.X) && (B1.Min.X < B2.Max.X);
-    bool Y = (B1.Max.Y >= B2.Min.Y) && (B1.Min.Y < B2.Max.Y);
+    const bool X = (B1.Max.X >= B2.Min.X) && (B1.Min.X < B2.Max.X);
+    const bool Y = (B1.Max.Y >= B2.Min.Y) && (B1.Min.Y < B2.Max.Y);
     return (X && Y);
 }
 
@@ -114,5 +117,5 @@ bool math::InsideInclusive(const Point2& P, const Bounds2& B)
 
 math::Bounds2 math::Expand(const Bounds2& B, float Delta)
 {
-    return Bounds2(B.Min - Vector2(Delta, Delta), B.Max + Vector2(Delta, Delta));
+    return {B.Min - Vector2(Delta, Delta), B.Max + Vector2(Delta, Delta)};
 }

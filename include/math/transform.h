@@ -12,7 +12,7 @@ class Transform
 {
 public:
     Transform() = default;
-    explicit Transform(const float mat[4][4]);
+    explicit Transform(const Array2D<float, 4, 4>& Mat);
     explicit Transform(const Matrix4x4& mat);
     Transform(const Matrix4x4& mat, const Matrix4x4& invMat);
 

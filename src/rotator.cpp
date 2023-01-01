@@ -67,7 +67,7 @@ math::Rotator& math::Rotator::operator-=(const Rotator& Other)
 
 math::Rotator math::Rotator::operator*(float Val) const
 {
-    return Rotator(Pitch * Val, Yaw * Val, Roll * Val);
+    return {Pitch * Val, Yaw * Val, Roll * Val};
 }
 
 math::Rotator& math::Rotator::operator*=(float Val)

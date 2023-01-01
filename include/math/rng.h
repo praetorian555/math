@@ -28,7 +28,8 @@ public:
     float UniformRealInRange(float Start, float End);
 
 private:
-    uint64_t m_State, m_Inc;
+    uint64_t m_State = 0;
+    uint64_t m_Inc = 0;
 };
 
 }  // namespace math

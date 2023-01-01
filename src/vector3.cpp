@@ -56,7 +56,7 @@ bool math::Vector3::operator!=(const Vector3& Other) const
 
 math::Vector3 math::Vector3::operator+(const Vector3& Other) const
 {
-    return Vector3(X + Other.X, Y + Other.Y, Z + Other.Z);
+    return {X + Other.X, Y + Other.Y, Z + Other.Z};
 }
 
 math::Vector3& math::Vector3::operator+=(const Vector3& Other)
@@ -69,7 +69,7 @@ math::Vector3& math::Vector3::operator+=(const Vector3& Other)
 
 math::Vector3 math::Vector3::operator-(const Vector3& Other) const
 {
-    return Vector3(X - Other.X, Y - Other.Y, Z - Other.Z);
+    return {X - Other.X, Y - Other.Y, Z - Other.Z};
 }
 
 math::Vector3& math::Vector3::operator-=(const Vector3& Other)
@@ -82,7 +82,7 @@ math::Vector3& math::Vector3::operator-=(const Vector3& Other)
 
 math::Vector3 math::Vector3::operator*(float Scalar) const
 {
-    return Vector3(X * Scalar, Y * Scalar, Z * Scalar);
+    return {X * Scalar, Y * Scalar, Z * Scalar};
 }
 
 math::Vector3& math::Vector3::operator*=(float Scalar)
@@ -95,7 +95,7 @@ math::Vector3& math::Vector3::operator*=(float Scalar)
 
 math::Vector3 math::Vector3::operator*(const Vector3& Other) const
 {
-    return Vector3(X * Other.X, Y * Other.Y, Z * Other.Z);
+    return {X * Other.X, Y * Other.Y, Z * Other.Z};
 }
 
 math::Vector3& math::Vector3::operator*=(const Vector3& Other)
@@ -110,7 +110,7 @@ math::Vector3 math::Vector3::operator/(float Scalar) const
 {
     assert(Scalar != 0);
     const float Rec = (float)1 / Scalar;
-    return Vector3(X * Rec, Y * Rec, Z * Rec);
+    return {X * Rec, Y * Rec, Z * Rec};
 }
 
 math::Vector3& math::Vector3::operator/=(float Scalar)
@@ -125,12 +125,12 @@ math::Vector3& math::Vector3::operator/=(float Scalar)
 
 math::Vector3 math::Vector3::operator-() const
 {
-    return Vector3(-X, -Y, -Z);
+    return {-X, -Y, -Z};
 }
 
 math::Vector3 math::Vector3::Abs() const
 {
-    return Vector3(std::abs(X), std::abs(Y), std::abs(Z));
+    return {std::abs(X), std::abs(Y), std::abs(Z)};
 }
 
 float math::Vector3::LengthSquared() const
@@ -159,10 +159,14 @@ float math::AbsDot(const Vector3& Vec1, const Vector3& Vec2)
 
 math::Vector3 math::Cross(const Vector3& Vec1, const Vector3& Vec2)
 {
-    float Vec1X = Vec1.X, Vec1Y = Vec1.Y, Vec1Z = Vec1.Z;
-    float Vec2X = Vec2.X, Vec2Y = Vec2.Y, Vec2Z = Vec2.Z;
-    return Vector3((Vec1Y * Vec2Z) - (Vec1Z * Vec2Y), (Vec1Z * Vec2X) - (Vec1X * Vec2Z),
-                   (Vec1X * Vec2Y) - (Vec1Y * Vec2X));
+    const float Vec1X = Vec1.X;
+    const float Vec1Y = Vec1.Y;
+    const float Vec1Z = Vec1.Z;
+    const float Vec2X = Vec2.X;
+    const float Vec2Y = Vec2.Y;
+    const float Vec2Z = Vec2.Z;
+    return {(Vec1Y * Vec2Z) - (Vec1Z * Vec2Y), (Vec1Z * Vec2X) - (Vec1X * Vec2Z),
+            (Vec1X * Vec2Y) - (Vec1Y * Vec2X)};
 }
 
 float math::Cross2D(const Vector3& Vec1, const Vector3& Vec2)
@@ -192,17 +196,17 @@ int math::MaxDimension(const Vector3& Vec)
 
 math::Vector3 math::Min(const Vector3& Vec1, const Vector3& Vec2)
 {
-    return Vector3(std::fmin(Vec1.X, Vec2.X), std::fmin(Vec1.Y, Vec2.Y), std::fmin(Vec1.Z, Vec2.Z));
+    return {std::fmin(Vec1.X, Vec2.X), std::fmin(Vec1.Y, Vec2.Y), std::fmin(Vec1.Z, Vec2.Z)};
 }
 
 math::Vector3 math::Max(const Vector3& Vec1, const Vector3& Vec2)
 {
-    return Vector3(std::fmax(Vec1.X, Vec2.X), std::fmax(Vec1.Y, Vec2.Y), std::fmax(Vec1.Z, Vec2.Z));
+    return {std::fmax(Vec1.X, Vec2.X), std::fmax(Vec1.Y, Vec2.Y), std::fmax(Vec1.Z, Vec2.Z)};
 }
 
 math::Vector3 math::Permute(const Vector3& Vec, int X, int Y, int Z)
 {
-    return Vector3(Vec[X], Vec[Y], Vec[Z]);
+    return {Vec[X], Vec[Y], Vec[Z]};
 }
 
 math::Vector3 math::Reflect(const Vector3& Incidence, const Vector3& Normal)
@@ -213,5 +217,5 @@ math::Vector3 math::Reflect(const Vector3& Incidence, const Vector3& Normal)
 
 math::Vector3 math::Clamp(const Vector3& Value, float Low, float High)
 {
-    return Vector3(Clamp(Value.X, Low, High), Clamp(Value.Y, Low, High), Clamp(Value.Z, Low, High));
+    return {Clamp(Value.X, Low, High), Clamp(Value.Y, Low, High), Clamp(Value.Z, Low, High)};
 }

@@ -32,7 +32,7 @@ bool math::Vector2::operator!=(const Vector2& Other) const
 
 math::Vector2 math::Vector2::operator+(const Vector2& Other) const
 {
-    return Vector2(X + Other.X, Y + Other.Y);
+    return {X + Other.X, Y + Other.Y};
 }
 
 math::Vector2& math::Vector2::operator+=(const Vector2& Other)
@@ -44,7 +44,7 @@ math::Vector2& math::Vector2::operator+=(const Vector2& Other)
 
 math::Vector2 math::Vector2::operator-(const Vector2& Other) const
 {
-    return Vector2(X - Other.X, Y - Other.Y);
+    return {X - Other.X, Y - Other.Y};
 }
 
 math::Vector2& math::Vector2::operator-=(const Vector2& Other)
@@ -56,7 +56,7 @@ math::Vector2& math::Vector2::operator-=(const Vector2& Other)
 
 math::Vector2 math::Vector2::operator*(float Scalar) const
 {
-    return Vector2(X * Scalar, Y * Scalar);
+    return {X * Scalar, Y * Scalar};
 }
 
 math::Vector2& math::Vector2::operator*=(float Scalar)
@@ -70,7 +70,7 @@ math::Vector2 math::Vector2::operator/(float Scalar) const
 {
     assert(Scalar != 0);
     const float Rec = (float)1 / Scalar;
-    return Vector2(X * Rec, Y * Rec);
+    return {X * Rec, Y * Rec};
 }
 
 math::Vector2& math::Vector2::operator/=(float Scalar)
@@ -84,12 +84,12 @@ math::Vector2& math::Vector2::operator/=(float Scalar)
 
 math::Vector2 math::Vector2::operator-() const
 {
-    return Vector2(-X, -Y);
+    return {-X, -Y};
 }
 
 math::Vector2 math::Vector2::Abs() const
 {
-    return Vector2(std::abs(X), std::abs(Y));
+    return {std::abs(X), std::abs(Y)};
 }
 
 float math::Vector2::LengthSquared() const
@@ -144,15 +144,15 @@ int math::MaxDimension(const Vector2& Vec)
 
 math::Vector2 math::Min(const Vector2& Vec1, const Vector2& Vec2)
 {
-    return Vector2(std::fmin(Vec1.X, Vec2.X), std::fmin(Vec1.Y, Vec2.Y));
+    return {std::fmin(Vec1.X, Vec2.X), std::fmin(Vec1.Y, Vec2.Y)};
 }
 
 math::Vector2 math::Max(const Vector2& Vec1, const Vector2& Vec2)
 {
-    return Vector2(std::fmax(Vec1.X, Vec2.X), std::fmax(Vec1.Y, Vec2.Y));
+    return {std::fmax(Vec1.X, Vec2.X), std::fmax(Vec1.Y, Vec2.Y)};
 }
 
 math::Vector2 math::Permute(const Vector2& Vec, int X, int Y)
 {
-    return Vector2(Vec[X], Vec[Y]);
+    return {Vec[X], Vec[Y]};
 }

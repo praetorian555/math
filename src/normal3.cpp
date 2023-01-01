@@ -36,7 +36,7 @@ bool math::Normal3::operator!=(const Normal3& Other) const
 
 math::Normal3 math::Normal3::operator+(const Normal3& Other) const
 {
-    return Normal3(X + Other.X, Y + Other.Y, Z + Other.Z);
+    return {X + Other.X, Y + Other.Y, Z + Other.Z};
 }
 
 math::Normal3& math::Normal3::operator+=(const Normal3& Other)
@@ -49,7 +49,7 @@ math::Normal3& math::Normal3::operator+=(const Normal3& Other)
 
 math::Normal3 math::Normal3::operator-(const Normal3& Other) const
 {
-    return Normal3(X - Other.X, Y - Other.Y, Z - Other.Z);
+    return {X - Other.X, Y - Other.Y, Z - Other.Z};
 }
 
 math::Normal3& math::Normal3::operator-=(const Normal3& Other)
@@ -62,7 +62,7 @@ math::Normal3& math::Normal3::operator-=(const Normal3& Other)
 
 math::Normal3 math::Normal3::operator*(float Scalar) const
 {
-    return Normal3(X * Scalar, Y * Scalar, Z * Scalar);
+    return {X * Scalar, Y * Scalar, Z * Scalar};
 }
 
 math::Normal3& math::Normal3::operator*=(float Scalar)
@@ -77,7 +77,7 @@ math::Normal3 math::Normal3::operator/(float Scalar) const
 {
     assert(Scalar != 0);
     const float Rec = (float)1 / Scalar;
-    return Normal3(X * Rec, Y * Rec, Z * Rec);
+    return {X * Rec, Y * Rec, Z * Rec};
 }
 
 math::Normal3& math::Normal3::operator/=(float Scalar)
@@ -92,12 +92,12 @@ math::Normal3& math::Normal3::operator/=(float Scalar)
 
 math::Normal3 math::Normal3::operator-() const
 {
-    return Normal3(-X, -Y, -Z);
+    return {-X, -Y, -Z};
 }
 
 math::Normal3 math::Normal3::Abs() const
 {
-    return Normal3(std::abs(X), std::abs(Y), std::abs(Z));
+    return {std::abs(X), std::abs(Y), std::abs(Z)};
 }
 
 float math::Normal3::LengthSquared() const
@@ -166,17 +166,17 @@ int math::MaxDimension(const Normal3& Vec)
 
 math::Normal3 math::Min(const Normal3& N1, const Normal3& N2)
 {
-    return Normal3(std::fmin(N1.X, N2.X), std::fmin(N1.Y, N2.Y), std::fmin(N1.Z, N2.Z));
+    return {std::fmin(N1.X, N2.X), std::fmin(N1.Y, N2.Y), std::fmin(N1.Z, N2.Z)};
 }
 
 math::Normal3 math::Max(const Normal3& Vec1, const Normal3& Vec2)
 {
-    return Normal3(std::fmax(Vec1.X, Vec2.X), std::fmax(Vec1.Y, Vec2.Y), std::fmax(Vec1.Z, Vec2.Z));
+    return {std::fmax(Vec1.X, Vec2.X), std::fmax(Vec1.Y, Vec2.Y), std::fmax(Vec1.Z, Vec2.Z)};
 }
 
 math::Normal3 math::Permute(const Normal3& N, int X, int Y, int Z)
 {
-    return Normal3(N[X], N[Y], N[Z]);
+    return {N[X], N[Y], N[Z]};
 }
 
 math::Normal3 math::Faceforward(const Normal3& N, const Vector3& Vec)

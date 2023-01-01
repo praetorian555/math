@@ -55,19 +55,19 @@ public:
     Point2 Abs() const;
 };
 
-Point2 operator*(float Scalar, const Point2& v);
+Point2 operator*(float Scalar, const Point2& P);
 
-float Distance(const Point2& Vec1, const Point2& Vec2);
-float DistanceSquared(const Point2& Vec1, const Point2& Vec2);
-Point2 Lerp(float t, const Point2& p0, const Point2& Vec1);
+float Distance(const Point2& P1, const Point2& P2);
+float DistanceSquared(const Point2& P1, const Point2& P2);
+Point2 Lerp(float t, const Point2& P1, const Point2& P2);
 
 Point2 Floor(const Point2& p);
 Point2 Ceil(const Point2& p);
 Point2 Round(const Point2& p);
 
-Point2 Min(const Point2& Vec1, const Point2& Vec2);
-Point2 Max(const Point2& Vec1, const Point2& Vec2);
+Point2 Min(const Point2& P1, const Point2& P2);
+Point2 Max(const Point2& P1, const Point2& P2);
 
-Point2 Permute(const Point2& v, int x, int y);
+Point2 Permute(const Point2& P, int X, int Y);
 
 }  // namespace math
