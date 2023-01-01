@@ -53,6 +53,8 @@ endif()
 if (CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
 	include(FetchContent)
 
+	SET(BUILD_GMOCK OFF)
+	SET(INSTALL_GTEST OFF)
 	FetchContent_Declare(
 		gtest
 		GIT_REPOSITORY https://github.com/google/googletest
