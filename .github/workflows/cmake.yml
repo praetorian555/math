@@ -16,26 +16,22 @@ jobs:
       fail-fast: false
       matrix:
         config:
-        - {
-            name: "MSVC Debug",
-            os: windows-latest,
-            build_type: "Debug", cc: "cl", cxx: "cl", unity: "off"
-          }
-        - {
-            name: "MSVC Debug Unity",
-            os: windows-latest,
-            build_type: "Debug", cc: "cl", cxx: "cl", unity: "on"
-          }
-        - {
-            name: "MSVC Release",
-            os: windows-latest,
-            build_type: "Release", cc: "cl", cxx: "cl", unity: "off"
-          }
-        - {
-            name: "MSVC Release Unity",
-            os: windows-latest,
-            build_type: "Release", cc: "cl", cxx: "cl", unity: "on"
-          }
+        - name: "MSVC Debug"
+          os: windows-latest
+          build_type: "Debug"
+          unity: OFF
+        - name: "MSVC Debug Unity"
+          os: windows-latest
+          build_type: "Debug"
+          unity: ON
+        - name: "MSVC Release"
+          os: windows-latest
+          build_type: "Release"
+          unity: OFF
+        - name: "MSVC Release Unity"
+          os: windows-latest
+          build_type: "Release"
+          unity: ON
     name: ${{matrix.config.name}}
     runs-on: ${{matrix.config.os}}
     steps:
@@ -55,4 +51,6 @@ jobs:
       # Execute tests defined by the CMake configuration.
       # See https://cmake.org/cmake/help/latest/manual/ctest.1.html for more detail
       run: ctest -C ${{matrix.config.build_type}}
-
+  
+    - name: ClangTidy
+      run: cmake --build ${{github.workspace}}/build --target clang-tidy
