@@ -12,8 +12,6 @@ env:
 
 jobs:
   build:
-    name: ${ { matrix.config.name } }
-    runs-on: ${ { matrix.config.os } }
     strategy:
       fail-fast: false
       matrix:
@@ -28,6 +26,8 @@ jobs:
             os: windows-latest,
             build_type: "Release", cc: "cl", cxx: "cl"
           }
+    name: ${{matrix.config.name}}
+    runs-on: ${{matrix.config.os}}
     steps:
     - uses: actions/checkout@v3
 
