@@ -1,5 +1,7 @@
 # C++ Math Library #
 
+Small library to help with geometry and linear algebra for games.
+
 ## Requirements ##
 
 To setup this project you will need:
@@ -7,18 +9,13 @@ To setup this project you will need:
 * _CMake_ version 3.20 or heigher.
 * Any version of _Visual Studio_ and _MSVC_ compiler.
 
-Optionally you should install _clang-format_ and _cppcheck_ and add them to the path.
+Optionally you should install _clang-format_, _clang-tidy_ and _cppcheck_ and add them to the path.
 
 ## Setup ##
 
-To clone the project and include all submodulues:
+To clone the project:
 
-	git clone --recurse-submodules <project_url>
-
-If you already cloned the project but forgot the --recurse-submodules you can use the following commands:
-
-	git submodule init
-	git submodule update
+	git clone <project_url>
 
 To generate a build system go to the root of a project and use:
 
@@ -28,12 +25,11 @@ To build project using the cmake from command line:
 
 	cmake --build <path_to_build_dir> --config <config_name>
 
-If you installed the _clang-format_ and _cppcheck*_ tools you will have access to clang-format and cppcheck targets. They can be run either by building them in IDE or with following directive in command-line:
+To build specific target use:
 
-	cmake --build <build_dir> --target clang-format
-	cmake --build <build_dir> --target cppcheck
+	cmake --build <path_to_build_dir> --target <target_name>
 
-The clang-format target will apply formatting to all files under apps, include and src folders. The cppcheck target will apply static-code analysis on all cpp and c files nder apps and src folders.
+The clang-format target will apply formatting to all files under apps, include and src folders. The cppcheck and clang-tidy targets will apply static-code analysis on all cpp and c files under src folders.
 
 If you are using MSVC compiler you can use address sanitizer tool by setting the MATH_SANITIZER flag when invoking the cmake command:
 
