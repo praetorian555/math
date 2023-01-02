@@ -17,14 +17,24 @@ jobs:
       matrix:
         config:
         - {
-            name: "Windows Latest MSVC Debug",
+            name: "MSVC Debug",
             os: windows-latest,
-            build_type: "Debug", cc: "cl", cxx: "cl"
+            build_type: "Debug", cc: "cl", cxx: "cl", unity: "off"
           }
         - {
-            name: "Windows Latest MSVC Release",
+            name: "MSVC Debug Unity",
             os: windows-latest,
-            build_type: "Release", cc: "cl", cxx: "cl"
+            build_type: "Debug", cc: "cl", cxx: "cl", unity: "on"
+          }
+        - {
+            name: "MSVC Release",
+            os: windows-latest,
+            build_type: "Release", cc: "cl", cxx: "cl", unity: "off"
+          }
+        - {
+            name: "MSVC Release Unity",
+            os: windows-latest,
+            build_type: "Release", cc: "cl", cxx: "cl", unity: "on"
           }
     name: ${{matrix.config.name}}
     runs-on: ${{matrix.config.os}}
@@ -34,16 +44,12 @@ jobs:
     - name: Configure CMake
       # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
       # See https://cmake.org/cmake/help/latest/variable/CMAKE_BUILD_TYPE.html?highlight=cmake_build_type
-      run: cmake -B ${{github.workspace}}/build -DMATH_UNITY=OFF -DMATH_SANITIZER=OFF
+      run: cmake -B ${{github.workspace}}/build -DMATH_UNITY=${{matrix.config.unity}} -DMATH_SANITIZER=OFF
 
     - name: Build
       # Build your program with the given configuration
       run: cmake --build ${{github.workspace}}/build --config ${{matrix.config.build_type}}
       
-    - name: BuildTest
-      # Build your program with the given configuration
-      run: cmake --build ${{github.workspace}}/build --config ${{matrix.config.build_type}} --target math_tests
-
     - name: Test
       working-directory: ${{github.workspace}}/build
       # Execute tests defined by the CMake configuration.
