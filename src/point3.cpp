@@ -137,9 +137,9 @@ float math::DistanceSquared(const Point3& P1, const Point3& P2)
     return (P1 - P2).LengthSquared();
 }
 
-math::Point3 math::Lerp(float t, const Point3& P1, const Point3& P2)
+math::Point3 math::Lerp(float Param, const Point3& P1, const Point3& P2)
 {
-    return (1 - t) * P1 + t * P2;
+    return (1 - Param) * P1 + Param * P2;
 }
 
 math::Point3 math::Floor(const Point3& P)

@@ -11,15 +11,15 @@ class RNG
 {
 public:
     RNG();
-    explicit RNG(uint64_t startingIndex);
+    explicit RNG(uint64_t StartingIndex);
 
-    void SetSequence(uint64_t startingIndex);
+    void SetSequence(uint64_t StartingIndex);
 
     // Uniform number in range [0, UINT32_MAX - 1]
     uint32_t UniformUInt32();
 
     // Uniform number in range [0, limit - 1]
-    uint32_t UniformUInt32(uint32_t limit);
+    uint32_t UniformUInt32(uint32_t Limit);
 
     // Uniform number in range [0, 1)
     float UniformReal();

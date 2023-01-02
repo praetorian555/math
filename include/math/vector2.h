@@ -25,8 +25,8 @@ public:
     Vector2() { X = Y = 0; }
     Vector2(float X, float Y) : X(X), Y(Y) {}
 
-    void Set(float Val, int i);
-    float operator[](int i) const;
+    void Set(float Value, int Index);
+    float operator[](int Index) const;
 
     bool HasNaNs() const;
 
@@ -52,20 +52,20 @@ public:
     float Length() const;
 };
 
-Vector2 operator*(float Scalar, const Vector2& v);
+Vector2 operator*(float Scalar, const Vector2& Vec);
 
 float Dot(const Vector2& Vec1, const Vector2& Vec2);
 float AbsDot(const Vector2& Vec1, const Vector2& Vec2);
 float Cross(const Vector2& Vec1, const Vector2& Vec2);
-Vector2 Normalize(const Vector2& v);
+Vector2 Normalize(const Vector2& Vec);
 
-float MinComponent(const Vector2& v);
-float MaxComponent(const Vector2& v);
-int MaxDimension(const Vector2& v);
+float MinComponent(const Vector2& Vec);
+float MaxComponent(const Vector2& Vec);
+int MaxDimension(const Vector2& Vec);
 
 Vector2 Min(const Vector2& Vec1, const Vector2& Vec2);
 Vector2 Max(const Vector2& Vec1, const Vector2& Vec2);
 
-Vector2 Permute(const Vector2& v, int X, int Y);
+Vector2 Permute(const Vector2& Vec, int X, int Y);
 
 }  // namespace math

@@ -13,58 +13,50 @@ class Transform
 public:
     Transform() = default;
     explicit Transform(const Array2D<float, 4, 4>& Mat);
-    explicit Transform(const Matrix4x4& mat);
-    Transform(const Matrix4x4& mat, const Matrix4x4& invMat);
+    explicit Transform(const Matrix4x4& Mat);
+    Transform(const Matrix4x4& Mat, const Matrix4x4& InvMat);
 
-    Transform& operator=(const Matrix4x4& Matrix);
+    Transform& operator=(const Matrix4x4& Mat);
 
     const Matrix4x4& GetMatrix() const { return m_Matrix; }
     const Matrix4x4& GetInverse() const { return m_MatrixInverse; }
 
-    friend Transform Inverse(const Transform& t);
-    friend Transform Transpose(const Transform& t);
+    friend Transform Inverse(const Transform& T);
+    friend Transform Transpose(const Transform& T);
 
-    bool operator==(const Transform& other) const;
-    bool operator!=(const Transform& other) const;
+    bool operator==(const Transform& Other) const;
+    bool operator!=(const Transform& Other) const;
 
     bool IsIdentity() const;
 
     bool HasScale() const;
 
-    Transform operator*(const Transform& other) const;
+    Transform operator*(const Transform& Other) const;
 
-    Vector3 operator()(const Vector3& v) const;
+    Vector3 operator()(const Vector3& Vec) const;
 
-    Point3 operator()(const Point3& p) const;
+    Point3 operator()(const Point3& P) const;
 
-    Point4 operator()(const Point4& p) const;
+    Point4 operator()(const Point4& P) const;
 
-    inline Normal3 operator()(const Normal3& n) const;
-    Bounds3 operator()(const Bounds3& b) const;
-
-    inline Point3 operator()(const Point3& pt, Vector3* absError) const;
-
-    inline Point3 operator()(const Point3& p, const Vector3& pError, Vector3* absError) const;
-
-    inline Vector3 operator()(const Vector3& v, Vector3* absError) const;
-
-    inline Vector3 operator()(const Vector3& v, const Vector3& vError, Vector3* absError) const;
+    inline Normal3 operator()(const Normal3& N) const;
+    Bounds3 operator()(const Bounds3& B) const;
 
 private:
     Matrix4x4 m_Matrix;
     Matrix4x4 m_MatrixInverse;
 };
 
-Transform Translate(const Vector3& delta);
-Transform Scale(float x, float y, float z);
-Transform RotateX(float theta);
-Transform RotateY(float theta);
-Transform RotateZ(float theta);
-Transform Rotate(float theta, const Vector3& axis);
+Transform Translate(const Vector3& Delta);
+Transform Scale(float X, float Y, float Z);
+Transform RotateX(float Theta);
+Transform RotateY(float Theta);
+Transform RotateZ(float Theta);
+Transform Rotate(float Theta, const Vector3& Axis);
 // This applies angle around x then around y and then around z axis
 Transform Rotate(Rotator Rotator);
-Transform Inverse(const Transform& t);
-Transform Transpose(const Transform& t);
+Transform Inverse(const Transform& T);
+Transform Transpose(const Transform& T);
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 

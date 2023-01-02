@@ -6,14 +6,11 @@ using Vector3f = math::Vector3;
 
 TEST(TransformTests, Creation)
 {
-    // clang-format off
-    const math::Array2D<float, 4, 4>& init = {
-        1.0f, 4.0f, -4.0f, 5.0f,
-        3.0f, -2.0f, 1.0f, 10.0f,
-        7.0f, 10.0f, -5.0f, -3.0f,
-       -6.0f, -2.0f, -1.0f, 9.0f
-    };
-    // clang-format on
+    math::Array2D<float, 4, 4> init;
+    init[0] = {1.0f, 4.0f, -4.0f, 5.0f};
+    init[1] = {3.0f, -2.0f, 1.0f, 10.0f};
+    init[2] = {7.0f, 10.0f, -5.0f, -3.0f};
+    init[3] = {-6.0f, -2.0f, -1.0f, 9.0f};
 
     math::Matrix4x4 m1(init);
 

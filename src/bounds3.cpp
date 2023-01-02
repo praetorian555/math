@@ -76,10 +76,10 @@ int math::Bounds3::MaximumExtent() const
     return 2;
 }
 
-math::Point3 math::Bounds3::Lerp(const Point3& t) const
+math::Point3 math::Bounds3::Lerp(const Point3& Param) const
 {
-    return {math::Lerp(t.X, Min.X, Max.X), math::Lerp(t.Y, Min.Y, Max.Y),
-            math::Lerp(t.Z, Min.Z, Max.Z)};
+    return {math::Lerp(Param.X, Min.X, Max.X), math::Lerp(Param.Y, Min.Y, Max.Y),
+            math::Lerp(Param.Z, Min.Z, Max.Z)};
 }
 
 math::Vector3 math::Bounds3::Offset(const Point3& P) const

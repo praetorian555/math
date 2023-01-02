@@ -30,16 +30,16 @@ public:
 public:
     Vector3() { X = Y = Z = 0; }
     Vector3(float X, float Y, float Z) : X(X), Y(Y), Z(Z) {}
-    explicit Vector3(const Normal3& n);
-    explicit Vector3(const Point3& p);
-    explicit Vector3(const Vector2& XY, float Z = 0);
+    explicit Vector3(const Normal3& N);
+    explicit Vector3(const Point3& P);
+    explicit Vector3(const Vector2& XY, float ZZ = 0);
 
     Vector2 XY() const;
     Vector2 YZ() const;
     Vector2 XZ() const;
 
-    void Set(float Val, int i);
-    float operator[](int i) const;
+    void Set(float Value, int Index);
+    float operator[](int Index) const;
 
     bool HasNaNs() const;
 
@@ -67,21 +67,21 @@ public:
     float Length() const;
 };
 
-Vector3 operator*(float Scalar, const Vector3& v);
+Vector3 operator*(float Scalar, const Vector3& Vec);
 float Dot(const Vector3& Vec1, const Vector3& Vec2);
 float AbsDot(const Vector3& Vec1, const Vector3& Vec2);
 
 Vector3 Cross(const Vector3& Vec1, const Vector3& Vec2);
 float Cross2D(const Vector3& Vec1, const Vector3& Vec2);
-Vector3 Normalize(const Vector3& v);
+Vector3 Normalize(const Vector3& Vec);
 
-float MinComponent(const Vector3& v);
-float MaxComponent(const Vector3& v);
-int MaxDimension(const Vector3& v);
+float MinComponent(const Vector3& Vec);
+float MaxComponent(const Vector3& Vec);
+int MaxDimension(const Vector3& Vec);
 Vector3 Min(const Vector3& Vec1, const Vector3& Vec2);
 Vector3 Max(const Vector3& Vec1, const Vector3& Vec2);
 
-Vector3 Permute(const Vector3& v, int X, int Y, int Z);
+Vector3 Permute(const Vector3& Vec, int X, int Y, int Z);
 Vector3 Reflect(const Vector3& Incidence, const Vector3& Normal);
 Vector3 Clamp(const Vector3& Value, float Low, float High);
 }  // namespace math

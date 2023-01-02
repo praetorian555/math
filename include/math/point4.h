@@ -28,8 +28,8 @@ public:
 
     explicit Point4(const Point3& P);
 
-    void Set(float Val, int i);
-    float operator[](int i) const;
+    void Set(float Value, int Index);
+    float operator[](int Index) const;
 
     bool HasNaNs() const;
     bool operator==(const Point4& Other) const;
@@ -61,11 +61,11 @@ Point4 operator*(float Scalar, const Point4& Vec);
 
 float Distance(const Point4& P1, const Point4& P2);
 float DistanceSquared(const Point4& P1, const Point4& P2);
-Point4 Lerp(float t, const Point4& P1, const Point4& P2);
+Point4 Lerp(float Param, const Point4& P1, const Point4& P2);
 
-Point4 Floor(const Point4& p);
-Point4 Ceil(const Point4& p);
-Point4 Round(const Point4& p);
+Point4 Floor(const Point4& P);
+Point4 Ceil(const Point4& P);
+Point4 Round(const Point4& P);
 
 Point4 Min(const Point4& P1, const Point4& P2);
 Point4 Max(const Point4& P1, const Point4& P2);

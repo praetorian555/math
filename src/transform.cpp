@@ -11,31 +11,31 @@ math::Transform::Transform(const Array2D<float, 4, 4>& Mat)
 {
 }
 
-math::Transform::Transform(const math::Matrix4x4& mat)
-    : m_Matrix(mat), m_MatrixInverse(m_Matrix.Inverse())
+math::Transform::Transform(const math::Matrix4x4& Mat)
+    : m_Matrix(Mat), m_MatrixInverse(m_Matrix.Inverse())
 {
 }
 
-math::Transform::Transform(const math::Matrix4x4& mat, const math::Matrix4x4& invMat)
-    : m_Matrix(mat), m_MatrixInverse(invMat)
+math::Transform::Transform(const math::Matrix4x4& Mat, const math::Matrix4x4& InvMat)
+    : m_Matrix(Mat), m_MatrixInverse(InvMat)
 {
 }
 
-math::Transform& math::Transform::operator=(const Matrix4x4& Matrix)
+math::Transform& math::Transform::operator=(const Matrix4x4& Mat)
 {
-    m_Matrix = Matrix;
-    m_MatrixInverse = Matrix.Inverse();
+    m_Matrix = Mat;
+    m_MatrixInverse = Mat.Inverse();
     return *this;
 }
 
-math::Transform math::Inverse(const Transform& t)
+math::Transform math::Inverse(const Transform& T)
 {
-    return {t.m_MatrixInverse, t.m_Matrix};
+    return {T.m_MatrixInverse, T.m_Matrix};
 }
 
-math::Transform math::Transpose(const Transform& t)
+math::Transform math::Transpose(const Transform& T)
 {
-    return {t.m_Matrix.Transpose(), t.m_MatrixInverse.Transpose()};
+    return {T.m_Matrix.Transpose(), T.m_MatrixInverse.Transpose()};
 }
 
 bool math::Transform::operator==(const Transform& Other) const
@@ -43,27 +43,27 @@ bool math::Transform::operator==(const Transform& Other) const
     return (m_Matrix == Other.m_Matrix) && (m_MatrixInverse == Other.m_MatrixInverse);
 }
 
-bool math::Transform::operator!=(const Transform& other) const
+bool math::Transform::operator!=(const Transform& Other) const
 {
-    return !(*this == other);
+    return !(*this == Other);
 }
 
 bool math::Transform::IsIdentity() const
 {
-    for (int i = 0; i < 4; i++)
+    for (int Row = 0; Row < 4; Row++)
     {
-        for (int j = 0; j < 4; j++)
+        for (int Column = 0; Column < 4; Column++)
         {
-            if (i == j)
+            if (Row == Column)
             {
-                if (m_Matrix.Data[i][j] != 1.0f)
+                if (m_Matrix.Data[Row][Column] != 1.0f)
                 {
                     return false;
                 }
             }
             else
             {
-                if (m_Matrix.Data[i][j] != 0.0f)
+                if (m_Matrix.Data[Row][Column] != 0.0f)
                 {
                     return false;
                 }
@@ -76,142 +76,142 @@ bool math::Transform::IsIdentity() const
 
 static constexpr bool NotOne(float X)
 {
-    constexpr float LowBound = 0.999f;
-    constexpr float HighBound = 1.001f;
-    return (X < LowBound) || (X > HighBound);
+    constexpr float kLowBound = 0.999f;
+    constexpr float kHighBound = 1.001f;
+    return (X < kLowBound) || (X > kHighBound);
 }
 
 bool math::Transform::HasScale() const
 {
-    const float la2 = (*this)(Vector3(1, 0, 0)).LengthSquared();
-    const float lb2 = (*this)(Vector3(0, 1, 0)).LengthSquared();
-    const float lc2 = (*this)(Vector3(0, 0, 1)).LengthSquared();
-    return (NotOne(la2) || NotOne(lb2) || NotOne(lc2));
+    const float LengthX2 = (*this)(Vector3(1, 0, 0)).LengthSquared();
+    const float LengthY2 = (*this)(Vector3(0, 1, 0)).LengthSquared();
+    const float LengthZ2 = (*this)(Vector3(0, 0, 1)).LengthSquared();
+    return (NotOne(LengthX2) || NotOne(LengthY2) || NotOne(LengthZ2));
 }
 
-math::Transform math::Transform::operator*(const Transform& other) const
+math::Transform math::Transform::operator*(const Transform& Other) const
 {
-    const math::Matrix4x4 m = Multiply(m_Matrix, other.m_Matrix);
-    const math::Matrix4x4 minv = Multiply(other.m_MatrixInverse, m_MatrixInverse);
+    const math::Matrix4x4 Mat = Multiply(m_Matrix, Other.m_Matrix);
+    const math::Matrix4x4 MatInv = Multiply(Other.m_MatrixInverse, m_MatrixInverse);
 
-    return {m, minv};
+    return {Mat, MatInv};
 }
 
-math::Transform math::Translate(const Vector3& delta)
+math::Transform math::Translate(const Vector3& Delta)
 {
     // clang-format off
-    const math::Matrix4x4 m(
-        1, 0, 0, delta.X,
-        0, 1, 0, delta.Y,
-        0, 0, 1, delta.Z,
+    const math::Matrix4x4 Mat(
+        1, 0, 0, Delta.X,
+        0, 1, 0, Delta.Y,
+        0, 0, 1, Delta.Z,
         0, 0, 0,       1
     );
 
-    const math::Matrix4x4 minv(
-        1, 0, 0, -delta.X,
-        0, 1, 0, -delta.Y,
-        0, 0, 1, -delta.Z,
+    const math::Matrix4x4 MatInv(
+        1, 0, 0, -Delta.X,
+        0, 1, 0, -Delta.Y,
+        0, 0, 1, -Delta.Z,
         0, 0, 0,        1
     );
     // clang-format on
 
-    return {m, minv};
+    return {Mat, MatInv};
 }
 
-math::Transform math::Scale(float x, float y, float z)
+math::Transform math::Scale(float X, float Y, float Z)
 {
     // clang-format off
-    const math::Matrix4x4 m(
-        x, 0, 0, 0,
-        0, y, 0, 0,
-        0, 0, z, 0,
+    const math::Matrix4x4 Mat(
+        X, 0, 0, 0,
+        0, Y, 0, 0,
+        0, 0, Z, 0,
         0, 0, 0, 1
     );
 
-    const math::Matrix4x4 minv(
-        1 / x,     0,     0, 0,
-            0, 1 / y,     0, 0,
-            0,     0, 1 / z, 0,
+    const math::Matrix4x4 MatInv(
+        1 / X,     0,     0, 0,
+            0, 1 / Y,     0, 0,
+            0,     0, 1 / Z, 0,
             0,     0,     0, 1
     );
     // clang-format on
 
-    return {m, minv};
+    return {Mat, MatInv};
 }
 
-math::Transform math::RotateX(float theta)
+math::Transform math::RotateX(float Theta)
 {
-    const float sinTheta = std::sin(math::Radians(theta));
-    const float cosTheta = std::cos(math::Radians(theta));
+    const float SinTheta = std::sin(math::Radians(Theta));
+    const float CosTheta = std::cos(math::Radians(Theta));
 
     // clang-format off
-    const math::Matrix4x4 m(
+    const math::Matrix4x4 Mat(
         1,        0,         0, 0, 
-        0, cosTheta, -sinTheta, 0,
-        0, sinTheta,  cosTheta, 0,
+        0, CosTheta, -SinTheta, 0,
+        0, SinTheta,  CosTheta, 0,
         0,        0,         0, 1);
     // clang-format on
 
-    return {m, m.Transpose()};
+    return {Mat, Mat.Transpose()};
 }
 
-math::Transform math::RotateY(float theta)
+math::Transform math::RotateY(float Theta)
 {
-    const float sinTheta = std::sin(math::Radians(theta));
-    const float cosTheta = std::cos(math::Radians(theta));
+    const float SinTheta = std::sin(math::Radians(Theta));
+    const float CosTheta = std::cos(math::Radians(Theta));
 
     // clang-format off
-    const math::Matrix4x4 m(
-         cosTheta, 0, sinTheta, 0, 
+    const math::Matrix4x4 Mat(
+         CosTheta, 0, SinTheta, 0, 
                 0, 1,        0, 0,
-        -sinTheta, 0, cosTheta, 0,
+        -SinTheta, 0, CosTheta, 0,
                 0, 0,        0, 1);
     // clang-format on
 
-    return {m, m.Transpose()};
+    return {Mat, Mat.Transpose()};
 }
 
-math::Transform math::RotateZ(float theta)
+math::Transform math::RotateZ(float Theta)
 {
-    const float sinTheta = std::sin(math::Radians(theta));
-    const float cosTheta = std::cos(math::Radians(theta));
+    const float SinTheta = std::sin(math::Radians(Theta));
+    const float CosTheta = std::cos(math::Radians(Theta));
 
     // clang-format off
-    const math::Matrix4x4 m(
-        cosTheta, -sinTheta, 0, 0, 
-        sinTheta,  cosTheta, 0, 0,
+    const math::Matrix4x4 Mat(
+        CosTheta, -SinTheta, 0, 0, 
+        SinTheta,  CosTheta, 0, 0,
                0,         0, 1, 0,
                0,         0, 0, 1);
     // clang-format on
 
-    return {m, m.Transpose()};
+    return {Mat, Mat.Transpose()};
 }
 
-math::Transform math::Rotate(float theta, const Vector3& axis)
+math::Transform math::Rotate(float Theta, const Vector3& Axis)
 {
-    const Vector3 a = Normalize(axis);
-    const float sinTheta = std::sin(math::Radians(theta));
-    const float cosTheta = std::cos(math::Radians(theta));
-    math::Matrix4x4 m;
+    const Vector3 NormAxis = Normalize(Axis);
+    const float SinTheta = std::sin(math::Radians(Theta));
+    const float CosTheta = std::cos(math::Radians(Theta));
 
     // Compute rotation of first basis vector
-    m.Data[0][0] = a.X * a.X + (1 - a.X * a.X) * cosTheta;
-    m.Data[0][1] = a.X * a.Y * (1 - cosTheta) - a.Z * sinTheta;
-    m.Data[0][2] = a.X * a.Z * (1 - cosTheta) + a.Y * sinTheta;
-    m.Data[0][3] = 0;
+    math::Matrix4x4 Mat;
+    Mat.Data[0][0] = NormAxis.X * NormAxis.X + (1 - NormAxis.X * NormAxis.X) * CosTheta;
+    Mat.Data[0][1] = NormAxis.X * NormAxis.Y * (1 - CosTheta) - NormAxis.Z * SinTheta;
+    Mat.Data[0][2] = NormAxis.X * NormAxis.Z * (1 - CosTheta) + NormAxis.Y * SinTheta;
+    Mat.Data[0][3] = 0;
 
     // Compute rotations of second and third basis vectors
-    m.Data[1][0] = a.X * a.Y * (1 - cosTheta) + a.Z * sinTheta;
-    m.Data[1][1] = a.Y * a.Y + (1 - a.Y * a.Y) * cosTheta;
-    m.Data[1][2] = a.Y * a.Z * (1 - cosTheta) - a.X * sinTheta;
-    m.Data[1][3] = 0;
+    Mat.Data[1][0] = NormAxis.X * NormAxis.Y * (1 - CosTheta) + NormAxis.Z * SinTheta;
+    Mat.Data[1][1] = NormAxis.Y * NormAxis.Y + (1 - NormAxis.Y * NormAxis.Y) * CosTheta;
+    Mat.Data[1][2] = NormAxis.Y * NormAxis.Z * (1 - CosTheta) - NormAxis.X * SinTheta;
+    Mat.Data[1][3] = 0;
 
-    m.Data[2][0] = a.X * a.Z * (1 - cosTheta) - a.Y * sinTheta;
-    m.Data[2][1] = a.Y * a.Z * (1 - cosTheta) + a.X * sinTheta;
-    m.Data[2][2] = a.Z * a.Z + (1 - a.Z * a.Z) * cosTheta;
-    m.Data[2][3] = 0;
+    Mat.Data[2][0] = NormAxis.X * NormAxis.Z * (1 - CosTheta) - NormAxis.Y * SinTheta;
+    Mat.Data[2][1] = NormAxis.Y * NormAxis.Z * (1 - CosTheta) + NormAxis.X * SinTheta;
+    Mat.Data[2][2] = NormAxis.Z * NormAxis.Z + (1 - NormAxis.Z * NormAxis.Z) * CosTheta;
+    Mat.Data[2][3] = 0;
 
-    return {m, m.Transpose()};
+    return {Mat, Mat.Transpose()};
 }
 
 math::Transform math::Rotate(math::Rotator Rotator)
@@ -219,85 +219,71 @@ math::Transform math::Rotate(math::Rotator Rotator)
     return RotateZ(Rotator.Pitch) * RotateY(Rotator.Yaw) * RotateX(Rotator.Roll);
 }
 
-math::Bounds3 math::Transform::operator()(const Bounds3& b) const
+math::Bounds3 math::Transform::operator()(const Bounds3& B) const
 {
     // TODO(mkostic): Make this more efficient
 
     const Transform& M = *this;
-    Bounds3 ret(M(Point3(b.Min.X, b.Min.Y, b.Min.Z)));
-    ret = Union(ret, M(Point3(b.Max.X, b.Min.Y, b.Min.Z)));
-    ret = Union(ret, M(Point3(b.Min.X, b.Max.Y, b.Min.Z)));
-    ret = Union(ret, M(Point3(b.Min.X, b.Min.Y, b.Max.Z)));
-    ret = Union(ret, M(Point3(b.Min.X, b.Max.Y, b.Max.Z)));
-    ret = Union(ret, M(Point3(b.Max.X, b.Max.Y, b.Min.Z)));
-    ret = Union(ret, M(Point3(b.Max.X, b.Min.Y, b.Max.Z)));
-    ret = Union(ret, M(Point3(b.Max.X, b.Max.Y, b.Max.Z)));
-    return ret;
+    Bounds3 Ret(M(B.Min));
+    Ret = Union(Ret, M(Point3(B.Max.X, B.Min.Y, B.Min.Z)));
+    Ret = Union(Ret, M(Point3(B.Min.X, B.Max.Y, B.Min.Z)));
+    Ret = Union(Ret, M(Point3(B.Min.X, B.Min.Y, B.Max.Z)));
+    Ret = Union(Ret, M(Point3(B.Min.X, B.Max.Y, B.Max.Z)));
+    Ret = Union(Ret, M(Point3(B.Max.X, B.Max.Y, B.Min.Z)));
+    Ret = Union(Ret, M(Point3(B.Max.X, B.Min.Y, B.Max.Z)));
+    Ret = Union(Ret, M(Point3(B.Max.X, B.Max.Y, B.Max.Z)));
+    return Ret;
 }
 
-math::Vector3 math::Transform::operator()(const Vector3& v) const
+math::Vector3 math::Transform::operator()(const Vector3& Vec) const
 {
-    const float x = v.X;
-    const float y = v.Y;
-    const float z = v.Z;
-    return {m_Matrix.Data[0][0] * x + m_Matrix.Data[0][1] * y + m_Matrix.Data[0][2] * z,
-            m_Matrix.Data[1][0] * x + m_Matrix.Data[1][1] * y + m_Matrix.Data[1][2] * z,
-            m_Matrix.Data[2][0] * x + m_Matrix.Data[2][1] * y + m_Matrix.Data[2][2] * z};
+    return {
+        m_Matrix.Data[0][0] * Vec.X + m_Matrix.Data[0][1] * Vec.Y + m_Matrix.Data[0][2] * Vec.Z,
+        m_Matrix.Data[1][0] * Vec.X + m_Matrix.Data[1][1] * Vec.Y + m_Matrix.Data[1][2] * Vec.Z,
+        m_Matrix.Data[2][0] * Vec.X + m_Matrix.Data[2][1] * Vec.Y + m_Matrix.Data[2][2] * Vec.Z};
 }
 
-math::Point3 math::Transform::operator()(const Point3& p) const
+math::Point3 math::Transform::operator()(const Point3& P) const
 {
-    const float x = p.X;
-    const float y = p.Y;
-    const float z = p.Z;
+    const float X = m_Matrix.Data[0][0] * P.X + m_Matrix.Data[0][1] * P.Y +
+                    m_Matrix.Data[0][2] * P.Z + m_Matrix.Data[0][3];
+    const float Y = m_Matrix.Data[1][0] * P.X + m_Matrix.Data[1][1] * P.Y +
+                    m_Matrix.Data[1][2] * P.Z + m_Matrix.Data[1][3];
+    const float Z = m_Matrix.Data[2][0] * P.X + m_Matrix.Data[2][1] * P.Y +
+                    m_Matrix.Data[2][2] * P.Z + m_Matrix.Data[2][3];
+    const float W = m_Matrix.Data[3][0] * P.X + m_Matrix.Data[3][1] * P.Y +
+                    m_Matrix.Data[3][2] * P.Z + m_Matrix.Data[3][3];
 
-    const float xp = m_Matrix.Data[0][0] * x + m_Matrix.Data[0][1] * y + m_Matrix.Data[0][2] * z +
-                     m_Matrix.Data[0][3];
-    const float yp = m_Matrix.Data[1][0] * x + m_Matrix.Data[1][1] * y + m_Matrix.Data[1][2] * z +
-                     m_Matrix.Data[1][3];
-    const float zp = m_Matrix.Data[2][0] * x + m_Matrix.Data[2][1] * y + m_Matrix.Data[2][2] * z +
-                     m_Matrix.Data[2][3];
-    const float wp = m_Matrix.Data[3][0] * x + m_Matrix.Data[3][1] * y + m_Matrix.Data[3][2] * z +
-                     m_Matrix.Data[3][3];
-
-    assert(wp != 0);
-
-    if (wp == 1)
+    assert(W != 0);
+    if (W == 1)
     {
-        return {xp, yp, zp};
+        return {X, Y, Z};
     }
 
-    return Point3(xp, yp, zp) / wp;
+    return Point3(X, Y, Z) / W;
 }
 
-math::Point4 math::Transform::operator()(const Point4& p) const
+math::Point4 math::Transform::operator()(const Point4& P) const
 {
-    const float x = p.X;
-    const float y = p.Y;
-    const float z = p.Z;
+    const float X = m_Matrix.Data[0][0] * P.X + m_Matrix.Data[0][1] * P.Y +
+                    m_Matrix.Data[0][2] * P.Z + m_Matrix.Data[0][3];
+    const float Y = m_Matrix.Data[1][0] * P.X + m_Matrix.Data[1][1] * P.Y +
+                    m_Matrix.Data[1][2] * P.Z + m_Matrix.Data[1][3];
+    const float Z = m_Matrix.Data[2][0] * P.X + m_Matrix.Data[2][1] * P.Y +
+                    m_Matrix.Data[2][2] * P.Z + m_Matrix.Data[2][3];
+    const float W = m_Matrix.Data[3][0] * P.X + m_Matrix.Data[3][1] * P.Y +
+                    m_Matrix.Data[3][2] * P.Z + m_Matrix.Data[3][3];
 
-    const float xp = m_Matrix.Data[0][0] * x + m_Matrix.Data[0][1] * y + m_Matrix.Data[0][2] * z +
-                     m_Matrix.Data[0][3];
-    const float yp = m_Matrix.Data[1][0] * x + m_Matrix.Data[1][1] * y + m_Matrix.Data[1][2] * z +
-                     m_Matrix.Data[1][3];
-    const float zp = m_Matrix.Data[2][0] * x + m_Matrix.Data[2][1] * y + m_Matrix.Data[2][2] * z +
-                     m_Matrix.Data[2][3];
-    const float wp = m_Matrix.Data[3][0] * x + m_Matrix.Data[3][1] * y + m_Matrix.Data[3][2] * z +
-                     m_Matrix.Data[3][3];
-
-    assert(wp != 0);
-    return {xp, yp, zp, wp};
+    assert(W != 0);
+    return {X, Y, Z, W};
 }
 
-inline math::Normal3 math::Transform::operator()(const Normal3& n) const
+inline math::Normal3 math::Transform::operator()(const Normal3& N) const
 {
-    const float x = n.X;
-    const float y = n.Y;
-    const float z = n.Z;
-    return {m_MatrixInverse.Data[0][0] * x + m_MatrixInverse.Data[1][0] * y +
-                m_MatrixInverse.Data[2][0] * z,
-            m_MatrixInverse.Data[0][1] * x + m_MatrixInverse.Data[1][1] * y +
-                m_MatrixInverse.Data[2][1] * z,
-            m_MatrixInverse.Data[0][2] * x + m_MatrixInverse.Data[1][2] * y +
-                m_MatrixInverse.Data[2][2] * z};
+    return {m_MatrixInverse.Data[0][0] * N.X + m_MatrixInverse.Data[1][0] * N.Y +
+                m_MatrixInverse.Data[2][0] * N.Z,
+            m_MatrixInverse.Data[0][1] * N.X + m_MatrixInverse.Data[1][1] * N.Y +
+                m_MatrixInverse.Data[2][1] * N.Z,
+            m_MatrixInverse.Data[0][2] * N.X + m_MatrixInverse.Data[1][2] * N.Y +
+                m_MatrixInverse.Data[2][2] * N.Z};
 }

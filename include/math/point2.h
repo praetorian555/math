@@ -24,25 +24,25 @@ public:
 public:
     Point2() : X(0), Y(0) {}
     Point2(float X, float Y) : X(X), Y(Y) {}
-    Point2(const Point2& p3) : X(p3.X), Y(p3.Y) {}
-    explicit Point2(const Point3& p);
+    Point2(const Point2& P) : X(P.X), Y(P.Y) {}
+    explicit Point2(const Point3& P);
 
-    void Set(float Val, int i);
-    float operator[](int i) const;
+    void Set(float Value, int Index);
+    float operator[](int Index) const;
 
     bool HasNaNs() const;
 
     bool operator==(const Point2& Other) const;
     bool operator!=(const Point2& Other) const;
 
-    Point2 operator+(const Vector2& v) const;
-    Point2& operator+=(const Vector2& v);
+    Point2 operator+(const Vector2& Vec) const;
+    Point2& operator+=(const Vector2& Vec);
     Point2 operator+(const Point2& Other) const;
     Point2& operator+=(const Point2& Other);
 
-    Point2 operator-(const Vector2& v) const;
+    Point2 operator-(const Vector2& Vec) const;
     Vector2 operator-(const Point2& Other) const;
-    Point2& operator-=(const Vector2& v);
+    Point2& operator-=(const Vector2& Vec);
 
     Point2 operator*(float Scalar) const;
     Point2& operator*=(float Scalar);
@@ -59,11 +59,11 @@ Point2 operator*(float Scalar, const Point2& P);
 
 float Distance(const Point2& P1, const Point2& P2);
 float DistanceSquared(const Point2& P1, const Point2& P2);
-Point2 Lerp(float t, const Point2& P1, const Point2& P2);
+Point2 Lerp(float Param, const Point2& P1, const Point2& P2);
 
-Point2 Floor(const Point2& p);
-Point2 Ceil(const Point2& p);
-Point2 Round(const Point2& p);
+Point2 Floor(const Point2& P);
+Point2 Ceil(const Point2& P);
+Point2 Round(const Point2& P);
 
 Point2 Min(const Point2& P1, const Point2& P2);
 Point2 Max(const Point2& P1, const Point2& P2);

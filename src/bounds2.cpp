@@ -50,9 +50,9 @@ int math::Bounds2::MaximumExtent() const
     return Diag.X > Diag.Y ? 0 : 1;
 }
 
-math::Point2 math::Bounds2::Lerp(const Point2& t) const
+math::Point2 math::Bounds2::Lerp(const Point2& Param) const
 {
-    return {math::Lerp(t.X, Min.X, Max.X), math::Lerp(t.Y, Min.Y, Max.Y)};
+    return {math::Lerp(Param.X, Min.X, Max.X), math::Lerp(Param.Y, Min.Y, Max.Y)};
 }
 
 math::Vector2 math::Bounds2::Offset(const Point2& P) const

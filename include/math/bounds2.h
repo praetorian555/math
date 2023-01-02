@@ -16,8 +16,8 @@ public:
     explicit Bounds2(const Point2& P);
     Bounds2(const Point2& Vec1, const Point2& Vec2);
 
-    const Point2& operator[](int i) const;
-    Point2& operator[](int i);
+    const Point2& operator[](int Index) const;
+    Point2& operator[](int Index);
 
     Point2 Corner(int Corner) const;
 
@@ -26,24 +26,24 @@ public:
 
     int MaximumExtent() const;
 
-    Point2 Lerp(const Point2& t) const;
-    Vector2 Offset(const Point2& p) const;
+    Point2 Lerp(const Point2& Param) const;
+    Vector2 Offset(const Point2& P) const;
 
-    void BoundingSphere(Point2& center, float& radius) const;
+    void BoundingSphere(Point2& Center, float& Radius) const;
 
     Vector2 Extent() const;
 };
 
-Bounds2 Union(const Bounds2& b, const Point2& p);
+Bounds2 Union(const Bounds2& B, const Point2& P);
 Bounds2 Union(const Bounds2& B1, const Bounds2& B2);
 
 Bounds2 Intersect(const Bounds2& B1, const Bounds2& B2);
 bool Overlaps(const Bounds2& B1, const Bounds2& B2);
 
-bool Inside(const Point2& p, const Bounds2& b);
+bool Inside(const Point2& P, const Bounds2& B);
 // The point is not counted if it is on the upper boundry of the box
-bool InsideInclusive(const Point2& p, const Bounds2& b);
+bool InsideInclusive(const Point2& P, const Bounds2& B);
 
-Bounds2 Expand(const Bounds2& b, float Delta);
+Bounds2 Expand(const Bounds2& B, float Delta);
 
 }  // namespace math

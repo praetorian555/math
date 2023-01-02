@@ -32,8 +32,8 @@ public:
     Vector4(float X, float Y, float Z, float W) : X(X), Y(Y), Z(Z), W(W) {}
 
     explicit Vector4(const Point4& P);
-    explicit Vector4(const Vector2& XY, float Z = 0, float W = 0);
-    explicit Vector4(const Vector3& XYZ, float W = 0);
+    explicit Vector4(const Vector2& XY, float ZZ = 0, float WW = 0);
+    explicit Vector4(const Vector3& XYZ, float WW = 0);
 
     Vector2 XY() const;
     Vector2 XZ() const;
@@ -47,8 +47,8 @@ public:
     Vector3 XZW() const;
     Vector3 YZW() const;
 
-    void Set(float Val, int i);
-    float operator[](int i) const;
+    void Set(float Value, int Index);
+    float operator[](int Index) const;
     bool HasNaNs() const;
 
     bool operator==(const Vector4& Other) const;
@@ -85,7 +85,7 @@ Vector4 Normalize(const Vector4& Vec);
 Vector4 Min(const Vector4& Vec1, const Vector4& Vec2);
 Vector4 Max(const Vector4& Vec1, const Vector4& Vec2);
 
-Vector4 Permute(const Vector4& v, int X, int Y, int Z, int W);
+Vector4 Permute(const Vector4& Vec, int X, int Y, int Z, int W);
 Vector4 Clamp(const Vector4& Val, float Low, float High);
 
 }  // namespace math

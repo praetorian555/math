@@ -32,8 +32,8 @@ float math::Degrees(float Radians)
 
 float math::Log2(float Value)
 {
-    constexpr float InvLog2 = 1.442695040888963387004650940071f;
-    return std::log(Value) * InvLog2;
+    constexpr float kInvLog2 = 1.442695040888963387004650940071f;
+    return std::log(Value) * kInvLog2;
 }
 
 int32_t math::Log2Int(uint32_t Value)
@@ -49,16 +49,16 @@ int32_t math::Log2Int(uint32_t Value)
 
 int32_t math::RoundUpPow2(int32_t Value)
 {
-    constexpr int ShiftHalfByte = 4;
-    constexpr int ShiftByte = 8;
-    constexpr int ShiftTwoBytes = 16;
+    constexpr int kShiftHalfByte = 4;
+    constexpr int kShiftByte = 8;
+    constexpr int kShiftTwoBytes = 16;
 
     Value--;
     Value |= Value >> 1;
     Value |= Value >> 2;
-    Value |= Value >> ShiftHalfByte;
-    Value |= Value >> ShiftByte;
-    Value |= Value >> ShiftTwoBytes;
+    Value |= Value >> kShiftHalfByte;
+    Value |= Value >> kShiftByte;
+    Value |= Value >> kShiftTwoBytes;
     return Value + 1;
 }
 
@@ -67,8 +67,8 @@ int32_t math::CountTrailingZeros(uint32_t Value)
 #if defined(_MSC_VER)
     unsigned long FirstOneIndex = 0; // NOLINT
     _BitScanReverse(&FirstOneIndex, Value);
-    constexpr int32_t BitsInInt32 = 32;
-    return BitsInInt32 - static_cast<int32_t>(FirstOneIndex);
+    constexpr int32_t kBitsInInt32 = 32;
+    return kBitsInInt32 - static_cast<int32_t>(FirstOneIndex);
 #else
     return __builtin_ctz(Value);
 #endif

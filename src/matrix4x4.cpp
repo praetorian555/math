@@ -53,40 +53,40 @@ math::Matrix4x4::Matrix4x4(const Array2D<float, 4, 4>& Mat) : Data{}
 
 // clang-format off
 math::Matrix4x4::Matrix4x4(
-    float t00, float t01, float t02, float t03,
-    float t10, float t11, float t12, float t13,
-    float t20, float t21, float t22, float t23,
-    float t30, float t31, float t32, float t33) : Data{}
+    float T00, float T01, float T02, float T03,
+    float T10, float T11, float T12, float T13,
+    float T20, float T21, float T22, float T23,
+    float T30, float T31, float T32, float T33) : Data{}
 // clang-format on
 {
-    Data[0][0] = t00;
-    Data[0][1] = t01;
-    Data[0][2] = t02;
-    Data[0][3] = t03;
+    Data[0][0] = T00;
+    Data[0][1] = T01;
+    Data[0][2] = T02;
+    Data[0][3] = T03;
 
-    Data[1][0] = t10;
-    Data[1][1] = t11;
-    Data[1][2] = t12;
-    Data[1][3] = t13;
+    Data[1][0] = T10;
+    Data[1][1] = T11;
+    Data[1][2] = T12;
+    Data[1][3] = T13;
 
-    Data[2][0] = t20;
-    Data[2][1] = t21;
-    Data[2][2] = t22;
-    Data[2][3] = t23;
+    Data[2][0] = T20;
+    Data[2][1] = T21;
+    Data[2][2] = T22;
+    Data[2][3] = T23;
 
-    Data[3][0] = t30;
-    Data[3][1] = t31;
-    Data[3][2] = t32;
-    Data[3][3] = t33;
+    Data[3][0] = T30;
+    Data[3][1] = T31;
+    Data[3][2] = T32;
+    Data[3][3] = T33;
 }
 
 bool math::Matrix4x4::operator==(const Matrix4x4& Other) const
 {
-    for (int i = 0; i < 4; i++)
+    for (int Row = 0; Row < 4; Row++)
     {
-        for (int j = 0; j < 4; j++)
+        for (int Column = 0; Column < 4; Column++)
         {
-            if (Data[i][j] != Other.Data[i][j])
+            if (Data[Row][Column] != Other.Data[Row][Column])
             {
                 return false;
             }
@@ -120,107 +120,104 @@ math::Matrix4x4 math::Matrix4x4::Inverse() const
     std::array<int, 4> Indxc = {0, 0, 0, 0};
     std::array<int, 4> Indxr = {0, 0, 0, 0};
     std::array<int, 4> Ipiv = {0, 0, 0, 0};
-    Array2D<float, 4, 4> minv;
-    minv = Data;
-    for (int i = 0; i < 4; i++)
+    Array2D<float, 4, 4> MatInv;
+    MatInv = Data;
+    for (int It = 0; It < 4; It++)
     {
-        int irow = 0;
-        int icol = 0;
-        float big = 0.f;
+        int IndexRow = 0;
+        int IndexColumn = 0;
+        float Big = 0.f;
         // Choose pivot
-        for (int j = 0; j < 4; j++)
+        for (int Row = 0; Row < 4; Row++)
         {
-            if (Ipiv[j] == 1)
+            if (Ipiv[Row] == 1)
             {
                 continue;
             }
-            for (int k = 0; k < 4; k++)
+            for (int Column = 0; Column < 4; Column++)
             {
-                if (Ipiv[k] == 0)
+                if (Ipiv[Column] == 0)
                 {
-                    if (std::abs(minv[j][k]) >= big)
+                    if (std::abs(MatInv[Row][Column]) >= Big)
                     {
-                        big = std::abs(minv[j][k]);
-                        irow = j;
-                        icol = k;
+                        Big = std::abs(MatInv[Row][Column]);
+                        IndexRow = Row;
+                        IndexColumn = Column;
                     }
                 }
-                else if (Ipiv[k] > 1)
+                else if (Ipiv[Column] > 1)
                 {
                     // Singluar matrix
                     assert(false);
                 }
             }
         }
-        ++Ipiv[icol];
+        ++Ipiv[IndexColumn];
         // Swap rows _irow_ and _icol_ for pivot
-        if (irow != icol)
+        if (IndexRow != IndexColumn)
         {
-            for (int k = 0; k < 4; ++k)
+            for (int Column = 0; Column < 4; Column++)
             {
-                std::swap(minv[irow][k], minv[icol][k]);
+                std::swap(MatInv[IndexRow][Column], MatInv[IndexColumn][Column]);
             }
         }
-        Indxr[i] = irow;
-        Indxc[i] = icol;
-        if (minv[icol][icol] == 0.f)
+        Indxr[It] = IndexRow;
+        Indxc[It] = IndexColumn;
+        if (MatInv[IndexColumn][IndexColumn] == 0.f)
         {
             // Singluar matrix
             assert(false);
         }
 
         // Set $m[icol][icol]$ to one by scaling row _icol_ appropriately
-        const float pivinv = 1.0f / minv[icol][icol];
-        minv[icol][icol] = 1.0f;
-        for (int j = 0; j < 4; j++)
+        const float Pivinv = 1.0f / MatInv[IndexColumn][IndexColumn];
+        MatInv[IndexColumn][IndexColumn] = 1.0f;
+        for (int Column = 0; Column < 4; Column++)
         {
-            minv[icol][j] *= pivinv;
+            MatInv[IndexColumn][Column] *= Pivinv;
         }
 
         // Subtract this row from Others to zero out their columns
-        for (int j = 0; j < 4; j++)
+        for (int Row = 0; Row < 4; Row++)
         {
-            if (j != icol)
+            if (Row != IndexColumn)
             {
-                const float save = minv[j][icol];
-                minv[j][icol] = 0;
-                for (int k = 0; k < 4; k++)
+                const float Save = MatInv[Row][IndexColumn];
+                MatInv[Row][IndexColumn] = 0;
+                for (int Column = 0; Column < 4; Column++)
                 {
-                    minv[j][k] -= minv[icol][k] * save;
+                    MatInv[Row][Column] -= MatInv[IndexColumn][Column] * Save;
                 }
             }
         }
     }
 
     // Swap columns to reflect permutation
-    for (int j = 3; j >= 0; j--)
+    for (int Column = 3; Column >= 0; Column--)
     {
-        if (Indxr[j] != Indxc[j])
+        if (Indxr[Column] != Indxc[Column])
         {
-            for (int k = 0; k < 4; k++)
+            for (int Row = 0; Row < 4; Row++)
             {
-                std::swap(minv[k][Indxr[j]], minv[k][Indxc[j]]);
+                std::swap(MatInv[Row][Indxr[Column]], MatInv[Row][Indxc[Column]]);
             }
         }
     }
 
-    return Matrix4x4(minv);
+    return Matrix4x4(MatInv);
 }
 
-math::Matrix4x4 math::Multiply(const Matrix4x4& m1, const Matrix4x4& m2)
+math::Matrix4x4 math::Multiply(const Matrix4x4& M1, const Matrix4x4& M2)
 {
-    Matrix4x4 r;
-    for (int i = 0; i < 4; ++i)
+    Matrix4x4 Res;
+    for (int Row = 0; Row < 4; Row++)
     {
-        for (int j = 0; j < 4; ++j)
+        for (int Column = 0; Column < 4; Column++)
         {
-            // clang-format off
-            r.Data[i][j] = m1.Data[i][0] * m2.Data[0][j] + 
-                           m1.Data[i][1] * m2.Data[1][j] +
-                           m1.Data[i][2] * m2.Data[2][j] +
-                           m1.Data[i][3] * m2.Data[3][j];
-            // clang-format on
+            Res.Data[Row][Column] =
+                M1.Data[Row][0] * M2.Data[0][Column] + M1.Data[Row][1] * M2.Data[1][Column] +
+                M1.Data[Row][2] * M2.Data[2][Column] + M1.Data[Row][3] * M2.Data[3][Column];
         }
     }
-    return r;
+    return Res;
 }
