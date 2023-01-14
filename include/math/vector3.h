@@ -28,8 +28,8 @@ public:
     };
 
 public:
-    Vector3() { X = Y = Z = 0; }
-    Vector3(float X, float Y, float Z) : X(X), Y(Y), Z(Z) {}
+    constexpr Vector3() { X = Y = Z = 0; }
+    constexpr Vector3(float X, float Y, float Z) : X(X), Y(Y), Z(Z) {}
     explicit Vector3(const Normal3& N);
     explicit Vector3(const Point3& P);
     explicit Vector3(const Vector2& XY, float ZZ = 0);

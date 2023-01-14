@@ -28,7 +28,7 @@ public:
     };
 
 public:
-    Vector4() { X = Y = Z = W = 0; }
+    constexpr Vector4() { X = Y = Z = W = 0; }
     constexpr Vector4(float X, float Y, float Z, float W) : X(X), Y(Y), Z(Z), W(W) {}
 
     explicit Vector4(const Point4& P);

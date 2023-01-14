@@ -21,8 +21,8 @@ public:
     };
 
 public:
-    Normal3() { X = Y = Z = 0; }
-    Normal3(float X, float Y, float Z) : X(X), Y(Y), Z(Z) {}
+    constexpr Normal3() { X = Y = Z = 0; }
+    constexpr Normal3(float X, float Y, float Z) : X(X), Y(Y), Z(Z) {}
     explicit Normal3(const Vector3& Vec);
 
     void Set(float Value, int Index);

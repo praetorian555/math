@@ -22,8 +22,8 @@ public:
     };
 
 public:
-    Vector2() { X = Y = 0; }
-    Vector2(float X, float Y) : X(X), Y(Y) {}
+    constexpr Vector2() { X = Y = 0; }
+    constexpr Vector2(float X, float Y) : X(X), Y(Y) {}
 
     void Set(float Value, int Index);
     float operator[](int Index) const;

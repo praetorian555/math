@@ -22,9 +22,9 @@ public:
     };
 
 public:
-    Point2() : X(0), Y(0) {}
-    Point2(float X, float Y) : X(X), Y(Y) {}
-    Point2(const Point2& P) : X(P.X), Y(P.Y) {}
+    constexpr Point2() : X(0), Y(0) {}
+    constexpr Point2(float X, float Y) : X(X), Y(Y) {}
+    constexpr Point2(const Point2& P) : X(P.X), Y(P.Y) {}
     explicit Point2(const Point3& P);
 
     void Set(float Value, int Index);

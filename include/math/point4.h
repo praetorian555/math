@@ -22,9 +22,9 @@ public:
     };
 
 public:
-    Point4() : X(0), Y(0), Z(0), W(0) {}
-    Point4(float X, float Y, float Z, float W) : X(X), Y(Y), Z(Z), W(W) {}
-    Point4(const Point4& P) : X(P.X), Y(P.Y), Z(P.Z), W(P.W) {}
+    constexpr Point4() : X(0), Y(0), Z(0), W(0) {}
+    constexpr Point4(float X, float Y, float Z, float W) : X(X), Y(Y), Z(Z), W(W) {}
+    constexpr Point4(const Point4& P) : X(P.X), Y(P.Y), Z(P.Z), W(P.W) {}
 
     explicit Point4(const Point3& P);
 
