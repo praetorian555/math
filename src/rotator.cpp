@@ -11,6 +11,7 @@ math::Vector3 math::Rotator::ToVector() const
     const real PitchNoWinding = Mod(Pitch, 360.0f);
     const real YawNoWinding = Mod(Yaw, 360.0f);
 
+    // TODO(Marko): Write API for this.
     const real SP = std::sin(math::Radians(PitchNoWinding));
     const real CP = std::cos(math::Radians(PitchNoWinding));
     const real SY = std::sin(math::Radians(YawNoWinding));

@@ -57,9 +57,9 @@ public:
 
 Point2 operator*(real Scalar, const Point2& P);
 
-float Distance(const Point2& P1, const Point2& P2);
-float DistanceSquared(const Point2& P1, const Point2& P2);
-Point2 Lerp(float Param, const Point2& P1, const Point2& P2);
+real Distance(const Point2& P1, const Point2& P2);
+real DistanceSquared(const Point2& P1, const Point2& P2);
+Point2 Lerp(real Param, const Point2& P1, const Point2& P2);
 
 Point2 Floor(const Point2& P);
 Point2 Ceil(const Point2& P);

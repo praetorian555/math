@@ -18,30 +18,29 @@ public:
     {
         struct
         {
-            float X, Y, Z;
+            real X, Y, Z;
         };
         struct
         {
-            float R, G, B;
+            real R, G, B;
         };
-        float Data[3];
+        real Data[3];
     };
 
-public:
     constexpr Vector3() { X = Y = Z = 0; }
-    constexpr Vector3(float X, float Y, float Z) : X(X), Y(Y), Z(Z) {}
+    constexpr Vector3(real X, real Y, real Z) : X(X), Y(Y), Z(Z) {}
     explicit Vector3(const Normal3& N);
     explicit Vector3(const Point3& P);
-    explicit Vector3(const Vector2& XY, float ZZ = 0);
+    explicit Vector3(const Vector2& XY, real ZZ = 0);
 
-    Vector2 XY() const;
-    Vector2 YZ() const;
-    Vector2 XZ() const;
+    [[nodiscard]] Vector2 XY() const;
+    [[nodiscard]] Vector2 YZ() const;
+    [[nodiscard]] Vector2 XZ() const;
 
-    void Set(float Value, int Index);
-    float operator[](int Index) const;
+    void Set(real Value, int Index);
+    real operator[](int Index) const;
 
-    bool HasNaNs() const;
+    [[nodiscard]] bool HasNaNs() const;
 
     bool operator==(const Vector3& Other) const;
     bool operator!=(const Vector3& Other) const;
@@ -51,37 +50,37 @@ public:
     Vector3 operator-(const Vector3& Other) const;
     Vector3& operator-=(const Vector3& Other);
 
-    Vector3 operator*(float Scalar) const;
-    Vector3& operator*=(float Scalar);
+    Vector3 operator*(real Scalar) const;
+    Vector3& operator*=(real Scalar);
     Vector3 operator*(const Vector3& Other) const;
     Vector3& operator*=(const Vector3& Other);
 
-    Vector3 operator/(float Scalar) const;
-    Vector3& operator/=(float Scalar);
+    Vector3 operator/(real Scalar) const;
+    Vector3& operator/=(real Scalar);
 
     Vector3 operator-() const;
 
-    Vector3 Abs() const;
+    [[nodiscard]] Vector3 Abs() const;
 
-    float LengthSquared() const;
-    float Length() const;
+    [[nodiscard]] real LengthSquared() const;
+    [[nodiscard]] real Length() const;
 };
 
-Vector3 operator*(float Scalar, const Vector3& Vec);
-float Dot(const Vector3& Vec1, const Vector3& Vec2);
-float AbsDot(const Vector3& Vec1, const Vector3& Vec2);
+Vector3 operator*(real Scalar, const Vector3& Vec);
+real Dot(const Vector3& Vec1, const Vector3& Vec2);
+real AbsDot(const Vector3& Vec1, const Vector3& Vec2);
 
 Vector3 Cross(const Vector3& Vec1, const Vector3& Vec2);
-float Cross2D(const Vector3& Vec1, const Vector3& Vec2);
+real Cross2D(const Vector3& Vec1, const Vector3& Vec2);
 Vector3 Normalize(const Vector3& Vec);
 
-float MinComponent(const Vector3& Vec);
-float MaxComponent(const Vector3& Vec);
+real MinComponent(const Vector3& Vec);
+real MaxComponent(const Vector3& Vec);
 int MaxDimension(const Vector3& Vec);
 Vector3 Min(const Vector3& Vec1, const Vector3& Vec2);
 Vector3 Max(const Vector3& Vec1, const Vector3& Vec2);
 
 Vector3 Permute(const Vector3& Vec, int X, int Y, int Z);
 Vector3 Reflect(const Vector3& Incidence, const Vector3& Normal);
-Vector3 Clamp(const Vector3& Value, float Low, float High);
+Vector3 Clamp(const Vector3& Value, real Low, real High);
 }  // namespace math

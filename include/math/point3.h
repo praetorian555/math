@@ -32,7 +32,7 @@ public:
     void Set(real Value, int Index);
     real operator[](int Index) const;
 
-    bool HasNaNs() const;
+    [[nodiscard]] bool HasNaNs() const;
 
     bool operator==(const Point3& Other) const;
     bool operator!=(const Point3& Other) const;
@@ -54,7 +54,7 @@ public:
 
     Point3 operator-() const;
 
-    Point3 Abs() const;
+    [[nodiscard]] Point3 Abs() const;
 };
 
 Point3 operator*(real Scalar, const Point3& P);

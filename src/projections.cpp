@@ -3,12 +3,12 @@
 #include <cassert>
 #include <cmath>
 
-math::Matrix4x4 math::Orhographic_LH_N0(real Left,
-                                        real Right,
-                                        real Bottom,
-                                        real Top,
-                                        real Near,
-                                        real Far)
+math::Matrix4x4 math::Orthographic_LH_N0(real Left,
+                                         real Right,
+                                         real Bottom,
+                                         real Top,
+                                         real Near,
+                                         real Far)
 {
     Matrix4x4 Mat;
     Mat.Data[0][0] = 2 / (Right - Left);
@@ -20,12 +20,12 @@ math::Matrix4x4 math::Orhographic_LH_N0(real Left,
     return Mat;
 }
 
-math::Matrix4x4 math::Orhographic_LH_N1(real Left,
-                                        real Right,
-                                        real Bottom,
-                                        real Top,
-                                        real Near,
-                                        real Far)
+math::Matrix4x4 math::Orthographic_LH_N1(real Left,
+                                         real Right,
+                                         real Bottom,
+                                         real Top,
+                                         real Near,
+                                         real Far)
 {
     Matrix4x4 Mat;
     Mat.Data[0][0] = 2 / (Right - Left);
@@ -37,12 +37,12 @@ math::Matrix4x4 math::Orhographic_LH_N1(real Left,
     return Mat;
 }
 
-math::Matrix4x4 math::Orhographic_RH_N0(real Left,
-                                        real Right,
-                                        real Bottom,
-                                        real Top,
-                                        real Near,
-                                        real Far)
+math::Matrix4x4 math::Orthographic_RH_N0(real Left,
+                                         real Right,
+                                         real Bottom,
+                                         real Top,
+                                         real Near,
+                                         real Far)
 {
     Matrix4x4 Mat;
     Mat.Data[0][0] = 2 / (Right - Left);
@@ -54,12 +54,12 @@ math::Matrix4x4 math::Orhographic_RH_N0(real Left,
     return Mat;
 }
 
-math::Matrix4x4 math::Orhographic_RH_N1(real Left,
-                                        real Right,
-                                        real Bottom,
-                                        real Top,
-                                        real Near,
-                                        real Far)
+math::Matrix4x4 math::Orthographic_RH_N1(real Left,
+                                         real Right,
+                                         real Bottom,
+                                         real Top,
+                                         real Near,
+                                         real Far)
 {
     Matrix4x4 Mat;
     Mat.Data[0][0] = 2 / (Right - Left);

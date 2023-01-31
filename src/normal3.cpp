@@ -7,13 +7,13 @@
 
 math::Normal3::Normal3(const Vector3& Vec) : X(Vec.X), Y(Vec.Y), Z(Vec.Z) {}
 
-void math::Normal3::Set(float Value, int Index)
+void math::Normal3::Set(real Value, int Index)
 {
     assert(Index >= 0 && Index < 3);
     Data[Index] = Value;
 }
 
-float math::Normal3::operator[](int Index) const
+math::real math::Normal3::operator[](int Index) const
 {
     assert(Index >= 0 && Index < 3);
     return Data[Index];
@@ -60,12 +60,12 @@ math::Normal3& math::Normal3::operator-=(const Normal3& Other)
     return *this;
 }
 
-math::Normal3 math::Normal3::operator*(float Scalar) const
+math::Normal3 math::Normal3::operator*(real Scalar) const
 {
     return {X * Scalar, Y * Scalar, Z * Scalar};
 }
 
-math::Normal3& math::Normal3::operator*=(float Scalar)
+math::Normal3& math::Normal3::operator*=(real Scalar)
 {
     X *= Scalar;
     Y *= Scalar;
@@ -73,17 +73,17 @@ math::Normal3& math::Normal3::operator*=(float Scalar)
     return *this;
 }
 
-math::Normal3 math::Normal3::operator/(float Scalar) const
+math::Normal3 math::Normal3::operator/(real Scalar) const
 {
     assert(Scalar != 0);
-    const float Rec = 1.0f / Scalar;
+    const real Rec = 1.0f / Scalar;
     return {X * Rec, Y * Rec, Z * Rec};
 }
 
-math::Normal3& math::Normal3::operator/=(float Scalar)
+math::Normal3& math::Normal3::operator/=(real Scalar)
 {
     assert(Scalar != 0);
-    const float Rec = 1.0f / Scalar;
+    const real Rec = 1.0f / Scalar;
     X *= Rec;
     Y *= Rec;
     Z *= Rec;
@@ -100,46 +100,46 @@ math::Normal3 math::Normal3::Abs() const
     return {math::Abs(X), math::Abs(Y), math::Abs(Z)};
 }
 
-float math::Normal3::LengthSquared() const
+math::real math::Normal3::LengthSquared() const
 {
     return X * X + Y * Y + Z * Z;
 }
-float math::Normal3::Length() const
+math::real math::Normal3::Length() const
 {
     return std::sqrt(LengthSquared());
 }
 
-math::Normal3 math::operator*(float Scalar, const Normal3& N)
+math::Normal3 math::operator*(real Scalar, const Normal3& N)
 {
     return N * Scalar;
 }
 
-float math::Dot(const Normal3& N1, const Normal3& N2)
+math::real math::Dot(const Normal3& N1, const Normal3& N2)
 {
     return N1.X * N2.X + N1.Y * N2.Y + N1.Z * N2.Z;
 }
 
-float math::Dot(const Normal3& N, const Vector3& Vec)
+math::real math::Dot(const Normal3& N, const Vector3& Vec)
 {
     return N.X * Vec.X + N.Y * Vec.Y + N.Z * Vec.Z;
 }
 
-float math::Dot(const Vector3& Vec, const Normal3& N)
+math::real math::Dot(const Vector3& Vec, const Normal3& N)
 {
     return Vec.X * N.X + Vec.Y * N.Y + Vec.Z * N.Z;
 }
 
-float math::AbsDot(const Normal3& N1, const Normal3& N2)
+math::real math::AbsDot(const Normal3& N1, const Normal3& N2)
 {
     return math::Abs(Dot(N1, N2));
 }
 
-float math::AbsDot(const Normal3& N, const Vector3& Vec)
+math::real math::AbsDot(const Normal3& N, const Vector3& Vec)
 {
     return math::Abs(Dot(N, Vec));
 }
 
-float math::AbsDot(const Vector3& Vec, const Normal3& N)
+math::real math::AbsDot(const Vector3& Vec, const Normal3& N)
 {
     return math::Abs(Dot(Vec, N));
 }
@@ -149,12 +149,12 @@ math::Normal3 math::Normalize(const Normal3& N)
     return N / N.Length();
 }
 
-float math::MinComponent(const Normal3& N)
+math::real math::MinComponent(const Normal3& N)
 {
     return Min(N.X, Min(N.Y, N.Z));
 }
 
-float math::MaxComponent(const Normal3& N)
+math::real math::MaxComponent(const Normal3& N)
 {
     return math::Max(N.X, math::Max(N.Y, N.Z));
 }
@@ -179,7 +179,7 @@ math::Normal3 math::Permute(const Normal3& N, int X, int Y, int Z)
     return {N[X], N[Y], N[Z]};
 }
 
-math::Normal3 math::Faceforward(const Normal3& N, const Vector3& Vec)
+math::Normal3 math::FaceForward(const Normal3& N, const Vector3& Vec)
 {
     return (Dot(N, Vec) < 0.f) ? -N : N;
 }

@@ -11,7 +11,6 @@ class Bounds2
 public:
     Point2 Min, Max;
 
-public:
     Bounds2();
     explicit Bounds2(const Point2& P);
     Bounds2(const Point2& Vec1, const Point2& Vec2);
@@ -19,19 +18,19 @@ public:
     const Point2& operator[](int Index) const;
     Point2& operator[](int Index);
 
-    Point2 Corner(int Corner) const;
+    [[nodiscard]] Point2 Corner(int Corner) const;
 
-    Vector2 Diagonal() const;
-    float SurfaceArea() const;
+    [[nodiscard]] Vector2 Diagonal() const;
+    [[nodiscard]] real SurfaceArea() const;
 
-    int MaximumExtent() const;
+    [[nodiscard]] int MaximumExtent() const;
 
-    Point2 Lerp(const Point2& Param) const;
-    Vector2 Offset(const Point2& P) const;
+    [[nodiscard]] Point2 Lerp(const Point2& Param) const;
+    [[nodiscard]] Vector2 Offset(const Point2& P) const;
 
-    void BoundingSphere(Point2& Center, float& Radius) const;
+    void BoundingSphere(Point2& Center, real& Radius) const;
 
-    Vector2 Extent() const;
+    [[nodiscard]] Vector2 Extent() const;
 };
 
 Bounds2 Union(const Bounds2& B, const Point2& P);
@@ -44,6 +43,6 @@ bool Inside(const Point2& P, const Bounds2& B);
 // The point is not counted if it is on the upper boundry of the box
 bool InsideInclusive(const Point2& P, const Bounds2& B);
 
-Bounds2 Expand(const Bounds2& B, float Delta);
+Bounds2 Expand(const Bounds2& B, real Delta);
 
 }  // namespace math

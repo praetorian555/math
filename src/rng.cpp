@@ -1,7 +1,6 @@
 ﻿#include "math/rng.h"
 
 #include <cassert>
-#include <cmath>
 
 static constexpr uint64_t kDefaultState = 0x853c49e6748fea9bULL;
 static constexpr uint64_t kDefaultStream = 0xda3e39cb94b95bdbULL;

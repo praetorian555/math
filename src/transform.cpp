@@ -261,6 +261,7 @@ math::Transform math::Rotate(math::Rotator Rotator)
     return RotateZ(Rotator.Pitch) * RotateY(Rotator.Yaw) * RotateX(Rotator.Roll);
 }
 
+// TODO(Marko): Write test for this.
 math::Transform math::RotateAndTranslate(math::Rotator Rotator, const math::Point3& Translation)
 {
     return Translate(Translation) * Rotate(Rotator);
@@ -273,7 +274,7 @@ math::Transform math::RotateAndTranslate(math::Rotator Rotator, const math::Vect
 
 math::Bounds3 math::Transform::operator()(const Bounds3& B) const
 {
-    // TODO(mkostic): Make this more efficient
+    // TODO(Marko): Make this more efficient
 
     const Transform& M = *this;
     Bounds3 Ret(M(B.Min));

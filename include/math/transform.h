@@ -27,9 +27,9 @@ public:
     bool operator==(const Transform& Other) const;
     bool operator!=(const Transform& Other) const;
 
-    bool IsIdentity() const;
+    [[nodiscard]] bool IsIdentity() const;
 
-    bool HasScale() const;
+    [[nodiscard]] bool HasScale() const;
 
     Transform operator*(const Transform& Other) const;
 

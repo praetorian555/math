@@ -1,7 +1,6 @@
 #include "math/bounds3.h"
 
 #include <cassert>
-#include <cmath>
 
 math::Bounds3::Bounds3()
     : Min(kSmallestFloat, kSmallestFloat, kSmallestFloat),
@@ -49,13 +48,13 @@ math::Vector3 math::Bounds3::Diagonal() const
     return Max - Min;
 }
 
-float math::Bounds3::SurfaceArea() const
+math::real math::Bounds3::SurfaceArea() const
 {
     const Vector3 Diag = Diagonal();
     return 2 * (Diag.X * Diag.Y + Diag.X * Diag.Z + Diag.Y * Diag.Z);
 }
 
-float math::Bounds3::Volume() const
+math::real math::Bounds3::Volume() const
 {
     const Vector3 Diag = Diagonal();
     return Diag.X * Diag.Y * Diag.Z;
@@ -100,7 +99,7 @@ math::Vector3 math::Bounds3::Offset(const Point3& P) const
     return Off;
 }
 
-void math::Bounds3::BoundingSphere(Point3& Center, float& Radius) const
+void math::Bounds3::BoundingSphere(Point3& Center, real& Radius) const
 {
     Center = (Min + Max) / 2;
     Radius = Inside(Center, *this) ? Distance(Center, Max) : 0;
@@ -154,7 +153,7 @@ bool math::InsideInclusive(const Point3& P, const Bounds3& B)
             P.Z >= B.Min.Z && P.Z <= B.Max.Z);
 }
 
-math::Bounds3 math::Expand(const Bounds3& B, float Delta)
+math::Bounds3 math::Expand(const Bounds3& B, real Delta)
 {
     return {B.Min - Vector3(Delta, Delta, Delta), B.Max + Vector3(Delta, Delta, Delta)};
 }

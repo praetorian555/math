@@ -16,35 +16,35 @@ struct Rotator
      * Rotation around the right axis (around Z axis), Looking up and down (0=Straight Ahead, +Up,
      * -Down).
      */
-    float Pitch = 0;
+    real Pitch = 0;
 
     /**
      * Rotation around the up axis (around Y axis), Running in circles +Left, -Right.
      */
-    float Yaw = 0;
+    real Yaw = 0;
 
     /**
      * Rotation around the forward axis (around X axis), Tilting your head, 0=Straight, +CW, -CCW.
      */
-    float Roll = 0;
+    real Roll = 0;
 
     Rotator() = default;
 
     /**
      * Constructor. Angles are in degrees.
      */
-    Rotator(float Pitch, float Yaw, float Roll);
+    Rotator(real Pitch, real Yaw, real Roll);
 
     /**
      * Returns normalized vector in the direction defined by the rotator.
      */
-    Vector3 ToVector() const;
+    [[nodiscard]] Vector3 ToVector() const;
 
     /**
      * Returns a vector where each component stores the rotation angle in degrees around
      * corresponding axis.
      */
-    Vector3 ToEuler() const;
+    [[nodiscard]] Vector3 ToEuler() const;
 
     bool operator==(const Rotator& Other) const;
     bool operator!=(const Rotator& Other) const;
@@ -54,14 +54,14 @@ struct Rotator
     Rotator operator-(const Rotator& Other) const;
     Rotator& operator-=(const Rotator& Other);
 
-    Rotator operator*(float Val) const;
-    Rotator& operator*=(float Val);
+    Rotator operator*(real Val) const;
+    Rotator& operator*=(real Val);
 
-    void Add(float DeltaPitch, float DeltaYaw, float DeltaRoll);
+    void Add(real DeltaPitch, real DeltaYaw, real DeltaRoll);
 
-    Vector3 RotateVector(const Vector3& Vec) const;
+    [[nodiscard]] Vector3 RotateVector(const Vector3& Vec) const;
 };
 
-Rotator operator*(float Val, const Rotator& Other);
+Rotator operator*(real Val, const Rotator& Other);
 
 }  // namespace math

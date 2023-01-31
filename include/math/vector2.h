@@ -21,14 +21,13 @@ public:
         real Data[2];
     };
 
-public:
     constexpr Vector2() { X = Y = 0; }
     constexpr Vector2(real X, real Y) : X(X), Y(Y) {}
 
     void Set(real Value, int Index);
     real operator[](int Index) const;
 
-    bool HasNaNs() const;
+    [[nodiscard]] bool HasNaNs() const;
 
     bool operator==(const Vector2& Other) const;
     bool operator!=(const Vector2& Other) const;
@@ -46,10 +45,10 @@ public:
 
     Vector2 operator-() const;
 
-    Vector2 Abs() const;
+    [[nodiscard]] Vector2 Abs() const;
 
-    real LengthSquared() const;
-    real Length() const;
+    [[nodiscard]] real LengthSquared() const;
+    [[nodiscard]] real Length() const;
 };
 
 Vector2 operator*(real Scalar, const Vector2& Vec);

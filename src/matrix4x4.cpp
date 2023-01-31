@@ -1,8 +1,6 @@
 ﻿#include "math/matrix4x4.h"
 
 #include <cassert>
-#include <cmath>
-#include <cstring>
 #include <utility>
 
 math::Matrix4x4::Matrix4x4() : Data{}
@@ -28,7 +26,7 @@ math::Matrix4x4::Matrix4x4() : Data{}
     Data[3][3] = 1.0f;
 }
 
-math::Matrix4x4::Matrix4x4(const Array2D<float, 4, 4>& Mat) : Data{}
+math::Matrix4x4::Matrix4x4(const Array2D<real, 4, 4>& Mat) : Data{}
 {
     Data[0][0] = Mat[0][0];
     Data[0][1] = Mat[0][1];
@@ -53,10 +51,10 @@ math::Matrix4x4::Matrix4x4(const Array2D<float, 4, 4>& Mat) : Data{}
 
 // clang-format off
 math::Matrix4x4::Matrix4x4(
-    float T00, float T01, float T02, float T03,
-    float T10, float T11, float T12, float T13,
-    float T20, float T21, float T22, float T23,
-    float T30, float T31, float T32, float T33) : Data{}
+    real T00, real T01, real T02, real T03,
+    real T10, real T11, real T12, real T13,
+    real T20, real T21, real T22, real T23,
+    real T30, real T31, real T32, real T33) : Data{}
 // clang-format on
 {
     Data[0][0] = T00;
@@ -115,18 +113,16 @@ math::Matrix4x4 math::Matrix4x4::Transpose() const
 
 math::Matrix4x4 math::Matrix4x4::Inverse() const
 {
-    // TODO(mkostic): Taken from the mmp\pbrt-v3 on GitHub, refactor this
-
     std::array<int, 4> Indxc = {0, 0, 0, 0};
     std::array<int, 4> Indxr = {0, 0, 0, 0};
     std::array<int, 4> Ipiv = {0, 0, 0, 0};
-    Array2D<float, 4, 4> MatInv;
+    Array2D<real, 4, 4> MatInv;
     MatInv = Data;
     for (int It = 0; It < 4; It++)
     {
         int IndexRow = 0;
         int IndexColumn = 0;
-        float Big = 0.f;
+        real Big = 0.f;
         // Choose pivot
         for (int Row = 0; Row < 4; Row++)
         {
@@ -170,7 +166,7 @@ math::Matrix4x4 math::Matrix4x4::Inverse() const
         }
 
         // Set $m[icol][icol]$ to one by scaling row _icol_ appropriately
-        const float Pivinv = 1.0f / MatInv[IndexColumn][IndexColumn];
+        const real Pivinv = 1.0f / MatInv[IndexColumn][IndexColumn];
         MatInv[IndexColumn][IndexColumn] = 1.0f;
         for (int Column = 0; Column < 4; Column++)
         {
@@ -182,7 +178,7 @@ math::Matrix4x4 math::Matrix4x4::Inverse() const
         {
             if (Row != IndexColumn)
             {
-                const float Save = MatInv[Row][IndexColumn];
+                const real Save = MatInv[Row][IndexColumn];
                 MatInv[Row][IndexColumn] = 0;
                 for (int Column = 0; Column < 4; Column++)
                 {

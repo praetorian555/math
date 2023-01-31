@@ -10,7 +10,7 @@ math::Vector3::Vector3(const Normal3& N) : X(N.X), Y(N.Y), Z(N.Z) {}
 
 math::Vector3::Vector3(const Point3& P) : X(P.X), Y(P.Y), Z(P.Z) {}
 
-math::Vector3::Vector3(const Vector2& XY, float ZZ) : X(XY.X), Y(XY.Y), Z(ZZ) {}
+math::Vector3::Vector3(const Vector2& XY, real ZZ) : X(XY.X), Y(XY.Y), Z(ZZ) {}
 
 math::Vector2 math::Vector3::XY() const
 {
@@ -27,13 +27,13 @@ math::Vector2 math::Vector3::XZ() const
     return Vector2{X, Z};
 }
 
-void math::Vector3::Set(float Value, int Index)
+void math::Vector3::Set(real Value, int Index)
 {
     assert(Index >= 0 && Index < 3);
     Data[Index] = Value;
 }
 
-float math::Vector3::operator[](int Index) const
+math::real math::Vector3::operator[](int Index) const
 {
     assert(Index >= 0 && Index < 3);
     return Data[Index];
@@ -80,12 +80,12 @@ math::Vector3& math::Vector3::operator-=(const Vector3& Other)
     return *this;
 }
 
-math::Vector3 math::Vector3::operator*(float Scalar) const
+math::Vector3 math::Vector3::operator*(real Scalar) const
 {
     return {X * Scalar, Y * Scalar, Z * Scalar};
 }
 
-math::Vector3& math::Vector3::operator*=(float Scalar)
+math::Vector3& math::Vector3::operator*=(real Scalar)
 {
     X *= Scalar;
     Y *= Scalar;
@@ -106,17 +106,17 @@ math::Vector3& math::Vector3::operator*=(const Vector3& Other)
     return *this;
 }
 
-math::Vector3 math::Vector3::operator/(float Scalar) const
+math::Vector3 math::Vector3::operator/(real Scalar) const
 {
     assert(Scalar != 0);
-    const float Rec = 1.0f / Scalar;
+    const real Rec = 1.0f / Scalar;
     return {X * Rec, Y * Rec, Z * Rec};
 }
 
-math::Vector3& math::Vector3::operator/=(float Scalar)
+math::Vector3& math::Vector3::operator/=(real Scalar)
 {
     assert(Scalar != 0);
-    const float Rec = 1.0f / Scalar;
+    const real Rec = 1.0f / Scalar;
     X *= Rec;
     Y *= Rec;
     Z *= Rec;
@@ -133,43 +133,45 @@ math::Vector3 math::Vector3::Abs() const
     return {math::Abs(X), math::Abs(Y), math::Abs(Z)};
 }
 
-float math::Vector3::LengthSquared() const
+math::real math::Vector3::LengthSquared() const
 {
     return X * X + Y * Y + Z * Z;
 }
-float math::Vector3::Length() const
+
+math::real math::Vector3::Length() const
 {
+    // TODO(Marko): Add API for sqrt
     return std::sqrt(LengthSquared());
 }
 
-math::Vector3 math::operator*(float Scalar, const Vector3& Vec)
+math::Vector3 math::operator*(real Scalar, const Vector3& Vec)
 {
     return Vec * Scalar;
 }
 
-float math::Dot(const Vector3& Vec1, const Vector3& Vec2)
+math::real math::Dot(const Vector3& Vec1, const Vector3& Vec2)
 {
     return Vec1.X * Vec2.X + Vec1.Y * Vec2.Y + Vec1.Z * Vec2.Z;
 }
 
-float math::AbsDot(const Vector3& Vec1, const Vector3& Vec2)
+math::real math::AbsDot(const Vector3& Vec1, const Vector3& Vec2)
 {
     return math::Abs(Dot(Vec1, Vec2));
 }
 
 math::Vector3 math::Cross(const Vector3& Vec1, const Vector3& Vec2)
 {
-    const float Vec1X = Vec1.X;
-    const float Vec1Y = Vec1.Y;
-    const float Vec1Z = Vec1.Z;
-    const float Vec2X = Vec2.X;
-    const float Vec2Y = Vec2.Y;
-    const float Vec2Z = Vec2.Z;
+    const real Vec1X = Vec1.X;
+    const real Vec1Y = Vec1.Y;
+    const real Vec1Z = Vec1.Z;
+    const real Vec2X = Vec2.X;
+    const real Vec2Y = Vec2.Y;
+    const real Vec2Z = Vec2.Z;
     return {(Vec1Y * Vec2Z) - (Vec1Z * Vec2Y), (Vec1Z * Vec2X) - (Vec1X * Vec2Z),
             (Vec1X * Vec2Y) - (Vec1Y * Vec2X)};
 }
 
-float math::Cross2D(const Vector3& Vec1, const Vector3& Vec2)
+math::real math::Cross2D(const Vector3& Vec1, const Vector3& Vec2)
 {
     return Vec1.X * Vec2.Y - Vec2.X * Vec1.Y;
 }
@@ -179,12 +181,12 @@ math::Vector3 math::Normalize(const Vector3& Vec)
     return Vec / Vec.Length();
 }
 
-float math::MinComponent(const Vector3& Vec)
+math::real math::MinComponent(const Vector3& Vec)
 {
     return Min(Vec.X, Min(Vec.Y, Vec.Z));
 }
 
-float math::MaxComponent(const Vector3& Vec)
+math::real math::MaxComponent(const Vector3& Vec)
 {
     return math::Max(Vec.X, math::Max(Vec.Y, Vec.Z));
 }
@@ -215,7 +217,7 @@ math::Vector3 math::Reflect(const Vector3& Incidence, const Vector3& Normal)
     return 2 * Dot(Incidence, Normal) * Normal - Incidence;
 }
 
-math::Vector3 math::Clamp(const Vector3& Value, float Low, float High)
+math::Vector3 math::Clamp(const Vector3& Value, real Low, real High)
 {
     return {Clamp(Value.X, Low, High), Clamp(Value.Y, Low, High), Clamp(Value.Z, Low, High)};
 }

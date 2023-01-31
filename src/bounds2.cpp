@@ -1,7 +1,6 @@
 #include "math/bounds2.h"
 
 #include <cassert>
-#include <cmath>
 
 math::Bounds2::Bounds2()
     : Min(Point2(kSmallestFloat, kSmallestFloat)), Max(Point2(kLargestFloat, kLargestFloat))
@@ -38,7 +37,7 @@ math::Vector2 math::Bounds2::Diagonal() const
     return Max - Min;
 }
 
-float math::Bounds2::SurfaceArea() const
+math::real math::Bounds2::SurfaceArea() const
 {
     const Vector2 Diag = Diagonal();
     return Diag.X * Diag.Y;
@@ -69,7 +68,7 @@ math::Vector2 math::Bounds2::Offset(const Point2& P) const
     return Off;
 }
 
-void math::Bounds2::BoundingSphere(Point2& Center, float& Radius) const
+void math::Bounds2::BoundingSphere(Point2& Center, real& Radius) const
 {
     Center = (Min + Max) / 2;
     Radius = Inside(Center, *this) ? Distance(Center, Max) : 0;
@@ -115,7 +114,7 @@ bool math::InsideInclusive(const Point2& P, const Bounds2& B)
     return (P.X >= B.Min.X && P.X <= B.Max.X && P.Y >= B.Min.Y && P.Y <= B.Max.Y);
 }
 
-math::Bounds2 math::Expand(const Bounds2& B, float Delta)
+math::Bounds2 math::Expand(const Bounds2& B, real Delta)
 {
     return {B.Min - Vector2(Delta, Delta), B.Max + Vector2(Delta, Delta)};
 }

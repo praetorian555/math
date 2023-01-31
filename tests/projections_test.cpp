@@ -7,7 +7,7 @@ using Point3f = math::Point3;
 
 TEST(ProjectionsTests, Orthographic_LH_N0)
 {
-    math::Matrix4x4 Mat = math::Orhographic_LH_N0(-500, 500, -200, 200, 0, 100);
+    math::Matrix4x4 Mat = math::Orthographic_LH_N0(-500, 500, -200, 200, 0, 100);
     math::Transform T(Mat);
 
     {
@@ -27,7 +27,7 @@ TEST(ProjectionsTests, Orthographic_LH_N0)
 
 TEST(ProjectionsTests, Orthographic_LH_N1)
 {
-    math::Matrix4x4 Mat = math::Orhographic_LH_N1(-500, 500, -200, 200, 0, 100);
+    math::Matrix4x4 Mat = math::Orthographic_LH_N1(-500, 500, -200, 200, 0, 100);
     math::Transform T(Mat);
 
     {
@@ -47,7 +47,7 @@ TEST(ProjectionsTests, Orthographic_LH_N1)
 
 TEST(ProjectionsTests, Orthographic_RH_N0)
 {
-    math::Matrix4x4 Mat = math::Orhographic_RH_N0(-500, 500, -200, 200, 0, 100);
+    math::Matrix4x4 Mat = math::Orthographic_RH_N0(-500, 500, -200, 200, 0, 100);
     math::Transform T(Mat);
 
     {
@@ -67,7 +67,7 @@ TEST(ProjectionsTests, Orthographic_RH_N0)
 
 TEST(ProjectionsTests, Orthographic_RH_N1)
 {
-    math::Matrix4x4 Mat = math::Orhographic_RH_N1(-500, 500, -200, 200, 0, 100);
+    math::Matrix4x4 Mat = math::Orthographic_RH_N1(-500, 500, -200, 200, 0, 100);
     math::Transform T(Mat);
 
     {

@@ -12,24 +12,24 @@ using Array2D = std::array<std::array<T, M>, N>;
 
 struct Matrix4x4
 {
-    Array2D<float, 4, 4> Data;
+    Array2D<real, 4, 4> Data;
 
     Matrix4x4();
-    explicit Matrix4x4(const Array2D<float, 4, 4>& Mat);
+    explicit Matrix4x4(const Array2D<math::real, 4, 4>& Mat);
 
     // clang-format off
-    Matrix4x4(float T00, float T01, float T02, float T03,
-              float T10, float T11, float T12, float T13,
-              float T20, float T21, float T22, float T23,
-              float T30, float T31, float T32, float T33);
+    Matrix4x4(real T00, real T01, real T02, real T03,
+              real T10, real T11, real T12, real T13,
+              real T20, real T21, real T22, real T23,
+              real T30, real T31, real T32, real T33);
     // clang-format on
 
     bool operator==(const Matrix4x4& Other) const;
     bool operator!=(const Matrix4x4& Other) const;
 
-    Matrix4x4 Transpose() const;
+    [[nodiscard]] Matrix4x4 Transpose() const;
 
-    Matrix4x4 Inverse() const;
+    [[nodiscard]] Matrix4x4 Inverse() const;
 };
 
 Matrix4x4 Multiply(const Matrix4x4& M1, const Matrix4x4& M2);

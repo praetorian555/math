@@ -15,20 +15,19 @@ public:
     {
         struct
         {
-            float X, Y, Z;
+            real X, Y, Z;
         };
-        float Data[3];
+        real Data[3];
     };
 
-public:
     constexpr Normal3() { X = Y = Z = 0; }
-    constexpr Normal3(float X, float Y, float Z) : X(X), Y(Y), Z(Z) {}
+    constexpr Normal3(real X, real Y, real Z) : X(X), Y(Y), Z(Z) {}
     explicit Normal3(const Vector3& Vec);
 
-    void Set(float Value, int Index);
-    float operator[](int Index) const;
+    void Set(real Value, int Index);
+    real operator[](int Index) const;
 
-    bool HasNaNs() const;
+    [[nodiscard]] bool HasNaNs() const;
 
     bool operator==(const Normal3& Other) const;
     bool operator!=(const Normal3& Other) const;
@@ -38,34 +37,34 @@ public:
     Normal3 operator-(const Normal3& Other) const;
     Normal3& operator-=(const Normal3& Other);
 
-    Normal3 operator*(float Scalar) const;
-    Normal3& operator*=(float Scalar);
+    Normal3 operator*(real Scalar) const;
+    Normal3& operator*=(real Scalar);
 
-    Normal3 operator/(float Scalar) const;
-    Normal3& operator/=(float Scalar);
+    Normal3 operator/(real Scalar) const;
+    Normal3& operator/=(real Scalar);
 
     Normal3 operator-() const;
 
-    Normal3 Abs() const;
+    [[nodiscard]] Normal3 Abs() const;
 
-    float LengthSquared() const;
-    float Length() const;
+    [[nodiscard]] real LengthSquared() const;
+    [[nodiscard]] real Length() const;
 };
 
-Normal3 operator*(float Scalar, const Normal3& N);
+Normal3 operator*(real Scalar, const Normal3& N);
 
-float Dot(const Normal3& N1, const Normal3& N2);
-float Dot(const Normal3& N, const Vector3& Vec);
-float Dot(const Vector3& Vec, const Normal3& N);
+real Dot(const Normal3& N1, const Normal3& N2);
+real Dot(const Normal3& N, const Vector3& Vec);
+real Dot(const Vector3& Vec, const Normal3& N);
 
-float AbsDot(const Normal3& N1, const Normal3& N2);
-float AbsDot(const Normal3& N, const Vector3& Vec);
-float AbsDot(const Vector3& Vec, const Normal3& N);
+real AbsDot(const Normal3& N1, const Normal3& N2);
+real AbsDot(const Normal3& N, const Vector3& Vec);
+real AbsDot(const Vector3& Vec, const Normal3& N);
 
 Normal3 Normalize(const Normal3& N);
 
-float MinComponent(const Normal3& N);
-float MaxComponent(const Normal3& N);
+real MinComponent(const Normal3& N);
+real MaxComponent(const Normal3& N);
 int MaxDimension(const Normal3& N);
 
 Normal3 Min(const Normal3& N1, const Normal3& N2);
@@ -73,6 +72,6 @@ Normal3 Max(const Normal3& N1, const Normal3& N2);
 
 Normal3 Permute(const Normal3& N, int X, int Y, int Z);
 
-Normal3 Faceforward(const Normal3& N, const Vector3& Vec);
+Normal3 FaceForward(const Normal3& N, const Vector3& Vec);
 
 }  // namespace math

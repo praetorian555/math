@@ -213,6 +213,6 @@ TEST(Normal3Tests, Faceforward)
     Vector3f v1(1, 2, 5);
     Vector3f v2(-1, -2, -5);
 
-    EXPECT_TRUE(Faceforward(n1, v1) == n1);
-    EXPECT_TRUE(Faceforward(n1, v2) == -n1);
+    EXPECT_TRUE(FaceForward(n1, v1) == n1);
+    EXPECT_TRUE(FaceForward(n1, v2) == -n1);
 }

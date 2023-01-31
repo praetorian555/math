@@ -21,7 +21,6 @@ public:
         real Data[4];
     };
 
-public:
     constexpr Point4() : X(0), Y(0), Z(0), W(0) {}
     constexpr Point4(real X, real Y, real Z, real W) : X(X), Y(Y), Z(Z), W(W) {}
     constexpr Point4(const Point4& P) : X(P.X), Y(P.Y), Z(P.Z), W(P.W) {}
@@ -31,7 +30,7 @@ public:
     void Set(real Value, int Index);
     real operator[](int Index) const;
 
-    bool HasNaNs() const;
+    [[nodiscard]] bool HasNaNs() const;
     bool operator==(const Point4& Other) const;
     bool operator!=(const Point4& Other) const;
 
@@ -52,9 +51,9 @@ public:
 
     Point4 operator-() const;
 
-    Point4 Abs() const;
+    [[nodiscard]] Point4 Abs() const;
 
-    Point4 ToEuclidean() const;
+    [[nodiscard]] Point4 ToEuclidean() const;
 };
 
 Point4 operator*(real Scalar, const Point4& Vec);
