@@ -16,20 +16,20 @@ public:
     {
         struct
         {
-            float X, Y, Z, W;
+            real X, Y, Z, W;
         };
-        float Data[4];
+        real Data[4];
     };
 
 public:
     constexpr Point4() : X(0), Y(0), Z(0), W(0) {}
-    constexpr Point4(float X, float Y, float Z, float W) : X(X), Y(Y), Z(Z), W(W) {}
+    constexpr Point4(real X, real Y, real Z, real W) : X(X), Y(Y), Z(Z), W(W) {}
     constexpr Point4(const Point4& P) : X(P.X), Y(P.Y), Z(P.Z), W(P.W) {}
 
     explicit Point4(const Point3& P);
 
-    void Set(float Value, int Index);
-    float operator[](int Index) const;
+    void Set(real Value, int Index);
+    real operator[](int Index) const;
 
     bool HasNaNs() const;
     bool operator==(const Point4& Other) const;
@@ -44,11 +44,11 @@ public:
     Vector4 operator-(const Point4& Other) const;
     Point4& operator-=(const Vector4& Vec);
 
-    Point4 operator*(float Scalar) const;
-    Point4& operator*=(float Scalar);
+    Point4 operator*(real Scalar) const;
+    Point4& operator*=(real Scalar);
 
-    Point4 operator/(float Scalar) const;
-    Point4& operator/=(float Scalar);
+    Point4 operator/(real Scalar) const;
+    Point4& operator/=(real Scalar);
 
     Point4 operator-() const;
 
@@ -57,11 +57,11 @@ public:
     Point4 ToEuclidean() const;
 };
 
-Point4 operator*(float Scalar, const Point4& Vec);
+Point4 operator*(real Scalar, const Point4& Vec);
 
-float Distance(const Point4& P1, const Point4& P2);
-float DistanceSquared(const Point4& P1, const Point4& P2);
-Point4 Lerp(float Param, const Point4& P1, const Point4& P2);
+real Distance(const Point4& P1, const Point4& P2);
+real DistanceSquared(const Point4& P1, const Point4& P2);
+Point4 Lerp(real Param, const Point4& P1, const Point4& P2);
 
 Point4 Floor(const Point4& P);
 Point4 Ceil(const Point4& P);
