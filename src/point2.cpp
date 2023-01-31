@@ -111,7 +111,7 @@ math::Point2 math::Point2::operator-() const
 
 math::Point2 math::Point2::Abs() const
 {
-    return {std::abs(X), std::abs(Y)};
+    return {math::Abs(X), math::Abs(Y)};
 }
 
 math::Point2 math::operator*(real Scalar, const Point2& P)
@@ -136,27 +136,27 @@ math::Point2 math::Lerp(real Param, const Point2& P1, const Point2& P2)
 
 math::Point2 math::Floor(const Point2& P)
 {
-    return {std::floor(P.X), std::floor(P.Y)};
+    return {Floor(P.X), Floor(P.Y)};
 }
 
 math::Point2 math::Ceil(const Point2& P)
 {
-    return {std::ceil(P.X), std::ceil(P.Y)};
+    return {Ceil(P.X), Ceil(P.Y)};
 }
 
 math::Point2 math::Round(const Point2& P)
 {
-    return {std::roundf(P.X), std::roundf(P.Y)};
+    return {Round(P.X), Round(P.Y)};
 }
 
 math::Point2 math::Min(const Point2& P1, const Point2& P2)
 {
-    return {std::fmin(P1.X, P2.X), std::fmin(P1.Y, P2.Y)};
+    return {Min(P1.X, P2.X), Min(P1.Y, P2.Y)};
 }
 
 math::Point2 math::Max(const Point2& P1, const Point2& P2)
 {
-    return {std::fmax(P1.X, P2.X), std::fmax(P1.Y, P2.Y)};
+    return {Max(P1.X, P2.X), Max(P1.Y, P2.Y)};
 }
 
 math::Point2 math::Permute(const Point2& P, int X, int Y)
