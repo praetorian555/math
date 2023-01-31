@@ -3,36 +3,36 @@
 #include <intrin.h>
 #include <cmath>
 
-bool math::IsNaN(float Value)
+bool math::IsNaN(real Value)
 {
     return std::isnan(Value);
 }
 
-float math::Clamp(float Value, float Low, float High)
+math::real math::Clamp(real Value, real Low, real High)
 {
     return Value < Low ? Low : (Value > High ? High : Value);
 }
 
-float math::Mod(float A, float B)
+math::real math::Mod(real A, real B)
 {
     return std::fmodf(A, B);
 }
 
-float math::Radians(float Degrees)
+math::real math::Radians(real Degrees)
 {
-    constexpr float kHalfCircleDegrees = 180.0f;
+    constexpr real kHalfCircleDegrees = 180.0f;
     return (kPi / kHalfCircleDegrees) * Degrees;
 }
 
-float math::Degrees(float Radians)
+math::real math::Degrees(real Radians)
 {
-    constexpr float kHalfCircleDegrees = 180.0f;
+    constexpr real kHalfCircleDegrees = 180.0f;
     return (kHalfCircleDegrees / kPi) * Radians;
 }
 
-float math::Log2(float Value)
+math::real math::Log2(real Value)
 {
-    constexpr float kInvLog2 = 1.442695040888963387004650940071f;
+    constexpr real kInvLog2 = 1.442695040888963387004650940071f;
     return std::log(Value) * kInvLog2;
 }
 
@@ -74,7 +74,7 @@ int32_t math::CountTrailingZeros(uint32_t Value)
 #endif
 }
 
-float math::Lerp(float Parameter, float P0, float P1)
+math::real math::Lerp(real Parameter, real P0, real P1)
 {
     return (1 - Parameter) * P0 + Parameter * P1;
 }
