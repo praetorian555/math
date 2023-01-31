@@ -83,3 +83,40 @@ bool math::IsPowerOf2(int Value)
 {
     return (Value != 0) && ((Value & (Value - 1)) == 0);
 }
+
+math::real math::Min(math::real A, math::real B)
+{
+    return std::min(A, B);
+}
+
+math::real math::Max(math::real A, math::real B)
+{
+    return std::max(A, B);
+}
+
+math::real math::Round(math::real Value)
+{
+#if MATH_REAL_AS_DOUBLE
+    return std::round(Value);
+#else
+    return std::roundf(Value);
+#endif
+}
+
+math::real math::Floor(math::real Value)
+{
+#if MATH_REAL_AS_DOUBLE
+    return std::floor(Value);
+#else
+    return std::floorf(Value);
+#endif
+}
+
+math::real math::Ceil(math::real Value)
+{
+#if MATH_REAL_AS_DOUBLE
+    return std::ceil(Value);
+#else
+    return std::ceilf(Value);
+#endif
+}

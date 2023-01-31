@@ -87,3 +87,38 @@ TEST(BaseTests, TrailingZeros)
 {
     EXPECT_EQ(29, math::CountTrailingZeros(8));
 }
+
+TEST(BaseTests, Min)
+{
+    EXPECT_EQ(1, math::Min(1, 2));
+    EXPECT_EQ(1, math::Min(2, 1));
+}
+
+TEST(BaseTests, Max)
+{
+    EXPECT_EQ(2, math::Max(1, 2));
+    EXPECT_EQ(2, math::Max(2, 1));
+}
+
+TEST(BaseTests, Round)
+{
+    EXPECT_EQ(1, math::Round(MATH_REALC(0.5)));
+    EXPECT_EQ(2, math::Round(MATH_REALC(1.5)));
+    EXPECT_EQ(2, math::Round(MATH_REALC(1.6)));
+    EXPECT_EQ(3, math::Round(MATH_REALC(2.5)));
+    EXPECT_EQ(-3, math::Round(MATH_REALC(-2.5)));
+    EXPECT_EQ(3, math::Round(MATH_REALC(2.6)));
+}
+
+TEST(BaseTests, Floor)
+{
+    EXPECT_EQ(1, math::Floor(MATH_REALC(1.5)));
+    EXPECT_EQ(-2, math::Floor(MATH_REALC(-1.5)));
+    EXPECT_EQ(2, math::Floor(MATH_REALC(2.5)));
+}
+
+TEST(BaseTests, Ceil)
+{
+    EXPECT_EQ(2, math::Ceil(MATH_REALC(1.5)));
+    EXPECT_EQ(3, math::Ceil(MATH_REALC(2.5)));
+}

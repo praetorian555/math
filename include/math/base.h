@@ -50,4 +50,10 @@ int32_t Log2Int(uint32_t Value);
 int32_t RoundUpPow2(int32_t Value);
 int32_t CountTrailingZeros(uint32_t Value);
 
+real Min(real A, real B);
+real Max(real A, real B);
+real Round(real Value);
+real Floor(real Value);
+real Ceil(real Value);
+
 }  // namespace math
