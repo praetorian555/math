@@ -11,13 +11,13 @@ math::Point3::Point3(const Point2& P) : X(P.X), Y(P.Y), Z(0) {}
 
 math::Point3::Point3(const Point4& P) : X(P.X), Y(P.Y), Z(P.Z) {}
 
-void math::Point3::Set(float Value, int Index)
+void math::Point3::Set(real Value, int Index)
 {
     assert(Index >= 0 && Index < 3);
     Data[Index] = Value;
 }
 
-float math::Point3::operator[](int Index) const
+math::real math::Point3::operator[](int Index) const
 {
     assert(Index >= 0 && Index < 3);
     return Data[Index];
@@ -82,12 +82,12 @@ math::Point3& math::Point3::operator-=(const Vector3& Vec)
     return *this;
 }
 
-math::Point3 math::Point3::operator*(float Scalar) const
+math::Point3 math::Point3::operator*(real Scalar) const
 {
     return {X * Scalar, Y * Scalar, Z * Scalar};
 }
 
-math::Point3& math::Point3::operator*=(float Scalar)
+math::Point3& math::Point3::operator*=(real Scalar)
 {
     X *= Scalar;
     Y *= Scalar;
@@ -95,17 +95,17 @@ math::Point3& math::Point3::operator*=(float Scalar)
     return *this;
 }
 
-math::Point3 math::Point3::operator/(float Scalar) const
+math::Point3 math::Point3::operator/(real Scalar) const
 {
     assert(Scalar != 0);
-    const float Rec = 1.0f / Scalar;
+    const real Rec = 1.0f / Scalar;
     return {X * Rec, Y * Rec, Z * Rec};
 }
 
-math::Point3& math::Point3::operator/=(float Scalar)
+math::Point3& math::Point3::operator/=(real Scalar)
 {
     assert(Scalar != 0);
-    const float Rec = 1.0f / Scalar;
+    const real Rec = 1.0f / Scalar;
     X *= Rec;
     Y *= Rec;
     Z *= Rec;
@@ -119,52 +119,52 @@ math::Point3 math::Point3::operator-() const
 
 math::Point3 math::Point3::Abs() const
 {
-    return {std::abs(X), std::abs(Y), std::abs(Z)};
+    return {math::Abs(X), math::Abs(Y), math::Abs(Z)};
 }
 
-math::Point3 math::operator*(float Scalar, const Point3& P)
+math::Point3 math::operator*(real Scalar, const Point3& P)
 {
     return P * Scalar;
 }
 
-float math::Distance(const Point3& P1, const Point3& P2)
+math::real math::Distance(const Point3& P1, const Point3& P2)
 {
     return (P1 - P2).Length();
 }
 
-float math::DistanceSquared(const Point3& P1, const Point3& P2)
+math::real math::DistanceSquared(const Point3& P1, const Point3& P2)
 {
     return (P1 - P2).LengthSquared();
 }
 
-math::Point3 math::Lerp(float Param, const Point3& P1, const Point3& P2)
+math::Point3 math::Lerp(real Param, const Point3& P1, const Point3& P2)
 {
     return (1 - Param) * P1 + Param * P2;
 }
 
 math::Point3 math::Floor(const Point3& P)
 {
-    return {std::floor(P.X), std::floor(P.Y), std::floor(P.Z)};
+    return {Floor(P.X), Floor(P.Y), Floor(P.Z)};
 }
 
 math::Point3 math::Ceil(const Point3& P)
 {
-    return {std::ceil(P.X), std::ceil(P.Y), std::ceil(P.Z)};
+    return {Ceil(P.X), Ceil(P.Y), Ceil(P.Z)};
 }
 
 math::Point3 math::Round(const Point3& P)
 {
-    return {std::roundf(P.X), std::roundf(P.Y), std::roundf(P.Z)};
+    return {Round(P.X), Round(P.Y), Round(P.Z)};
 }
 
 math::Point3 math::Min(const Point3& P1, const Point3& P2)
 {
-    return {std::fmin(P1.X, P2.X), std::fmin(P1.Y, P2.Y), std::fmin(P1.Z, P2.Z)};
+    return {Min(P1.X, P2.X), Min(P1.Y, P2.Y), Min(P1.Z, P2.Z)};
 }
 
 math::Point3 math::Max(const Point3& P1, const Point3& P2)
 {
-    return {std::fmax(P1.X, P2.X), std::fmax(P1.Y, P2.Y), std::fmax(P1.Z, P2.Z)};
+    return {Max(P1.X, P2.X), Max(P1.Y, P2.Y), Max(P1.Z, P2.Z)};
 }
 
 math::Point3 math::Permute(const Point3& P, int X, int Y, int Z)

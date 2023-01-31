@@ -17,20 +17,20 @@ public:
     {
         struct
         {
-            float X, Y, Z;
+            real X, Y, Z;
         };
-        float Data[3];
+        real Data[3];
     };
 
 public:
     constexpr Point3() : X(0), Y(0), Z(0) {}
-    constexpr Point3(float X, float Y, float Z) : X(X), Y(Y), Z(Z) {}
+    constexpr Point3(real X, real Y, real Z) : X(X), Y(Y), Z(Z) {}
 
     explicit Point3(const Point2& P);
     explicit Point3(const Point4& P);
 
-    void Set(float Value, int Index);
-    float operator[](int Index) const;
+    void Set(real Value, int Index);
+    real operator[](int Index) const;
 
     bool HasNaNs() const;
 
@@ -46,22 +46,22 @@ public:
     Vector3 operator-(const Point3& Other) const;
     Point3& operator-=(const Vector3& Vec);
 
-    Point3 operator*(float Scalar) const;
-    Point3& operator*=(float Scalar);
+    Point3 operator*(real Scalar) const;
+    Point3& operator*=(real Scalar);
 
-    Point3 operator/(float Scalar) const;
-    Point3& operator/=(float Scalar);
+    Point3 operator/(real Scalar) const;
+    Point3& operator/=(real Scalar);
 
     Point3 operator-() const;
 
     Point3 Abs() const;
 };
 
-Point3 operator*(float Scalar, const Point3& P);
+Point3 operator*(real Scalar, const Point3& P);
 
-float Distance(const Point3& P1, const Point3& P2);
-float DistanceSquared(const Point3& P1, const Point3& P2);
-Point3 Lerp(float Param, const Point3& P1, const Point3& P2);
+real Distance(const Point3& P1, const Point3& P2);
+real DistanceSquared(const Point3& P1, const Point3& P2);
+Point3 Lerp(real Param, const Point3& P1, const Point3& P2);
 
 Point3 Floor(const Point3& P);
 Point3 Ceil(const Point3& P);
