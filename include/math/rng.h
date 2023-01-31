@@ -22,10 +22,10 @@ public:
     uint32_t UniformUInt32(uint32_t Limit);
 
     // Uniform number in range [0, 1)
-    float UniformReal();
+    real UniformReal();
 
     // Uniform number in range [Start, End)
-    float UniformRealInRange(float Start, float End);
+    real UniformRealInRange(real Start, real End);
 
 private:
     uint64_t m_State = 0;

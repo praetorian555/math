@@ -12,8 +12,8 @@ math::Bounds3::Bounds3()
 math::Bounds3::Bounds3(const Point3& P) : Min(P), Max(P) {}
 
 math::Bounds3::Bounds3(const Point3& P1, const Point3& P2)
-    : Min(std::fmin(P1.X, P2.X), std::fmin(P1.Y, P2.Y), std::fmin(P1.Z, P2.Z)),
-      Max(std::fmax(P1.X, P2.X), std::fmax(P1.Y, P2.Y), std::fmax(P1.Z, P2.Z))
+    : Min(math::Min(P1.X, P2.X), math::Min(P1.Y, P2.Y), math::Min(P1.Z, P2.Z)),
+      Max(math::Max(P1.X, P2.X), math::Max(P1.Y, P2.Y), math::Max(P1.Z, P2.Z))
 {
 }
 
@@ -108,30 +108,30 @@ void math::Bounds3::BoundingSphere(Point3& Center, float& Radius) const
 
 math::Vector3 math::Bounds3::Extent() const
 {
-    Vector3 Extent{std::abs(Max.X - Min.X), std::abs(Max.Y - Min.Y), std::abs(Max.Z - Min.Z)};
+    Vector3 Extent{math::Abs(Max.X - Min.X), math::Abs(Max.Y - Min.Y), math::Abs(Max.Z - Min.Z)};
     return Extent;
 }
 
 math::Bounds3 math::Union(const Bounds3& B, const Point3& P)
 {
-    return {Point3(std::fmin(B.Min.X, P.X), std::fmin(B.Min.Y, P.Y), std::fmin(B.Min.Z, P.Z)),
-            Point3(std::fmax(B.Max.X, P.X), std::fmax(B.Max.Y, P.Y), std::fmax(B.Max.Z, P.Z))};
+    return {Point3(Min(B.Min.X, P.X), Min(B.Min.Y, P.Y), Min(B.Min.Z, P.Z)),
+            Point3(math::Max(B.Max.X, P.X), math::Max(B.Max.Y, P.Y), math::Max(B.Max.Z, P.Z))};
 }
 
 math::Bounds3 math::Union(const Bounds3& B1, const Bounds3& B2)
 {
-    return {Point3(std::fmin(B1.Min.X, B2.Min.X), std::fmin(B1.Min.Y, B2.Min.Y),
-                   std::fmin(B1.Min.Z, B2.Min.Z)),
-            Point3(std::fmax(B1.Max.X, B2.Max.X), std::fmax(B1.Max.Y, B2.Max.Y),
-                   std::fmax(B1.Max.Z, B2.Max.Z))};
+    return {Point3(Min(B1.Min.X, B2.Min.X), Min(B1.Min.Y, B2.Min.Y),
+                   Min(B1.Min.Z, B2.Min.Z)),
+            Point3(math::Max(B1.Max.X, B2.Max.X), math::Max(B1.Max.Y, B2.Max.Y),
+                   math::Max(B1.Max.Z, B2.Max.Z))};
 }
 
 math::Bounds3 math::Intersect(const Bounds3& B1, const Bounds3& B2)
 {
-    return {Point3(std::fmax(B1.Min.X, B2.Min.X), std::fmax(B1.Min.Y, B2.Min.Y),
-                   std::fmax(B1.Min.Z, B2.Min.Z)),
-            Point3(std::fmin(B1.Max.X, B2.Max.X), std::fmin(B1.Max.Y, B2.Max.Y),
-                   std::fmin(B1.Max.Z, B2.Max.Z))};
+    return {Point3(math::Max(B1.Min.X, B2.Min.X), math::Max(B1.Min.Y, B2.Min.Y),
+                   math::Max(B1.Min.Z, B2.Min.Z)),
+            Point3(Min(B1.Max.X, B2.Max.X), Min(B1.Max.Y, B2.Max.Y),
+                   Min(B1.Max.Z, B2.Max.Z))};
 }
 
 bool math::Overlaps(const Bounds3& B1, const Bounds3& B2)

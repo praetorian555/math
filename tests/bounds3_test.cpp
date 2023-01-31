@@ -1,6 +1,6 @@
-﻿#include <gtest/gtest.h>
+﻿#include "math/bounds3.h"
 
-#include "math/bounds3.h"
+#include "realexpect.h"
 
 using Point3f = math::Point3;
 using Bounds3f = math::Bounds3;
@@ -15,8 +15,8 @@ TEST(Bounds3Tests, Creation)
     Bounds3f b2(p1);
     Bounds3f b3(p1, p2);
 
-    EXPECT_FLOAT_EQ(b1.Min.X, std::numeric_limits<float>::lowest());
-    EXPECT_FLOAT_EQ(b1.Max.Z, std::numeric_limits<float>::max());
+    EXPECT_REAL_EQ(b1.Min.X, std::numeric_limits<float>::lowest());
+    EXPECT_REAL_EQ(b1.Max.Z, std::numeric_limits<float>::max());
 
     EXPECT_TRUE(b2.Min == p1);
     EXPECT_TRUE(b2.Max == p1);
@@ -77,7 +77,7 @@ TEST(Bounds3Tests, SurfaceArea)
 
     Bounds3f b1(p1, p2);
 
-    EXPECT_FLOAT_EQ(b1.SurfaceArea(), 24.0f);
+    EXPECT_REAL_EQ(b1.SurfaceArea(), 24.0f);
 }
 
 TEST(Bounds3Tests, Volume)
@@ -87,7 +87,7 @@ TEST(Bounds3Tests, Volume)
 
     Bounds3f b1(p1, p2);
 
-    EXPECT_FLOAT_EQ(b1.Volume(), 8.0f);
+    EXPECT_REAL_EQ(b1.Volume(), 8.0f);
 }
 
 TEST(Bounds3Tests, MaximumExtent)
@@ -134,7 +134,7 @@ TEST(Bounds3Tests, BoundingSphere)
     b.BoundingSphere(center, radius);
 
     EXPECT_EQ(center, Point3f(3, 3, 3));
-    EXPECT_FLOAT_EQ(radius, std::sqrtf(3));
+    EXPECT_REAL_EQ(radius, std::sqrtf(3));
 }
 
 TEST(Bounds3Tests, Extent)
@@ -144,9 +144,9 @@ TEST(Bounds3Tests, Extent)
 
     Bounds3f b(p1, p2);
     Vector3f e = b.Extent();
-    EXPECT_FLOAT_EQ(e.X, 3);
-    EXPECT_FLOAT_EQ(e.Y, 3);
-    EXPECT_FLOAT_EQ(e.Z, 1);
+    EXPECT_REAL_EQ(e.X, 3);
+    EXPECT_REAL_EQ(e.Y, 3);
+    EXPECT_REAL_EQ(e.Z, 1);
 }
 
 TEST(Bounds3Tests, Union)

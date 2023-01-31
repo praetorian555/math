@@ -130,7 +130,7 @@ math::Vector3 math::Vector3::operator-() const
 
 math::Vector3 math::Vector3::Abs() const
 {
-    return {std::abs(X), std::abs(Y), std::abs(Z)};
+    return {math::Abs(X), math::Abs(Y), math::Abs(Z)};
 }
 
 float math::Vector3::LengthSquared() const
@@ -154,7 +154,7 @@ float math::Dot(const Vector3& Vec1, const Vector3& Vec2)
 
 float math::AbsDot(const Vector3& Vec1, const Vector3& Vec2)
 {
-    return std::abs(Dot(Vec1, Vec2));
+    return math::Abs(Dot(Vec1, Vec2));
 }
 
 math::Vector3 math::Cross(const Vector3& Vec1, const Vector3& Vec2)
@@ -181,12 +181,12 @@ math::Vector3 math::Normalize(const Vector3& Vec)
 
 float math::MinComponent(const Vector3& Vec)
 {
-    return std::fmin(Vec.X, std::fmin(Vec.Y, Vec.Z));
+    return Min(Vec.X, Min(Vec.Y, Vec.Z));
 }
 
 float math::MaxComponent(const Vector3& Vec)
 {
-    return std::fmax(Vec.X, std::fmax(Vec.Y, Vec.Z));
+    return math::Max(Vec.X, math::Max(Vec.Y, Vec.Z));
 }
 
 int math::MaxDimension(const Vector3& Vec)
@@ -196,12 +196,12 @@ int math::MaxDimension(const Vector3& Vec)
 
 math::Vector3 math::Min(const Vector3& Vec1, const Vector3& Vec2)
 {
-    return {std::fmin(Vec1.X, Vec2.X), std::fmin(Vec1.Y, Vec2.Y), std::fmin(Vec1.Z, Vec2.Z)};
+    return {Min(Vec1.X, Vec2.X), Min(Vec1.Y, Vec2.Y), Min(Vec1.Z, Vec2.Z)};
 }
 
 math::Vector3 math::Max(const Vector3& Vec1, const Vector3& Vec2)
 {
-    return {std::fmax(Vec1.X, Vec2.X), std::fmax(Vec1.Y, Vec2.Y), std::fmax(Vec1.Z, Vec2.Z)};
+    return {math::Max(Vec1.X, Vec2.X), math::Max(Vec1.Y, Vec2.Y), math::Max(Vec1.Z, Vec2.Z)};
 }
 
 math::Vector3 math::Permute(const Vector3& Vec, int X, int Y, int Z)

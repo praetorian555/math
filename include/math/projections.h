@@ -13,12 +13,12 @@ namespace math
  * @param Near Distance from a viewer to the near cliping plane. Always positive or zero.
  * @param Far Distance from a viewer to the far cliping plane. Always positive or zero.
  */
-Matrix4x4 Orhographic_LH_N0(float Left,
-                            float Right,
-                            float Bottom,
-                            float Top,
-                            float Near,
-                            float Far);
+Matrix4x4 Orhographic_LH_N0(real Left,
+                            real Right,
+                            real Bottom,
+                            real Top,
+                            real Near,
+                            real Far);
 
 /**
  * Create an orthographic projection matrix for left-handed coordinate system where Z maps between
@@ -27,12 +27,12 @@ Matrix4x4 Orhographic_LH_N0(float Left,
  * @param Near Distance from a viewer to the near cliping plane. Always positive or zero.
  * @param Far Distance from a viewer to the far cliping plane. Always positive or zero.
  */
-Matrix4x4 Orhographic_LH_N1(float Left,
-                            float Right,
-                            float Bottom,
-                            float Top,
-                            float Near,
-                            float Far);
+Matrix4x4 Orhographic_LH_N1(real Left,
+                            real Right,
+                            real Bottom,
+                            real Top,
+                            real Near,
+                            real Far);
 
 /**
  * Create an orthographic projection matrix for right-handed coordinate system where Z maps between
@@ -41,12 +41,12 @@ Matrix4x4 Orhographic_LH_N1(float Left,
  * @param Near Distance from a viewer to the near cliping plane. Always positive or zero.
  * @param Far Distance from a viewer to the far cliping plane. Always positive or zero.
  */
-Matrix4x4 Orhographic_RH_N0(float Left,
-                            float Right,
-                            float Bottom,
-                            float Top,
-                            float Near,
-                            float Far);
+Matrix4x4 Orhographic_RH_N0(real Left,
+                            real Right,
+                            real Bottom,
+                            real Top,
+                            real Near,
+                            real Far);
 
 /**
  * Create an orthographic projection matrix for right-handed coordinate system where Z maps between
@@ -55,12 +55,12 @@ Matrix4x4 Orhographic_RH_N0(float Left,
  * @param Near Distance from a viewer to the near cliping plane. Always positive or zero.
  * @param Far Distance from a viewer to the far cliping plane. Always positive or zero.
  */
-Matrix4x4 Orhographic_RH_N1(float Left,
-                            float Right,
-                            float Bottom,
-                            float Top,
-                            float Near,
-                            float Far);
+Matrix4x4 Orhographic_RH_N1(real Left,
+                            real Right,
+                            real Bottom,
+                            real Top,
+                            real Near,
+                            real Far);
 
 /**
  * Create a perspective projection matrix for left-handed coordinate system where Z maps between 0
@@ -72,7 +72,7 @@ Matrix4x4 Orhographic_RH_N1(float Left,
  * @param Near Distance from a viewer to the near cliping plane. Always positive.
  * @param Far Distance from a viewer to the far cliping plane. Always positive.
  */
-Matrix4x4 Perspective_LH_N0(float VerticalFOV, float AspectRatio, float Near, float Far);
+Matrix4x4 Perspective_LH_N0(real VerticalFOV, real AspectRatio, real Near, real Far);
 
 /**
  * Create a perspective projection matrix for left-handed coordinate system where Z maps between -1
@@ -84,7 +84,7 @@ Matrix4x4 Perspective_LH_N0(float VerticalFOV, float AspectRatio, float Near, fl
  * @param Near Distance from a viewer to the near cliping plane. Always positive.
  * @param Far Distance from a viewer to the far cliping plane. Always positive.
  */
-Matrix4x4 Perspective_LH_N1(float VerticalFOV, float AspectRatio, float Near, float Far);
+Matrix4x4 Perspective_LH_N1(real VerticalFOV, real AspectRatio, real Near, real Far);
 
 /**
  * Create a perspective projection matrix for right-handed coordinate system where Z maps between 0
@@ -96,7 +96,7 @@ Matrix4x4 Perspective_LH_N1(float VerticalFOV, float AspectRatio, float Near, fl
  * @param Near Distance from a viewer to the near cliping plane. Always positive.
  * @param Far Distance from a viewer to the far cliping plane. Always positive.
  */
-Matrix4x4 Perspective_RH_N0(float VerticalFOV, float AspectRatio, float Near, float Far);
+Matrix4x4 Perspective_RH_N0(real VerticalFOV, real AspectRatio, real Near, real Far);
 
 /**
  * Create a perspective projection matrix for right-handed coordinate system where Z maps between -1
@@ -108,6 +108,6 @@ Matrix4x4 Perspective_RH_N0(float VerticalFOV, float AspectRatio, float Near, fl
  * @param Near Distance from a viewer to the near cliping plane. Always positive.
  * @param Far Distance from a viewer to the far cliping plane. Always positive.
  */
-Matrix4x4 Perspective_RH_N1(float VerticalFOV, float AspectRatio, float Near, float Far);
+Matrix4x4 Perspective_RH_N1(real VerticalFOV, real AspectRatio, real Near, real Far);
 
 }  // namespace math

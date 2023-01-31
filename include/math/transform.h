@@ -12,14 +12,14 @@ class Transform
 {
 public:
     Transform() = default;
-    explicit Transform(const Array2D<float, 4, 4>& Mat);
+    explicit Transform(const Array2D<real, 4, 4>& Mat);
     explicit Transform(const Matrix4x4& Mat);
     Transform(const Matrix4x4& Mat, const Matrix4x4& InvMat);
 
     Transform& operator=(const Matrix4x4& Mat);
 
-    const Matrix4x4& GetMatrix() const { return m_Matrix; }
-    const Matrix4x4& GetInverse() const { return m_MatrixInverse; }
+    [[nodiscard]] const Matrix4x4& GetMatrix() const { return m_Matrix; }
+    [[nodiscard]] const Matrix4x4& GetInverse() const { return m_MatrixInverse; }
 
     friend Transform Inverse(const Transform& T);
     friend Transform Transpose(const Transform& T);
@@ -47,14 +47,18 @@ private:
     Matrix4x4 m_MatrixInverse;
 };
 
+Transform Translate(const Point3& Delta);
 Transform Translate(const Vector3& Delta);
-Transform Scale(float X, float Y, float Z);
-Transform RotateX(float Theta);
-Transform RotateY(float Theta);
-Transform RotateZ(float Theta);
-Transform Rotate(float Theta, const Vector3& Axis);
+Transform Scale(real X, real Y, real Z);
+Transform Scale(real V);
+Transform RotateX(real Theta);
+Transform RotateY(real Theta);
+Transform RotateZ(real Theta);
+Transform Rotate(real Theta, const Vector3& Axis);
 // This applies angle around x then around y and then around z axis
 Transform Rotate(Rotator Rotator);
+Transform RotateAndTranslate(Rotator Rotator, const Point3& Translation);
+Transform RotateAndTranslate(Rotator Rotator, const Vector3& Translation);
 Transform Inverse(const Transform& T);
 Transform Transpose(const Transform& T);
 

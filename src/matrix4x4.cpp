@@ -138,9 +138,9 @@ math::Matrix4x4 math::Matrix4x4::Inverse() const
             {
                 if (Ipiv[Column] == 0)
                 {
-                    if (std::abs(MatInv[Row][Column]) >= Big)
+                    if (math::Abs(MatInv[Row][Column]) >= Big)
                     {
-                        Big = std::abs(MatInv[Row][Column]);
+                        Big = math::Abs(MatInv[Row][Column]);
                         IndexRow = Row;
                         IndexColumn = Column;
                     }

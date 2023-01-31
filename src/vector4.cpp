@@ -171,7 +171,7 @@ math::Vector4 math::Vector4::operator-() const
 
 math::Vector4 math::Vector4::Abs() const
 {
-    return {std::abs(X), std::abs(Y), std::abs(Z), std::abs(W)};
+    return {math::Abs(X), math::Abs(Y), math::Abs(Z), math::Abs(W)};
 }
 
 float math::Vector4::LengthSquared() const
@@ -195,7 +195,7 @@ float math::Dot(const Vector4& Vec1, const Vector4& Vec2)
 
 float math::AbsDot(const Vector4& Vec1, const Vector4& Vec2)
 {
-    return std::abs(Dot(Vec1, Vec2));
+    return math::Abs(Dot(Vec1, Vec2));
 }
 
 math::Vector4 math::Normalize(const Vector4& Vec)
@@ -205,14 +205,14 @@ math::Vector4 math::Normalize(const Vector4& Vec)
 
 math::Vector4 math::Min(const Vector4& Vec1, const Vector4& Vec2)
 {
-    return {std::fmin(Vec1.X, Vec2.X), std::fmin(Vec1.Y, Vec2.Y), std::fmin(Vec1.Z, Vec2.Z),
-            std::fmin(Vec1.W, Vec2.W)};
+    return {Min(Vec1.X, Vec2.X), Min(Vec1.Y, Vec2.Y), Min(Vec1.Z, Vec2.Z),
+            Min(Vec1.W, Vec2.W)};
 }
 
 math::Vector4 math::Max(const Vector4& Vec1, const Vector4& Vec2)
 {
-    return {std::fmax(Vec1.X, Vec2.X), std::fmax(Vec1.Y, Vec2.Y), std::fmax(Vec1.Z, Vec2.Z),
-            std::fmax(Vec1.W, Vec2.W)};
+    return {math::Max(Vec1.X, Vec2.X), math::Max(Vec1.Y, Vec2.Y), math::Max(Vec1.Z, Vec2.Z),
+            math::Max(Vec1.W, Vec2.W)};
 }
 
 math::Vector4 math::Permute(const Vector4& Vec, int X, int Y, int Z, int W)

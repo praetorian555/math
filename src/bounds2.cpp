@@ -11,8 +11,8 @@ math::Bounds2::Bounds2()
 math::Bounds2::Bounds2(const Point2& P) : Min(P), Max(P) {}
 
 math::Bounds2::Bounds2(const Point2& Vec1, const Point2& Vec2)
-    : Min(std::fmin(Vec1.X, Vec2.X), std::fmin(Vec1.Y, Vec2.Y)),
-      Max(std::fmax(Vec1.X, Vec2.X), std::fmax(Vec1.Y, Vec2.Y))
+    : Min(math::Min(Vec1.X, Vec2.X), math::Min(Vec1.Y, Vec2.Y)),
+      Max(math::Max(Vec1.X, Vec2.X), math::Max(Vec1.Y, Vec2.Y))
 {
 }
 
@@ -77,25 +77,25 @@ void math::Bounds2::BoundingSphere(Point2& Center, float& Radius) const
 
 math::Vector2 math::Bounds2::Extent() const
 {
-    return {std::abs(Max.X - Min.X), std::abs(Max.Y - Min.Y)};
+    return {math::Abs(Max.X - Min.X), math::Abs(Max.Y - Min.Y)};
 }
 
 math::Bounds2 math::Union(const Bounds2& B, const Point2& P)
 {
-    return {Point2(std::fmin(B.Min.X, P.X), std::fmin(B.Min.Y, P.Y)),
-            Point2(std::fmax(B.Max.X, P.X), std::fmax(B.Max.Y, P.Y))};
+    return {Point2(Min(B.Min.X, P.X), Min(B.Min.Y, P.Y)),
+            Point2(math::Max(B.Max.X, P.X), math::Max(B.Max.Y, P.Y))};
 }
 
 math::Bounds2 math::Union(const Bounds2& B1, const Bounds2& B2)
 {
-    return {Point2(std::fmin(B1.Min.X, B2.Min.X), std::fmin(B1.Min.Y, B2.Min.Y)),
-            Point2(std::fmax(B1.Max.X, B2.Max.X), std::fmax(B1.Max.Y, B2.Max.Y))};
+    return {Point2(Min(B1.Min.X, B2.Min.X), Min(B1.Min.Y, B2.Min.Y)),
+            Point2(math::Max(B1.Max.X, B2.Max.X), math::Max(B1.Max.Y, B2.Max.Y))};
 }
 
 math::Bounds2 math::Intersect(const Bounds2& B1, const Bounds2& B2)
 {
-    return {Point2(std::fmax(B1.Min.X, B2.Min.X), std::fmax(B1.Min.Y, B2.Min.Y)),
-            Point2(std::fmin(B1.Max.X, B2.Max.X), std::fmin(B1.Max.Y, B2.Max.Y))};
+    return {Point2(math::Max(B1.Min.X, B2.Min.X), math::Max(B1.Min.Y, B2.Min.Y)),
+            Point2(Min(B1.Max.X, B2.Max.X), Min(B1.Max.Y, B2.Max.Y))};
 }
 
 bool math::Overlaps(const Bounds2& B1, const Bounds2& B2)

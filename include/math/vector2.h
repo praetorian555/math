@@ -12,21 +12,21 @@ public:
     {
         struct
         {
-            float X, Y;
+            real X, Y;
         };
         struct
         {
-            float R, G;
+            real R, G;
         };
-        float Data[2];
+        real Data[2];
     };
 
 public:
     constexpr Vector2() { X = Y = 0; }
-    constexpr Vector2(float X, float Y) : X(X), Y(Y) {}
+    constexpr Vector2(real X, real Y) : X(X), Y(Y) {}
 
-    void Set(float Value, int Index);
-    float operator[](int Index) const;
+    void Set(real Value, int Index);
+    real operator[](int Index) const;
 
     bool HasNaNs() const;
 
@@ -38,29 +38,29 @@ public:
     Vector2 operator-(const Vector2& Other) const;
     Vector2& operator-=(const Vector2& Other);
 
-    Vector2 operator*(float Scalar) const;
-    Vector2& operator*=(float Scalar);
+    Vector2 operator*(real Scalar) const;
+    Vector2& operator*=(real Scalar);
 
-    Vector2 operator/(float Scalar) const;
-    Vector2& operator/=(float Scalar);
+    Vector2 operator/(real Scalar) const;
+    Vector2& operator/=(real Scalar);
 
     Vector2 operator-() const;
 
     Vector2 Abs() const;
 
-    float LengthSquared() const;
-    float Length() const;
+    real LengthSquared() const;
+    real Length() const;
 };
 
-Vector2 operator*(float Scalar, const Vector2& Vec);
+Vector2 operator*(real Scalar, const Vector2& Vec);
 
-float Dot(const Vector2& Vec1, const Vector2& Vec2);
-float AbsDot(const Vector2& Vec1, const Vector2& Vec2);
-float Cross(const Vector2& Vec1, const Vector2& Vec2);
+real Dot(const Vector2& Vec1, const Vector2& Vec2);
+real AbsDot(const Vector2& Vec1, const Vector2& Vec2);
+real Cross(const Vector2& Vec1, const Vector2& Vec2);
 Vector2 Normalize(const Vector2& Vec);
 
-float MinComponent(const Vector2& Vec);
-float MaxComponent(const Vector2& Vec);
+real MinComponent(const Vector2& Vec);
+real MaxComponent(const Vector2& Vec);
 int MaxDimension(const Vector2& Vec);
 
 Vector2 Min(const Vector2& Vec1, const Vector2& Vec2);

@@ -1,6 +1,6 @@
-﻿#include <gtest/gtest.h>
+﻿#include "math/transform.h"
 
-#include "math/transform.h"
+#include "realexpect.h"
 
 using Vector3f = math::Vector3;
 
@@ -34,13 +34,13 @@ TEST(TransformTests, Inverse)
     math::Transform t1(m1);
     math::Transform t2 = Inverse(t1);
 
-    EXPECT_FLOAT_EQ(t2.GetInverse().Data[0][3], 5.0f);
-    EXPECT_FLOAT_EQ(t2.GetInverse().Data[1][3], 10.0f);
-    EXPECT_FLOAT_EQ(t2.GetInverse().Data[2][3], -2.0f);
+    EXPECT_REAL_EQ(t2.GetInverse().Data[0][3], 5.0f);
+    EXPECT_REAL_EQ(t2.GetInverse().Data[1][3], 10.0f);
+    EXPECT_REAL_EQ(t2.GetInverse().Data[2][3], -2.0f);
 
-    EXPECT_FLOAT_EQ(t2.GetMatrix().Data[0][3], -5.0f);
-    EXPECT_FLOAT_EQ(t2.GetMatrix().Data[1][3], -10.0f);
-    EXPECT_FLOAT_EQ(t2.GetMatrix().Data[2][3], 2.0f);
+    EXPECT_REAL_EQ(t2.GetMatrix().Data[0][3], -5.0f);
+    EXPECT_REAL_EQ(t2.GetMatrix().Data[1][3], -10.0f);
+    EXPECT_REAL_EQ(t2.GetMatrix().Data[2][3], 2.0f);
 }
 
 TEST(TransformTests, Transpose)
@@ -57,12 +57,12 @@ TEST(TransformTests, Transpose)
     math::Transform t1(m1);
     math::Transform t2 = Transpose(t1);
 
-    EXPECT_FLOAT_EQ(t2.GetMatrix().Data[0][0], 1.0f);
-    EXPECT_FLOAT_EQ(t2.GetMatrix().Data[2][2], -5.0f);
-    EXPECT_FLOAT_EQ(t2.GetMatrix().Data[2][3], -1.0f);
-    EXPECT_FLOAT_EQ(t2.GetMatrix().Data[0][2], 7.0f);
-    EXPECT_FLOAT_EQ(t2.GetMatrix().Data[1][3], -2.0f);
-    EXPECT_FLOAT_EQ(t2.GetMatrix().Data[1][0], 4.0f);
+    EXPECT_REAL_EQ(t2.GetMatrix().Data[0][0], 1.0f);
+    EXPECT_REAL_EQ(t2.GetMatrix().Data[2][2], -5.0f);
+    EXPECT_REAL_EQ(t2.GetMatrix().Data[2][3], -1.0f);
+    EXPECT_REAL_EQ(t2.GetMatrix().Data[0][2], 7.0f);
+    EXPECT_REAL_EQ(t2.GetMatrix().Data[1][3], -2.0f);
+    EXPECT_REAL_EQ(t2.GetMatrix().Data[1][0], 4.0f);
 }
 
 TEST(TransformTests, Comparison)
@@ -122,26 +122,26 @@ TEST(TransformTests, Translate)
 {
     math::Transform t = math::Translate(Vector3f(2, 3, 5));
 
-    EXPECT_FLOAT_EQ(t.GetMatrix().Data[0][3], 2);
-    EXPECT_FLOAT_EQ(t.GetMatrix().Data[1][3], 3);
-    EXPECT_FLOAT_EQ(t.GetMatrix().Data[2][3], 5);
+    EXPECT_REAL_EQ(t.GetMatrix().Data[0][3], 2);
+    EXPECT_REAL_EQ(t.GetMatrix().Data[1][3], 3);
+    EXPECT_REAL_EQ(t.GetMatrix().Data[2][3], 5);
 
-    EXPECT_FLOAT_EQ(t.GetInverse().Data[0][3], -2);
-    EXPECT_FLOAT_EQ(t.GetInverse().Data[1][3], -3);
-    EXPECT_FLOAT_EQ(t.GetInverse().Data[2][3], -5);
+    EXPECT_REAL_EQ(t.GetInverse().Data[0][3], -2);
+    EXPECT_REAL_EQ(t.GetInverse().Data[1][3], -3);
+    EXPECT_REAL_EQ(t.GetInverse().Data[2][3], -5);
 }
 
 TEST(TransformTests, Scale)
 {
     math::Transform t = math::Scale(2, 3, 5);
 
-    EXPECT_FLOAT_EQ(t.GetMatrix().Data[0][0], 2);
-    EXPECT_FLOAT_EQ(t.GetMatrix().Data[1][1], 3);
-    EXPECT_FLOAT_EQ(t.GetMatrix().Data[2][2], 5);
+    EXPECT_REAL_EQ(t.GetMatrix().Data[0][0], 2);
+    EXPECT_REAL_EQ(t.GetMatrix().Data[1][1], 3);
+    EXPECT_REAL_EQ(t.GetMatrix().Data[2][2], 5);
 
-    EXPECT_FLOAT_EQ(t.GetInverse().Data[0][0], 1 / 2.0f);
-    EXPECT_FLOAT_EQ(t.GetInverse().Data[1][1], 1 / 3.0f);
-    EXPECT_FLOAT_EQ(t.GetInverse().Data[2][2], 1 / 5.0f);
+    EXPECT_REAL_EQ(t.GetInverse().Data[0][0], 1 / 2.0f);
+    EXPECT_REAL_EQ(t.GetInverse().Data[1][1], 1 / 3.0f);
+    EXPECT_REAL_EQ(t.GetInverse().Data[2][2], 1 / 5.0f);
 }
 
 TEST(TransformTests, Rotate)
@@ -151,26 +151,26 @@ TEST(TransformTests, Rotate)
     float cosTheta = std::cos(math::Radians(degrees));
 
     math::Transform aroundX = math::RotateX(degrees);
-    EXPECT_FLOAT_EQ(aroundX.GetMatrix().Data[1][1], cosTheta);
-    EXPECT_FLOAT_EQ(aroundX.GetMatrix().Data[2][2], cosTheta);
-    EXPECT_FLOAT_EQ(aroundX.GetMatrix().Data[1][2], -sinTheta);
-    EXPECT_FLOAT_EQ(aroundX.GetMatrix().Data[2][1], sinTheta);
+    EXPECT_REAL_EQ(aroundX.GetMatrix().Data[1][1], cosTheta);
+    EXPECT_REAL_EQ(aroundX.GetMatrix().Data[2][2], cosTheta);
+    EXPECT_REAL_EQ(aroundX.GetMatrix().Data[1][2], -sinTheta);
+    EXPECT_REAL_EQ(aroundX.GetMatrix().Data[2][1], sinTheta);
 
     math::Transform aroundY = math::RotateY(degrees);
-    EXPECT_FLOAT_EQ(aroundY.GetMatrix().Data[0][0], cosTheta);
-    EXPECT_FLOAT_EQ(aroundY.GetMatrix().Data[2][2], cosTheta);
-    EXPECT_FLOAT_EQ(aroundY.GetMatrix().Data[0][2], sinTheta);
-    EXPECT_FLOAT_EQ(aroundY.GetMatrix().Data[2][0], -sinTheta);
+    EXPECT_REAL_EQ(aroundY.GetMatrix().Data[0][0], cosTheta);
+    EXPECT_REAL_EQ(aroundY.GetMatrix().Data[2][2], cosTheta);
+    EXPECT_REAL_EQ(aroundY.GetMatrix().Data[0][2], sinTheta);
+    EXPECT_REAL_EQ(aroundY.GetMatrix().Data[2][0], -sinTheta);
 
     math::Transform aroundZ = math::RotateZ(degrees);
-    EXPECT_FLOAT_EQ(aroundZ.GetMatrix().Data[0][0], cosTheta);
-    EXPECT_FLOAT_EQ(aroundZ.GetMatrix().Data[1][1], cosTheta);
-    EXPECT_FLOAT_EQ(aroundZ.GetMatrix().Data[0][1], -sinTheta);
-    EXPECT_FLOAT_EQ(aroundZ.GetMatrix().Data[1][0], sinTheta);
+    EXPECT_REAL_EQ(aroundZ.GetMatrix().Data[0][0], cosTheta);
+    EXPECT_REAL_EQ(aroundZ.GetMatrix().Data[1][1], cosTheta);
+    EXPECT_REAL_EQ(aroundZ.GetMatrix().Data[0][1], -sinTheta);
+    EXPECT_REAL_EQ(aroundZ.GetMatrix().Data[1][0], sinTheta);
 
     math::Transform custom = math::Rotate(degrees, Vector3f(0, 0, 1));
-    EXPECT_FLOAT_EQ(custom.GetMatrix().Data[0][0], cosTheta);
-    EXPECT_FLOAT_EQ(custom.GetMatrix().Data[1][1], cosTheta);
-    EXPECT_FLOAT_EQ(custom.GetMatrix().Data[0][1], -sinTheta);
-    EXPECT_FLOAT_EQ(custom.GetMatrix().Data[1][0], sinTheta);
+    EXPECT_REAL_EQ(custom.GetMatrix().Data[0][0], cosTheta);
+    EXPECT_REAL_EQ(custom.GetMatrix().Data[1][1], cosTheta);
+    EXPECT_REAL_EQ(custom.GetMatrix().Data[0][1], -sinTheta);
+    EXPECT_REAL_EQ(custom.GetMatrix().Data[1][0], sinTheta);
 }

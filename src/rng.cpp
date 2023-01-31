@@ -3,11 +3,11 @@
 #include <cassert>
 #include <cmath>
 
-static constexpr auto kDefaultState = 0x853c49e6748fea9bULL;
-static constexpr auto kDefaultStream = 0xda3e39cb94b95bdbULL;
-static constexpr auto kMulFloat = 0x5851f42d4c957f2dULL;
-// Largest floating-point constant less then 1
-static constexpr float kOneMinusEpsilon = 0x1.fffffep-1;
+static constexpr uint64_t kDefaultState = 0x853c49e6748fea9bULL;
+static constexpr uint64_t kDefaultStream = 0xda3e39cb94b95bdbULL;
+static constexpr uint64_t kMulFloat = 0x5851f42d4c957f2dULL;
+// Largest realing-point constant less then 1
+static constexpr math::real kOneMinusEpsilon = 0x1.fffffep-1;
 
 math::RNG::RNG() : m_State(kDefaultState), m_Inc(kDefaultStream) {}
 
@@ -48,16 +48,16 @@ uint32_t math::RNG::UniformUInt32(uint32_t Limit)
     }
 }
 
-float math::RNG::UniformReal()
+math::real math::RNG::UniformReal()
 {
-    constexpr float kScalar = 0x1p-32f;
-    return std::fmin(kOneMinusEpsilon, static_cast<float>(UniformUInt32()) * kScalar);
+    constexpr real kScalar = 0x1p-32f;
+    return Min(kOneMinusEpsilon, static_cast<real>(UniformUInt32()) * kScalar);
 }
 
-float math::RNG::UniformRealInRange(float Start, float End)
+math::real math::RNG::UniformRealInRange(real Start, real End)
 {
     assert(Start <= End);
 
-    const float Value = UniformReal();
+    const real Value = UniformReal();
     return Start + Value * (End - Start);
 }

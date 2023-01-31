@@ -97,7 +97,7 @@ math::Normal3 math::Normal3::operator-() const
 
 math::Normal3 math::Normal3::Abs() const
 {
-    return {std::abs(X), std::abs(Y), std::abs(Z)};
+    return {math::Abs(X), math::Abs(Y), math::Abs(Z)};
 }
 
 float math::Normal3::LengthSquared() const
@@ -131,17 +131,17 @@ float math::Dot(const Vector3& Vec, const Normal3& N)
 
 float math::AbsDot(const Normal3& N1, const Normal3& N2)
 {
-    return std::abs(Dot(N1, N2));
+    return math::Abs(Dot(N1, N2));
 }
 
 float math::AbsDot(const Normal3& N, const Vector3& Vec)
 {
-    return std::abs(Dot(N, Vec));
+    return math::Abs(Dot(N, Vec));
 }
 
 float math::AbsDot(const Vector3& Vec, const Normal3& N)
 {
-    return std::abs(Dot(Vec, N));
+    return math::Abs(Dot(Vec, N));
 }
 
 math::Normal3 math::Normalize(const Normal3& N)
@@ -151,12 +151,12 @@ math::Normal3 math::Normalize(const Normal3& N)
 
 float math::MinComponent(const Normal3& N)
 {
-    return std::fmin(N.X, std::fmin(N.Y, N.Z));
+    return Min(N.X, Min(N.Y, N.Z));
 }
 
 float math::MaxComponent(const Normal3& N)
 {
-    return std::fmax(N.X, std::fmax(N.Y, N.Z));
+    return math::Max(N.X, math::Max(N.Y, N.Z));
 }
 
 int math::MaxDimension(const Normal3& N)
@@ -166,12 +166,12 @@ int math::MaxDimension(const Normal3& N)
 
 math::Normal3 math::Min(const Normal3& N1, const Normal3& N2)
 {
-    return {std::fmin(N1.X, N2.X), std::fmin(N1.Y, N2.Y), std::fmin(N1.Z, N2.Z)};
+    return {Min(N1.X, N2.X), Min(N1.Y, N2.Y), Min(N1.Z, N2.Z)};
 }
 
 math::Normal3 math::Max(const Normal3& N1, const Normal3& N2)
 {
-    return {std::fmax(N1.X, N2.X), std::fmax(N1.Y, N2.Y), std::fmax(N1.Z, N2.Z)};
+    return {math::Max(N1.X, N2.X), math::Max(N1.Y, N2.Y), math::Max(N1.Z, N2.Z)};
 }
 
 math::Normal3 math::Permute(const Normal3& N, int X, int Y, int Z)

@@ -3,12 +3,12 @@
 #include <cassert>
 #include <cmath>
 
-math::Matrix4x4 math::Orhographic_LH_N0(float Left,
-                                        float Right,
-                                        float Bottom,
-                                        float Top,
-                                        float Near,
-                                        float Far)
+math::Matrix4x4 math::Orhographic_LH_N0(real Left,
+                                        real Right,
+                                        real Bottom,
+                                        real Top,
+                                        real Near,
+                                        real Far)
 {
     Matrix4x4 Mat;
     Mat.Data[0][0] = 2 / (Right - Left);
@@ -20,12 +20,12 @@ math::Matrix4x4 math::Orhographic_LH_N0(float Left,
     return Mat;
 }
 
-math::Matrix4x4 math::Orhographic_LH_N1(float Left,
-                                        float Right,
-                                        float Bottom,
-                                        float Top,
-                                        float Near,
-                                        float Far)
+math::Matrix4x4 math::Orhographic_LH_N1(real Left,
+                                        real Right,
+                                        real Bottom,
+                                        real Top,
+                                        real Near,
+                                        real Far)
 {
     Matrix4x4 Mat;
     Mat.Data[0][0] = 2 / (Right - Left);
@@ -37,12 +37,12 @@ math::Matrix4x4 math::Orhographic_LH_N1(float Left,
     return Mat;
 }
 
-math::Matrix4x4 math::Orhographic_RH_N0(float Left,
-                                        float Right,
-                                        float Bottom,
-                                        float Top,
-                                        float Near,
-                                        float Far)
+math::Matrix4x4 math::Orhographic_RH_N0(real Left,
+                                        real Right,
+                                        real Bottom,
+                                        real Top,
+                                        real Near,
+                                        real Far)
 {
     Matrix4x4 Mat;
     Mat.Data[0][0] = 2 / (Right - Left);
@@ -54,12 +54,12 @@ math::Matrix4x4 math::Orhographic_RH_N0(float Left,
     return Mat;
 }
 
-math::Matrix4x4 math::Orhographic_RH_N1(float Left,
-                                        float Right,
-                                        float Bottom,
-                                        float Top,
-                                        float Near,
-                                        float Far)
+math::Matrix4x4 math::Orhographic_RH_N1(real Left,
+                                        real Right,
+                                        real Bottom,
+                                        real Top,
+                                        real Near,
+                                        real Far)
 {
     Matrix4x4 Mat;
     Mat.Data[0][0] = 2 / (Right - Left);
@@ -71,12 +71,12 @@ math::Matrix4x4 math::Orhographic_RH_N1(float Left,
     return Mat;
 }
 
-math::Matrix4x4 math::Perspective_LH_N0(float VerticalFOV, float AspectRatio, float Near, float Far)
+math::Matrix4x4 math::Perspective_LH_N0(real VerticalFOV, real AspectRatio, real Near, real Far)
 {
     assert(AspectRatio != 0);
 
-    const float InvFOVY = 1.0f / std::tan(math::Radians(VerticalFOV) / 2);
-    const float InvAspectRatio = 1 / AspectRatio;
+    const real InvFOVY = 1.0f / std::tan(math::Radians(VerticalFOV) / 2);
+    const real InvAspectRatio = 1 / AspectRatio;
 
     Matrix4x4 Mat;
     Mat.Data[0][0] = InvFOVY * InvAspectRatio;
@@ -88,12 +88,12 @@ math::Matrix4x4 math::Perspective_LH_N0(float VerticalFOV, float AspectRatio, fl
     return Mat;
 }
 
-math::Matrix4x4 math::Perspective_LH_N1(float VerticalFOV, float AspectRatio, float Near, float Far)
+math::Matrix4x4 math::Perspective_LH_N1(real VerticalFOV, real AspectRatio, real Near, real Far)
 {
     assert(AspectRatio != 0);
 
-    const float InvFOVY = 1.0f / std::tan(math::Radians(VerticalFOV) / 2);
-    const float InvAspectRatio = 1 / AspectRatio;
+    const real InvFOVY = 1.0f / std::tan(math::Radians(VerticalFOV) / 2);
+    const real InvAspectRatio = 1 / AspectRatio;
 
     Matrix4x4 Mat;
     Mat.Data[0][0] = InvFOVY * InvAspectRatio;
@@ -105,12 +105,12 @@ math::Matrix4x4 math::Perspective_LH_N1(float VerticalFOV, float AspectRatio, fl
     return Mat;
 }
 
-math::Matrix4x4 math::Perspective_RH_N0(float VerticalFOV, float AspectRatio, float Near, float Far)
+math::Matrix4x4 math::Perspective_RH_N0(real VerticalFOV, real AspectRatio, real Near, real Far)
 {
     assert(AspectRatio != 0);
 
-    const float InvFOVY = 1.0f / std::tan(math::Radians(VerticalFOV) / 2);
-    const float InvAspectRatio = 1 / AspectRatio;
+    const real InvFOVY = 1.0f / std::tan(math::Radians(VerticalFOV) / 2);
+    const real InvAspectRatio = 1 / AspectRatio;
 
     Matrix4x4 Mat;
     Mat.Data[0][0] = InvFOVY * InvAspectRatio;
@@ -126,12 +126,12 @@ math::Matrix4x4 math::Perspective_RH_N0(float VerticalFOV, float AspectRatio, fl
     return Mat;
 }
 
-math::Matrix4x4 math::Perspective_RH_N1(float VerticalFOV, float AspectRatio, float Near, float Far)
+math::Matrix4x4 math::Perspective_RH_N1(real VerticalFOV, real AspectRatio, real Near, real Far)
 {
     assert(AspectRatio != 0);
 
-    const float InvFOVY = 1.0f / std::tan(math::Radians(VerticalFOV) / 2);
-    const float InvAspectRatio = 1 / AspectRatio;
+    const real InvFOVY = 1.0f / std::tan(math::Radians(VerticalFOV) / 2);
+    const real InvAspectRatio = 1 / AspectRatio;
 
     Matrix4x4 Mat;
     Mat.Data[0][0] = InvFOVY * InvAspectRatio;

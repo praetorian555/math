@@ -1,7 +1,7 @@
-#include <gtest/gtest.h>
-
 #include "math/rng.h"
 #include "math/rotator.h"
+
+#include "realexpect.h"
 
 using Vector3f = math::Vector3;
 
@@ -9,16 +9,16 @@ TEST(RotatorTests, Constructors)
 {
     {
         math::Rotator R;
-        EXPECT_FLOAT_EQ(R.Pitch, 0);
-        EXPECT_FLOAT_EQ(R.Yaw, 0);
-        EXPECT_FLOAT_EQ(R.Roll, 0);
+        math::Max(R.Pitch, 0);
+        math::Max(R.Yaw, 0);
+        math::Max(R.Roll, 0);
     }
 
     {
         math::Rotator R(10, 50, -30);
-        EXPECT_FLOAT_EQ(R.Pitch, 10);
-        EXPECT_FLOAT_EQ(R.Yaw, 50);
-        EXPECT_FLOAT_EQ(R.Roll, -30);
+        math::Max(R.Pitch, 10);
+        EXPECT_REAL_EQ(R.Yaw, 50);
+        EXPECT_REAL_EQ(R.Roll, -30);
     }
 }
 
@@ -29,7 +29,7 @@ TEST(RotatorTests, ToVector)
         Vector3f V = R.ToVector();
         Vector3f Ref = Vector3f{0, 1, 0};
         EXPECT_LT(V.X, 10e-5);
-        EXPECT_FLOAT_EQ(V.Y, Ref.Y);
+        EXPECT_REAL_EQ(V.Y, Ref.Y);
         EXPECT_LT(V.Z, 10e-5);
     }
 
@@ -39,14 +39,14 @@ TEST(RotatorTests, ToVector)
         Vector3f Ref = Vector3f{0, 0, 1};
         EXPECT_LT(V.X, 10e-5);
         EXPECT_LT(V.Y, 10e-5);
-        EXPECT_FLOAT_EQ(V.Z, Ref.Z);
+        EXPECT_REAL_EQ(V.Z, Ref.Z);
     }
 
     {
         math::Rotator R(0, 0, 35);
         Vector3f V = R.ToVector();
         Vector3f Ref = Vector3f{1, 0, 0};
-        EXPECT_FLOAT_EQ(V.X, Ref.X);
+        EXPECT_REAL_EQ(V.X, Ref.X);
         EXPECT_LT(V.Y, 10e-5);
         EXPECT_LT(V.Z, 10e-5);
     }
@@ -56,9 +56,9 @@ TEST(RotatorTests, Euler)
 {
     math::Rotator R(10, 15, 20);
     math::Vector3 Eul = R.ToEuler();
-    EXPECT_FLOAT_EQ(R.Roll, Eul.X);
-    EXPECT_FLOAT_EQ(R.Yaw, Eul.Y);
-    EXPECT_FLOAT_EQ(R.Pitch, Eul.Z);
+    EXPECT_REAL_EQ(R.Roll, Eul.X);
+    EXPECT_REAL_EQ(R.Yaw, Eul.Y);
+    EXPECT_REAL_EQ(R.Pitch, Eul.Z);
 }
 
 TEST(RotatorTests, Compare)
@@ -77,19 +77,19 @@ TEST(RotatorTests, Addition)
     math::Rotator R2(12, 23, 64);
 
     math::Rotator R3 = R1 + R2;
-    EXPECT_FLOAT_EQ(R3.Pitch, 22);
-    EXPECT_FLOAT_EQ(R3.Yaw, 38);
-    EXPECT_FLOAT_EQ(R3.Roll, 98);
+    EXPECT_REAL_EQ(R3.Pitch, 22);
+    EXPECT_REAL_EQ(R3.Yaw, 38);
+    EXPECT_REAL_EQ(R3.Roll, 98);
 
     R1 += R2;
-    EXPECT_FLOAT_EQ(R1.Pitch, 22);
-    EXPECT_FLOAT_EQ(R1.Yaw, 38);
-    EXPECT_FLOAT_EQ(R1.Roll, 98);
+    EXPECT_REAL_EQ(R1.Pitch, 22);
+    EXPECT_REAL_EQ(R1.Yaw, 38);
+    EXPECT_REAL_EQ(R1.Roll, 98);
 
     R2.Add(3, 2, 1);
-    EXPECT_FLOAT_EQ(R2.Pitch, 15);
-    EXPECT_FLOAT_EQ(R2.Yaw, 25);
-    EXPECT_FLOAT_EQ(R2.Roll, 65);
+    EXPECT_REAL_EQ(R2.Pitch, 15);
+    EXPECT_REAL_EQ(R2.Yaw, 25);
+    EXPECT_REAL_EQ(R2.Roll, 65);
 }
 
 TEST(RotatorTests, Subtraction)
@@ -98,14 +98,14 @@ TEST(RotatorTests, Subtraction)
     math::Rotator R2(12, 23, 64);
 
     math::Rotator R3 = R1 - R2;
-    EXPECT_FLOAT_EQ(R3.Pitch, -2);
-    EXPECT_FLOAT_EQ(R3.Yaw, -8);
-    EXPECT_FLOAT_EQ(R3.Roll, -30);
+    EXPECT_REAL_EQ(R3.Pitch, -2);
+    EXPECT_REAL_EQ(R3.Yaw, -8);
+    EXPECT_REAL_EQ(R3.Roll, -30);
 
     R1 -= R2;
-    EXPECT_FLOAT_EQ(R1.Pitch, -2);
-    EXPECT_FLOAT_EQ(R1.Yaw, -8);
-    EXPECT_FLOAT_EQ(R1.Roll, -30);
+    EXPECT_REAL_EQ(R1.Pitch, -2);
+    EXPECT_REAL_EQ(R1.Yaw, -8);
+    EXPECT_REAL_EQ(R1.Roll, -30);
 }
 
 TEST(RotatorTests, MultiplicationScalar)
@@ -113,14 +113,14 @@ TEST(RotatorTests, MultiplicationScalar)
     math::Rotator R1(10, 15, 34);
 
     math::Rotator R2 = 2 * R1;
-    EXPECT_FLOAT_EQ(R2.Pitch, 20);
-    EXPECT_FLOAT_EQ(R2.Yaw, 30);
-    EXPECT_FLOAT_EQ(R2.Roll, 68);
+    EXPECT_REAL_EQ(R2.Pitch, 20);
+    EXPECT_REAL_EQ(R2.Yaw, 30);
+    EXPECT_REAL_EQ(R2.Roll, 68);
 
     R1 *= 2;
-    EXPECT_FLOAT_EQ(R1.Pitch, 20);
-    EXPECT_FLOAT_EQ(R1.Yaw, 30);
-    EXPECT_FLOAT_EQ(R1.Roll, 68);
+    EXPECT_REAL_EQ(R1.Pitch, 20);
+    EXPECT_REAL_EQ(R1.Yaw, 30);
+    EXPECT_REAL_EQ(R1.Roll, 68);
 }
 
 TEST(RotatorTests, RotateVector)
@@ -187,6 +187,6 @@ TEST(RNGTests, SameStartIndexSameSequence)
     {
         float Num1 = Gen1.UniformReal();
         float Num2 = Gen2.UniformReal();
-        EXPECT_FLOAT_EQ(Num1, Num2);
+        EXPECT_REAL_EQ(Num1, Num2);
     }
 }

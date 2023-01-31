@@ -4,17 +4,17 @@
 
 #include "math/transform.h"
 
-math::Rotator::Rotator(float Pitch, float Yaw, float Roll) : Pitch(Pitch), Yaw(Yaw), Roll(Roll) {}
+math::Rotator::Rotator(real Pitch, real Yaw, real Roll) : Pitch(Pitch), Yaw(Yaw), Roll(Roll) {}
 
 math::Vector3 math::Rotator::ToVector() const
 {
-    const float PitchNoWinding = std::fmod(Pitch, 360.0f);
-    const float YawNoWinding = std::fmod(Yaw, 360.0f);
+    const real PitchNoWinding = Mod(Pitch, 360.0f);
+    const real YawNoWinding = Mod(Yaw, 360.0f);
 
-    const float SP = std::sin(math::Radians(PitchNoWinding));
-    const float CP = std::cos(math::Radians(PitchNoWinding));
-    const float SY = std::sin(math::Radians(YawNoWinding));
-    const float CY = std::cos(math::Radians(YawNoWinding));
+    const real SP = std::sin(math::Radians(PitchNoWinding));
+    const real CP = std::cos(math::Radians(PitchNoWinding));
+    const real SY = std::sin(math::Radians(YawNoWinding));
+    const real CY = std::cos(math::Radians(YawNoWinding));
 
     return Vector3{CP * CY, SP, -CP * SY};
 }
@@ -65,12 +65,12 @@ math::Rotator& math::Rotator::operator-=(const Rotator& Other)
     return *this;
 }
 
-math::Rotator math::Rotator::operator*(float Val) const
+math::Rotator math::Rotator::operator*(real Val) const
 {
     return {Pitch * Val, Yaw * Val, Roll * Val};
 }
 
-math::Rotator& math::Rotator::operator*=(float Val)
+math::Rotator& math::Rotator::operator*=(real Val)
 {
     Pitch *= Val;
     Yaw *= Val;
@@ -79,7 +79,7 @@ math::Rotator& math::Rotator::operator*=(float Val)
     return *this;
 }
 
-void math::Rotator::Add(float DeltaPitch, float DeltaYaw, float DeltaRoll)
+void math::Rotator::Add(real DeltaPitch, real DeltaYaw, real DeltaRoll)
 {
     Pitch += DeltaPitch;
     Yaw += DeltaYaw;
@@ -91,7 +91,7 @@ math::Vector3 math::Rotator::RotateVector(const Vector3& Vec) const
     return Rotate(*this)(Vec);
 }
 
-math::Rotator math::operator*(float Val, const Rotator& Other)
+math::Rotator math::operator*(real Val, const Rotator& Other)
 {
     return Other * Val;
 }
