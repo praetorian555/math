@@ -120,3 +120,8 @@ math::real math::Ceil(math::real Value)
     return std::ceilf(Value);
 #endif
 }
+
+math::real math::Abs(math::real Value)
+{
+    return std::abs(Value);
+}

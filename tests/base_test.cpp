@@ -122,3 +122,9 @@ TEST(BaseTests, Ceil)
     EXPECT_EQ(2, math::Ceil(MATH_REALC(1.5)));
     EXPECT_EQ(3, math::Ceil(MATH_REALC(2.5)));
 }
+
+TEST(BaseTests, Abs)
+{
+    EXPECT_EQ(1, math::Abs(-1));
+    EXPECT_EQ(1, math::Abs(1));
+}

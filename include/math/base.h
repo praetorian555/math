@@ -55,5 +55,6 @@ real Max(real A, real B);
 real Round(real Value);
 real Floor(real Value);
 real Ceil(real Value);
+real Abs(real Value);
 
 }  // namespace math
