@@ -16,21 +16,21 @@ public:
     {
         struct
         {
-            float X, Y;
+            real X;
+            real Y;
         };
-        float Data[2];
+        real Data[2];
     };
 
-public:
-    constexpr Point2() : X(0), Y(0) {}
-    constexpr Point2(float X, float Y) : X(X), Y(Y) {}
+    constexpr Point2() : X(MATH_REALC(0.0)), Y(MATH_REALC(0.0)) {}
+    constexpr Point2(real X, real Y) : X(X), Y(Y) {}
     constexpr Point2(const Point2& P) : X(P.X), Y(P.Y) {}
     explicit Point2(const Point3& P);
 
-    void Set(float Value, int Index);
-    float operator[](int Index) const;
+    void Set(real Value, int Index);
+    real operator[](int Index) const;
 
-    bool HasNaNs() const;
+    [[nodiscard]] bool HasNaNs() const;
 
     bool operator==(const Point2& Other) const;
     bool operator!=(const Point2& Other) const;
@@ -44,18 +44,18 @@ public:
     Vector2 operator-(const Point2& Other) const;
     Point2& operator-=(const Vector2& Vec);
 
-    Point2 operator*(float Scalar) const;
-    Point2& operator*=(float Scalar);
+    Point2 operator*(real Scalar) const;
+    Point2& operator*=(real Scalar);
 
-    Point2 operator/(float Scalar) const;
-    Point2& operator/=(float Scalar);
+    Point2 operator/(real Scalar) const;
+    Point2& operator/=(real Scalar);
 
     Point2 operator-() const;
 
-    Point2 Abs() const;
+    [[nodiscard]] Point2 Abs() const;
 };
 
-Point2 operator*(float Scalar, const Point2& P);
+Point2 operator*(real Scalar, const Point2& P);
 
 float Distance(const Point2& P1, const Point2& P2);
 float DistanceSquared(const Point2& P1, const Point2& P2);
