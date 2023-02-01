@@ -6,6 +6,8 @@
 #include "math/normal3.h"
 #include "math/point3.h"
 
+const math::Vector3 math::Vector3::Zero{0, 0, 0};
+
 math::Vector3::Vector3(const Normal3& N) : X(N.X), Y(N.Y), Z(N.Z) {}
 
 math::Vector3::Vector3(const Point3& P) : X(P.X), Y(P.Y), Z(P.Z) {}

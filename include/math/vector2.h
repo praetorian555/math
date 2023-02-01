@@ -49,6 +49,8 @@ public:
 
     [[nodiscard]] real LengthSquared() const;
     [[nodiscard]] real Length() const;
+
+    static const Vector2 Zero;
 };
 
 Vector2 operator*(real Scalar, const Vector2& Vec);

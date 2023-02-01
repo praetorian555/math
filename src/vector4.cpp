@@ -7,6 +7,8 @@
 #include "math/vector2.h"
 #include "math/vector3.h"
 
+const math::Vector4 math::Vector4::Zero{0, 0, 0, 0};
+
 math::Vector4::Vector4(const Point4& P) : X(P.X), Y(P.Y), Z(P.Z), W(P.W) {}
 
 math::Vector4::Vector4(const Vector2& XY, real ZZ, real WW) : X(XY.X), Y(XY.Y), Z(ZZ), W(WW) {}

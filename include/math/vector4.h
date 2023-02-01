@@ -72,6 +72,8 @@ public:
 
     [[nodiscard]] real LengthSquared() const;
     [[nodiscard]] real Length() const;
+
+    static const Vector4 Zero;
 };
 
 Vector4 operator*(real Scalar, const Vector4& Vec);

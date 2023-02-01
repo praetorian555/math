@@ -3,6 +3,8 @@
 #include <cassert>
 #include <cmath>
 
+const math::Vector2 math::Vector2::Zero{0, 0};
+
 void math::Vector2::Set(real Value, int Index)
 {
     assert(Index >= 0 && Index < 2);
