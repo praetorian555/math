@@ -98,6 +98,11 @@ bool math::IsPowerOf2(int Value)
     return (Value != 0) && ((Value & (Value - 1)) == 0);
 }
 
+bool math::IsEqual(math::real A, math::real B, math::real Epsilon)
+{
+    return Abs(A - B) <= Epsilon;
+}
+
 math::real math::Min(math::real A, math::real B)
 {
     return std::min(A, B);
@@ -148,4 +153,40 @@ math::real math::Sqrt(math::real Value)
 math::real math::Power(math::real Base, math::real Exponent)
 {
     return std::pow(Base, Exponent);
+}
+
+math::real math::Sin(math::real Radians)
+{
+#if MATH_REAL_AS_DOUBLE
+    return std::sin(Radians);
+#else
+    return std::sinf(Radians);
+#endif
+}
+
+math::real math::Cos(math::real Radians)
+{
+#if MATH_REAL_AS_DOUBLE
+    return std::cos(Radians);
+#else
+    return std::cosf(Radians);
+#endif
+}
+
+math::real math::Tan(math::real Radians)
+{
+    if (Radians == kPiOver2)
+    {
+        return kInfinity;
+    }
+    if (Radians == -kPiOver2)
+    {
+        return -kInfinity;
+    }
+
+#if MATH_REAL_AS_DOUBLE
+    return std::tan(Radians);
+#else
+    return std::tanf(Radians);
+#endif
 }

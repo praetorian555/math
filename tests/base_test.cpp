@@ -169,3 +169,30 @@ TEST(BaseTests, Power)
     EXPECT_REAL_EQ(4, math::Power(2, 2));
     EXPECT_REAL_EQ(8, math::Power(2, 3));
 }
+
+TEST(BaseTests, Trigonometry)
+{
+#if MATH_REAL_AS_DOUBLE
+    constexpr math::real kEpsilon = 0.000000000000001;
+#else
+    constexpr math::real kEpsilon = 0.000001f;
+#endif
+
+    EXPECT_REAL_EQ(0, math::Sin(0));
+    EXPECT_REAL_EQ(1, math::Sin(math::kPiOver2));
+    EXPECT_TRUE(math::IsEqual(0, math::Sin(math::kPi), kEpsilon));
+    EXPECT_REAL_EQ(-1, math::Sin(math::kPi + math::kPiOver2));
+    EXPECT_TRUE(math::IsEqual(0, math::Sin(math::kPi * 2), kEpsilon));
+
+    EXPECT_REAL_EQ(1, math::Cos(0));
+    EXPECT_TRUE(math::IsEqual(0, math::Cos(math::kPiOver2), kEpsilon));
+    EXPECT_REAL_EQ(-1, math::Cos(math::kPi));
+    EXPECT_TRUE(math::IsEqual(0, math::Cos(math::kPi + math::kPiOver2), kEpsilon));
+    EXPECT_REAL_EQ(1, math::Cos(math::kPi * 2));
+
+    EXPECT_REAL_EQ(0, math::Tan(0));
+    EXPECT_REAL_EQ(1, math::Tan(math::kPiOver4));
+    EXPECT_REAL_EQ(math::kInfinity, math::Tan(math::kPiOver2));
+    EXPECT_TRUE(math::IsEqual(1, math::Tan(math::kPi + math::kPiOver4), kEpsilon));
+    EXPECT_TRUE(math::IsEqual(0, math::Tan(math::kPi * 2), kEpsilon));
+}

@@ -14,7 +14,15 @@ using real = float;
 #endif
 
 // Constants
-
+#if MATH_REAL_AS_DOUBLE
+static constexpr real kPi = 3.1415926535897932384626433832795028841971693993751058209749445923;
+static constexpr real kInvPi = 0.3183098861837906715377675267450287240689192914809128974953346881;
+static constexpr real kInVec2Pi = 0.1591549430918953357688837633725143620344596457404564487476673440;
+static constexpr real kInv4Pi = 0.0795774715459476678844418816862571810172298228702282243738336720;
+static constexpr real kPiOver2 = 1.5707963267948966192313216916397514420985846996875529104874722961;
+static constexpr real kPiOver4 = 0.7853981633974483096156608458198757210492923498437764552437361480;
+static constexpr real kSqrt2 = 1.4142135623730950488016887242096980785696718753769480731766797379;
+#else
 static constexpr real kPi = MATH_REALC(3.14159265358979323846);
 static constexpr real kInvPi = MATH_REALC(0.31830988618379067154);
 static constexpr real kInVec2Pi = MATH_REALC(0.15915494309189533577);
@@ -22,6 +30,7 @@ static constexpr real kInv4Pi = MATH_REALC(0.07957747154594766788);
 static constexpr real kPiOver2 = MATH_REALC(1.57079632679489661923);
 static constexpr real kPiOver4 = MATH_REALC(0.78539816339744830961);
 static constexpr real kSqrt2 = MATH_REALC(1.41421356237309504880);
+#endif
 
 #if defined(_MSC_VER)
 static constexpr real kInfinity = static_cast<real>(1e300 * 1e300);
@@ -39,6 +48,13 @@ static constexpr real kSmallestReal = MATH_REALC(-3.4028234664e38);
 #endif
 
 // Functions
+
+// @brief Returns true if value A is in the range [B - Epsilon, B + Epsilon].
+// @param A The value to check.
+// @param B The value to check against.
+// @param Epsilon The epsilon value.
+// @return True if value A is in the range [B - Epsilon, B + Epsilon], false otherwise.
+bool IsEqual(real A, real B, real Epsilon);
 
 // @brief Returns true if the given value is NaN.
 // @param Value The value to check.
@@ -113,6 +129,21 @@ real Radians(real Degrees);
 // @param Radians The value to convert from radians to degrees.
 // @return The given value converted from radians to degrees.
 real Degrees(real Radians);
+
+// @brief Returns the sine of the given value.
+// @param Radians The value to take the sine of.
+// @return The sine of the given value.
+real Sin(real Radians);
+
+// @brief Returns the cosine of the given value.
+// @param Radians The value to take the cosine of.
+// @return The cosine of the given value.
+real Cos(real Radians);
+
+// @brief Returns the tangent of the given value.
+// @param Radians The value to take the tangent of.
+// @return The tangent of the given value.
+real Tan(real Radians);
 
 // @brief Returns the power of the given base and exponent.
 // @param Base The base of the power.
