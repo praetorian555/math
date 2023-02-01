@@ -163,3 +163,9 @@ TEST(BaseTests, Sqrt)
     EXPECT_REAL_EQ(2, math::Sqrt(4));
     EXPECT_REAL_EQ(3, math::Sqrt(9));
 }
+
+TEST(BaseTests, Power)
+{
+    EXPECT_REAL_EQ(4, math::Power(2, 2));
+    EXPECT_REAL_EQ(8, math::Power(2, 3));
+}

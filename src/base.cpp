@@ -144,3 +144,8 @@ math::real math::Sqrt(math::real Value)
 {
     return std::sqrt(Value);
 }
+
+math::real math::Power(math::real Base, math::real Exponent)
+{
+    return std::pow(Base, Exponent);
+}

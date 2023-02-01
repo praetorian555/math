@@ -114,6 +114,12 @@ real Radians(real Degrees);
 // @return The given value converted from radians to degrees.
 real Degrees(real Radians);
 
+// @brief Returns the power of the given base and exponent.
+// @param Base The base of the power.
+// @param Exponent The exponent of the power.
+// @return The power of the given base and exponent.
+real Power(real Base, real Exponent);
+
 // @brief Returns the logarithm base e of the given value.
 // @param Value The value to take the logarithm base e of.
 // @return The logarithm base e of the given value. If value is 1 it returns 0. If value is 0 it
