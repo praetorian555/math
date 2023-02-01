@@ -182,7 +182,7 @@ math::real math::Vector4::LengthSquared() const
 }
 math::real math::Vector4::Length() const
 {
-    return std::sqrt(LengthSquared());
+    return Sqrt(LengthSquared());
 }
 
 math::Vector4 math::operator*(real Scalar, const Vector4& Vec)

@@ -1,7 +1,5 @@
 #include "math/rotator.h"
 
-#include <cmath>
-
 #include "math/transform.h"
 
 const math::Rotator math::Rotator::Zero{0, 0, 0};
@@ -13,11 +11,10 @@ math::Vector3 math::Rotator::ToVector() const
     const real PitchNoWinding = Mod(Pitch, 360.0f);
     const real YawNoWinding = Mod(Yaw, 360.0f);
 
-    // TODO(Marko): Write API for this.
-    const real SP = std::sin(math::Radians(PitchNoWinding));
-    const real CP = std::cos(math::Radians(PitchNoWinding));
-    const real SY = std::sin(math::Radians(YawNoWinding));
-    const real CY = std::cos(math::Radians(YawNoWinding));
+    const real SP = math::Sin(math::Radians(PitchNoWinding));
+    const real CP = math::Cos(math::Radians(PitchNoWinding));
+    const real SY = math::Sin(math::Radians(YawNoWinding));
+    const real CY = math::Cos(math::Radians(YawNoWinding));
 
     return Vector3{CP * CY, SP, -CP * SY};
 }

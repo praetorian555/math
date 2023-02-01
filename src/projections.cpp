@@ -75,7 +75,7 @@ math::Matrix4x4 math::Perspective_LH_N0(real VerticalFOV, real AspectRatio, real
 {
     assert(AspectRatio != 0);
 
-    const real InvFOVY = 1.0f / std::tan(math::Radians(VerticalFOV) / 2);
+    const real InvFOVY = 1.0f / math::Tan(math::Radians(VerticalFOV) / 2);
     const real InvAspectRatio = 1 / AspectRatio;
 
     Matrix4x4 Mat;
@@ -92,7 +92,7 @@ math::Matrix4x4 math::Perspective_LH_N1(real VerticalFOV, real AspectRatio, real
 {
     assert(AspectRatio != 0);
 
-    const real InvFOVY = 1.0f / std::tan(math::Radians(VerticalFOV) / 2);
+    const real InvFOVY = 1.0f / math::Tan(math::Radians(VerticalFOV) / 2);
     const real InvAspectRatio = 1 / AspectRatio;
 
     Matrix4x4 Mat;
@@ -109,7 +109,7 @@ math::Matrix4x4 math::Perspective_RH_N0(real VerticalFOV, real AspectRatio, real
 {
     assert(AspectRatio != 0);
 
-    const real InvFOVY = 1.0f / std::tan(math::Radians(VerticalFOV) / 2);
+    const real InvFOVY = 1.0f / math::Tan(math::Radians(VerticalFOV) / 2);
     const real InvAspectRatio = 1 / AspectRatio;
 
     Matrix4x4 Mat;
@@ -130,7 +130,7 @@ math::Matrix4x4 math::Perspective_RH_N1(real VerticalFOV, real AspectRatio, real
 {
     assert(AspectRatio != 0);
 
-    const real InvFOVY = 1.0f / std::tan(math::Radians(VerticalFOV) / 2);
+    const real InvFOVY = 1.0f / math::Tan(math::Radians(VerticalFOV) / 2);
     const real InvAspectRatio = 1 / AspectRatio;
 
     Matrix4x4 Mat;

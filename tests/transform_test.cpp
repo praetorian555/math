@@ -173,8 +173,8 @@ TEST(TransformTests, Scale)
 TEST(TransformTests, Rotate)
 {
     math::real degrees = 45.0f;
-    math::real sinTheta = std::sin(math::Radians(degrees));
-    math::real cosTheta = std::cos(math::Radians(degrees));
+    math::real sinTheta = math::Sin(math::Radians(degrees));
+    math::real cosTheta = math::Cos(math::Radians(degrees));
 
     math::Transform aroundX = math::RotateX(degrees);
     EXPECT_REAL_EQ(aroundX.GetMatrix().Data[1][1], cosTheta);
@@ -206,8 +206,8 @@ TEST(TransformTests, RotateAndTranslate)
     {
         math::real degrees = 45;
         math::Rotator rotator(degrees, 0, 0);
-        math::real sinTheta = std::sin(math::Radians(degrees));
-        math::real cosTheta = std::cos(math::Radians(degrees));
+        math::real sinTheta = math::Sin(math::Radians(degrees));
+        math::real cosTheta = math::Cos(math::Radians(degrees));
         math::Transform t = math::RotateAndTranslate(rotator, Vector3f(2, 3, 5));
 
         EXPECT_REAL_EQ(t.GetMatrix().Data[0][0], cosTheta);
@@ -230,8 +230,8 @@ TEST(TransformTests, RotateAndTranslate)
     {
         math::real degrees = 45;
         math::Rotator rotator(degrees, 0, 0);
-        math::real sinTheta = std::sin(math::Radians(degrees));
-        math::real cosTheta = std::cos(math::Radians(degrees));
+        math::real sinTheta = math::Sin(math::Radians(degrees));
+        math::real cosTheta = math::Cos(math::Radians(degrees));
         math::Transform t = math::RotateAndTranslate(rotator, math::Point3(2, 3, 5));
 
         EXPECT_REAL_EQ(t.GetMatrix().Data[0][0], cosTheta);

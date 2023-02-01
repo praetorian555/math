@@ -101,7 +101,7 @@ math::real math::Vector2::LengthSquared() const
 
 math::real math::Vector2::Length() const
 {
-    return std::sqrt(LengthSquared());
+    return Sqrt(LengthSquared());
 }
 
 math::Vector2 math::operator*(real Scalar, const Vector2& Vec)

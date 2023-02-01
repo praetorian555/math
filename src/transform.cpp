@@ -1,7 +1,6 @@
 #include "math/transform.h"
 
 #include <cassert>
-#include <cmath>
 
 #include "math/normal3.h"
 #include "math/point4.h"
@@ -183,8 +182,8 @@ math::Transform math::Scale(math::real V)
 
 math::Transform math::RotateX(real Theta)
 {
-    const real SinTheta = std::sin(math::Radians(Theta));
-    const real CosTheta = std::cos(math::Radians(Theta));
+    const real SinTheta = math::Sin(math::Radians(Theta));
+    const real CosTheta = math::Cos(math::Radians(Theta));
 
     // clang-format off
     const math::Matrix4x4 Mat(
@@ -199,8 +198,8 @@ math::Transform math::RotateX(real Theta)
 
 math::Transform math::RotateY(real Theta)
 {
-    const real SinTheta = std::sin(math::Radians(Theta));
-    const real CosTheta = std::cos(math::Radians(Theta));
+    const real SinTheta = math::Sin(math::Radians(Theta));
+    const real CosTheta = math::Cos(math::Radians(Theta));
 
     // clang-format off
     const math::Matrix4x4 Mat(
@@ -215,8 +214,8 @@ math::Transform math::RotateY(real Theta)
 
 math::Transform math::RotateZ(real Theta)
 {
-    const real SinTheta = std::sin(math::Radians(Theta));
-    const real CosTheta = std::cos(math::Radians(Theta));
+    const real SinTheta = math::Sin(math::Radians(Theta));
+    const real CosTheta = math::Cos(math::Radians(Theta));
 
     // clang-format off
     const math::Matrix4x4 Mat(
@@ -232,8 +231,8 @@ math::Transform math::RotateZ(real Theta)
 math::Transform math::Rotate(real Theta, const Vector3& Axis)
 {
     const Vector3 NormAxis = Normalize(Axis);
-    const real SinTheta = std::sin(math::Radians(Theta));
-    const real CosTheta = std::cos(math::Radians(Theta));
+    const real SinTheta = math::Sin(math::Radians(Theta));
+    const real CosTheta = math::Cos(math::Radians(Theta));
 
     // Compute rotation of first basis vector
     math::Matrix4x4 Mat;
@@ -261,7 +260,6 @@ math::Transform math::Rotate(math::Rotator Rotator)
     return RotateZ(Rotator.Pitch) * RotateY(Rotator.Yaw) * RotateX(Rotator.Roll);
 }
 
-// TODO(Marko): Write test for this.
 math::Transform math::RotateAndTranslate(math::Rotator Rotator, const math::Point3& Translation)
 {
     return Translate(Translation) * Rotate(Rotator);

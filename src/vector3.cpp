@@ -142,8 +142,7 @@ math::real math::Vector3::LengthSquared() const
 
 math::real math::Vector3::Length() const
 {
-    // TODO(Marko): Add API for sqrt
-    return std::sqrt(LengthSquared());
+    return Sqrt(LengthSquared());
 }
 
 math::Vector3 math::operator*(real Scalar, const Vector3& Vec)
