@@ -54,6 +54,8 @@ public:
     [[nodiscard]] Point4 Abs() const;
 
     [[nodiscard]] Point4 ToEuclidean() const;
+
+    static const Point4 Zero;
 };
 
 Point4 operator*(real Scalar, const Point4& Vec);

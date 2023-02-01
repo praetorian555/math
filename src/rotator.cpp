@@ -4,6 +4,8 @@
 
 #include "math/transform.h"
 
+const math::Rotator math::Rotator::Zero{0, 0, 0};
+
 math::Rotator::Rotator(real Pitch, real Yaw, real Roll) : Pitch(Pitch), Yaw(Yaw), Roll(Roll) {}
 
 math::Vector3 math::Rotator::ToVector() const

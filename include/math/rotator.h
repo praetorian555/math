@@ -60,6 +60,8 @@ struct Rotator
     void Add(real DeltaPitch, real DeltaYaw, real DeltaRoll);
 
     [[nodiscard]] Vector3 RotateVector(const Vector3& Vec) const;
+
+    static const Rotator Zero;
 };
 
 Rotator operator*(real Val, const Rotator& Other);

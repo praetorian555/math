@@ -1,10 +1,11 @@
 #include "math/point2.h"
 
 #include <cassert>
-#include <cmath>
 
 #include "math/point3.h"
 #include "math/vector2.h"
+
+const math::Point2 math::Point2::Zero{0, 0};
 
 math::Point2::Point2(const Point3& P) : X(P.X), Y(P.Y) {}
 

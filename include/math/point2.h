@@ -53,6 +53,8 @@ public:
     Point2 operator-() const;
 
     [[nodiscard]] Point2 Abs() const;
+
+    static const Point2 Zero;
 };
 
 Point2 operator*(real Scalar, const Point2& P);

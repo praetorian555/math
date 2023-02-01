@@ -1,12 +1,13 @@
 #include "math/point4.h"
 
 #include <cassert>
-#include <cmath>
 
 #include "math/point3.h"
 #include "math/vector4.h"
 
 math::Point4::Point4(const Point3& P) : X(P.X), Y(P.Y), Z(P.Z), W(0) {}
+
+const math::Point4 math::Point4::Zero{0, 0, 0, 0};
 
 void math::Point4::Set(real Value, int Index)
 {

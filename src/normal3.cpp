@@ -1,9 +1,10 @@
 #include "math/normal3.h"
 
 #include <cassert>
-#include <cmath>
 
 #include "math/vector3.h"
+
+const math::Normal3 math::Normal3::Zero{0, 0, 0};
 
 math::Normal3::Normal3(const Vector3& Vec) : X(Vec.X), Y(Vec.Y), Z(Vec.Z) {}
 
@@ -106,7 +107,7 @@ math::real math::Normal3::LengthSquared() const
 }
 math::real math::Normal3::Length() const
 {
-    return std::sqrt(LengthSquared());
+    return Sqrt(LengthSquared());
 }
 
 math::Normal3 math::operator*(real Scalar, const Normal3& N)

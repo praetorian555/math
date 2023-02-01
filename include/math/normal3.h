@@ -49,6 +49,8 @@ public:
 
     [[nodiscard]] real LengthSquared() const;
     [[nodiscard]] real Length() const;
+
+    static const Normal3 Zero;
 };
 
 Normal3 operator*(real Scalar, const Normal3& N);

@@ -55,6 +55,8 @@ public:
     Point3 operator-() const;
 
     [[nodiscard]] Point3 Abs() const;
+
+    static const Point3 Zero;
 };
 
 Point3 operator*(real Scalar, const Point3& P);
