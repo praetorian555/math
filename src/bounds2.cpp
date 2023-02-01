@@ -3,7 +3,7 @@
 #include <cassert>
 
 math::Bounds2::Bounds2()
-    : Min(Point2(kSmallestFloat, kSmallestFloat)), Max(Point2(kLargestFloat, kLargestFloat))
+    : Min(Point2(kSmallestReal, kSmallestReal)), Max(Point2(kLargestReal, kLargestReal))
 {
 }
 

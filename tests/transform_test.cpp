@@ -6,7 +6,7 @@ using Vector3f = math::Vector3;
 
 TEST(TransformTests, Creation)
 {
-    math::Array2D<float, 4, 4> init;
+    math::Array2D<math::real, 4, 4> init;
     init[0] = {1.0f, 4.0f, -4.0f, 5.0f};
     init[1] = {3.0f, -2.0f, 1.0f, 10.0f};
     init[2] = {7.0f, 10.0f, -5.0f, -3.0f};
@@ -140,15 +140,15 @@ TEST(TransformTests, Scale)
     EXPECT_REAL_EQ(t.GetMatrix().Data[2][2], 5);
 
     EXPECT_REAL_EQ(t.GetInverse().Data[0][0], 1 / 2.0f);
-    EXPECT_REAL_EQ(t.GetInverse().Data[1][1], 1 / 3.0f);
-    EXPECT_REAL_EQ(t.GetInverse().Data[2][2], 1 / 5.0f);
+    EXPECT_REAL_EQ(t.GetInverse().Data[1][1], 1 / MATH_REALC(3.0));
+    EXPECT_REAL_EQ(t.GetInverse().Data[2][2], 1 / MATH_REALC(5.0));
 }
 
 TEST(TransformTests, Rotate)
 {
-    float degrees = 45.0f;
-    float sinTheta = std::sin(math::Radians(degrees));
-    float cosTheta = std::cos(math::Radians(degrees));
+    math::real degrees = 45.0f;
+    math::real sinTheta = std::sin(math::Radians(degrees));
+    math::real cosTheta = std::cos(math::Radians(degrees));
 
     math::Transform aroundX = math::RotateX(degrees);
     EXPECT_REAL_EQ(aroundX.GetMatrix().Data[1][1], cosTheta);

@@ -9,14 +9,14 @@ TEST(RotatorTests, Constructors)
 {
     {
         math::Rotator R;
-        math::Max(R.Pitch, 0);
-        math::Max(R.Yaw, 0);
-        math::Max(R.Roll, 0);
+        math::Max(R.Pitch, MATH_REALC(0.0));
+        math::Max(R.Yaw, MATH_REALC(0.0));
+        math::Max(R.Roll, MATH_REALC(0.0));
     }
 
     {
         math::Rotator R(10, 50, -30);
-        math::Max(R.Pitch, 10);
+        math::Max(R.Pitch, MATH_REALC(10.0));
         EXPECT_REAL_EQ(R.Yaw, 50);
         EXPECT_REAL_EQ(R.Roll, -30);
     }
@@ -156,7 +156,7 @@ TEST(RNGTests, UniformReal)
 
     for (int i = 0; i < CASE_COUNT; i++)
     {
-        float Num = Gen.UniformReal();
+        math::real Num = Gen.UniformReal();
         EXPECT_LT(Num, 1);
         EXPECT_GE(Num, 0);
     }
@@ -171,7 +171,7 @@ TEST(RNGTests, UniformRealInRange)
 
     for (int i = 0; i < CASE_COUNT; i++)
     {
-        float Num = Gen.UniformRealInRange(Low, High);
+        math::real Num = Gen.UniformRealInRange(Low, High);
         EXPECT_LT(Num, High);
         EXPECT_GE(Num, Low);
     }
@@ -185,8 +185,8 @@ TEST(RNGTests, SameStartIndexSameSequence)
 
     for (int i = 0; i < CASE_COUNT; i++)
     {
-        float Num1 = Gen1.UniformReal();
-        float Num2 = Gen2.UniformReal();
+        math::real Num1 = Gen1.UniformReal();
+        math::real Num2 = Gen2.UniformReal();
         EXPECT_REAL_EQ(Num1, Num2);
     }
 }

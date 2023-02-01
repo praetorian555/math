@@ -13,24 +13,28 @@ target_include_directories(math PRIVATE ${PROJECT_SOURCE_DIR}/src)
 # All users of this library will need at least C++20
 target_compile_features(math PUBLIC cxx_std_20)
 
+if (MATH_REAL_AS_DOUBLE)
+    target_compile_definitions(math PUBLIC MATH_REAL_AS_DOUBLE)
+endif ()
+
 # Enable unity build
 if (MATH_UNITY)
     set_target_properties(math PROPERTIES UNITY_BUILD TRUE)
-endif()
+endif ()
 
 # IDEs should put the headers in a nice place
 source_group(
-  TREE "${PROJECT_SOURCE_DIR}/include"
-  PREFIX "API"
-  FILES ${PUBLIC_SOURCE_LIST})
+        TREE "${PROJECT_SOURCE_DIR}/include"
+        PREFIX "API"
+        FILES ${PUBLIC_SOURCE_LIST})
 source_group(
-  TREE "${PROJECT_SOURCE_DIR}/src"
-  PREFIX "Implementation"
-  FILES ${PRIVATE_SOURCE_LIST})
+        TREE "${PROJECT_SOURCE_DIR}/src"
+        PREFIX "Implementation"
+        FILES ${PRIVATE_SOURCE_LIST})
 
 if (MATH_UNITY)
-  source_group(
-    TREE "${PROJECT_BINARY_DIR}/src/CMakeFiles/math.dir/Unity"
-    PREFIX "Unity"
-    FILES ${UNITY_SOURCE_LIST})
-endif()
+    source_group(
+            TREE "${PROJECT_BINARY_DIR}/src/CMakeFiles/math.dir/Unity"
+            PREFIX "Unity"
+            FILES ${UNITY_SOURCE_LIST})
+endif ()

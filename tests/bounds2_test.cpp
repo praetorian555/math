@@ -15,8 +15,8 @@ TEST(Bounds2Tests, Creation)
     Bounds2f b2(p1);
     Bounds2f b3(p1, p2);
 
-    EXPECT_REAL_EQ(b1.Min.X, std::numeric_limits<float>::lowest());
-    EXPECT_REAL_EQ(b1.Max.Y, std::numeric_limits<float>::max());
+    EXPECT_REAL_EQ(b1.Min.X, std::numeric_limits<math::real>::lowest());
+    EXPECT_REAL_EQ(b1.Max.Y, std::numeric_limits<math::real>::max());
 
     EXPECT_TRUE(b2.Min == p1);
     EXPECT_TRUE(b2.Max == p1);
@@ -81,7 +81,7 @@ TEST(Bounds2Tests, SurfaceArea)
 
     Bounds2f b1(p1, p2);
 
-    EXPECT_REAL_EQ(b1.SurfaceArea(), 4.0f);
+    EXPECT_REAL_EQ(b1.SurfaceArea(), MATH_REALC(4.0));
 }
 
 TEST(Bounds2Tests, MaximumExtent)
@@ -123,12 +123,12 @@ TEST(Bounds2Tests, BoundingSphere)
     Bounds2f b(p1, p2);
 
     Point2f center;
-    float radius;
+    math::real radius;
 
     b.BoundingSphere(center, radius);
 
     EXPECT_EQ(center, Point2f(3, 3));
-    EXPECT_REAL_EQ(radius, std::sqrtf(2));
+    EXPECT_REAL_EQ(radius, math::Sqrt(2));
 }
 
 TEST(Bounds2Tests, Extent)

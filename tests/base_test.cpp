@@ -16,8 +16,8 @@ TEST(BaseTests, Constants)
 {
     EXPECT_REAL_EQ(math::kInfinity, std::numeric_limits<math::real>::infinity());
     EXPECT_REAL_EQ(math::kNegativeInfinity, -std::numeric_limits<math::real>::infinity());
-    EXPECT_REAL_EQ(math::kSmallestFloat, std::numeric_limits<math::real>::lowest());
-    EXPECT_REAL_EQ(math::kLargestFloat, std::numeric_limits<math::real>::max());
+    EXPECT_REAL_EQ(math::kSmallestReal, std::numeric_limits<math::real>::lowest());
+    EXPECT_REAL_EQ(math::kLargestReal, std::numeric_limits<math::real>::max());
 }
 
 TEST(BaseTests, Clamp)
@@ -39,6 +39,16 @@ TEST(BaseTests, Mod)
 {
     math::real R1 = math::Mod(MATH_REALC(2.5), MATH_REALC(2.0));
     EXPECT_REAL_EQ(R1, 0.5f);
+    math::real R2 = math::Mod(MATH_REALC(-2.5), MATH_REALC(2.0));
+    EXPECT_REAL_EQ(R2, -0.5f);
+    math::real R3 = math::Mod(MATH_REALC(2.5), MATH_REALC(-2.0));
+    EXPECT_REAL_EQ(R3, 0.5f);
+    math::real R4 = math::Mod(NAN, MATH_REALC(-2.0));
+    EXPECT_TRUE(math::IsNaN(R4));
+    math::real R5 = math::Mod(MATH_REALC(2.5), NAN);
+    EXPECT_TRUE(math::IsNaN(R5));
+    math::real R6 = math::Mod(MATH_REALC(2.5), MATH_REALC(0.0));
+    EXPECT_TRUE(math::IsNaN(R6));
 }
 
 TEST(BaseTests, Lerp)
@@ -68,8 +78,8 @@ TEST(BaseTests, Degrees)
 
 TEST(BaseTests, Log2)
 {
-    EXPECT_REAL_EQ(math::Log2(128), 7);
-    EXPECT_REAL_EQ(math::Log2(1024), 10);
+    EXPECT_REAL_EQ(math::Log2(128), MATH_REALC(7.0));
+    EXPECT_REAL_EQ(math::Log2(1024), MATH_REALC(10.0));
 }
 
 TEST(BaseTests, Log2Int)
@@ -127,4 +137,10 @@ TEST(BaseTests, Abs)
 {
     EXPECT_EQ(1, math::Abs(-1));
     EXPECT_EQ(1, math::Abs(1));
+}
+
+TEST(BaseTests, Sqrt)
+{
+    EXPECT_REAL_EQ(2, math::Sqrt(4));
+    EXPECT_REAL_EQ(3, math::Sqrt(9));
 }

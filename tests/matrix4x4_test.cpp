@@ -29,8 +29,8 @@ TEST(Matrix4x4Tests, Creation)
     EXPECT_REAL_EQ(m2.Data[1][3], 10.0f);
     EXPECT_REAL_EQ(m2.Data[1][0], 3.0f);
 
-    math::Array2D<float, 4, 4> init;
-    init[0] = std::array<float, 4>{1.0f, 4.0f, -4.0f, 5.0f};
+    math::Array2D<math::real, 4, 4> init;
+    init[0] = std::array<math::real, 4>{1.0f, 4.0f, -4.0f, 5.0f};
     init[1] = {3.0f, -2.0f, 1.0f, 10.0f};
     init[2] = {7.0f, 10.0f, -5.0f, -3.0f};
     init[3] = {-6.0f, -2.0f, -1.0f, 9.0f};
@@ -59,7 +59,7 @@ TEST(Matrix4x4Tests, Comparison)
     // clang-format on
 
     // clang-format off
-    math::Array2D<float, 4, 4> init;
+    math::Array2D<math::real, 4, 4> init;
     init[0] = {1.0f, 4.0f, -4.0f, 5.0f};
     init[1] = {3.0f, -2.0f, 1.0f, 10.0f};
     init[2] = {7.0f, 10.0f, -5.0f, -3.0f};

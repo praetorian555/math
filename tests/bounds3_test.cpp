@@ -15,8 +15,8 @@ TEST(Bounds3Tests, Creation)
     Bounds3f b2(p1);
     Bounds3f b3(p1, p2);
 
-    EXPECT_REAL_EQ(b1.Min.X, std::numeric_limits<float>::lowest());
-    EXPECT_REAL_EQ(b1.Max.Z, std::numeric_limits<float>::max());
+    EXPECT_REAL_EQ(b1.Min.X, std::numeric_limits<math::real>::lowest());
+    EXPECT_REAL_EQ(b1.Max.Z, std::numeric_limits<math::real>::max());
 
     EXPECT_TRUE(b2.Min == p1);
     EXPECT_TRUE(b2.Max == p1);
@@ -129,12 +129,12 @@ TEST(Bounds3Tests, BoundingSphere)
     Bounds3f b(p1, p2);
 
     Point3f center;
-    float radius;
+    math::real radius;
 
     b.BoundingSphere(center, radius);
 
     EXPECT_EQ(center, Point3f(3, 3, 3));
-    EXPECT_REAL_EQ(radius, std::sqrtf(3));
+    EXPECT_REAL_EQ(radius, math::Sqrt(3));
 }
 
 TEST(Bounds3Tests, Extent)

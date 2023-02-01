@@ -15,7 +15,11 @@ math::real math::Clamp(real Value, real Low, real High)
 
 math::real math::Mod(real A, real B)
 {
-    return std::fmodf(A, B);
+    if (IsNaN(A) || IsNaN(B) || B == 0.0f)
+    {
+        return NAN;
+    }
+    return std::remainder(A, B);
 }
 
 math::real math::Radians(real Degrees)
@@ -32,7 +36,12 @@ math::real math::Degrees(real Radians)
 
 math::real math::Log2(real Value)
 {
+#if MATH_REAL_AS_DOUBLE
+    // Write 1 / log2 as a constant expression in double precision.
+    constexpr real kInvLog2 = 1.4426950408889634073599246810018921374266459541529859341354494069;
+#else
     constexpr real kInvLog2 = 1.442695040888963387004650940071f;
+#endif
     return std::log(Value) * kInvLog2;
 }
 
@@ -124,4 +133,9 @@ math::real math::Ceil(math::real Value)
 math::real math::Abs(math::real Value)
 {
     return std::abs(Value);
+}
+
+math::real math::Sqrt(math::real Value)
+{
+    return std::sqrt(Value);
 }

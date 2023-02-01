@@ -30,15 +30,39 @@ static constexpr real kNegativeInfinity = -kInfinity;
 #error No definition for infinity constants!
 #endif
 
-static constexpr real kLargestFloat = MATH_REALC(3.4028234664e38);
-static constexpr real kSmallestFloat = MATH_REALC(-3.4028234664e38);
+#if MATH_REAL_AS_DOUBLE
+static constexpr real kLargestReal = MATH_REALC(1.7976931348623158e308);
+static constexpr real kSmallestReal = MATH_REALC(-1.7976931348623158e308);
+#else
+static constexpr real kLargestReal = MATH_REALC(3.4028234664e38);
+static constexpr real kSmallestReal = MATH_REALC(-3.4028234664e38);
+#endif
 
 // Functions
 
+// @brief Returns true if the given value is NaN.
+// @param Value The value to check.
+// @return True if the value is NaN, false otherwise.
 bool IsNaN(real Value);
+
+// @brief Clamps the given value to the range [Low, High].
+// @param Value The value to clamp.
+// @param Low The lower bound of the range.
+// @param High The upper bound of the range.
+// @return The clamped value.
 real Clamp(real Value, real Low, real High);
 
+// @brief Returns the remainder of A / B.
+// @param A The dividend.
+// @param B The divisor.
+// @return The remainder of A / B. Result will hava the same sign as A. If A or B is NAN or B is 0,
+// NAN is returned.
 real Mod(real A, real B);
+
+// @brief Returns the square root of the given value.
+// @param Value The value to take the square root of.
+// @return The square root of the given value.
+real Sqrt(real Value);
 
 real Lerp(real Parameter, real P0, real P1);
 
