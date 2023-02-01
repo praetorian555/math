@@ -64,21 +64,88 @@ real Mod(real A, real B);
 // @return The square root of the given value.
 real Sqrt(real Value);
 
+// @brief Returns the linear interpolation of P0 and P1 at the given parameter.
+// @param Parameter The parameter to interpolate at.
+// @param P0 The first point.
+// @param P1 The second point.
+// @return The linear interpolation of P0 and P1 at the given parameter.
 real Lerp(real Parameter, real P0, real P1);
 
-bool IsPowerOf2(int Value);
-real Radians(real Degrees);
-real Degrees(real Radians);
-real Log2(real Value);
-int32_t Log2Int(uint32_t Value);
-int32_t RoundUpPow2(int32_t Value);
-int32_t CountTrailingZeros(uint32_t Value);
-
+// @brief Returns the minimum of the given values.
+// @param A The first value.
+// @param B The second value.
+// @return The minimum of the given values.
 real Min(real A, real B);
+
+// @brief Returns the maximum of the given values.
+// @param A The first value.
+// @param B The second value.
+// @return The maximum of the given values.
 real Max(real A, real B);
+
+// @brief Returns the rounded value.
+// @param Value The value to round.
+// @return The rounded value. If the value is exactly halfway between two integers, the rounding is
+// done away from zero.
 real Round(real Value);
+
+// @brief Returns the floor of the given value.
+// @param Value The value to take the floor of.
+// @return The floor of the given value.
 real Floor(real Value);
+
+// @brief Returns the ceiling of the given value.
+// @param Value The value to take the ceiling of.
+// @return The ceiling of the given value.
 real Ceil(real Value);
+
+// @brief Returns the absolute value of the given value.
+// @param Value The value to take the absolute value of.
+// @return The absolute value of the given value.
 real Abs(real Value);
+
+// @brief Converts the given value from degrees to radians.
+// @param Degrees The value to convert from degrees to radians.
+// @return The given value converted from degrees to radians.
+real Radians(real Degrees);
+
+// @brief Converts the given value from radians to degrees.
+// @param Radians The value to convert from radians to degrees.
+// @return The given value converted from radians to degrees.
+real Degrees(real Radians);
+
+// @brief Returns the logarithm base e of the given value.
+// @param Value The value to take the logarithm base e of.
+// @return The logarithm base e of the given value. If value is 1 it returns 0. If value is 0 it
+// returns negative infinity. If value is positive infinity, it returns positive infinity. If value
+// is negative, negative infinity or NaN, it returns NaN.
+real LogNatural(real Value);
+
+// @brief Returns the logarithm base 2 of the given value.
+// @param Value The value to take the logarithm base 2 of.
+// @return The logarithm base 2 of the given value. If value is 1 it returns 0. If value is 0 it
+// returns negative infinity. If value is positive infinity, it returns positive infinity. If value
+// is negative, negative infinity or NaN, it returns NaN.
+real Log2(real Value);
+
+// @brief Returns the base 2 logarithm of the given value.
+// @param Value The value to take the base 2 logarithm of.
+// @return The base 2 logarithm of the given value. If value is 1 or less it returns 0.
+int32_t Log2Int(uint32_t Value);
+
+// @brief Returns true if the given value is a power of 2.
+// @param Value The value to check.
+// @return True if the given value is a power of 2, false otherwise.
+bool IsPowerOf2(int Value);
+
+// @brief Returns the next power of 2 greater than or equal to the given value.
+// @param Value The value to round up to the next power of 2.
+// @return The next power of 2 greater than or equal to the given value.
+int32_t RoundUpPow2(int32_t Value);
+
+// @brief Returns the number of leading zeros in the given value.
+// @param Value The value to count the number of leading zeros in.
+// @return The number of leading zeros in the given value.
+int32_t CountTrailingZeros(uint32_t Value);
 
 }  // namespace math

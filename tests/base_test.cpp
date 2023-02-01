@@ -76,16 +76,35 @@ TEST(BaseTests, Degrees)
     EXPECT_REAL_EQ(90, math::Degrees(math::kPiOver2));
 }
 
+TEST(BaseTests, LogNatural)
+{
+    EXPECT_REAL_EQ(math::LogNatural(128), MATH_REALC(4.852030263919617));
+    EXPECT_REAL_EQ(math::LogNatural(1024), MATH_REALC(6.931471805599453));
+    EXPECT_REAL_EQ(math::LogNatural(1), MATH_REALC(0.0));
+    EXPECT_REAL_EQ(math::LogNatural(0), -math::kInfinity);
+    EXPECT_TRUE(math::IsNaN(math::LogNatural(-1)));
+    EXPECT_REAL_EQ(math::LogNatural(math::kInfinity), math::kInfinity);
+    EXPECT_TRUE(math::IsNaN(math::LogNatural(math::kNegativeInfinity)));
+    EXPECT_TRUE(math::IsNaN(math::LogNatural(NAN)));
+}
+
 TEST(BaseTests, Log2)
 {
     EXPECT_REAL_EQ(math::Log2(128), MATH_REALC(7.0));
     EXPECT_REAL_EQ(math::Log2(1024), MATH_REALC(10.0));
+    EXPECT_REAL_EQ(math::Log2(1), MATH_REALC(0.0));
+    EXPECT_REAL_EQ(math::Log2(0), -math::kInfinity);
+    EXPECT_TRUE(math::IsNaN(math::Log2(-1)));
+    EXPECT_REAL_EQ(math::Log2(math::kInfinity), math::kInfinity);
+    EXPECT_TRUE(math::IsNaN(math::Log2(math::kNegativeInfinity)));
+    EXPECT_TRUE(math::IsNaN(math::Log2(NAN)));
 }
 
 TEST(BaseTests, Log2Int)
 {
     EXPECT_EQ(math::Log2Int(128), 7);
     EXPECT_EQ(math::Log2Int(1024), 10);
+    EXPECT_EQ(math::Log2Int(1), 0);
 }
 
 TEST(BaseTests, RoundUpPow2)
@@ -95,7 +114,7 @@ TEST(BaseTests, RoundUpPow2)
 
 TEST(BaseTests, TrailingZeros)
 {
-    EXPECT_EQ(29, math::CountTrailingZeros(8));
+    EXPECT_EQ(28, math::CountTrailingZeros(8));
 }
 
 TEST(BaseTests, Min)

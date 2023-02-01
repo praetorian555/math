@@ -34,6 +34,11 @@ math::real math::Degrees(real Radians)
     return (kHalfCircleDegrees / kPi) * Radians;
 }
 
+math::real math::LogNatural(math::real Value)
+{
+    return std::log(Value);
+}
+
 math::real math::Log2(real Value)
 {
 #if MATH_REAL_AS_DOUBLE
@@ -48,7 +53,7 @@ math::real math::Log2(real Value)
 int32_t math::Log2Int(uint32_t Value)
 {
 #if defined(_MSC_VER)
-    unsigned long FirstOneIndex = 0; // NOLINT
+    unsigned long FirstOneIndex = 0;  // NOLINT
     _BitScanReverse(&FirstOneIndex, Value);
     return static_cast<int32_t>(FirstOneIndex);
 #else
@@ -74,10 +79,10 @@ int32_t math::RoundUpPow2(int32_t Value)
 int32_t math::CountTrailingZeros(uint32_t Value)
 {
 #if defined(_MSC_VER)
-    unsigned long FirstOneIndex = 0; // NOLINT
+    unsigned long FirstOneIndex = 0;  // NOLINT
     _BitScanReverse(&FirstOneIndex, Value);
     constexpr int32_t kBitsInInt32 = 32;
-    return kBitsInInt32 - static_cast<int32_t>(FirstOneIndex);
+    return kBitsInInt32 - static_cast<int32_t>(FirstOneIndex) - 1;
 #else
     return __builtin_ctz(Value);
 #endif
