@@ -120,28 +120,54 @@ TEST(TransformTests, HasScale)
 
 TEST(TransformTests, Translate)
 {
-    math::Transform t = math::Translate(Vector3f(2, 3, 5));
+    {
+        math::Transform t = math::Translate(Vector3f(2, 3, 5));
 
-    EXPECT_REAL_EQ(t.GetMatrix().Data[0][3], 2);
-    EXPECT_REAL_EQ(t.GetMatrix().Data[1][3], 3);
-    EXPECT_REAL_EQ(t.GetMatrix().Data[2][3], 5);
+        EXPECT_REAL_EQ(t.GetMatrix().Data[0][3], 2);
+        EXPECT_REAL_EQ(t.GetMatrix().Data[1][3], 3);
+        EXPECT_REAL_EQ(t.GetMatrix().Data[2][3], 5);
 
-    EXPECT_REAL_EQ(t.GetInverse().Data[0][3], -2);
-    EXPECT_REAL_EQ(t.GetInverse().Data[1][3], -3);
-    EXPECT_REAL_EQ(t.GetInverse().Data[2][3], -5);
+        EXPECT_REAL_EQ(t.GetInverse().Data[0][3], -2);
+        EXPECT_REAL_EQ(t.GetInverse().Data[1][3], -3);
+        EXPECT_REAL_EQ(t.GetInverse().Data[2][3], -5);
+    }
+    {
+        math::Transform t = math::Translate(math::Point3(2, 3, 5));
+
+        EXPECT_REAL_EQ(t.GetMatrix().Data[0][3], 2);
+        EXPECT_REAL_EQ(t.GetMatrix().Data[1][3], 3);
+        EXPECT_REAL_EQ(t.GetMatrix().Data[2][3], 5);
+
+        EXPECT_REAL_EQ(t.GetInverse().Data[0][3], -2);
+        EXPECT_REAL_EQ(t.GetInverse().Data[1][3], -3);
+        EXPECT_REAL_EQ(t.GetInverse().Data[2][3], -5);
+    }
 }
 
 TEST(TransformTests, Scale)
 {
-    math::Transform t = math::Scale(2, 3, 5);
+    {
+        math::Transform t = math::Scale(2, 3, 5);
 
-    EXPECT_REAL_EQ(t.GetMatrix().Data[0][0], 2);
-    EXPECT_REAL_EQ(t.GetMatrix().Data[1][1], 3);
-    EXPECT_REAL_EQ(t.GetMatrix().Data[2][2], 5);
+        EXPECT_REAL_EQ(t.GetMatrix().Data[0][0], 2);
+        EXPECT_REAL_EQ(t.GetMatrix().Data[1][1], 3);
+        EXPECT_REAL_EQ(t.GetMatrix().Data[2][2], 5);
 
-    EXPECT_REAL_EQ(t.GetInverse().Data[0][0], 1 / 2.0f);
-    EXPECT_REAL_EQ(t.GetInverse().Data[1][1], 1 / MATH_REALC(3.0));
-    EXPECT_REAL_EQ(t.GetInverse().Data[2][2], 1 / MATH_REALC(5.0));
+        EXPECT_REAL_EQ(t.GetInverse().Data[0][0], 1 / 2.0f);
+        EXPECT_REAL_EQ(t.GetInverse().Data[1][1], 1 / MATH_REALC(3.0));
+        EXPECT_REAL_EQ(t.GetInverse().Data[2][2], 1 / MATH_REALC(5.0));
+    }
+    {
+        math::Transform t = math::Scale(2);
+
+        EXPECT_REAL_EQ(t.GetMatrix().Data[0][0], 2);
+        EXPECT_REAL_EQ(t.GetMatrix().Data[1][1], 2);
+        EXPECT_REAL_EQ(t.GetMatrix().Data[2][2], 2);
+
+        EXPECT_REAL_EQ(t.GetInverse().Data[0][0], 1 / 2.0f);
+        EXPECT_REAL_EQ(t.GetInverse().Data[1][1], 1 / 2.0f);
+        EXPECT_REAL_EQ(t.GetInverse().Data[2][2], 1 / 2.0f);
+    }
 }
 
 TEST(TransformTests, Rotate)
@@ -173,4 +199,56 @@ TEST(TransformTests, Rotate)
     EXPECT_REAL_EQ(custom.GetMatrix().Data[1][1], cosTheta);
     EXPECT_REAL_EQ(custom.GetMatrix().Data[0][1], -sinTheta);
     EXPECT_REAL_EQ(custom.GetMatrix().Data[1][0], sinTheta);
+}
+
+TEST(TransformTests, RotateAndTranslate)
+{
+    {
+        math::real degrees = 45;
+        math::Rotator rotator(degrees, 0, 0);
+        math::real sinTheta = std::sin(math::Radians(degrees));
+        math::real cosTheta = std::cos(math::Radians(degrees));
+        math::Transform t = math::RotateAndTranslate(rotator, Vector3f(2, 3, 5));
+
+        EXPECT_REAL_EQ(t.GetMatrix().Data[0][0], cosTheta);
+        EXPECT_REAL_EQ(t.GetMatrix().Data[0][1], -sinTheta);
+        EXPECT_REAL_EQ(t.GetMatrix().Data[0][2], 0);
+        EXPECT_REAL_EQ(t.GetMatrix().Data[0][3], 2);
+        EXPECT_REAL_EQ(t.GetMatrix().Data[1][0], sinTheta);
+        EXPECT_REAL_EQ(t.GetMatrix().Data[1][1], cosTheta);
+        EXPECT_REAL_EQ(t.GetMatrix().Data[1][2], 0);
+        EXPECT_REAL_EQ(t.GetMatrix().Data[1][3], 3);
+        EXPECT_REAL_EQ(t.GetMatrix().Data[2][0], 0);
+        EXPECT_REAL_EQ(t.GetMatrix().Data[2][1], 0);
+        EXPECT_REAL_EQ(t.GetMatrix().Data[2][2], 1);
+        EXPECT_REAL_EQ(t.GetMatrix().Data[2][3], 5);
+        EXPECT_REAL_EQ(t.GetMatrix().Data[3][0], 0);
+        EXPECT_REAL_EQ(t.GetMatrix().Data[3][1], 0);
+        EXPECT_REAL_EQ(t.GetMatrix().Data[3][2], 0);
+        EXPECT_REAL_EQ(t.GetMatrix().Data[3][3], 1);
+    }
+    {
+        math::real degrees = 45;
+        math::Rotator rotator(degrees, 0, 0);
+        math::real sinTheta = std::sin(math::Radians(degrees));
+        math::real cosTheta = std::cos(math::Radians(degrees));
+        math::Transform t = math::RotateAndTranslate(rotator, math::Point3(2, 3, 5));
+
+        EXPECT_REAL_EQ(t.GetMatrix().Data[0][0], cosTheta);
+        EXPECT_REAL_EQ(t.GetMatrix().Data[0][1], -sinTheta);
+        EXPECT_REAL_EQ(t.GetMatrix().Data[0][2], 0);
+        EXPECT_REAL_EQ(t.GetMatrix().Data[0][3], 2);
+        EXPECT_REAL_EQ(t.GetMatrix().Data[1][0], sinTheta);
+        EXPECT_REAL_EQ(t.GetMatrix().Data[1][1], cosTheta);
+        EXPECT_REAL_EQ(t.GetMatrix().Data[1][2], 0);
+        EXPECT_REAL_EQ(t.GetMatrix().Data[1][3], 3);
+        EXPECT_REAL_EQ(t.GetMatrix().Data[2][0], 0);
+        EXPECT_REAL_EQ(t.GetMatrix().Data[2][1], 0);
+        EXPECT_REAL_EQ(t.GetMatrix().Data[2][2], 1);
+        EXPECT_REAL_EQ(t.GetMatrix().Data[2][3], 5);
+        EXPECT_REAL_EQ(t.GetMatrix().Data[3][0], 0);
+        EXPECT_REAL_EQ(t.GetMatrix().Data[3][1], 0);
+        EXPECT_REAL_EQ(t.GetMatrix().Data[3][2], 0);
+        EXPECT_REAL_EQ(t.GetMatrix().Data[3][3], 1);
+    }
 }

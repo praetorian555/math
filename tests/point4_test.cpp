@@ -1,6 +1,7 @@
 #include "math/point4.h"
 #include "math/vector4.h"
 
+#include "math/point3.h"
 #include "realexpect.h"
 
 using Point4f = math::Point4;
@@ -42,6 +43,15 @@ TEST(Point4Tests, GettersSettersConstruction)
         EXPECT_REAL_EQ(p[2], 55.0f);
         p.Set(75.0f, 3);
         EXPECT_REAL_EQ(p[3], 75.0f);
+    }
+
+    {
+        math::Point3 p3(10.0f, 15.0f, 20.0f);
+        math::Point4 p4(p3);
+        EXPECT_REAL_EQ(p4.X, 10.0f);
+        EXPECT_REAL_EQ(p4.Y, 15.0f);
+        EXPECT_REAL_EQ(p4.Z, 20.0f);
+        EXPECT_REAL_EQ(p4.W, 0.0f);
     }
 }
 

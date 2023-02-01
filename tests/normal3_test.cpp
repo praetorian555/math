@@ -37,6 +37,14 @@ TEST(Normal3Tests, GettersSettersConstruction)
         n.Set(55.0f, 2);
         math::Max(n[2], 55.0f);
     }
+
+    {
+        math::Vector3 Vec(10.0f, 15.0f, 20.0f);
+        Normal3f n(Vec);
+        EXPECT_REAL_EQ(n.X, 10.0f);
+        EXPECT_REAL_EQ(n.Y, 15.0f);
+        EXPECT_REAL_EQ(n.Z, 20.0f);
+    }
 }
 
 TEST(Normal3Tests, Nans)
