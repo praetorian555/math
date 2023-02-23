@@ -8,6 +8,8 @@
 namespace math
 {
 
+class Quaternion;
+
 class Transform
 {
 public:
@@ -55,6 +57,7 @@ Transform RotateX(real Theta);
 Transform RotateY(real Theta);
 Transform RotateZ(real Theta);
 Transform Rotate(real Theta, const Vector3& Axis);
+Transform Rotate(const Quaternion& Q);
 // This applies angle around x then around y and then around z axis
 Transform Rotate(Rotator Rotator);
 Transform RotateAndTranslate(Rotator Rotator, const Point3& Translation);

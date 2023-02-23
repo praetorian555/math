@@ -270,6 +270,13 @@ math::Transform math::RotateAndTranslate(math::Rotator Rotator, const math::Vect
     return Translate(Translation) * Rotate(Rotator);
 }
 
+math::Transform math::Rotate(const math::Quaternion& Q)
+{
+    (void)Q;
+    // TODO(Marko): Implement
+    return math::Transform{};
+}
+
 math::Bounds3 math::Transform::operator()(const Bounds3& B) const
 {
     // TODO(Marko): Make this more efficient
