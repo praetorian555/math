@@ -200,10 +200,10 @@ TEST(QuaternionTests, Inverse)
 {
     const math::Quaternion Q1(1, 2, 3, 4);
     const math::Quaternion Q2 = Inverse(Q1);
-    EXPECT_EQ(Q2.W, MATH_REALC(2.0) / MATH_REALC(15.0));
-    EXPECT_EQ(Q2.Vec.X, -MATH_REALC(1.0) / MATH_REALC(30.0));
-    EXPECT_EQ(Q2.Vec.Y, -MATH_REALC(1.0) / MATH_REALC(15.0));
-    EXPECT_EQ(Q2.Vec.Z, -MATH_REALC(1.0) / MATH_REALC(10.0));
+    EXPECT_REAL_EQ(Q2.W, MATH_REALC(2.0) / MATH_REALC(15.0));
+    EXPECT_REAL_EQ(Q2.Vec.X, -MATH_REALC(1.0) / MATH_REALC(30.0));
+    EXPECT_REAL_EQ(Q2.Vec.Y, -MATH_REALC(1.0) / MATH_REALC(15.0));
+    EXPECT_REAL_EQ(Q2.Vec.Z, -MATH_REALC(1.0) / MATH_REALC(10.0));
 }
 
 TEST(QuaternionTests, Lerp)

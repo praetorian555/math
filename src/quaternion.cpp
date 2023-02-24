@@ -146,12 +146,12 @@ math::Quaternion math::Slerp(const math::Quaternion& Q1,
     // Implementation based on: Understanding Slerp, Then Not Using It, Jonathan Blow
     // http://number-none.com/product/Understanding%20Slerp,%20Then%20Not%20Using%20It/
 
-    assert(IsEqual(Q1.Length(), MATH_REALC(1), MATH_REALC(0.0001)));
-    assert(IsEqual(Q2.Length(), MATH_REALC(1), MATH_REALC(0.0001)));
+    constexpr real kEpsilon = MATH_REALC(0.0001);
+    assert(IsEqual(Q1.Length(), MATH_REALC(1.0), kEpsilon));
+    assert(IsEqual(Q2.Length(), MATH_REALC(1.0), kEpsilon));
 
     const real CosTheta0 = Dot(Q1, Q2);
-    constexpr real kEpsilon = MATH_REALC(0.9995);
-    if (CosTheta0 > kEpsilon)
+    if (CosTheta0 > MATH_REALC(1.0) - kEpsilon)
     {
         return Lerp(Q1, Q2, Param);
     }
@@ -169,9 +169,10 @@ math::Quaternion math::Lerp(const math::Quaternion& Q1,
                             const math::Quaternion& Q2,
                             math::real Param)
 {
-    assert(IsEqual(Q1.Length(), MATH_REALC(1), MATH_REALC(0.0001)));
-    assert(IsEqual(Q2.Length(), MATH_REALC(1), MATH_REALC(0.0001)));
-    
+    constexpr real kEpsilon = MATH_REALC(0.0001);
+    assert(IsEqual(Q1.Length(), MATH_REALC(1.0), kEpsilon));
+    assert(IsEqual(Q2.Length(), MATH_REALC(1.0), kEpsilon));
+
     const Quaternion Q3 = Q1 * (1 - Param) + Q2 * Param;
     return Normalize(Q3);
 }
