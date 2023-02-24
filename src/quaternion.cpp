@@ -1,5 +1,8 @@
 #include "math/quaternion.h"
 
+#include <cassert>
+#include <cmath>
+
 math::Quaternion::Quaternion(const math::Transform& T)
 {
     (void)T;
@@ -68,6 +71,7 @@ math::Quaternion& math::Quaternion::operator*=(math::real Scalar)
     Vec *= Scalar;
     return *this;
 }
+
 math::Quaternion math::Quaternion::operator*(math::real Scalar) const
 {
     Quaternion Q = *this;
@@ -81,6 +85,7 @@ math::Quaternion& math::Quaternion::operator/=(math::real Scalar)
     Vec /= Scalar;
     return *this;
 }
+
 math::Quaternion math::Quaternion::operator/(math::real Scalar) const
 {
     Quaternion Q = *this;
@@ -119,20 +124,56 @@ math::Quaternion math::operator*(const math::Quaternion& Q1, const math::Quatern
     return Q;
 }
 
+math::Quaternion math::operator*(math::real Scalar, const math::Quaternion& Q)
+{
+    return Q * Scalar;
+}
+
+math::real math::Dot(const math::Quaternion& Q1, const math::Quaternion& Q2)
+{
+    return Dot(Q1.Vec, Q2.Vec) + Q1.W * Q2.W;
+}
+
 math::Quaternion math::Normalize(const math::Quaternion& Q)
 {
     return Q / Q.Length();
 }
 
-math::Quaternion math::Slerp(math::real Param,
-                             const math::Quaternion& Q1,
-                             const math::Quaternion& Q2)
+math::Quaternion math::Slerp(const math::Quaternion& Q1,
+                             const math::Quaternion& Q2,
+                             math::real Param)
 {
-    (void)Param;
-    (void)Q1;
-    (void)Q2;
-    // TODO(Marko): Implement
-    return math::Quaternion();
+    // Implementation based on: Understanding Slerp, Then Not Using It, Jonathan Blow
+    // http://number-none.com/product/Understanding%20Slerp,%20Then%20Not%20Using%20It/
+
+    assert(IsEqual(Q1.Length(), MATH_REALC(1), MATH_REALC(0.0001)));
+    assert(IsEqual(Q2.Length(), MATH_REALC(1), MATH_REALC(0.0001)));
+
+    const real CosTheta0 = Dot(Q1, Q2);
+    constexpr real kEpsilon = MATH_REALC(0.9995);
+    if (CosTheta0 > kEpsilon)
+    {
+        return Lerp(Q1, Q2, Param);
+    }
+
+    const real Theta0 = std::acos(CosTheta0);
+    const real Theta = Theta0 * Param;
+
+    Quaternion Q3 = Q2 - Q1 * CosTheta0;
+    Q3 = Normalize(Q3);
+
+    return Q1 * std::cos(Theta) + Q3 * std::sin(Theta);
+}
+
+math::Quaternion math::Lerp(const math::Quaternion& Q1,
+                            const math::Quaternion& Q2,
+                            math::real Param)
+{
+    assert(IsEqual(Q1.Length(), MATH_REALC(1), MATH_REALC(0.0001)));
+    assert(IsEqual(Q2.Length(), MATH_REALC(1), MATH_REALC(0.0001)));
+    
+    const Quaternion Q3 = Q1 * (1 - Param) + Q2 * Param;
+    return Normalize(Q3);
 }
 
 math::Quaternion math::Conjugate(const math::Quaternion& Q)

@@ -50,30 +50,172 @@ public:
      */
     static Quaternion FromAxisAngleRadians(const Vector3& Axis, real AngleRadians);
 
+    /**
+     * @brief Check if any of the components of the Quaternion are NaN.
+     * @return True if any of the components are NaN, false otherwise.
+     */
     [[nodiscard]] bool HasNaNs() const;
 
+    /**
+     * @brief Get the length of the Quaternion.
+     * @return The length of the Quaternion.
+     */
     [[nodiscard]] real Length() const;
+
+    /**
+     * @brief Get the squared length of the Quaternion.
+     * @return The squared length of the Quaternion.
+     */
     [[nodiscard]] real LengthSquared() const;
 
+    /**
+     * Add a Quaternion to this one. Store the result in this Quaternion.
+     * @param Other Quaternion to add.
+     * @return Returns a reference to this Quaternion.
+     */
     Quaternion& operator+=(const Quaternion& Other);
+
+    /**
+     * Subtract a Quaternion from this one. Store the result in this Quaternion.
+     * @param Other Quaternion to subtract.
+     * @return Returns a reference to this Quaternion.
+     */
     Quaternion& operator-=(const Quaternion& Other);
+
+    /**
+     * Multiply this Quaternion by another one. Store the result in this Quaternion.
+     * @param Other Quaternion to multiply by.
+     * @return Returns a reference to this Quaternion.
+     */
     Quaternion& operator*=(const Quaternion& Other);
 
+    /**
+     * Multiply this Quaternion by a scalar. Store the result in this Quaternion.
+     * @param Scalar Scalar to multiply by.
+     * @return Returns a reference to this Quaternion.
+     */
     Quaternion& operator*=(real Scalar);
+
+    /**
+     * Multiply this Quaternion by a scalar. Store the result in new Quaternion.
+     * @param Scalar Scalar to multiply by.
+     * @return Returns a new Quaternion.
+     */
     Quaternion operator*(real Scalar) const;
+
+    /**
+     * Divide this Quaternion by a scalar. Store the result in this Quaternion.
+     * @param Scalar Scalar to divide by.
+     * @return Returns a reference to this Quaternion.
+     */
     Quaternion& operator/=(real Scalar);
+
+    /**
+     * Divide this Quaternion by a scalar. Store the result in new Quaternion.
+     * @param Scalar Scalar to divide by.
+     * @return Returns a new Quaternion.
+     */
     Quaternion operator/(real Scalar) const;
 
+    /**
+     * Check if this Quaternion is equal to another one.
+     * @param Other Quaternion to compare to.
+     * @return True if the Quaternions are equal, false otherwise.
+     */
     bool operator==(const Quaternion& Other) const;
+
+    /**
+     * Check if this Quaternion is not equal to another one.
+     * @param Other Quaternion to compare to.
+     * @return True if the Quaternions are not equal, false otherwise.
+     */
     bool operator!=(const Quaternion& Other) const;
 };
 
+/**
+ * @brief Add two Quaternions.
+ * @param Q1 First Quaternion.
+ * @param Q2 Second Quaternion.
+ * @return Returns the sum of the two Quaternions in a new Quaternion.
+ */
 Quaternion operator+(const Quaternion& Q1, const Quaternion& Q2);
+
+/**
+ * @brief Subtract two Quaternions.
+ * @param Q1 First Quaternion.
+ * @param Q2 Second Quaternion.
+ * @return Returns the difference of the two Quaternions in a new Quaternion.
+ */
 Quaternion operator-(const Quaternion& Q1, const Quaternion& Q2);
+
+/**
+ * @brief Multiply two Quaternions.
+ * @param Q1 First Quaternion.
+ * @param Q2 Second Quaternion.
+ * @return Returns the product of the two Quaternions in a new Quaternion.
+ */
 Quaternion operator*(const Quaternion& Q1, const Quaternion& Q2);
+
+/**
+ * @brief Multiply a Quaternion by a scalar.
+ * @param Scalar Scalar to multiply by.
+ * @param Q Quaternion to multiply.
+ * @return Returns the product of the Quaternion and the scalar in a new Quaternion.
+ */
+Quaternion operator*(real Scalar, const Quaternion& Q);
+
+/**
+ * Calculate the dot product of two Quaternions.
+ * @param Q1 First Quaternion.
+ * @param Q2 Second Quaternion.
+ * @return Returns the dot product of the two Quaternions.
+ */
+real Dot(const Quaternion& Q1, const Quaternion& Q2);
+
+/**
+ * Normalize a Quaternion.
+ * @param Q Quaternion to normalize. Can't have a magnitude of 0.
+ * @return Returns the normalized Quaternion in a new object.
+ */
 Quaternion Normalize(const Quaternion& Q);
-Quaternion Slerp(real Param, const Quaternion& Q1, const Quaternion& Q2);
+
+/**
+ * Perform spherical linear interpolation between two Quaternions.
+ * @param Q1 First Quaternion.
+ * @param Q2 Second Quaternion.
+ * @param Param Parameter to interpolate between the two Quaternions. Should be between 0 and 1.
+ * @return Returns the interpolated Quaternion in a new object.
+ * @note This operation is not commutative but provides constant angular velocity. If you want less
+ * precision and commutative interpolation but can live with non-constant angular velocity, use Lerp
+ * instead.
+ * @see Lerp
+ */
+Quaternion Slerp(const Quaternion& Q1, const Quaternion& Q2, real Param);
+
+/**
+ * Perform linear interpolation between two Quaternions.
+ * @param Q1 First Quaternion.
+ * @param Q2 Second Quaternion.
+ * @param Param Parameter to interpolate between the two Quaternions. Should be between 0 and 1.
+ * @return Returns the interpolated Quaternion in a new object.
+ * @note This operation is commutative but results in a non-constant angular velocity. If you want
+ * absolute precision and constant angular velocity, use Slerp instead.
+ * @see Slerp
+ */
+Quaternion Lerp(const Quaternion& Q1, const Quaternion& Q2, real Param);
+
+/**
+ * @brief Get the conjugate of a Quaternion.
+ * @param Q - The Quaternion to get the conjugate of.
+ * @return The conjugate of the Quaternion.
+ */
 Quaternion Conjugate(const Quaternion& Q);
+
+/**
+ * @brief Get the inverse of a Quaternion.
+ * @param Q - The Quaternion to get the inverse of.
+ * @return The inverse of the Quaternion.
+ */
 Quaternion Inverse(const Quaternion& Q);
 
 }  // namespace math
