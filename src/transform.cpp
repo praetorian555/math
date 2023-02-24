@@ -4,6 +4,7 @@
 
 #include "math/normal3.h"
 #include "math/point4.h"
+#include "math/quaternion.h"
 
 math::Transform::Transform(const Array2D<real, 4, 4>& Mat)
     : m_Matrix(Mat), m_MatrixInverse(m_Matrix.Inverse())
@@ -272,9 +273,25 @@ math::Transform math::RotateAndTranslate(math::Rotator Rotator, const math::Vect
 
 math::Transform math::Rotate(const math::Quaternion& Q)
 {
-    (void)Q;
-    // TODO(Marko): Implement
-    return math::Transform{};
+    math::Matrix4x4 Mat;
+    Mat.Data[0][0] = 1 - 2 * Q.Vec.Y * Q.Vec.Y - 2 * Q.Vec.Z * Q.Vec.Z;
+    Mat.Data[0][1] = 2 * Q.Vec.X * Q.Vec.Y - 2 * Q.Vec.Z * Q.W;
+    Mat.Data[0][2] = 2 * Q.Vec.X * Q.Vec.Z + 2 * Q.Vec.Y * Q.W;
+    Mat.Data[0][3] = 0;
+
+    Mat.Data[1][0] = 2 * Q.Vec.X * Q.Vec.Y + 2 * Q.Vec.Z * Q.W;
+    Mat.Data[1][1] = 1 - 2 * Q.Vec.X * Q.Vec.X - 2 * Q.Vec.Z * Q.Vec.Z;
+    Mat.Data[1][2] = 2 * Q.Vec.Y * Q.Vec.Z - 2 * Q.Vec.X * Q.W;
+    Mat.Data[1][3] = 0;
+
+    Mat.Data[2][0] = 2 * Q.Vec.X * Q.Vec.Z - 2 * Q.Vec.Y * Q.W;
+    Mat.Data[2][1] = 2 * Q.Vec.Y * Q.Vec.Z + 2 * Q.Vec.X * Q.W;
+    Mat.Data[2][2] = 1 - 2 * Q.Vec.X * Q.Vec.X - 2 * Q.Vec.Y * Q.Vec.Y;
+    Mat.Data[2][3] = 0;
+
+    math::Transform Ret(Mat, Mat.Transpose());
+
+    return Ret;
 }
 
 math::Bounds3 math::Transform::operator()(const Bounds3& B) const

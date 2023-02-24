@@ -2,6 +2,8 @@
 
 #include "realexpect.h"
 
+#include "math/transform.h"
+
 TEST(QuaternionTests, Creation)
 {
     {
@@ -33,6 +35,16 @@ TEST(QuaternionTests, Creation)
         EXPECT_EQ(Q.Vec.Y, 0);
         EXPECT_REAL_EQ(Q.Vec.Z, MATH_REALC(0.5));
         EXPECT_REAL_EQ(Q.W, MATH_REALC(0.866025403784438646763723170752));
+    }
+    {
+        const math::Transform T = math::RotateZ(MATH_REALC(60.0));
+        const math::Quaternion Q(T);
+        const math::Quaternion Ref =
+            math::Quaternion::FromAxisAngleRadians(math::Vector3(0, 0, 1), math::Radians(60));
+        EXPECT_REAL_EQ(Q.Vec.X, Ref.Vec.X);
+        EXPECT_REAL_EQ(Q.Vec.Y, Ref.Vec.Y);
+        EXPECT_REAL_EQ(Q.Vec.Z, Ref.Vec.Z);
+        EXPECT_REAL_EQ(Q.W, Ref.W);
     }
 }
 
@@ -213,7 +225,7 @@ TEST(QuaternionTests, Lerp)
             math::Quaternion::FromAxisAngleDegrees(math::Vector3(1, 0, 0), 30);
         const math::Quaternion Q2 =
             math::Quaternion::FromAxisAngleDegrees(math::Vector3(1, 0, 0), 90);
-        math::Quaternion Q3 = math::Lerp(Q1, Q2, MATH_REALC(0.5));
+        const math::Quaternion Q3 = math::Lerp(Q1, Q2, MATH_REALC(0.5));
         const math::Quaternion Q4 =
             math::Quaternion::FromAxisAngleDegrees(math::Vector3(1, 0, 0), 60);
         EXPECT_REAL_EQ(Q3.Vec.X, Q4.Vec.X);
@@ -230,7 +242,7 @@ TEST(QuaternionTests, Slerp)
             math::Quaternion::FromAxisAngleDegrees(math::Vector3(1, 0, 0), 30);
         const math::Quaternion Q2 =
             math::Quaternion::FromAxisAngleDegrees(math::Vector3(1, 0, 0), 90);
-        math::Quaternion Q3 = math::Slerp(Q1, Q2, MATH_REALC(0.5));
+        const math::Quaternion Q3 = math::Slerp(Q1, Q2, MATH_REALC(0.5));
         const math::Quaternion Q4 =
             math::Quaternion::FromAxisAngleDegrees(math::Vector3(1, 0, 0), 60);
         EXPECT_REAL_EQ(Q3.Vec.X, Q4.Vec.X);

@@ -3,10 +3,54 @@
 #include <cassert>
 #include <cmath>
 
+#include "math/transform.h"
+
 math::Quaternion::Quaternion(const math::Transform& T)
 {
-    (void)T;
-    // TODO(Marko): Implement
+    const real Trace = T.GetMatrix().Data[0][0] + T.GetMatrix().Data[1][1] +
+                       T.GetMatrix().Data[2][2] + T.GetMatrix().Data[3][3];
+
+    if (Trace > MATH_REALC(0.0))
+    {
+        W = math::Sqrt(Trace) / 2;
+        const real Scalar = 1 / (4 * W);
+        Vec.X = (T.GetMatrix().Data[2][1] - T.GetMatrix().Data[1][2]) * Scalar;
+        Vec.Y = (T.GetMatrix().Data[0][2] - T.GetMatrix().Data[2][0]) * Scalar;
+        Vec.Z = (T.GetMatrix().Data[1][0] - T.GetMatrix().Data[0][1]) * Scalar;
+    }
+    else
+    {
+        const int Next[3] = {1, 2, 0};
+        const Matrix4x4& Mat = T.GetMatrix();
+
+        // Figure out who is largest
+        int I = 0;
+        if (Mat.Data[1][1] > Mat.Data[0][0])
+        {
+            I = 1;
+        }
+        if (Mat.Data[2][2] > Mat.Data[I][I])
+        {
+            I = 2;
+        }
+        int J = Next[I];
+        int K = Next[J];
+
+        real Scalar =
+            std::sqrt((Mat.Data[I][I] - (Mat.Data[J][J] + Mat.Data[K][K])) + MATH_REALC(1.0));
+        real Dir[3];
+        Dir[I] = Scalar * MATH_REALC(0.5);
+        if (Scalar != 0.f)
+        {
+            Scalar = MATH_REALC(0.5) / Scalar;
+        }
+        W = (Mat.Data[K][J] - Mat.Data[J][K]) * Scalar;
+        Dir[J] = (Mat.Data[J][I] + Mat.Data[I][J]) * Scalar;
+        Dir[K] = (Mat.Data[K][I] + Mat.Data[I][K]) * Scalar;
+        Vec.X = Dir[0];
+        Vec.Y = Dir[1];
+        Vec.Z = Dir[2];
+    }
 }
 
 math::Quaternion math::Quaternion::FromAxisAngleDegrees(const math::Vector3& Axis,

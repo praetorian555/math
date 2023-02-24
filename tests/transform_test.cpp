@@ -2,6 +2,8 @@
 
 #include "realexpect.h"
 
+#include "math/quaternion.h"
+
 using Vector3f = math::Vector3;
 
 TEST(TransformTests, Creation)
@@ -251,4 +253,27 @@ TEST(TransformTests, RotateAndTranslate)
         EXPECT_REAL_EQ(t.GetMatrix().Data[3][2], 0);
         EXPECT_REAL_EQ(t.GetMatrix().Data[3][3], 1);
     }
+}
+
+TEST(TransformTests, RotateWithQuaternion)
+{
+    const math::Transform T =
+        math::Rotate(math::Quaternion::FromAxisAngleDegrees(Vector3f(0, 0, 1), 45));
+    const math::Transform Ref = math::RotateZ(45);
+    EXPECT_REAL_EQ(T.GetMatrix().Data[0][0], Ref.GetMatrix().Data[0][0]);
+    EXPECT_REAL_EQ(T.GetMatrix().Data[0][1], Ref.GetMatrix().Data[0][1]);
+    EXPECT_REAL_EQ(T.GetMatrix().Data[0][2], Ref.GetMatrix().Data[0][2]);
+    EXPECT_REAL_EQ(T.GetMatrix().Data[0][3], Ref.GetMatrix().Data[0][3]);
+    EXPECT_REAL_EQ(T.GetMatrix().Data[1][0], Ref.GetMatrix().Data[1][0]);
+    EXPECT_REAL_EQ(T.GetMatrix().Data[1][1], Ref.GetMatrix().Data[1][1]);
+    EXPECT_REAL_EQ(T.GetMatrix().Data[1][2], Ref.GetMatrix().Data[1][2]);
+    EXPECT_REAL_EQ(T.GetMatrix().Data[1][3], Ref.GetMatrix().Data[1][3]);
+    EXPECT_REAL_EQ(T.GetMatrix().Data[2][0], Ref.GetMatrix().Data[2][0]);
+    EXPECT_REAL_EQ(T.GetMatrix().Data[2][1], Ref.GetMatrix().Data[2][1]);
+    EXPECT_REAL_EQ(T.GetMatrix().Data[2][2], Ref.GetMatrix().Data[2][2]);
+    EXPECT_REAL_EQ(T.GetMatrix().Data[2][3], Ref.GetMatrix().Data[2][3]);
+    EXPECT_REAL_EQ(T.GetMatrix().Data[3][0], Ref.GetMatrix().Data[3][0]);
+    EXPECT_REAL_EQ(T.GetMatrix().Data[3][1], Ref.GetMatrix().Data[3][1]);
+    EXPECT_REAL_EQ(T.GetMatrix().Data[3][2], Ref.GetMatrix().Data[3][2]);
+    EXPECT_REAL_EQ(T.GetMatrix().Data[3][3], Ref.GetMatrix().Data[3][3]);
 }
