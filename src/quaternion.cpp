@@ -169,9 +169,11 @@ math::Quaternion math::Lerp(const math::Quaternion& Q1,
                             const math::Quaternion& Q2,
                             math::real Param)
 {
+#if _DEBUG
     constexpr real kEpsilon = MATH_REALC(0.0001);
     assert(IsEqual(Q1.Length(), MATH_REALC(1.0), kEpsilon));
     assert(IsEqual(Q2.Length(), MATH_REALC(1.0), kEpsilon));
+#endif
 
     const Quaternion Q3 = Q1 * (1 - Param) + Q2 * Param;
     return Normalize(Q3);
