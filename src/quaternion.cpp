@@ -137,6 +137,20 @@ math::Quaternion math::Quaternion::operator/(math::real Scalar) const
     return Q;
 }
 
+math::Vector3 math::Quaternion::operator*(const math::Vector3& V) const
+{
+    const Quaternion Q(V.X, V.Y, V.Z, 0);
+    const Quaternion Result = *this * Q * Inverse(*this);
+    return {Result.Vec.X, Result.Vec.Y, Result.Vec.Z};
+}
+
+math::Point3 math::Quaternion::operator*(const math::Point3& P) const
+{
+    const Quaternion Q(P.X, P.Y, P.Z, 0);
+    const Quaternion Result = *this * Q * Inverse(*this);
+    return {Result.Vec.X, Result.Vec.Y, Result.Vec.Z};
+}
+
 bool math::Quaternion::operator==(const math::Quaternion& Other) const
 {
     return W == Other.W && Vec == Other.Vec;

@@ -160,6 +160,22 @@ TEST(QuaternionTests, Multiplication)
         EXPECT_EQ(Q1.Vec.Z, 6);
         EXPECT_EQ(Q1.W, 8);
     }
+    {
+        const math::Quaternion Q1 =
+            math::Quaternion::FromAxisAngleDegrees(math::Vector3(1, 0, 0), 90);
+        const math::Vector3 Res = Q1 * math::Vector3(0, 1, 0);
+        EXPECT_EQ(Res.X, 0);
+        EXPECT_EQ(Res.Y, 0);
+        EXPECT_EQ(Res.Z, 1);
+    }
+    {
+        const math::Quaternion Q1 =
+            math::Quaternion::FromAxisAngleDegrees(math::Vector3(1, 0, 0), 90);
+        const math::Point3 Res = Q1 * math::Point3(0, 0, 1);
+        EXPECT_EQ(Res.X, 0);
+        EXPECT_EQ(Res.Y, -1);
+        EXPECT_EQ(Res.Z, 0);
+    }
 }
 
 TEST(QuaternionTests, Division)

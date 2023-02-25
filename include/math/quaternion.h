@@ -1,6 +1,7 @@
 #pragma once
 
 #include "math/vector3.h"
+#include "math/point3.h"
 
 namespace math
 {
@@ -86,6 +87,7 @@ public:
      * Multiply this Quaternion by another one. Store the result in this Quaternion.
      * @param Other Quaternion to multiply by.
      * @return Returns a reference to this Quaternion.
+     * @note This has effect of rotating by Other and then by this Quaternion.
      */
     Quaternion& operator*=(const Quaternion& Other);
 
@@ -116,6 +118,20 @@ public:
      * @return Returns a new Quaternion.
      */
     Quaternion operator/(real Scalar) const;
+
+    /**
+     * Rotate vector by this Quaternion.
+     * @param Vec Vector to rotate.
+     * @return Returns a new Quaternion.
+     */
+    Vector3 operator*(const Vector3& V) const;
+
+    /**
+     * Rotate point by this Quaternion.
+     * @param Point Point to rotate.
+     * @return Returns a new Quaternion.
+     */
+    Point3 operator*(const Point3& P) const;
 
     /**
      * Check if this Quaternion is equal to another one.
@@ -153,6 +169,7 @@ Quaternion operator-(const Quaternion& Q1, const Quaternion& Q2);
  * @param Q1 First Quaternion.
  * @param Q2 Second Quaternion.
  * @return Returns the product of the two Quaternions in a new Quaternion.
+ * @note Multiplication of quaternions is not commutative. Order matters here.
  */
 Quaternion operator*(const Quaternion& Q1, const Quaternion& Q2);
 
