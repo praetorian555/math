@@ -185,6 +185,12 @@ math::real math::Vector4::Length() const
     return Sqrt(LengthSquared());
 }
 
+bool math::IsEqual(const math::Vector4& Vec1, const math::Vector4& Vec2, math::real Epsilon)
+{
+    return math::IsEqual(Vec1.X, Vec2.X, Epsilon) && math::IsEqual(Vec1.Y, Vec2.Y, Epsilon) &&
+           math::IsEqual(Vec1.Z, Vec2.Z, Epsilon) && math::IsEqual(Vec1.W, Vec2.W, Epsilon);
+}
+
 math::Vector4 math::operator*(real Scalar, const Vector4& Vec)
 {
     return Vec * Scalar;

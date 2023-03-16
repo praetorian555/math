@@ -76,6 +76,15 @@ public:
     static const Vector4 Zero;
 };
 
+/**
+ * Check if the components of two vectors are equal within a given epsilon.
+ * @param Vec1 First vector.
+ * @param Vec2 Second vector.
+ * @param Epsilon Epsilon value.
+ * @return True if the vectors are equal, false otherwise.
+ */
+bool IsEqual(const Vector4& Vec1, const Vector4& Vec2, real Epsilon);
+
 Vector4 operator*(real Scalar, const Vector4& Vec);
 
 real Dot(const Vector4& Vec1, const Vector4& Vec2);

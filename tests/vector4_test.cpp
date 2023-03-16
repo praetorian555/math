@@ -324,3 +324,17 @@ TEST(Vector4Tests, Clamp)
     EXPECT_REAL_EQ(v2.Z, 5);
     EXPECT_REAL_EQ(v2.W, 0);
 }
+
+TEST(Vector4Tests, IsEqual)
+{
+    Vector4f v1(1, 2, 3, 4);
+    Vector4f v2(2, 3, 4, 5);
+    Vector4f v3(0, 1, 2, 3);
+
+    EXPECT_TRUE(math::IsEqual(v1, v2, 1));
+    EXPECT_TRUE(math::IsEqual(v1, v2, 2));
+    EXPECT_FALSE(math::IsEqual(v1, v2, MATH_REALC(0.5)));
+    EXPECT_TRUE(math::IsEqual(v1, v3, 1));
+    EXPECT_TRUE(math::IsEqual(v1, v3, 2));
+    EXPECT_FALSE(math::IsEqual(v1, v3, MATH_REALC(0.5)));
+}

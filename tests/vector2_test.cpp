@@ -183,3 +183,17 @@ TEST(Vector2Tests, Misc)
     EXPECT_REAL_EQ(perm.X, 2.0f);
     EXPECT_REAL_EQ(perm.Y, 1.0f);
 }
+
+TEST(Vector2Tests, IsEqual)
+{
+    Vector2f v1(1, 2);
+    Vector2f v2(2, 3);
+    Vector2f v3(0, 1);
+
+    EXPECT_TRUE(math::IsEqual(v1, v2, 1));
+    EXPECT_TRUE(math::IsEqual(v1, v2, 2));
+    EXPECT_FALSE(math::IsEqual(v1, v2, MATH_REALC(0.5)));
+    EXPECT_TRUE(math::IsEqual(v1, v3, 1));
+    EXPECT_TRUE(math::IsEqual(v1, v3, 2));
+    EXPECT_FALSE(math::IsEqual(v1, v3, MATH_REALC(0.5)));
+}

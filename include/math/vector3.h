@@ -68,6 +68,15 @@ public:
     static const Vector3 Zero;
 };
 
+/**
+ * @brief Compare two vectors if all components are equal within a given epsilon.
+ * @param Vec1 First vector.
+ * @param Vec2 Second vector.
+ * @param Epsilon Epsilon value.
+ * @return Returns true if all components are equal within a given epsilon.
+ */
+bool IsEqual(const Vector3& Vec1, const Vector3& Vec2, real Epsilon);
+
 Vector3 operator*(real Scalar, const Vector3& Vec);
 real Dot(const Vector3& Vec1, const Vector3& Vec2);
 real AbsDot(const Vector3& Vec1, const Vector3& Vec2);
