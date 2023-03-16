@@ -53,10 +53,10 @@ Transform Translate(const Point3& Delta);
 Transform Translate(const Vector3& Delta);
 Transform Scale(real X, real Y, real Z);
 Transform Scale(real V);
-Transform RotateX(real Theta);
-Transform RotateY(real Theta);
-Transform RotateZ(real Theta);
-Transform Rotate(real Theta, const Vector3& Axis);
+Transform RotateX(real ThetaDegrees);
+Transform RotateY(real ThetaDegrees);
+Transform RotateZ(real ThetaDegrees);
+Transform Rotate(real ThetaDegrees, const Vector3& Axis);
 Transform Rotate(const Quaternion& Q);
 // This applies angle around x then around y and then around z axis
 Transform Rotate(Rotator Rotator);

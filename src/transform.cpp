@@ -181,10 +181,10 @@ math::Transform math::Scale(math::real V)
     return {Mat, MatInv};
 }
 
-math::Transform math::RotateX(real Theta)
+math::Transform math::RotateX(real ThetaDegrees)
 {
-    const real SinTheta = math::Sin(math::Radians(Theta));
-    const real CosTheta = math::Cos(math::Radians(Theta));
+    const real SinTheta = math::Sin(math::Radians(ThetaDegrees));
+    const real CosTheta = math::Cos(math::Radians(ThetaDegrees));
 
     // clang-format off
     const math::Matrix4x4 Mat(
@@ -197,10 +197,10 @@ math::Transform math::RotateX(real Theta)
     return {Mat, Mat.Transpose()};
 }
 
-math::Transform math::RotateY(real Theta)
+math::Transform math::RotateY(real ThetaDegrees)
 {
-    const real SinTheta = math::Sin(math::Radians(Theta));
-    const real CosTheta = math::Cos(math::Radians(Theta));
+    const real SinTheta = math::Sin(math::Radians(ThetaDegrees));
+    const real CosTheta = math::Cos(math::Radians(ThetaDegrees));
 
     // clang-format off
     const math::Matrix4x4 Mat(
@@ -213,10 +213,10 @@ math::Transform math::RotateY(real Theta)
     return {Mat, Mat.Transpose()};
 }
 
-math::Transform math::RotateZ(real Theta)
+math::Transform math::RotateZ(real ThetaDegrees)
 {
-    const real SinTheta = math::Sin(math::Radians(Theta));
-    const real CosTheta = math::Cos(math::Radians(Theta));
+    const real SinTheta = math::Sin(math::Radians(ThetaDegrees));
+    const real CosTheta = math::Cos(math::Radians(ThetaDegrees));
 
     // clang-format off
     const math::Matrix4x4 Mat(
@@ -229,11 +229,11 @@ math::Transform math::RotateZ(real Theta)
     return {Mat, Mat.Transpose()};
 }
 
-math::Transform math::Rotate(real Theta, const Vector3& Axis)
+math::Transform math::Rotate(real ThetaDegrees, const Vector3& Axis)
 {
     const Vector3 NormAxis = Normalize(Axis);
-    const real SinTheta = math::Sin(math::Radians(Theta));
-    const real CosTheta = math::Cos(math::Radians(Theta));
+    const real SinTheta = math::Sin(math::Radians(ThetaDegrees));
+    const real CosTheta = math::Cos(math::Radians(ThetaDegrees));
 
     // Compute rotation of first basis vector
     math::Matrix4x4 Mat;
