@@ -2,6 +2,14 @@
 
 #include <iostream>
 
+#include "math/normal3.h"
+#include "math/point2.h"
+#include "math/point3.h"
+#include "math/point4.h"
+#include "math/vector2.h"
+#include "math/vector3.h"
+#include "math/vector4.h"
+
 std::ostream& math::operator<<(std::ostream& Out, const Vector2& Vec)
 {
     Out << "Vector2(X=" << Vec.X << ", Y=" << Vec.Y << ")";
