@@ -49,24 +49,65 @@ static constexpr real kSmallestReal = MATH_REALC(-3.4028234664e38);
 
 // Functions
 
+// @brief Returns the absolute value of the given value.
+// @param Value The value to take the absolute value of.
+// @return The absolute value of the given value.
+template <typename T>
+T Abs(T value)
+{
+    return value >= 0 ? value : -value;
+}
+
 // @brief Returns true if value A is in the range [B - Epsilon, B + Epsilon].
 // @param A The value to check.
 // @param B The value to check against.
 // @param Epsilon The epsilon value.
 // @return True if value A is in the range [B - Epsilon, B + Epsilon], false otherwise.
-bool IsEqual(real A, real B, real Epsilon);
+template <typename T>
+bool IsEqual(T a, T b, T epsilon)
+{
+    return Abs(a - b) <= epsilon;
+}
+
+// @brief Returns the minimum of the given values.
+// @param A The first value.
+// @param B The second value.
+// @return The minimum of the given values.
+template <typename T>
+T Min(T A, T B)
+{
+    return A < B ? A : B;
+}
+
+// @brief Returns the maximum of the given values.
+// @param A The first value.
+// @param B The second value.
+// @return The maximum of the given values.
+template <typename T>
+T Max(T A, T B)
+{
+    return A > B ? A : B;
+}
 
 // @brief Returns true if the given value is NaN.
 // @param Value The value to check.
 // @return True if the value is NaN, false otherwise.
-bool IsNaN(real Value);
+template <typename T>
+bool IsNaN(T value)
+{
+    return value != value;
+}
 
 // @brief Clamps the given value to the range [Low, High].
 // @param Value The value to clamp.
 // @param Low The lower bound of the range.
 // @param High The upper bound of the range.
 // @return The clamped value.
-real Clamp(real Value, real Low, real High);
+template <typename T>
+T Clamp(T value, T low, T high)
+{
+    return Min(Max(value, low), high);
+}
 
 // @brief Returns the remainder of A / B.
 // @param A The dividend.
@@ -87,18 +128,6 @@ real Sqrt(real Value);
 // @return The linear interpolation of P0 and P1 at the given parameter.
 real Lerp(real Parameter, real P0, real P1);
 
-// @brief Returns the minimum of the given values.
-// @param A The first value.
-// @param B The second value.
-// @return The minimum of the given values.
-real Min(real A, real B);
-
-// @brief Returns the maximum of the given values.
-// @param A The first value.
-// @param B The second value.
-// @return The maximum of the given values.
-real Max(real A, real B);
-
 // @brief Returns the rounded value.
 // @param Value The value to round.
 // @return The rounded value. If the value is exactly halfway between two integers, the rounding is
@@ -114,11 +143,6 @@ real Floor(real Value);
 // @param Value The value to take the ceiling of.
 // @return The ceiling of the given value.
 real Ceil(real Value);
-
-// @brief Returns the absolute value of the given value.
-// @param Value The value to take the absolute value of.
-// @return The absolute value of the given value.
-real Abs(real Value);
 
 // @brief Converts the given value from degrees to radians.
 // @param Degrees The value to convert from degrees to radians.
