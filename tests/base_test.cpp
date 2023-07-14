@@ -22,16 +22,16 @@ TEST(BaseTests, Constants)
 
 TEST(BaseTests, Clamp)
 {
-    const math::real V1 = math::Clamp(10, -2, 5);
+    const int V1 = math::Clamp(10, -2, 5);
     EXPECT_EQ(V1, 5);
 
-    const math::real V2 = math::Clamp(-3, -2, 5);
+    const int V2 = math::Clamp(-3, -2, 5);
     EXPECT_EQ(V2, -2);
 
-    const math::real V3 = math::Clamp(0, -2, 5);
+    const int V3 = math::Clamp(0, -2, 5);
     EXPECT_EQ(V3, 0);
 
-    const math::real V4 = math::Clamp(0, -2, -2);
+    const int V4 = math::Clamp(0, -2, -2);
     EXPECT_EQ(V4, -2);
 }
 
@@ -180,19 +180,19 @@ TEST(BaseTests, Trigonometry)
 
     EXPECT_REAL_EQ(0, math::Sin(0));
     EXPECT_REAL_EQ(1, math::Sin(math::kPiOver2));
-    EXPECT_TRUE(math::IsEqual(0, math::Sin(math::kPi), kEpsilon));
+    EXPECT_TRUE(math::IsEqual(0.0f, math::Sin(math::kPi), kEpsilon));
     EXPECT_REAL_EQ(-1, math::Sin(math::kPi + math::kPiOver2));
-    EXPECT_TRUE(math::IsEqual(0, math::Sin(math::kPi * 2), kEpsilon));
+    EXPECT_TRUE(math::IsEqual(0.0f, math::Sin(math::kPi * 2), kEpsilon));
 
     EXPECT_REAL_EQ(1, math::Cos(0));
-    EXPECT_TRUE(math::IsEqual(0, math::Cos(math::kPiOver2), kEpsilon));
+    EXPECT_TRUE(math::IsEqual(0.0f, math::Cos(math::kPiOver2), kEpsilon));
     EXPECT_REAL_EQ(-1, math::Cos(math::kPi));
-    EXPECT_TRUE(math::IsEqual(0, math::Cos(math::kPi + math::kPiOver2), kEpsilon));
+    EXPECT_TRUE(math::IsEqual(0.0f, math::Cos(math::kPi + math::kPiOver2), kEpsilon));
     EXPECT_REAL_EQ(1, math::Cos(math::kPi * 2));
 
     EXPECT_REAL_EQ(0, math::Tan(0));
     EXPECT_REAL_EQ(1, math::Tan(math::kPiOver4));
     EXPECT_REAL_EQ(math::kInfinity, math::Tan(math::kPiOver2));
-    EXPECT_TRUE(math::IsEqual(1, math::Tan(math::kPi + math::kPiOver4), kEpsilon));
-    EXPECT_TRUE(math::IsEqual(0, math::Tan(math::kPi * 2), kEpsilon));
+    EXPECT_TRUE(math::IsEqual(1.0f, math::Tan(math::kPi + math::kPiOver4), kEpsilon));
+    EXPECT_TRUE(math::IsEqual(0.0f, math::Tan(math::kPi * 2), kEpsilon));
 }

@@ -3,16 +3,6 @@
 #include <intrin.h>
 #include <cmath>
 
-bool math::IsNaN(real Value)
-{
-    return std::isnan(Value);
-}
-
-math::real math::Clamp(real Value, real Low, real High)
-{
-    return Value < Low ? Low : (Value > High ? High : Value);
-}
-
 math::real math::Mod(real A, real B)
 {
     if (IsNaN(A) || IsNaN(B) || B == 0.0f)
@@ -98,21 +88,6 @@ bool math::IsPowerOf2(int Value)
     return (Value != 0) && ((Value & (Value - 1)) == 0);
 }
 
-bool math::IsEqual(math::real A, math::real B, math::real Epsilon)
-{
-    return Abs(A - B) <= Epsilon;
-}
-
-math::real math::Min(math::real A, math::real B)
-{
-    return std::min(A, B);
-}
-
-math::real math::Max(math::real A, math::real B)
-{
-    return std::max(A, B);
-}
-
 math::real math::Round(math::real Value)
 {
 #if MATH_REAL_AS_DOUBLE
@@ -138,11 +113,6 @@ math::real math::Ceil(math::real Value)
 #else
     return std::ceilf(Value);
 #endif
-}
-
-math::real math::Abs(math::real Value)
-{
-    return std::abs(Value);
 }
 
 math::real math::Sqrt(math::real Value)
