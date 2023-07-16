@@ -4,57 +4,137 @@
 
 TEST(BaseTests, NaN)
 {
-    math::real a = 5;
-    math::real b = MATH_REALC(10.2);
-    math::real c = nanf("");
-    EXPECT_FALSE(math::IsNaN(a));
-    EXPECT_FALSE(math::IsNaN(b));
-    EXPECT_TRUE(math::IsNaN(c));
+    {
+        const float a = 5;
+        const float b = 10.2f;
+        const float c = nanf("");
+        EXPECT_FALSE(math::IsNaN(a));
+        EXPECT_FALSE(math::IsNaN(b));
+        EXPECT_TRUE(math::IsNaN(c));
+    }
+    {
+        const double a = 5;
+        const double b = 10.2f;
+        const double c = nanf("");
+        EXPECT_FALSE(math::IsNaN(a));
+        EXPECT_FALSE(math::IsNaN(b));
+        EXPECT_TRUE(math::IsNaN(c));
+    }
+    {
+        const int a = 5;
+        EXPECT_FALSE(math::IsNaN(a));
+    }
 }
 
 TEST(BaseTests, Constants)
 {
-    EXPECT_REAL_EQ(math::kInfinity, std::numeric_limits<math::real>::infinity());
-    EXPECT_REAL_EQ(math::kNegativeInfinity, -std::numeric_limits<math::real>::infinity());
-    EXPECT_REAL_EQ(math::kSmallestReal, std::numeric_limits<math::real>::lowest());
-    EXPECT_REAL_EQ(math::kLargestReal, std::numeric_limits<math::real>::max());
+    EXPECT_FLOAT_EQ(math::k_inf_float, std::numeric_limits<float>::infinity());
+    EXPECT_FLOAT_EQ(math::k_neg_inf_float, -std::numeric_limits<float>::infinity());
+    EXPECT_FLOAT_EQ(math::k_smallest_float, std::numeric_limits<float>::lowest());
+    EXPECT_FLOAT_EQ(math::k_largest_float, std::numeric_limits<float>::max());
+
+    EXPECT_DOUBLE_EQ(math::k_inf_double, std::numeric_limits<double>::infinity());
+    EXPECT_DOUBLE_EQ(math::k_neg_inf_double, -std::numeric_limits<double>::infinity());
+    EXPECT_DOUBLE_EQ(math::k_smallest_double, std::numeric_limits<double>::lowest());
+    EXPECT_DOUBLE_EQ(math::k_largest_double, std::numeric_limits<double>::max());
 }
 
 TEST(BaseTests, Clamp)
 {
-    const int V1 = math::Clamp(10, -2, 5);
-    EXPECT_EQ(V1, 5);
-
-    const int V2 = math::Clamp(-3, -2, 5);
-    EXPECT_EQ(V2, -2);
-
-    const int V3 = math::Clamp(0, -2, 5);
-    EXPECT_EQ(V3, 0);
-
-    const int V4 = math::Clamp(0, -2, -2);
-    EXPECT_EQ(V4, -2);
+    {
+        const int V1 = math::Clamp(10, -2, 5);
+        EXPECT_EQ(V1, 5);
+        const int V2 = math::Clamp(-3, -2, 5);
+        EXPECT_EQ(V2, -2);
+        const int V3 = math::Clamp(0, -2, 5);
+        EXPECT_EQ(V3, 0);
+        const int V4 = math::Clamp(0, -2, -2);
+        EXPECT_EQ(V4, -2);
+    }
+    {
+        const float V1 = math::Clamp(10.0f, -2.0f, 5.0f);
+        EXPECT_FLOAT_EQ(V1, 5.0f);
+        const float V2 = math::Clamp(-3.0f, -2.0f, 5.0f);
+        EXPECT_FLOAT_EQ(V2, -2.0f);
+        const float V3 = math::Clamp(0.0f, -2.0f, 5.0f);
+        EXPECT_FLOAT_EQ(V3, 0);
+        const float V4 = math::Clamp(0.0f, -2.0f, -2.0f);
+        EXPECT_FLOAT_EQ(V4, -2.0f);
+    }
+    {
+        const double V1 = math::Clamp(10.0, -2.0, 5.0);
+        EXPECT_DOUBLE_EQ(V1, 5);
+        const double V2 = math::Clamp(-3.0, -2.0, 5.0);
+        EXPECT_DOUBLE_EQ(V2, -2);
+        const double V3 = math::Clamp(0.0, -2.0, 5.0);
+        EXPECT_DOUBLE_EQ(V3, 0);
+        const double V4 = math::Clamp(0.0, -2.0, -2.0);
+        EXPECT_DOUBLE_EQ(V4, -2);
+    }
 }
 
 TEST(BaseTests, Mod)
 {
-    math::real R1 = math::Mod(MATH_REALC(2.5), MATH_REALC(2.0));
-    EXPECT_REAL_EQ(R1, 0.5f);
-    math::real R2 = math::Mod(MATH_REALC(-2.5), MATH_REALC(2.0));
-    EXPECT_REAL_EQ(R2, -0.5f);
-    math::real R3 = math::Mod(MATH_REALC(2.5), MATH_REALC(-2.0));
-    EXPECT_REAL_EQ(R3, 0.5f);
-    math::real R4 = math::Mod(NAN, MATH_REALC(-2.0));
-    EXPECT_TRUE(math::IsNaN(R4));
-    math::real R5 = math::Mod(MATH_REALC(2.5), NAN);
-    EXPECT_TRUE(math::IsNaN(R5));
-    math::real R6 = math::Mod(MATH_REALC(2.5), MATH_REALC(0.0));
-    EXPECT_TRUE(math::IsNaN(R6));
+    {
+        const float R1 = math::Mod(2.5f, 2.0f);
+        EXPECT_FLOAT_EQ(R1, 0.5f);
+        const float R2 = math::Mod(-2.5f, 2.0f);
+        EXPECT_FLOAT_EQ(R2, -0.5f);
+        const float R3 = math::Mod(2.5f, -2.0f);
+        EXPECT_FLOAT_EQ(R3, 0.5f);
+        const float R4 = math::Mod(NAN, -2.0f);
+        EXPECT_TRUE(math::IsNaN(R4));
+        const float R5 = math::Mod(2.5f, NAN);
+        EXPECT_TRUE(math::IsNaN(R5));
+        const float R6 = math::Mod(2.5f, 0.0f);
+        EXPECT_TRUE(math::IsNaN(R6));
+    }
+    {
+        const double R1 = math::Mod(2.5, 2.0);
+        EXPECT_DOUBLE_EQ(R1, 0.5);
+        const double R2 = math::Mod(-2.5, 2.0);
+        EXPECT_DOUBLE_EQ(R2, -0.5);
+        const double R3 = math::Mod(2.5, -2.0);
+        EXPECT_DOUBLE_EQ(R3, 0.5);
+        const double R4 = math::Mod(static_cast<double>(NAN), -2.0);
+        EXPECT_TRUE(math::IsNaN(R4));
+        const double R5 = math::Mod(2.5, static_cast<double>(NAN));
+        EXPECT_TRUE(math::IsNaN(R5));
+        const double R6 = math::Mod(2.5, 0.0);
+        EXPECT_TRUE(math::IsNaN(R6));
+    }
+    {
+        const int R1 = math::Mod(3, 2);
+        EXPECT_EQ(R1, 1);
+        const int R2 = math::Mod(-3, 2);
+        EXPECT_EQ(R2, -1);
+        const int R3 = math::Mod(3, -2);
+        EXPECT_EQ(R3, 1);
+    }
 }
 
 TEST(BaseTests, Lerp)
 {
-    math::real V1 = math::Lerp(MATH_REALC(0.5), 1, 4);
-    EXPECT_REAL_EQ(V1, MATH_REALC(2.5));
+    {
+        const float R1 = math::Lerp(0.0f, 1.0f, 5.0f);
+        EXPECT_FLOAT_EQ(R1, 1.0f);
+        const float R2 = math::Lerp(0.0f, 1.0f, 0.0f);
+        EXPECT_FLOAT_EQ(R2, 1.0f);
+        const float R3 = math::Lerp(0.5f, 1.0f, 5.0f);
+        EXPECT_FLOAT_EQ(R3, 3.0f);
+        const float R4 = math::Lerp(1.0f, 1.0f, 0.0f);
+        EXPECT_FLOAT_EQ(R4, 0.0f);
+    }
+    {
+        const double R1 = math::Lerp(0.0, 1.0, 5.0);
+        EXPECT_DOUBLE_EQ(R1, 1.0);
+        const double R2 = math::Lerp(0.5, 1.0, 5.0);
+        EXPECT_DOUBLE_EQ(R2, 3.0);
+        const double R3 = math::Lerp(0.0, 1.0, 0.0);
+        EXPECT_DOUBLE_EQ(R3, 1.0);
+        const double R4 = math::Lerp(1.0, 1.0, 0.0);
+        EXPECT_DOUBLE_EQ(R4, 0.0);
+    }
 }
 
 TEST(BaseTests, Power2)
@@ -66,14 +146,26 @@ TEST(BaseTests, Power2)
 
 TEST(BaseTests, Radians)
 {
-    EXPECT_REAL_EQ(math::kPi, math::Radians(180));
-    EXPECT_REAL_EQ(math::kPiOver2, math::Radians(90));
+    {
+        EXPECT_FLOAT_EQ(math::k_pi_float, math::Radians(180.0f));
+        EXPECT_FLOAT_EQ(math::k_pi_over_2_float, math::Radians(90.0f));
+    }
+    {
+        EXPECT_DOUBLE_EQ(math::k_pi_double, math::Radians(180.0));
+        EXPECT_DOUBLE_EQ(math::k_pi_over_2_double, math::Radians(90.0));
+    }
 }
 
 TEST(BaseTests, Degrees)
 {
-    EXPECT_REAL_EQ(180, math::Degrees(math::kPi));
-    EXPECT_REAL_EQ(90, math::Degrees(math::kPiOver2));
+    {
+        EXPECT_FLOAT_EQ(180.0f, math::Degrees(math::k_pi_float));
+        EXPECT_FLOAT_EQ(90.0f, math::Degrees(math::k_pi_over_2_float));
+    }
+    {
+        EXPECT_DOUBLE_EQ(180.0, math::Degrees(math::k_pi_double));
+        EXPECT_DOUBLE_EQ(90.0, math::Degrees(math::k_pi_over_2_double));
+    }
 }
 
 TEST(BaseTests, LogNatural)
@@ -81,10 +173,10 @@ TEST(BaseTests, LogNatural)
     EXPECT_REAL_EQ(math::LogNatural(128), MATH_REALC(4.852030263919617));
     EXPECT_REAL_EQ(math::LogNatural(1024), MATH_REALC(6.931471805599453));
     EXPECT_REAL_EQ(math::LogNatural(1), MATH_REALC(0.0));
-    EXPECT_REAL_EQ(math::LogNatural(0), -math::kInfinity);
+    EXPECT_REAL_EQ(math::LogNatural(0), -math::k_inf_float);
     EXPECT_TRUE(math::IsNaN(math::LogNatural(-1)));
-    EXPECT_REAL_EQ(math::LogNatural(math::kInfinity), math::kInfinity);
-    EXPECT_TRUE(math::IsNaN(math::LogNatural(math::kNegativeInfinity)));
+    EXPECT_REAL_EQ(math::LogNatural(math::k_inf_float), math::k_inf_float);
+    EXPECT_TRUE(math::IsNaN(math::LogNatural(math::k_neg_inf_float)));
     EXPECT_TRUE(math::IsNaN(math::LogNatural(NAN)));
 }
 
@@ -93,10 +185,10 @@ TEST(BaseTests, Log2)
     EXPECT_REAL_EQ(math::Log2(128), MATH_REALC(7.0));
     EXPECT_REAL_EQ(math::Log2(1024), MATH_REALC(10.0));
     EXPECT_REAL_EQ(math::Log2(1), MATH_REALC(0.0));
-    EXPECT_REAL_EQ(math::Log2(0), -math::kInfinity);
+    EXPECT_REAL_EQ(math::Log2(0), -math::k_inf_float);
     EXPECT_TRUE(math::IsNaN(math::Log2(-1)));
-    EXPECT_REAL_EQ(math::Log2(math::kInfinity), math::kInfinity);
-    EXPECT_TRUE(math::IsNaN(math::Log2(math::kNegativeInfinity)));
+    EXPECT_REAL_EQ(math::Log2(math::k_inf_float), math::k_inf_float);
+    EXPECT_TRUE(math::IsNaN(math::Log2(math::k_neg_inf_float)));
     EXPECT_TRUE(math::IsNaN(math::Log2(NAN)));
 }
 
@@ -119,14 +211,34 @@ TEST(BaseTests, TrailingZeros)
 
 TEST(BaseTests, Min)
 {
-    EXPECT_EQ(1, math::Min(1, 2));
-    EXPECT_EQ(1, math::Min(2, 1));
+    {
+        EXPECT_EQ(1, math::Min(1, 2));
+        EXPECT_EQ(1, math::Min(2, 1));
+    }
+    {
+        EXPECT_FLOAT_EQ(1.0f, math::Min(1.0f, 2.0f));
+        EXPECT_FLOAT_EQ(1.0f, math::Min(2.0f, 1.0f));
+    }
+    {
+        EXPECT_DOUBLE_EQ(1.0, math::Min(1.0, 2.0));
+        EXPECT_DOUBLE_EQ(1.0, math::Min(2.0, 1.0));
+    }
 }
 
 TEST(BaseTests, Max)
 {
-    EXPECT_EQ(2, math::Max(1, 2));
-    EXPECT_EQ(2, math::Max(2, 1));
+    {
+        EXPECT_EQ(2, math::Max(1, 2));
+        EXPECT_EQ(2, math::Max(2, 1));
+    }
+    {
+        EXPECT_FLOAT_EQ(2.0f, math::Max(1.0f, 2.0f));
+        EXPECT_FLOAT_EQ(2.0f, math::Max(2.0f, 1.0f));
+    }
+    {
+        EXPECT_DOUBLE_EQ(2.0, math::Max(1.0, 2.0));
+        EXPECT_DOUBLE_EQ(2.0, math::Max(2.0, 1.0));
+    }
 }
 
 TEST(BaseTests, Round)
@@ -154,14 +266,30 @@ TEST(BaseTests, Ceil)
 
 TEST(BaseTests, Abs)
 {
-    EXPECT_EQ(1, math::Abs(-1));
-    EXPECT_EQ(1, math::Abs(1));
+    {
+        EXPECT_EQ(1, math::Abs(-1));
+        EXPECT_EQ(1, math::Abs(1));
+    }
+    {
+        EXPECT_FLOAT_EQ(1.0f, math::Abs(-1.0f));
+        EXPECT_FLOAT_EQ(1.0f, math::Abs(1.0f));
+    }
+    {
+        EXPECT_DOUBLE_EQ(1.0, math::Abs(-1.0));
+        EXPECT_DOUBLE_EQ(1.0, math::Abs(1.0));
+    }
 }
 
 TEST(BaseTests, Sqrt)
 {
-    EXPECT_REAL_EQ(2, math::Sqrt(4));
-    EXPECT_REAL_EQ(3, math::Sqrt(9));
+    {
+        EXPECT_FLOAT_EQ(1.0f, math::Sqrt(1.0f));
+        EXPECT_FLOAT_EQ(2.0f, math::Sqrt(4.0f));
+    }
+    {
+        EXPECT_DOUBLE_EQ(1.0, math::Sqrt(1.0));
+        EXPECT_DOUBLE_EQ(2.0, math::Sqrt(4.0));
+    }
 }
 
 TEST(BaseTests, Power)
@@ -179,20 +307,20 @@ TEST(BaseTests, Trigonometry)
 #endif
 
     EXPECT_REAL_EQ(0, math::Sin(0));
-    EXPECT_REAL_EQ(1, math::Sin(math::kPiOver2));
-    EXPECT_TRUE(math::IsEqual(0.0f, math::Sin(math::kPi), kEpsilon));
-    EXPECT_REAL_EQ(-1, math::Sin(math::kPi + math::kPiOver2));
-    EXPECT_TRUE(math::IsEqual(0.0f, math::Sin(math::kPi * 2), kEpsilon));
+    EXPECT_REAL_EQ(1, math::Sin(math::k_pi_over_2_float));
+    EXPECT_TRUE(math::IsEqual(0.0f, math::Sin(math::k_pi_float), kEpsilon));
+    EXPECT_REAL_EQ(-1, math::Sin(math::k_pi_float + math::k_pi_over_2_float));
+    EXPECT_TRUE(math::IsEqual(0.0f, math::Sin(math::k_pi_float * 2), kEpsilon));
 
     EXPECT_REAL_EQ(1, math::Cos(0));
-    EXPECT_TRUE(math::IsEqual(0.0f, math::Cos(math::kPiOver2), kEpsilon));
-    EXPECT_REAL_EQ(-1, math::Cos(math::kPi));
-    EXPECT_TRUE(math::IsEqual(0.0f, math::Cos(math::kPi + math::kPiOver2), kEpsilon));
-    EXPECT_REAL_EQ(1, math::Cos(math::kPi * 2));
+    EXPECT_TRUE(math::IsEqual(0.0f, math::Cos(math::k_pi_over_2_float), kEpsilon));
+    EXPECT_REAL_EQ(-1, math::Cos(math::k_pi_float));
+    EXPECT_TRUE(math::IsEqual(0.0f, math::Cos(math::k_pi_float + math::k_pi_over_2_float), kEpsilon));
+    EXPECT_REAL_EQ(1, math::Cos(math::k_pi_float * 2));
 
     EXPECT_REAL_EQ(0, math::Tan(0));
-    EXPECT_REAL_EQ(1, math::Tan(math::kPiOver4));
-    EXPECT_REAL_EQ(math::kInfinity, math::Tan(math::kPiOver2));
-    EXPECT_TRUE(math::IsEqual(1.0f, math::Tan(math::kPi + math::kPiOver4), kEpsilon));
-    EXPECT_TRUE(math::IsEqual(0.0f, math::Tan(math::kPi * 2), kEpsilon));
+    EXPECT_REAL_EQ(1, math::Tan(math::k_pi_over_4_float));
+    EXPECT_REAL_EQ(math::k_inf_float, math::Tan(math::k_pi_over_2_float));
+    EXPECT_TRUE(math::IsEqual(1.0f, math::Tan(math::k_pi_float + math::k_pi_over_4_float), kEpsilon));
+    EXPECT_TRUE(math::IsEqual(0.0f, math::Tan(math::k_pi_float * 2), kEpsilon));
 }

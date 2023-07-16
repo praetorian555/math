@@ -3,8 +3,8 @@
 #include <cassert>
 
 math::Bounds3::Bounds3()
-    : Min(kSmallestReal, kSmallestReal, kSmallestReal),
-      Max(kLargestReal, kLargestReal, kLargestReal)
+    : Min(k_smallest_float, k_smallest_float, k_smallest_float),
+      Max(k_largest_float, k_largest_float, k_largest_float)
 {
 }
 

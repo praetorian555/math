@@ -162,7 +162,7 @@ TEST(Normal3Tests, Length)
 {
     Normal3f n1(3, 4, 5);
 
-    EXPECT_REAL_EQ(n1.Length(), math::Sqrt(50));
+    EXPECT_REAL_EQ(n1.Length(), math::Sqrt(50.0f));
     EXPECT_REAL_EQ(n1.LengthSquared(), 50);
 }
 

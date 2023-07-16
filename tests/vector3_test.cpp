@@ -213,7 +213,7 @@ TEST(Vector3Tests, Length)
 {
     Vector3f v1(3, 4, 5);
 
-    EXPECT_REAL_EQ(v1.Length(), math::Sqrt(50));
+    EXPECT_REAL_EQ(v1.Length(), math::Sqrt(50.0f));
     EXPECT_REAL_EQ(v1.LengthSquared(), 50);
 }
 
