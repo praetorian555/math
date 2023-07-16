@@ -30,7 +30,7 @@ TEST(QuaternionTests, Creation)
     }
     {
         const math::Quaternion Q =
-            math::Quaternion::FromAxisAngleRadians(math::Vector3(0, 0, 2), math::Radians(60));
+            math::Quaternion::FromAxisAngleRadians(math::Vector3(0, 0, 2), math::Radians(60.0f));
         EXPECT_EQ(Q.Vec.X, 0);
         EXPECT_EQ(Q.Vec.Y, 0);
         EXPECT_REAL_EQ(Q.Vec.Z, MATH_REALC(0.5));
@@ -40,7 +40,7 @@ TEST(QuaternionTests, Creation)
         const math::Transform T = math::RotateZ(MATH_REALC(60.0));
         const math::Quaternion Q(T);
         const math::Quaternion Ref =
-            math::Quaternion::FromAxisAngleRadians(math::Vector3(0, 0, 1), math::Radians(60));
+            math::Quaternion::FromAxisAngleRadians(math::Vector3(0, 0, 1), math::Radians(60.0f));
         EXPECT_REAL_EQ(Q.Vec.X, Ref.Vec.X);
         EXPECT_REAL_EQ(Q.Vec.Y, Ref.Vec.Y);
         EXPECT_REAL_EQ(Q.Vec.Z, Ref.Vec.Z);

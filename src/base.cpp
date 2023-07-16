@@ -3,27 +3,6 @@
 #include <intrin.h>
 #include <cmath>
 
-math::real math::Mod(real A, real B)
-{
-    if (IsNaN(A) || IsNaN(B) || B == 0.0f)
-    {
-        return NAN;
-    }
-    return std::remainder(A, B);
-}
-
-math::real math::Radians(real Degrees)
-{
-    constexpr real kHalfCircleDegrees = 180.0f;
-    return (kPi / kHalfCircleDegrees) * Degrees;
-}
-
-math::real math::Degrees(real Radians)
-{
-    constexpr real kHalfCircleDegrees = 180.0f;
-    return (kHalfCircleDegrees / kPi) * Radians;
-}
-
 math::real math::LogNatural(math::real Value)
 {
     return std::log(Value);
@@ -78,11 +57,6 @@ int32_t math::CountTrailingZeros(uint32_t Value)
 #endif
 }
 
-math::real math::Lerp(real Parameter, real P0, real P1)
-{
-    return (1 - Parameter) * P0 + Parameter * P1;
-}
-
 bool math::IsPowerOf2(int Value)
 {
     return (Value != 0) && ((Value & (Value - 1)) == 0);
@@ -115,11 +89,6 @@ math::real math::Ceil(math::real Value)
 #endif
 }
 
-math::real math::Sqrt(math::real Value)
-{
-    return std::sqrt(Value);
-}
-
 math::real math::Power(math::real Base, math::real Exponent)
 {
     return std::pow(Base, Exponent);
@@ -145,13 +114,13 @@ math::real math::Cos(math::real Radians)
 
 math::real math::Tan(math::real Radians)
 {
-    if (Radians == kPiOver2)
+    if (Radians == k_pi_over_2_float)
     {
-        return kInfinity;
+        return k_inf_float;
     }
-    if (Radians == -kPiOver2)
+    if (Radians == -k_pi_over_2_float)
     {
-        return -kInfinity;
+        return -k_inf_float;
     }
 
 #if MATH_REAL_AS_DOUBLE
