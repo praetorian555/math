@@ -168,76 +168,91 @@ T Sqrt(T value);
 template <std::floating_point T>
 T Lerp(T t, T p0, T p1);
 
-// @brief Returns the rounded value.
-// @param Value The value to round.
-// @return The rounded value. If the value is exactly halfway between two integers, the rounding is
-// done away from zero.
-real Round(real Value);
+/**
+ * @brief Returns the rounded value.
+ * @tparam T Value type. Must be a floating point type.
+ * @param value The value to round.
+ * @return The rounded value. If the value is exactly halfway between two integers, the rounding is
+ * done away from zero.
+ */
+template <std::floating_point T>
+T Round(T value);
 
-// @brief Returns the floor of the given value.
-// @param Value The value to take the floor of.
-// @return The floor of the given value.
-real Floor(real Value);
+/**
+ * @brief Returns the floor of the given value.
+ * @tparam T Value type. Must be a floating point type.
+ * @param value The value to take the floor of.
+ * @return The floor of the given value.
+ */
+template <std::floating_point T>
+T Floor(T value);
 
-// @brief Returns the ceiling of the given value.
-// @param Value The value to take the ceiling of.
-// @return The ceiling of the given value.
-real Ceil(real Value);
+/**
+ * @brief Returns the ceil of the given value.
+ * @tparam T Value type. Must be a floating point type.
+ * @param value The value to take the ceil of.
+ * @return The ceil of the given value.
+ */
+template <std::floating_point T>
+T Ceil(T value);
 
-// @brief Returns the sine of the given value.
-// @param Radians The value to take the sine of.
-// @return The sine of the given value.
-real Sin(real Radians);
+/**
+ * @brief Returns the sine of the given value.
+ * @tparam T Value type. Must be a floating point type.
+ * @param radians The value to take the sine of in radians.
+ * @return The sine of the given value.
+ */
+template <std::floating_point T>
+T Sin(T radians);
 
-// @brief Returns the cosine of the given value.
-// @param Radians The value to take the cosine of.
-// @return The cosine of the given value.
-real Cos(real Radians);
+/**
+ * @brief Returns the cosine of the given value.
+ * @tparam T Value type. Must be a floating point type.
+ * @param radians The value to take the cosine of in radians.
+ * @return The cosine of the given value.
+ */
+template <std::floating_point T>
+T Cos(T radians);
 
-// @brief Returns the tangent of the given value.
-// @param Radians The value to take the tangent of.
-// @return The tangent of the given value.
-real Tan(real Radians);
+/**
+ * @brief Returns the tangent of the given value.
+ * @tparam T Value type. Must be a floating point type.
+ * @param radians The value to take the tangent of in radians.
+ * @return The tangent of the given value.
+ */
+template <std::floating_point T>
+T Tan(T radians);
 
-// @brief Returns the power of the given base and exponent.
-// @param Base The base of the power.
-// @param Exponent The exponent of the power.
-// @return The power of the given base and exponent.
-real Power(real Base, real Exponent);
+/**
+ * @brief Returns the base raised to the exponent power.
+ * @tparam T Value type. Must be a floating point type.
+ * @param base The base.
+ * @param exponent The exponent.
+ * @return The base raised to the exponent power.
+ */
+template <std::floating_point T>
+T Power(T base, T exponent);
 
-// @brief Returns the logarithm base e of the given value.
-// @param Value The value to take the logarithm base e of.
-// @return The logarithm base e of the given value. If value is 1 it returns 0. If value is 0 it
-// returns negative infinity. If value is positive infinity, it returns positive infinity. If value
-// is negative, negative infinity or NaN, it returns NaN.
-real LogNatural(real Value);
+/**
+ * @brief Returns the logarithm base e of the given value.
+ * @tparam T Value type. Must be a floating point type.
+ * @param value The value to take the logarithm base e of.
+ * @return The logarithm base e of the given value. If value is 1 it returns 0. If value is 0 it
+ * returns negative infinity. If value is positive infinity, it returns positive infinity. If value
+ * is negative, negative infinity or NaN, it returns NaN.
+ */
+template <std::floating_point T>
+T LogNatural(T value);
 
-// @brief Returns the logarithm base 2 of the given value.
-// @param Value The value to take the logarithm base 2 of.
-// @return The logarithm base 2 of the given value. If value is 1 it returns 0. If value is 0 it
-// returns negative infinity. If value is positive infinity, it returns positive infinity. If value
-// is negative, negative infinity or NaN, it returns NaN.
-real Log2(real Value);
-
-// @brief Returns the base 2 logarithm of the given value.
-// @param Value The value to take the base 2 logarithm of.
-// @return The base 2 logarithm of the given value. If value is 1 or less it returns 0.
-int32_t Log2Int(uint32_t Value);
-
-// @brief Returns true if the given value is a power of 2.
-// @param Value The value to check.
-// @return True if the given value is a power of 2, false otherwise.
-bool IsPowerOf2(int Value);
-
-// @brief Returns the next power of 2 greater than or equal to the given value.
-// @param Value The value to round up to the next power of 2.
-// @return The next power of 2 greater than or equal to the given value.
-int32_t RoundUpPow2(int32_t Value);
-
-// @brief Returns the number of leading zeros in the given value.
-// @param Value The value to count the number of leading zeros in.
-// @return The number of leading zeros in the given value.
-int32_t CountTrailingZeros(uint32_t Value);
+/**
+ * @brief Returns the logarithm base 2 of the given value.
+ * @param value The value to take the logarithm base 2 of.
+ * @return The logarithm base 2 of the given value. If value is 1 it returns 0. If value is 0 it
+ * returns negative infinity. If value is positive infinity, it returns positive infinity. If value
+ * is negative, negative infinity or NaN, it returns NaN.
+ */
+template <std::floating_point T>
+T Log2(T value);
 
 }  // namespace math
 
@@ -328,4 +343,60 @@ template <std::floating_point T>
 T math::Lerp(T t, T p0, T p1)
 {
     return (1 - t) * p0 + t * p1;
+}
+
+template <std::floating_point T>
+T math::Round(T value)
+{
+    return std::round(value);
+}
+
+template <std::floating_point T>
+T math::Floor(T value)
+{
+    return std::floor(value);
+}
+
+template <std::floating_point T>
+T math::Ceil(T value)
+{
+    return std::ceil(value);
+}
+
+template <std::floating_point T>
+T math::Sin(T radians)
+{
+    return std::sin(radians);
+}
+
+template <std::floating_point T>
+T math::Cos(T radians)
+{
+    return std::cos(radians);
+}
+
+template <std::floating_point T>
+T math::Tan(T radians)
+{
+    return std::tan(radians);
+}
+
+template <std::floating_point T>
+T math::Power(T base, T exponent)
+{
+    return std::pow(base, exponent);
+}
+
+template <std::floating_point T>
+T math::LogNatural(T value)
+{
+    return std::log(value);
+}
+
+template <std::floating_point T>
+T math::Log2(T value)
+{
+    constexpr T k_inv_log2 =
+        static_cast<T>(1.4426950408889634073599246810018921374266459541529859341354494069);
+    return std::log(value) * k_inv_log2;
 }
