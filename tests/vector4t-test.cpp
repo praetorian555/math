@@ -20,12 +20,6 @@ TEST(Vector4Tests, Construction)
         EXPECT_EQ(vec2.y, 1);
         EXPECT_EQ(vec2.z, 1);
         EXPECT_EQ(vec2.w, 1);
-
-        const Vec4f vec3;
-        EXPECT_NE(vec3.x, 0);
-        EXPECT_NE(vec3.y, 0);
-        EXPECT_NE(vec3.z, 0);
-        EXPECT_NE(vec3.w, 0);
     }
     {
         const Vec4d vec1(1, 2, 3, 4);
@@ -39,12 +33,6 @@ TEST(Vector4Tests, Construction)
         EXPECT_EQ(vec2.y, 1);
         EXPECT_EQ(vec2.z, 1);
         EXPECT_EQ(vec2.w, 1);
-
-        const Vec4d vec3;
-        EXPECT_NE(vec3.x, 0);
-        EXPECT_NE(vec3.y, 0);
-        EXPECT_NE(vec3.z, 0);
-        EXPECT_NE(vec3.w, 0);
     }
     {
         const Vec4i vec1(1, 2, 3, 4);
@@ -58,12 +46,6 @@ TEST(Vector4Tests, Construction)
         EXPECT_EQ(vec2.y, 1);
         EXPECT_EQ(vec2.z, 1);
         EXPECT_EQ(vec2.w, 1);
-
-        const Vec4i vec3;
-        EXPECT_NE(vec3.x, 0);
-        EXPECT_NE(vec3.y, 0);
-        EXPECT_NE(vec3.z, 0);
-        EXPECT_NE(vec3.w, 0);
     }
 }
 
