@@ -403,20 +403,20 @@ Math::Vector4T<T>& Math::Vector4T<T>::operator/=(U scalar)
 template <typename T>
 bool Math::ContainsNonFinite(const Vector4T<T>& vec)
 {
-    return !std::isfinite(vec.x) || !std::isfinite(vec.y) || !std::isfinite(vec.z) ||
-           !std::isfinite(vec.w);
+    return !math::IsFinite(vec.x) || !math::IsFinite(vec.y) || !math::IsFinite(vec.z) ||
+           !math::IsFinite(vec.w);
 }
 
 template <typename T>
 bool Math::ContainsNaN(const Vector4T<T>& vec)
 {
-    return std::isnan(vec.x) || std::isnan(vec.y) || std::isnan(vec.z) || std::isnan(vec.w);
+    return math::IsNaN(vec.x) || math::IsNaN(vec.y) || math::IsNaN(vec.z) || math::IsNaN(vec.w);
 }
 
 template <typename T>
 Math::Vector4T<T> Math::Abs(const Vector4T<T>& vec)
 {
-    return {std::abs(vec.x), std::abs(vec.y), std::abs(vec.z), std::abs(vec.w)};
+    return {math::Abs(vec.x), math::Abs(vec.y), math::Abs(vec.z), math::Abs(vec.w)};
 }
 
 template <typename T>
@@ -428,14 +428,14 @@ T Math::LengthSquared(const Vector4T<T>& vec)
 template <typename T>
 double Math::Length(const Vector4T<T>& vec)
 {
-    return std::sqrt(static_cast<double>(LengthSquared(vec)));
+    return math::Sqrt(static_cast<double>(LengthSquared(vec)));
 }
 
 template <typename T>
 bool Math::IsEqual(const Vector4T<T>& vec1, const Vector4T<T>& vec2, T epsilon)
 {
-    return std::abs(vec1.x - vec2.x) <= epsilon && std::abs(vec1.y - vec2.y) <= epsilon &&
-           std::abs(vec1.z - vec2.z) <= epsilon && std::abs(vec1.w - vec2.w) <= epsilon;
+    return math::Abs(vec1.x - vec2.x) <= epsilon && math::Abs(vec1.y - vec2.y) <= epsilon &&
+           math::Abs(vec1.z - vec2.z) <= epsilon && math::Abs(vec1.w - vec2.w) <= epsilon;
 }
 
 template <typename T>
@@ -447,7 +447,7 @@ T Math::Dot(const Vector4T<T>& vec1, const Vector4T<T>& vec2)
 template <typename T>
 T Math::AbsDot(const Vector4T<T>& vec1, const Vector4T<T>& vec2)
 {
-    return std::abs(Dot(vec1, vec2));
+    return math::Abs(Dot(vec1, vec2));
 }
 
 template <typename T>
@@ -455,7 +455,7 @@ Math::Vector4T<T> Math::Normalize(const Vector4T<T>& vec)
 {
     double length = Length(vec);
     assert(length > 0);
-    return vec / Length(vec);
+    return vec / length;
 }
 
 template <typename T>
@@ -468,8 +468,8 @@ Math::Vector4T<T> Math::Min(const Vector4T<T>& vec1, const Vector4T<T>& vec2)
 template <typename T>
 Math::Vector4T<T> Math::Max(const Vector4T<T>& vec1, const Vector4T<T>& vec2)
 {
-    return {std::max(vec1.x, vec2.x), std::max(vec1.y, vec2.y), std::max(vec1.z, vec2.z),
-            std::max(vec1.w, vec2.w)};
+    return {math::Max(vec1.x, vec2.x), math::Max(vec1.y, vec2.y), math::Max(vec1.z, vec2.z),
+            math::Max(vec1.w, vec2.w)};
 }
 
 template <typename T>
