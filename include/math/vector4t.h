@@ -200,6 +200,42 @@ Vector4T<T> Permute(const Vector4T<T>& vec, int x, int y, int z, int w);
 template <typename T>
 Vector4T<T> Clamp(const Vector4T<T>& vec, T low, T high);
 
+/**
+ * Returns the value of the smallest component.
+ * @tparam T The type of the vector components.
+ * @param vec The vector to get the smallest component of.
+ * @return The value of the smallest component.
+ */
+template <typename T>
+T MinComponent(const Vector4T<T>& vec);
+
+/**
+ * Returns the value of the largest component.
+ * @tparam T The type of the vector components.
+ * @param vec The vector to get the largest component of.
+ * @return The value of the largest component.
+ */
+template <typename T>
+T MaxComponent(const Vector4T<T>& vec);
+
+/**
+ * Returns the index of the smallest component.
+ * @tparam T The type of the vector components.
+ * @param vec The vector to get the index of the smallest component of.
+ * @return The index of the smallest component.
+ */
+template <typename T>
+int MinDimension(const Vector4T<T>& vec);
+
+/**
+ * Returns the index of the largest component.
+ * @tparam T The type of the vector components.
+ * @param vec The vector to get the index of the largest component of.
+ * @return The index of the largest component.
+ */
+template <typename T>
+int MaxDimension(const Vector4T<T>& vec);
+
 }  // namespace Math
 
 // Implementation //////////////////////////////////////////////////////////////////////////////////
@@ -425,8 +461,8 @@ Math::Vector4T<T> Math::Normalize(const Vector4T<T>& vec)
 template <typename T>
 Math::Vector4T<T> Math::Min(const Vector4T<T>& vec1, const Vector4T<T>& vec2)
 {
-    return {std::min(vec1.x, vec2.x), std::min(vec1.y, vec2.y), std::min(vec1.z, vec2.z),
-            std::min(vec1.w, vec2.w)};
+    return {math::Min(vec1.x, vec2.x), math::Min(vec1.y, vec2.y), math::Min(vec1.z, vec2.z),
+            math::Min(vec1.w, vec2.w)};
 }
 
 template <typename T>
@@ -447,4 +483,30 @@ Math::Vector4T<T> Math::Clamp(const Vector4T<T>& vec, T low, T high)
 {
     return {math::Clamp(vec.x, low, high), math::Clamp(vec.y, low, high),
             math::Clamp(vec.z, low, high), math::Clamp(vec.w, low, high)};
+}
+
+template <typename T>
+T Math::MinComponent(const Vector4T<T>& vec)
+{
+    return math::Min(math::Min(vec.x, vec.y), math::Min(vec.z, vec.w));
+}
+
+template <typename T>
+T Math::MaxComponent(const Vector4T<T>& vec)
+{
+    return math::Max(math::Max(vec.x, vec.y), math::Max(vec.z, vec.w));
+}
+
+template <typename T>
+int Math::MinDimension(const Vector4T<T>& vec)
+{
+    return vec.x < vec.y ? (vec.x < vec.z ? (vec.x < vec.w ? 0 : 3) : (vec.z < vec.w ? 2 : 3))
+                         : (vec.y < vec.z ? (vec.y < vec.w ? 1 : 3) : (vec.z < vec.w ? 2 : 3));
+}
+
+template <typename T>
+int Math::MaxDimension(const Vector4T<T>& vec)
+{
+    return vec.x > vec.y ? (vec.x > vec.z ? (vec.x > vec.w ? 0 : 3) : (vec.z > vec.w ? 2 : 3))
+                         : (vec.y > vec.z ? (vec.y > vec.w ? 1 : 3) : (vec.z > vec.w ? 2 : 3));
 }
