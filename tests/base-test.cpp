@@ -40,6 +40,26 @@ TEST(BaseTests, NaN)
     }
 }
 
+TEST(BaseTests, IsFinite)
+{
+    {
+        const float a = 5;
+        const float b = 10.2f;
+        const float c = nanf("");
+        EXPECT_TRUE(math::IsFinite(a));
+        EXPECT_TRUE(math::IsFinite(b));
+        EXPECT_FALSE(math::IsFinite(c));
+    }
+    {
+        const double a = 5;
+        const double b = 10.2f;
+        const double c = nanf("");
+        EXPECT_TRUE(math::IsFinite(a));
+        EXPECT_TRUE(math::IsFinite(b));
+        EXPECT_FALSE(math::IsFinite(c));
+    }
+}
+
 TEST(BaseTests, Clamp)
 {
     {
