@@ -21,40 +21,20 @@ jobs:
           build_type: "Debug"
           unity: OFF
           double_precision: OFF
-        - name: "MSVC Debug Unity"
-          os: windows-latest
-          build_type: "Debug"
-          unity: ON
-          double_precision: OFF
         - name: "MSVC Release"
           os: windows-latest
           build_type: "Release"
           unity: OFF
-          double_precision: OFF
-        - name: "MSVC Release Unity"
-          os: windows-latest
-          build_type: "Release"
-          unity: ON
           double_precision: OFF
         - name: "MSVC Debug Double Precision"
           os: windows-latest
           build_type: "Debug"
           unity: OFF
           double_precision: ON
-        - name: "MSVC Debug Unity Double Precision"
-          os: windows-latest
-          build_type: "Debug"
-          unity: ON
-          double_precision: ON
         - name: "MSVC Release Double Precision"
           os: windows-latest
           build_type: "Release"
           unity: OFF
-          double_precision: ON
-        - name: "MSVC Release Unity Double Precision"
-          os: windows-latest
-          build_type: "Release"
-          unity: ON
           double_precision: ON
     name: ${{matrix.config.name}}
     runs-on: ${{matrix.config.os}}
