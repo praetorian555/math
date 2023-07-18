@@ -712,3 +712,41 @@ TEST(Vector4Tests, IsEqual)
         EXPECT_FALSE(Math::IsEqual(v1, v3, 0));
     }
 }
+
+TEST(Vector4Tests, MinAndMaxComponent)
+{
+    {
+        const Vec4f v(1, 2, 3, 4);
+        EXPECT_FLOAT_EQ(Math::MinComponent(v), 1);
+        EXPECT_FLOAT_EQ(Math::MaxComponent(v), 4);
+    }
+    {
+        const Vec4d v(1, 2, 3, 4);
+        EXPECT_DOUBLE_EQ(Math::MinComponent(v), 1);
+        EXPECT_DOUBLE_EQ(Math::MaxComponent(v), 4);
+    }
+    {
+        const Vec4i v(1, 2, 3, 4);
+        EXPECT_EQ(Math::MinComponent(v), 1);
+        EXPECT_EQ(Math::MaxComponent(v), 4);
+    }
+}
+
+TEST(Vector4Tests, MinAndMaxDimension)
+{
+    {
+        const Vec4f v(1, 2, 3, 4);
+        EXPECT_EQ(Math::MinDimension(v), 0);
+        EXPECT_EQ(Math::MaxDimension(v), 3);
+    }
+    {
+        const Vec4d v(1, 2, 3, 4);
+        EXPECT_EQ(Math::MinDimension(v), 0);
+        EXPECT_EQ(Math::MaxDimension(v), 3);
+    }
+    {
+        const Vec4i v(1, 2, 3, 4);
+        EXPECT_EQ(Math::MinDimension(v), 0);
+        EXPECT_EQ(Math::MaxDimension(v), 3);
+    }
+}
