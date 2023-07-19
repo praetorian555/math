@@ -2,6 +2,7 @@
 
 #include <cmath>
 #include <cstdint>
+#include <cassert>
 
 namespace math
 {
