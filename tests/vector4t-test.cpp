@@ -89,6 +89,46 @@ TEST(Vector4Tests, ContainsNonFinite)
     }
 }
 
+TEST(Vector4Tests, ContainsNaN)
+{
+    {
+        const Vec4f vec1(1, 2, 3, 4);
+        EXPECT_FALSE(ContainsNaN(vec1));
+
+        const Vec4f vec2(1, 2, 3, std::numeric_limits<float>::infinity());
+        EXPECT_FALSE(ContainsNaN(vec2));
+
+        const Vec4f vec3(1, 2, 3, -std::numeric_limits<float>::infinity());
+        EXPECT_FALSE(ContainsNaN(vec3));
+
+        const Vec4f vec4(1, 2, 3, std::numeric_limits<float>::quiet_NaN());
+        EXPECT_TRUE(ContainsNaN(vec4));
+
+        const Vec4f vec5(1, 2, 3, -std::numeric_limits<float>::quiet_NaN());
+        EXPECT_TRUE(ContainsNaN(vec5));
+    }
+    {
+        const Vec4d vec1(1, 2, 3, 4);
+        EXPECT_FALSE(ContainsNaN(vec1));
+
+        const Vec4d vec2(1, 2, 3, std::numeric_limits<double>::infinity());
+        EXPECT_FALSE(ContainsNaN(vec2));
+
+        const Vec4d vec3(1, 2, 3, -std::numeric_limits<double>::infinity());
+        EXPECT_FALSE(ContainsNaN(vec3));
+
+        const Vec4d vec4(1, 2, 3, std::numeric_limits<double>::quiet_NaN());
+        EXPECT_TRUE(ContainsNaN(vec4));
+
+        const Vec4d vec5(1, 2, 3, -std::numeric_limits<double>::quiet_NaN());
+        EXPECT_TRUE(ContainsNaN(vec5));
+    }
+    {
+        const Vec4d vec1(1, 2, 3, 4);
+        EXPECT_FALSE(ContainsNaN(vec1));
+    }
+}
+
 TEST(Vector4Tests, Comparisons)
 {
     {
