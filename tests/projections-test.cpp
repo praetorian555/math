@@ -7,7 +7,7 @@ using Point3f = math::Point3;
 
 TEST(ProjectionsTests, Orthographic_LH_N0)
 {
-    math::Matrix4x4 Mat = math::Orthographic_LH_N0(-500, 500, -200, 200, 0, 100);
+    Math::Matrix4x4<float> Mat = Math::Orthographic_LH_N0<float>(-500, 500, -200, 200, 0, 100);
     math::Transform T(Mat);
 
     {
@@ -27,7 +27,7 @@ TEST(ProjectionsTests, Orthographic_LH_N0)
 
 TEST(ProjectionsTests, Orthographic_LH_N1)
 {
-    math::Matrix4x4 Mat = math::Orthographic_LH_N1(-500, 500, -200, 200, 0, 100);
+    Math::Matrix4x4<float> Mat = Math::Orthographic_LH_N1<float>(-500, 500, -200, 200, 0, 100);
     math::Transform T(Mat);
 
     {
@@ -47,7 +47,7 @@ TEST(ProjectionsTests, Orthographic_LH_N1)
 
 TEST(ProjectionsTests, Orthographic_RH_N0)
 {
-    math::Matrix4x4 Mat = math::Orthographic_RH_N0(-500, 500, -200, 200, 0, 100);
+    Math::Matrix4x4<float> Mat = Math::Orthographic_RH_N0<float>(-500, 500, -200, 200, 0, 100);
     math::Transform T(Mat);
 
     {
@@ -67,7 +67,7 @@ TEST(ProjectionsTests, Orthographic_RH_N0)
 
 TEST(ProjectionsTests, Orthographic_RH_N1)
 {
-    math::Matrix4x4 Mat = math::Orthographic_RH_N1(-500, 500, -200, 200, 0, 100);
+    Math::Matrix4x4<float> Mat = Math::Orthographic_RH_N1<float>(-500, 500, -200, 200, 0, 100);
     math::Transform T(Mat);
 
     {
@@ -87,7 +87,7 @@ TEST(ProjectionsTests, Orthographic_RH_N1)
 
 TEST(ProjectionsTests, Perspective_LH_N0)
 {
-    math::Matrix4x4 Mat = math::Perspective_LH_N0(90, 1, 0.1f, 100);
+    Math::Matrix4x4<float> Mat = Math::Perspective_LH_N0<float>(90, 1, 0.1f, 100);
     math::Transform T(Mat);
 
     {
@@ -108,7 +108,7 @@ TEST(ProjectionsTests, Perspective_LH_N0)
 
 TEST(ProjectionsTests, Perspective_LH_N1)
 {
-    math::Matrix4x4 Mat = math::Perspective_LH_N1(90, 1, 0.1f, 100);
+    Math::Matrix4x4<float> Mat = Math::Perspective_LH_N1<float>(90, 1, 0.1f, 100);
     math::Transform T(Mat);
 
     {
@@ -129,7 +129,7 @@ TEST(ProjectionsTests, Perspective_LH_N1)
 
 TEST(ProjectionsTests, Perspective_RH_N0)
 {
-    math::Matrix4x4 Mat = math::Perspective_RH_N0(90, 1, 0.1f, 100);
+    Math::Matrix4x4<float> Mat = Math::Perspective_RH_N0<float>(90, 1, 0.1f, 100);
     math::Transform T(Mat);
 
     {
@@ -157,7 +157,7 @@ TEST(ProjectionsTests, Perspective_RH_N0)
 
 TEST(ProjectionsTests, Perspective_RH_N1)
 {
-    math::Matrix4x4 Mat = math::Perspective_RH_N1(90, 1, 0.1f, 100);
+    Math::Matrix4x4<float> Mat = Math::Perspective_RH_N1<float>(90, 1, 0.1f, 100);
     math::Transform T(Mat);
 
     {

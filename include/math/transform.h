@@ -14,14 +14,14 @@ class Transform
 {
 public:
     Transform() = default;
-    explicit Transform(const Array2D<real, 4, 4>& Mat);
-    explicit Transform(const Matrix4x4& Mat);
-    Transform(const Matrix4x4& Mat, const Matrix4x4& InvMat);
+    explicit Transform(const Math::Array2D<float, 4, 4>& Mat);
+    explicit Transform(const Math::Matrix4x4<float>& Mat);
+    Transform(const Math::Matrix4x4<float>& Mat, const Math::Matrix4x4<float>& InvMat);
 
-    Transform& operator=(const Matrix4x4& Mat);
+    Transform& operator=(const Math::Matrix4x4<float>& Mat);
 
-    [[nodiscard]] const Matrix4x4& GetMatrix() const { return m_Matrix; }
-    [[nodiscard]] const Matrix4x4& GetInverse() const { return m_MatrixInverse; }
+    [[nodiscard]] const Math::Matrix4x4<float>& GetMatrix() const { return m_Matrix; }
+    [[nodiscard]] const Math::Matrix4x4<float>& GetInverse() const { return m_MatrixInverse; }
 
     friend Transform Inverse(const Transform& T);
     friend Transform Transpose(const Transform& T);
@@ -45,18 +45,18 @@ public:
     Bounds3 operator()(const Bounds3& B) const;
 
 private:
-    Matrix4x4 m_Matrix;
-    Matrix4x4 m_MatrixInverse;
+    Math::Matrix4x4<float> m_Matrix;
+    Math::Matrix4x4<float> m_MatrixInverse;
 };
 
 Transform Translate(const Point3& Delta);
 Transform Translate(const Vector3& Delta);
-Transform Scale(real X, real Y, real Z);
-Transform Scale(real V);
-Transform RotateX(real ThetaDegrees);
-Transform RotateY(real ThetaDegrees);
-Transform RotateZ(real ThetaDegrees);
-Transform Rotate(real ThetaDegrees, const Vector3& Axis);
+Transform Scale(float X, float Y, float Z);
+Transform Scale(float V);
+Transform RotateX(float ThetaDegrees);
+Transform RotateY(float ThetaDegrees);
+Transform RotateZ(float ThetaDegrees);
+Transform Rotate(float ThetaDegrees, const Vector3& Axis);
 Transform Rotate(const Quaternion& Q);
 // This applies angle around x then around y and then around z axis
 Transform Rotate(Rotator Rotator);
