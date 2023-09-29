@@ -2,34 +2,62 @@
 
 #include "math/base.h"
 
-namespace math
+namespace Math
 {
 
-// Pseudo-random number generator based on the paper PCG: A Family of Simple Fast
-// Space-Efficient Statistically Good Algorithms for Random Number Generation by O'Neill (2014).
+/**
+ * Pseudo-random number generator based on the paper PCG: A Family of Simple Fast
+ * Space-Efficient Statistically Good Algorithms for Random Number Generation by O'Neill (2014).
+ */
 class RNG
 {
 public:
+    /**
+     * RNG with default seed.
+     */
     RNG();
-    explicit RNG(uint64_t StartingIndex);
 
-    void SetSequence(uint64_t StartingIndex);
+    /**
+     * RNG with custom seed.
+     */
+    explicit RNG(uint64_t starting_index);
 
-    // Uniform number in range [0, UINT32_MAX - 1]
+    /**
+     * Configure the RNG seed.
+     * @param starting_index Seed.
+     */
+    void SetSequence(uint64_t starting_index);
+
+    /**
+     * @brief Generate a uniform random number in range [0, UINT32_MAX - 1].
+     * @return Random number.
+     */
     uint32_t UniformUInt32();
 
-    // Uniform number in range [0, limit - 1]
-    uint32_t UniformUInt32(uint32_t Limit);
+    /**
+     * @brief Generate a uniform random number in range [0, limit - 1].
+     * @param limit Upper bound.
+     * @return Random number.
+     */
+    uint32_t UniformUInt32(uint32_t limit);
 
-    // Uniform number in range [0, 1)
-    real UniformReal();
+    /**
+     * @brief Generate a uniform random number in range [0, 1).
+     * @return Random number.
+     */
+    float UniformFloat();
 
-    // Uniform number in range [Start, End)
-    real UniformRealInRange(real Start, real End);
+    /**
+     * @brief Generate a uniform random number in range [start, end).
+     * @param start Lower bound.
+     * @param end Upper bound.
+     * @return Random number.
+     */
+    float UniformFloatInRange(float start, float end);
 
 private:
-    uint64_t m_State = 0;
-    uint64_t m_Inc = 0;
+    uint64_t m_state = 0;
+    uint64_t m_inc = 0;
 };
 
 }  // namespace math

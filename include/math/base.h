@@ -1,19 +1,11 @@
 #pragma once
 
-#include <cmath>
+#include <cMath>
 #include <cstdint>
 #include <cassert>
 
-namespace math
+namespace Math
 {
-
-#if MATH_REAL_AS_DOUBLE
-using real = double;
-#define MATH_REALC(X) X
-#else
-using real = float;
-#define MATH_REALC(X) X##f
-#endif
 
 // Constants
 static constexpr float k_pi_float = 3.14159265358979323846f;
@@ -255,48 +247,48 @@ T LogNatural(T value);
 template <std::floating_point T>
 T Log2(T value);
 
-}  // namespace math
+}  // namespace Math
 
 // Implementation //////////////////////////////////////////////////////////////////////////////////
 
 template <typename T>
-T math::Abs(T value)
+T Math::Abs(T value)
 {
     return value >= 0 ? value : -value;
 }
 
 template <typename T>
-bool math::IsEqual(T a, T b, T epsilon)
+bool Math::IsEqual(T a, T b, T epsilon)
 {
     return Abs(a - b) <= epsilon;
 }
 
 template <typename T>
-T math::Min(T A, T B)
+T Math::Min(T A, T B)
 {
     return A < B ? A : B;
 }
 
 template <typename T>
-T math::Max(T A, T B)
+T Math::Max(T A, T B)
 {
     return A > B ? A : B;
 }
 
 template <typename T>
-bool math::IsNaN(T value)
+bool Math::IsNaN(T value)
 {
     return value != value;
 }
 
 template <typename T>
-bool math::IsFinite(T value)
+bool Math::IsFinite(T value)
 {
     return std::isfinite(value);
 }
 
 template <std::floating_point T>
-T math::Radians(T degrees)
+T Math::Radians(T degrees)
 {
     constexpr T k_half_circle_degrees = static_cast<T>(180.0);
     constexpr T k_pi = static_cast<T>(k_pi_double);
@@ -304,7 +296,7 @@ T math::Radians(T degrees)
 }
 
 template <std::floating_point T>
-T math::Degrees(T radians)
+T Math::Degrees(T radians)
 {
     constexpr T k_half_circle_degrees = static_cast<T>(180.0);
     constexpr T k_pi = static_cast<T>(k_pi_double);
@@ -312,13 +304,13 @@ T math::Degrees(T radians)
 }
 
 template <typename T>
-T math::Clamp(T value, T low, T high)
+T Math::Clamp(T value, T low, T high)
 {
     return Min(Max(value, low), high);
 }
 
 template <typename T>
-T math::Mod(T a, T b)
+T Math::Mod(T a, T b)
 {
     if constexpr (std::is_integral_v<T>)
     {
@@ -335,67 +327,67 @@ T math::Mod(T a, T b)
 }
 
 template <std::floating_point T>
-T math::Sqrt(T value)
+T Math::Sqrt(T value)
 {
     return std::sqrt(value);
 }
 
 template <std::floating_point T>
-T math::Lerp(T t, T p0, T p1)
+T Math::Lerp(T t, T p0, T p1)
 {
     return (1 - t) * p0 + t * p1;
 }
 
 template <std::floating_point T>
-T math::Round(T value)
+T Math::Round(T value)
 {
     return std::round(value);
 }
 
 template <std::floating_point T>
-T math::Floor(T value)
+T Math::Floor(T value)
 {
     return std::floor(value);
 }
 
 template <std::floating_point T>
-T math::Ceil(T value)
+T Math::Ceil(T value)
 {
     return std::ceil(value);
 }
 
 template <std::floating_point T>
-T math::Sin(T radians)
+T Math::Sin(T radians)
 {
     return std::sin(radians);
 }
 
 template <std::floating_point T>
-T math::Cos(T radians)
+T Math::Cos(T radians)
 {
     return std::cos(radians);
 }
 
 template <std::floating_point T>
-T math::Tan(T radians)
+T Math::Tan(T radians)
 {
     return std::tan(radians);
 }
 
 template <std::floating_point T>
-T math::Power(T base, T exponent)
+T Math::Power(T base, T exponent)
 {
     return std::pow(base, exponent);
 }
 
 template <std::floating_point T>
-T math::LogNatural(T value)
+T Math::LogNatural(T value)
 {
     return std::log(value);
 }
 
 template <std::floating_point T>
-T math::Log2(T value)
+T Math::Log2(T value)
 {
     constexpr T k_inv_log2 =
         static_cast<T>(1.4426950408889634073599246810018921374266459541529859341354494069);

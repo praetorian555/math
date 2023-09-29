@@ -3,7 +3,7 @@
 #include "math/vector3.h"
 #include "math/point3.h"
 
-namespace math
+namespace Math
 {
 
 class Transform;
@@ -12,7 +12,7 @@ class Quaternion
 {
 public:
     Math::Vector3<float> Vec;
-    real W;
+    float W;
 
     /**
      * @brief Construct a unit Quaternion.
@@ -20,13 +20,13 @@ public:
     Quaternion() : Vec(0, 0, 0), W(1) {}
 
     /**
-     * @brief Construct a Quaternion using four real values.
+     * @brief Construct a Quaternion using four float values.
      * @param X - The i part of the Quaternion.
      * @param Y - The j part of the Quaternion.
      * @param Z - The k part of the Quaternion.
-     * @param W - The real part of the Quaternion.
+     * @param W - The float part of the Quaternion.
      */
-    Quaternion(real X, real Y, real Z, real W) : Vec(X, Y, Z), W(W) {}
+    Quaternion(float X, float Y, float Z, float W) : Vec(X, Y, Z), W(W) {}
 
     /**
      * @brief Construct a Quaternion from a transform. This uses only the upper left 3x3 part of the
@@ -41,7 +41,7 @@ public:
      * @param AngleDegrees - The angle to rotate by in degrees.
      * @return The Quaternion representing the rotation.
      */
-    static Quaternion FromAxisAngleDegrees(const Math::Vector3<float>& Axis, real AngleDegrees);
+    static Quaternion FromAxisAngleDegrees(const Math::Vector3<float>& Axis, float AngleDegrees);
 
     /**
      * @brief Construct a Quaternion from an axis and an angle.
@@ -49,7 +49,7 @@ public:
      * @param AngleRadians - The angle to rotate by in radians.
      * @return The Quaternion representing the rotation.
      */
-    static Quaternion FromAxisAngleRadians(const Math::Vector3<float>& Axis, real AngleRadians);
+    static Quaternion FromAxisAngleRadians(const Math::Vector3<float>& Axis, float AngleRadians);
 
     /**
      * @brief Check if any of the components of the Quaternion are NaN.
@@ -61,13 +61,13 @@ public:
      * @brief Get the length of the Quaternion.
      * @return The length of the Quaternion.
      */
-    [[nodiscard]] real Length() const;
+    [[nodiscard]] float Length() const;
 
     /**
      * @brief Get the squared length of the Quaternion.
      * @return The squared length of the Quaternion.
      */
-    [[nodiscard]] real LengthSquared() const;
+    [[nodiscard]] float LengthSquared() const;
 
     /**
      * Add a Quaternion to this one. Store the result in this Quaternion.
@@ -96,28 +96,28 @@ public:
      * @param Scalar Scalar to multiply by.
      * @return Returns a reference to this Quaternion.
      */
-    Quaternion& operator*=(real Scalar);
+    Quaternion& operator*=(float Scalar);
 
     /**
      * Multiply this Quaternion by a scalar. Store the result in new Quaternion.
      * @param Scalar Scalar to multiply by.
      * @return Returns a new Quaternion.
      */
-    Quaternion operator*(real Scalar) const;
+    Quaternion operator*(float Scalar) const;
 
     /**
      * Divide this Quaternion by a scalar. Store the result in this Quaternion.
      * @param Scalar Scalar to divide by.
      * @return Returns a reference to this Quaternion.
      */
-    Quaternion& operator/=(real Scalar);
+    Quaternion& operator/=(float Scalar);
 
     /**
      * Divide this Quaternion by a scalar. Store the result in new Quaternion.
      * @param Scalar Scalar to divide by.
      * @return Returns a new Quaternion.
      */
-    Quaternion operator/(real Scalar) const;
+    Quaternion operator/(float Scalar) const;
 
     /**
      * Rotate vector by this Quaternion.
@@ -179,7 +179,7 @@ Quaternion operator*(const Quaternion& Q1, const Quaternion& Q2);
  * @param Q Quaternion to multiply.
  * @return Returns the product of the Quaternion and the scalar in a new Quaternion.
  */
-Quaternion operator*(real Scalar, const Quaternion& Q);
+Quaternion operator*(float Scalar, const Quaternion& Q);
 
 /**
  * Calculate the dot product of two Quaternions.
@@ -187,7 +187,7 @@ Quaternion operator*(real Scalar, const Quaternion& Q);
  * @param Q2 Second Quaternion.
  * @return Returns the dot product of the two Quaternions.
  */
-real Dot(const Quaternion& Q1, const Quaternion& Q2);
+float Dot(const Quaternion& Q1, const Quaternion& Q2);
 
 /**
  * Normalize a Quaternion.
@@ -207,7 +207,7 @@ Quaternion Normalize(const Quaternion& Q);
  * instead.
  * @see Lerp
  */
-Quaternion Slerp(const Quaternion& Q1, const Quaternion& Q2, real Param);
+Quaternion Slerp(const Quaternion& Q1, const Quaternion& Q2, float Param);
 
 /**
  * Perform linear interpolation between two Quaternions.
@@ -219,7 +219,7 @@ Quaternion Slerp(const Quaternion& Q1, const Quaternion& Q2, real Param);
  * absolute precision and constant angular velocity, use Slerp instead.
  * @see Slerp
  */
-Quaternion Lerp(const Quaternion& Q1, const Quaternion& Q2, real Param);
+Quaternion Lerp(const Quaternion& Q1, const Quaternion& Q2, float Param);
 
 /**
  * @brief Get the conjugate of a Quaternion.

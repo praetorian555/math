@@ -1,6 +1,6 @@
 #pragma once
 
-#include "math/base.h"
+#include "Math/base.h"
 
 namespace Math
 {
@@ -406,19 +406,19 @@ Math::Vector2<T>& Math::Vector2<T>::operator/=(U scalar)
 template <typename T>
 bool Math::ContainsNonFinite(const Vector2<T>& vec)
 {
-    return !math::IsFinite(vec.x) || !math::IsFinite(vec.y);
+    return !Math::IsFinite(vec.x) || !Math::IsFinite(vec.y);
 }
 
 template <typename T>
 bool Math::ContainsNaN(const Vector2<T>& vec)
 {
-    return math::IsNaN(vec.x) || math::IsNaN(vec.y);
+    return Math::IsNaN(vec.x) || Math::IsNaN(vec.y);
 }
 
 template <typename T>
 Math::Vector2<T> Math::Abs(const Vector2<T>& vec)
 {
-    return {math::Abs(vec.x), math::Abs(vec.y)};
+    return {Math::Abs(vec.x), Math::Abs(vec.y)};
 }
 
 template <typename T>
@@ -430,13 +430,13 @@ T Math::LengthSquared(const Vector2<T>& vec)
 template <typename T>
 double Math::Length(const Vector2<T>& vec)
 {
-    return math::Sqrt(static_cast<double>(LengthSquared(vec)));
+    return Math::Sqrt(static_cast<double>(LengthSquared(vec)));
 }
 
 template <typename T>
 bool Math::IsEqual(const Vector2<T>& vec1, const Vector2<T>& vec2, T epsilon)
 {
-    return math::Abs(vec1.x - vec2.x) <= epsilon && math::Abs(vec1.y - vec2.y) <= epsilon;
+    return Math::Abs(vec1.x - vec2.x) <= epsilon && Math::Abs(vec1.y - vec2.y) <= epsilon;
 }
 
 template <typename T>
@@ -448,7 +448,7 @@ T Math::Dot(const Vector2<T>& vec1, const Vector2<T>& vec2)
 template <typename T>
 T Math::AbsDot(const Vector2<T>& vec1, const Vector2<T>& vec2)
 {
-    return math::Abs(Dot(vec1, vec2));
+    return Math::Abs(Dot(vec1, vec2));
 }
 
 template <typename T>
@@ -468,13 +468,13 @@ Math::Vector2<T> Math::Normalize(const Vector2<T>& vec)
 template <typename T>
 Math::Vector2<T> Math::Min(const Vector2<T>& vec1, const Vector2<T>& vec2)
 {
-    return {math::Min(vec1.x, vec2.x), math::Min(vec1.y, vec2.y)};
+    return {Math::Min(vec1.x, vec2.x), Math::Min(vec1.y, vec2.y)};
 }
 
 template <typename T>
 Math::Vector2<T> Math::Max(const Vector2<T>& vec1, const Vector2<T>& vec2)
 {
-    return {math::Max(vec1.x, vec2.x), math::Max(vec1.y, vec2.y)};
+    return {Math::Max(vec1.x, vec2.x), Math::Max(vec1.y, vec2.y)};
 }
 
 template <typename T>
@@ -486,19 +486,19 @@ Math::Vector2<T> Math::Permute(const Vector2<T>& vec, int x, int y)
 template <typename T>
 Math::Vector2<T> Math::Clamp(const Vector2<T>& vec, T low, T high)
 {
-    return {math::Clamp(vec.x, low, high), math::Clamp(vec.y, low, high)};
+    return {Math::Clamp(vec.x, low, high), Math::Clamp(vec.y, low, high)};
 }
 
 template <typename T>
 T Math::MinComponent(const Vector2<T>& vec)
 {
-    return math::Min(vec.x, vec.y);
+    return Math::Min(vec.x, vec.y);
 }
 
 template <typename T>
 T Math::MaxComponent(const Vector2<T>& vec)
 {
-    return math::Max(vec.x, vec.y);
+    return Math::Max(vec.x, vec.y);
 }
 
 template <typename T>

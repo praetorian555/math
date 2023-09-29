@@ -1,8 +1,8 @@
 #pragma once
 
-#include "math/base.h"
-#include "math/point3.h"
-#include "math/vector3.h"
+#include "Math/base.h"
+#include "Math/point3.h"
+#include "Math/vector3.h"
 
 namespace Math
 {
@@ -228,8 +228,8 @@ constexpr Math::Bounds3<T>::Bounds3(const Point3<T>& p) : min(p), max(p)
 template <typename T>
 Math::Bounds3<T>::Bounds3(const Point3<T>& p1, const Point3<T>& p2)
 {
-    min = Point3<T>(math::Min(p1.x, p2.x), math::Min(p1.y, p2.y), math::Min(p1.z, p2.z));
-    max = Point3<T>(math::Max(p1.x, p2.x), math::Max(p1.y, p2.y), math::Max(p1.z, p2.z));
+    min = Point3<T>(Math::Min(p1.x, p2.x), Math::Min(p1.y, p2.y), Math::Min(p1.z, p2.z));
+    max = Point3<T>(Math::Max(p1.x, p2.x), Math::Max(p1.y, p2.y), Math::Max(p1.z, p2.z));
 }
 
 template <typename T>
@@ -301,8 +301,8 @@ int32_t Math::MaximumExtent(const Bounds3<T>& b)
 template <std::floating_point T>
 Math::Point3<T> Math::Lerp(const Bounds3<T>& b, const Point3<T>& t)
 {
-    return Point3<T>(math::Lerp(t.x, b.min.x, b.max.x), math::Lerp(t.y, b.min.y, b.max.y),
-                      math::Lerp(t.z, b.min.z, b.max.z));
+    return Point3<T>(Math::Lerp(t.x, b.min.x, b.max.x), Math::Lerp(t.y, b.min.y, b.max.y),
+                      Math::Lerp(t.z, b.min.z, b.max.z));
 }
 
 template <std::floating_point T>
@@ -341,19 +341,19 @@ template <typename T>
 Math::Bounds3<T> Math::Union(const Bounds3<T>& b, const Point3<T>& p)
 {
     return Bounds3<T>(
-        Point3<T>(math::Min(b.min.x, p.x), math::Min(b.min.y, p.y),
-                                 math::Min(b.min.z, p.z)),
-        Point3<T>(math::Max(b.max.x, p.x), math::Max(b.max.y, p.y),
-                                 math::Max(b.max.z, p.z)));
+        Point3<T>(Math::Min(b.min.x, p.x), Math::Min(b.min.y, p.y),
+                                 Math::Min(b.min.z, p.z)),
+        Point3<T>(Math::Max(b.max.x, p.x), Math::Max(b.max.y, p.y),
+                                 Math::Max(b.max.z, p.z)));
 }
 
 template <typename T>
 Math::Bounds3<T> Math::Union(const Bounds3<T>& b1, const Bounds3<T>& b2)
 {
-    return Bounds3<T>(Point3<T>(math::Min(b1.min.x, b2.min.x), math::Min(b1.min.y, b2.min.y),
-                                 math::Min(b1.min.z, b2.min.z)),
-                      Point3<T>(math::Max(b1.max.x, b2.max.x), math::Max(b1.max.y, b2.max.y),
-                                 math::Max(b1.max.z, b2.max.z)));
+    return Bounds3<T>(Point3<T>(Math::Min(b1.min.x, b2.min.x), Math::Min(b1.min.y, b2.min.y),
+                                 Math::Min(b1.min.z, b2.min.z)),
+                      Point3<T>(Math::Max(b1.max.x, b2.max.x), Math::Max(b1.max.y, b2.max.y),
+                                 Math::Max(b1.max.z, b2.max.z)));
 }
 
 template <typename T>
@@ -375,10 +375,10 @@ bool Math::Overlaps(const Bounds3<T>& b1, const Bounds3<T>& b2)
 template <typename T>
 Math::Bounds3<T> Math::Intersect(const Bounds3<T>& b1, const Bounds3<T>& b2)
 {
-    return Bounds3<T>(Point3<T>(math::Max(b1.min.x, b2.min.x), math::Max(b1.min.y, b2.min.y),
-                                 math::Max(b1.min.z, b2.min.z)),
-                      Point3<T>(math::Min(b1.max.x, b2.max.x), math::Min(b1.max.y, b2.max.y),
-                                 math::Min(b1.max.z, b2.max.z)));
+    return Bounds3<T>(Point3<T>(Math::Max(b1.min.x, b2.min.x), Math::Max(b1.min.y, b2.min.y),
+                                 Math::Max(b1.min.z, b2.min.z)),
+                      Point3<T>(Math::Min(b1.max.x, b2.max.x), Math::Min(b1.max.y, b2.max.y),
+                                 Math::Min(b1.max.z, b2.max.z)));
 }
 
 template <typename T>

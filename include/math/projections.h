@@ -1,6 +1,6 @@
 #pragma once
 
-#include "math/matrix4x4.h"
+#include "Math/matrix4x4.h"
 
 namespace Math
 {
@@ -158,7 +158,7 @@ Math::Matrix4x4<T> Math::Perspective_LH_N0(T vertical_fov, T aspect_ratio, T nea
 {
     assert(aspect_ratio != 0);
 
-    const T inv_fov_y = 1.0f / math::Tan(math::Radians(vertical_fov) / 2);
+    const T inv_fov_y = 1.0f / Math::Tan(Math::Radians(vertical_fov) / 2);
     const T inv_aspect_ratio = 1 / aspect_ratio;
 
     Matrix4x4<T> mat(1);
@@ -176,7 +176,7 @@ Math::Matrix4x4<T> Math::Perspective_LH_N1(T vertical_fov, T aspect_ratio, T nea
 {
     assert(aspect_ratio != 0);
 
-    const T inv_fov_y = 1.0f / math::Tan(math::Radians(vertical_fov) / 2);
+    const T inv_fov_y = 1.0f / Math::Tan(Math::Radians(vertical_fov) / 2);
     const T inv_aspect_ratio = 1 / aspect_ratio;
 
     Matrix4x4<T> mat(1);
@@ -194,7 +194,7 @@ Math::Matrix4x4<T> Math::Perspective_RH_N0(T vertical_fov, T aspect_ratio, T nea
 {
     assert(aspect_ratio != 0);
 
-    const T inv_fov_y = 1.0f / math::Tan(math::Radians(vertical_fov) / 2);
+    const T inv_fov_y = 1.0f / Math::Tan(Math::Radians(vertical_fov) / 2);
     const T inv_aspect_ratio = 1 / aspect_ratio;
 
     Matrix4x4<T> mat(1);
@@ -216,7 +216,7 @@ Math::Matrix4x4<T> Math::Perspective_RH_N1(T vertical_fov, T aspect_ratio, T nea
 {
     assert(aspect_ratio != 0);
 
-    const T inv_fov_y = 1.0f / math::Tan(math::Radians(vertical_fov) / 2);
+    const T inv_fov_y = 1.0f / Math::Tan(Math::Radians(vertical_fov) / 2);
     const T inv_aspect_ratio = 1 / aspect_ratio;
 
     Matrix4x4<T> mat(1);

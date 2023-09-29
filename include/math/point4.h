@@ -1,6 +1,6 @@
 #pragma once
 
-#include "math/vector4.h"
+#include "Math/vector4.h"
 
 namespace Math
 {
@@ -365,20 +365,20 @@ Math::Point4<T>& Math::Point4<T>::operator/=(U scalar)
 template <typename T>
 bool Math::ContainsNonFinite(const Point4<T>& vec)
 {
-    return !math::IsFinite(vec.x) || !math::IsFinite(vec.y) || !math::IsFinite(vec.z) ||
-           !math::IsFinite(vec.w);
+    return !Math::IsFinite(vec.x) || !Math::IsFinite(vec.y) || !Math::IsFinite(vec.z) ||
+           !Math::IsFinite(vec.w);
 }
 
 template <typename T>
 bool Math::ContainsNaN(const Point4<T>& vec)
 {
-    return math::IsNaN(vec.x) || math::IsNaN(vec.y) || math::IsNaN(vec.z) || math::IsNaN(vec.w);
+    return Math::IsNaN(vec.x) || Math::IsNaN(vec.y) || Math::IsNaN(vec.z) || Math::IsNaN(vec.w);
 }
 
 template <typename T>
 Math::Point4<T> Math::Abs(const Point4<T>& vec)
 {
-    return {math::Abs(vec.x), math::Abs(vec.y), math::Abs(vec.z), math::Abs(vec.w)};
+    return {Math::Abs(vec.x), Math::Abs(vec.y), Math::Abs(vec.z), Math::Abs(vec.w)};
 }
 
 template <typename T>
@@ -398,8 +398,8 @@ Math::Point4<T> Math::ToEuclidean(const Point4<T>& p)
 template <typename T>
 bool Math::IsEqual(const Point4<T>& vec1, const Point4<T>& vec2, T epsilon)
 {
-    return math::Abs(vec1.x - vec2.x) <= epsilon && math::Abs(vec1.y - vec2.y) <= epsilon &&
-           math::Abs(vec1.z - vec2.z) <= epsilon && math::Abs(vec1.w - vec2.w) <= epsilon;
+    return Math::Abs(vec1.x - vec2.x) <= epsilon && Math::Abs(vec1.y - vec2.y) <= epsilon &&
+           Math::Abs(vec1.z - vec2.z) <= epsilon && Math::Abs(vec1.w - vec2.w) <= epsilon;
 }
 
 template <typename T>
@@ -423,15 +423,15 @@ Math::Point4<T> Math::Lerp(T t, const Point4<T>& p1, const Point4<T>& p2)
 template <typename T>
 Math::Point4<T> Math::Min(const Point4<T>& vec1, const Point4<T>& vec2)
 {
-    return {math::Min(vec1.x, vec2.x), math::Min(vec1.y, vec2.y), math::Min(vec1.z, vec2.z),
-            math::Min(vec1.w, vec2.w)};
+    return {Math::Min(vec1.x, vec2.x), Math::Min(vec1.y, vec2.y), Math::Min(vec1.z, vec2.z),
+            Math::Min(vec1.w, vec2.w)};
 }
 
 template <typename T>
 Math::Point4<T> Math::Max(const Point4<T>& vec1, const Point4<T>& vec2)
 {
-    return {math::Max(vec1.x, vec2.x), math::Max(vec1.y, vec2.y), math::Max(vec1.z, vec2.z),
-            math::Max(vec1.w, vec2.w)};
+    return {Math::Max(vec1.x, vec2.x), Math::Max(vec1.y, vec2.y), Math::Max(vec1.z, vec2.z),
+            Math::Max(vec1.w, vec2.w)};
 }
 
 template <typename T>
@@ -449,7 +449,7 @@ Math::Point4<T> Math::Floor(const Point4<T>& p)
     }
     if constexpr (std::is_floating_point_v<T>)
     {
-        return {math::Floor(p.x), math::Floor(p.y), math::Floor(p.z), math::Floor(p.w)};
+        return {Math::Floor(p.x), Math::Floor(p.y), Math::Floor(p.z), Math::Floor(p.w)};
     }
 }
 
@@ -462,7 +462,7 @@ Math::Point4<T> Math::Ceil(const Point4<T>& p)
     }
     if constexpr (std::is_floating_point_v<T>)
     {
-        return {math::Ceil(p.x), math::Ceil(p.y), math::Ceil(p.z), math::Ceil(p.w)};
+        return {Math::Ceil(p.x), Math::Ceil(p.y), Math::Ceil(p.z), Math::Ceil(p.w)};
     }
 }
 
@@ -475,6 +475,6 @@ Math::Point4<T> Math::Round(const Point4<T>& p)
     }
     if constexpr (std::is_floating_point_v<T>)
     {
-        return {math::Round(p.x), math::Round(p.y), math::Round(p.z), math::Round(p.w)};
+        return {Math::Round(p.x), Math::Round(p.y), Math::Round(p.z), Math::Round(p.w)};
     }
 }

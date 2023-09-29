@@ -1,6 +1,6 @@
 #pragma once
 
-#include "math/base.h"
+#include "Math/base.h"
 
 namespace Math
 {
@@ -403,20 +403,20 @@ Math::Vector4<T>& Math::Vector4<T>::operator/=(U scalar)
 template <typename T>
 bool Math::ContainsNonFinite(const Vector4<T>& vec)
 {
-    return !math::IsFinite(vec.x) || !math::IsFinite(vec.y) || !math::IsFinite(vec.z) ||
-           !math::IsFinite(vec.w);
+    return !Math::IsFinite(vec.x) || !Math::IsFinite(vec.y) || !Math::IsFinite(vec.z) ||
+           !Math::IsFinite(vec.w);
 }
 
 template <typename T>
 bool Math::ContainsNaN(const Vector4<T>& vec)
 {
-    return math::IsNaN(vec.x) || math::IsNaN(vec.y) || math::IsNaN(vec.z) || math::IsNaN(vec.w);
+    return Math::IsNaN(vec.x) || Math::IsNaN(vec.y) || Math::IsNaN(vec.z) || Math::IsNaN(vec.w);
 }
 
 template <typename T>
 Math::Vector4<T> Math::Abs(const Vector4<T>& vec)
 {
-    return {math::Abs(vec.x), math::Abs(vec.y), math::Abs(vec.z), math::Abs(vec.w)};
+    return {Math::Abs(vec.x), Math::Abs(vec.y), Math::Abs(vec.z), Math::Abs(vec.w)};
 }
 
 template <typename T>
@@ -428,14 +428,14 @@ T Math::LengthSquared(const Vector4<T>& vec)
 template <typename T>
 double Math::Length(const Vector4<T>& vec)
 {
-    return math::Sqrt(static_cast<double>(LengthSquared(vec)));
+    return Math::Sqrt(static_cast<double>(LengthSquared(vec)));
 }
 
 template <typename T>
 bool Math::IsEqual(const Vector4<T>& vec1, const Vector4<T>& vec2, T epsilon)
 {
-    return math::Abs(vec1.x - vec2.x) <= epsilon && math::Abs(vec1.y - vec2.y) <= epsilon &&
-           math::Abs(vec1.z - vec2.z) <= epsilon && math::Abs(vec1.w - vec2.w) <= epsilon;
+    return Math::Abs(vec1.x - vec2.x) <= epsilon && Math::Abs(vec1.y - vec2.y) <= epsilon &&
+           Math::Abs(vec1.z - vec2.z) <= epsilon && Math::Abs(vec1.w - vec2.w) <= epsilon;
 }
 
 template <typename T>
@@ -447,7 +447,7 @@ T Math::Dot(const Vector4<T>& vec1, const Vector4<T>& vec2)
 template <typename T>
 T Math::AbsDot(const Vector4<T>& vec1, const Vector4<T>& vec2)
 {
-    return math::Abs(Dot(vec1, vec2));
+    return Math::Abs(Dot(vec1, vec2));
 }
 
 template <typename T>
@@ -461,15 +461,15 @@ Math::Vector4<T> Math::Normalize(const Vector4<T>& vec)
 template <typename T>
 Math::Vector4<T> Math::Min(const Vector4<T>& vec1, const Vector4<T>& vec2)
 {
-    return {math::Min(vec1.x, vec2.x), math::Min(vec1.y, vec2.y), math::Min(vec1.z, vec2.z),
-            math::Min(vec1.w, vec2.w)};
+    return {Math::Min(vec1.x, vec2.x), Math::Min(vec1.y, vec2.y), Math::Min(vec1.z, vec2.z),
+            Math::Min(vec1.w, vec2.w)};
 }
 
 template <typename T>
 Math::Vector4<T> Math::Max(const Vector4<T>& vec1, const Vector4<T>& vec2)
 {
-    return {math::Max(vec1.x, vec2.x), math::Max(vec1.y, vec2.y), math::Max(vec1.z, vec2.z),
-            math::Max(vec1.w, vec2.w)};
+    return {Math::Max(vec1.x, vec2.x), Math::Max(vec1.y, vec2.y), Math::Max(vec1.z, vec2.z),
+            Math::Max(vec1.w, vec2.w)};
 }
 
 template <typename T>
@@ -481,20 +481,20 @@ Math::Vector4<T> Math::Permute(const Vector4<T>& vec, int x, int y, int z, int w
 template <typename T>
 Math::Vector4<T> Math::Clamp(const Vector4<T>& vec, T low, T high)
 {
-    return {math::Clamp(vec.x, low, high), math::Clamp(vec.y, low, high),
-            math::Clamp(vec.z, low, high), math::Clamp(vec.w, low, high)};
+    return {Math::Clamp(vec.x, low, high), Math::Clamp(vec.y, low, high),
+            Math::Clamp(vec.z, low, high), Math::Clamp(vec.w, low, high)};
 }
 
 template <typename T>
 T Math::MinComponent(const Vector4<T>& vec)
 {
-    return math::Min(math::Min(vec.x, vec.y), math::Min(vec.z, vec.w));
+    return Math::Min(Math::Min(vec.x, vec.y), Math::Min(vec.z, vec.w));
 }
 
 template <typename T>
 T Math::MaxComponent(const Vector4<T>& vec)
 {
-    return math::Max(math::Max(vec.x, vec.y), math::Max(vec.z, vec.w));
+    return Math::Max(Math::Max(vec.x, vec.y), Math::Max(vec.z, vec.w));
 }
 
 template <typename T>

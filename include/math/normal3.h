@@ -1,6 +1,6 @@
 #pragma once
 
-#include "math/vector3.h"
+#include "Math/vector3.h"
 
 namespace Math
 {
@@ -428,19 +428,19 @@ Math::Normal3<T>& Math::Normal3<T>::operator/=(U scalar)
 template <typename T>
 bool Math::ContainsNonFinite(const Normal3<T>& n)
 {
-    return !math::IsFinite(n.x) || !math::IsFinite(n.y) || !math::IsFinite(n.z);
+    return !Math::IsFinite(n.x) || !Math::IsFinite(n.y) || !Math::IsFinite(n.z);
 }
 
 template <typename T>
 bool Math::ContainsNaN(const Normal3<T>& n)
 {
-    return math::IsNaN(n.x) || math::IsNaN(n.y) || math::IsNaN(n.z);
+    return Math::IsNaN(n.x) || Math::IsNaN(n.y) || Math::IsNaN(n.z);
 }
 
 template <typename T>
 Math::Normal3<T> Math::Abs(const Normal3<T>& n)
 {
-    return {math::Abs(n.x), math::Abs(n.y), math::Abs(n.z)};
+    return {Math::Abs(n.x), Math::Abs(n.y), Math::Abs(n.z)};
 }
 
 template <typename T>
@@ -452,14 +452,14 @@ T Math::LengthSquared(const Normal3<T>& n)
 template <typename T>
 double Math::Length(const Normal3<T>& n)
 {
-    return math::Sqrt(static_cast<double>(LengthSquared(n)));
+    return Math::Sqrt(static_cast<double>(LengthSquared(n)));
 }
 
 template <typename T>
 bool Math::IsEqual(const Normal3<T>& n1, const Normal3<T>& n2, T epsilon)
 {
-    return math::Abs(n1.x - n2.x) <= epsilon && math::Abs(n1.y - n2.y) <= epsilon &&
-           math::Abs(n1.z - n2.z) <= epsilon;
+    return Math::Abs(n1.x - n2.x) <= epsilon && Math::Abs(n1.y - n2.y) <= epsilon &&
+           Math::Abs(n1.z - n2.z) <= epsilon;
 }
 
 template <typename T>
@@ -483,19 +483,19 @@ T Math::Dot(const Vector3<T>& vec, const Normal3<T>& n)
 template <typename T>
 T Math::AbsDot(const Normal3<T>& n1, const Normal3<T>& n2)
 {
-    return math::Abs(Dot(n1, n2));
+    return Math::Abs(Dot(n1, n2));
 }
 
 template <typename T>
 T Math::AbsDot(const Normal3<T>& n, const Vector3<T>& vec)
 {
-    return math::Abs(Dot(n, vec));
+    return Math::Abs(Dot(n, vec));
 }
 
 template <typename T>
 T Math::AbsDot(const Vector3<T>& vec, const Normal3<T>& n)
 {
-    return math::Abs(Dot(vec, n));
+    return Math::Abs(Dot(vec, n));
 }
 
 template <typename T>
@@ -509,13 +509,13 @@ Math::Normal3<T> Math::Normalize(const Normal3<T>& n)
 template <typename T>
 Math::Normal3<T> Math::Min(const Normal3<T>& n1, const Normal3<T>& n2)
 {
-    return {math::Min(n1.x, n2.x), math::Min(n1.y, n2.y), math::Min(n1.z, n2.z)};
+    return {Math::Min(n1.x, n2.x), Math::Min(n1.y, n2.y), Math::Min(n1.z, n2.z)};
 }
 
 template <typename T>
 Math::Normal3<T> Math::Max(const Normal3<T>& n1, const Normal3<T>& n2)
 {
-    return {math::Max(n1.x, n2.x), math::Max(n1.y, n2.y), math::Max(n1.z, n2.z)};
+    return {Math::Max(n1.x, n2.x), Math::Max(n1.y, n2.y), Math::Max(n1.z, n2.z)};
 }
 
 template <typename T>
@@ -527,13 +527,13 @@ Math::Normal3<T> Math::Permute(const Normal3<T>& n, int x, int y, int z)
 template <typename T>
 T Math::MinComponent(const Normal3<T>& n)
 {
-    return math::Min(math::Min(n.x, n.y), n.z);
+    return Math::Min(Math::Min(n.x, n.y), n.z);
 }
 
 template <typename T>
 T Math::MaxComponent(const Normal3<T>& n)
 {
-    return math::Max(math::Max(n.x, n.y), n.z);
+    return Math::Max(Math::Max(n.x, n.y), n.z);
 }
 
 template <typename T>
