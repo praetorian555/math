@@ -11,7 +11,7 @@ class Transform;
 class Quaternion
 {
 public:
-    Vector3 Vec;
+    Math::Vector3<float> Vec;
     real W;
 
     /**
@@ -41,7 +41,7 @@ public:
      * @param AngleDegrees - The angle to rotate by in degrees.
      * @return The Quaternion representing the rotation.
      */
-    static Quaternion FromAxisAngleDegrees(const Vector3& Axis, real AngleDegrees);
+    static Quaternion FromAxisAngleDegrees(const Math::Vector3<float>& Axis, real AngleDegrees);
 
     /**
      * @brief Construct a Quaternion from an axis and an angle.
@@ -49,7 +49,7 @@ public:
      * @param AngleRadians - The angle to rotate by in radians.
      * @return The Quaternion representing the rotation.
      */
-    static Quaternion FromAxisAngleRadians(const Vector3& Axis, real AngleRadians);
+    static Quaternion FromAxisAngleRadians(const Math::Vector3<float>& Axis, real AngleRadians);
 
     /**
      * @brief Check if any of the components of the Quaternion are NaN.
@@ -124,14 +124,14 @@ public:
      * @param Vec Vector to rotate.
      * @return Returns a new Quaternion.
      */
-    Vector3 operator*(const Vector3& V) const;
+    Math::Vector3<float> operator*(const Math::Vector3<float>& V) const;
 
     /**
      * Rotate point by this Quaternion.
      * @param Point Point to rotate.
      * @return Returns a new Quaternion.
      */
-    Point3 operator*(const Point3& P) const;
+    Math::Point3<float> operator*(const Math::Point3<float>& P) const;
 
     /**
      * Check if this Quaternion is equal to another one.

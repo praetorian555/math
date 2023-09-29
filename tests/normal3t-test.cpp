@@ -1,11 +1,11 @@
 #include <gtest/gtest.h>
 
-#include "math/normal3t.h"
+#include "math/normal3.h"
 
-using Normal3f = Math::Normal3T<float>;
-using Normal3d = Math::Normal3T<double>;
-using Vec3f = Math::Vector3T<float>;
-using Vec3d = Math::Vector3T<double>;
+using Normal3f = Math::Normal3<float>;
+using Normal3d = Math::Normal3<double>;
+using Vec3f = Math::Vector3<float>;
+using Vec3d = Math::Vector3<double>;
 
 TEST(Normal3Tests, Construction)
 {

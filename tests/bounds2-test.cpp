@@ -2,15 +2,15 @@
 
 #include <gtest/gtest.h>
 
-using Point2f = Math::Point2T<float>;
+using Point2f = Math::Point2<float>;
 using Bounds2f = Math::Bounds2<float>;
-using Vector2f = Math::Vector2T<float>;
-using Point2d = Math::Point2T<double>;
+using Vector2f = Math::Vector2<float>;
+using Point2d = Math::Point2<double>;
 using Bounds2d = Math::Bounds2<double>;
-using Vector2d = Math::Vector2T<double>;
-using Point2i = Math::Point2T<int32_t>;
+using Vector2d = Math::Vector2<double>;
+using Point2i = Math::Point2<int32_t>;
 using Bounds2i = Math::Bounds2<int32_t>;
-using Vector2i = Math::Vector2T<int32_t>;
+using Vector2i = Math::Vector2<int32_t>;
 
 TEST(Bounds2Tests, Creation)
 {

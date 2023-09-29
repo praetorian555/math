@@ -1,10 +1,10 @@
 #include <gtest/gtest.h>
 
-#include "math/vector3t.h"
+#include "math/vector3.h"
 
-using Vec3f = Math::Vector3T<float>;
-using Vec3d = Math::Vector3T<double>;
-using Vec3i = Math::Vector3T<int>;
+using Vec3f = Math::Vector3<float>;
+using Vec3d = Math::Vector3<double>;
+using Vec3i = Math::Vector3<int>;
 
 TEST(Vector3Tests, Construction)
 {

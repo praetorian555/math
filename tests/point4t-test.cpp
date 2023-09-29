@@ -1,13 +1,13 @@
 #include <gtest/gtest.h>
 
-#include "math/point4t.h"
+#include "math/point4.h"
 
-using Point4f = Math::Point4T<float>;
-using Point4d = Math::Point4T<double>;
-using Point4i = Math::Point4T<int>;
-using Vec4f = Math::Vector4T<float>;
-using Vec4d = Math::Vector4T<double>;
-using Vec4i = Math::Vector4T<int>;
+using Point4f = Math::Point4<float>;
+using Point4d = Math::Point4<double>;
+using Point4i = Math::Point4<int>;
+using Vec4f = Math::Vector4<float>;
+using Vec4d = Math::Vector4<double>;
+using Vec4i = Math::Vector4<int>;
 
 TEST(Point4Tests, Construction)
 {
