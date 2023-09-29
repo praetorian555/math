@@ -2,7 +2,7 @@
 
 #include <array>
 
-#include "Math/base.h"
+#include "math/base.h"
 
 namespace Math
 {

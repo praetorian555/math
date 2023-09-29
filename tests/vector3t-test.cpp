@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include "Math/vector3.h"
+#include "math/vector3.h"
 
 using Vec3f = Math::Vector3<float>;
 using Vec3d = Math::Vector3<double>;

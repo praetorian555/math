@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include "Math/vector2.h"
+#include "math/vector2.h"
 
 using Vec2f = Math::Vector2<float>;
 using Vec2d = Math::Vector2<double>;

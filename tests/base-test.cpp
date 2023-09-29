@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include "Math/base.h"
+#include "math/base.h"
 
 
 TEST(BaseTests, Constants)

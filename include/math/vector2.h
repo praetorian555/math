@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Math/base.h"
+#include "math/base.h"
 
 namespace Math
 {

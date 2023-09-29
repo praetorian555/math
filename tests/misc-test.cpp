@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
 
-#include "Math/rng.h"
-//#include "Math/rotator.h"
+#include "math/rng.h"
+//#include "math/rotator.h"
 //
 //
 //using Vector3f = Math::Vector3;
