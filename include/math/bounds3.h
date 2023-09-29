@@ -1,56 +1,395 @@
 #pragma once
 
 #include "math/base.h"
-#include "math/point3.h"
-#include "math/vector3.h"
+#include "math/point3t.h"
+#include "math/vector3t.h"
 
-namespace math
+namespace Math
 {
 
-class Bounds3
+/**
+ * Axis aligned bounding box in 3D.
+ */
+template <typename T>
+struct Bounds3
 {
-public:
-    Point3 Min, Max;
+    Point3T<T> min;
+    Point3T<T> max;
 
-    Bounds3();
-    explicit Bounds3(const Point3& P);
-    Bounds3(const Point3& P1, const Point3& P2);
+    /**
+     * Default constructor. No initialization is done.
+     */
+    constexpr Bounds3();
 
-    const Point3& operator[](int Index) const;
-    Point3& operator[](int Index);
+    /**
+     * Construct consisting of a single point.
+     * @param p The point to initialize the bounds with.
+     */
+    constexpr explicit Bounds3(const Point3T<T>& p);
 
-    bool operator==(const Bounds3& Other) const;
-    bool operator!=(const Bounds3& Other) const;
+    /**
+     * Constructs a bounding box by specifying any two points. The points do not need to be in any
+     * particular order.
+     * @param p1 First point.
+     * @param p2 Second point.
+     */
+    Bounds3(const Point3T<T>& p1, const Point3T<T>& p2);
 
-    [[nodiscard]] Point3 Corner(int Corner) const;
-    [[nodiscard]] Vector3 Diagonal() const;
+    /**
+     * Access min or max by index.
+     * @param index 0 for min, 1 for max.
+     * @return The min or max point.
+     */
+    Point3T<T>& operator[](int32_t index);
+    const Point3T<T>& operator[](int32_t index) const;
 
-    [[nodiscard]] real SurfaceArea() const;
-    [[nodiscard]] real Volume() const;
-
-    [[nodiscard]] int MaximumExtent() const;
-
-    [[nodiscard]] Point3 Lerp(const Point3& Param) const;
-
-    [[nodiscard]] Vector3 Offset(const Point3& P) const;
-
-    void BoundingSphere(Point3& Center, real& Radius) const;
-
-    [[nodiscard]] Vector3 Extent() const;
+    /** Operators. */
+    bool operator==(const Bounds3& other) const;
+    bool operator!=(const Bounds3& other) const;
 };
 
-Bounds3 Union(const Bounds3& B, const Point3& P);
-Bounds3 Union(const Bounds3& B1, const Bounds3& B2);
+/**
+ * Returns the corner of the bounding box specified by the mask.
+ * @tparam T Data type of the bounding box.
+ * @param b The bounding box.
+ * @param mask Bit mask specifying the corner. The least significant bit is the x coordinate, the
+ * second least significant bit is the y coordinate, and the third least significant bit is the z. A
+ * value of 0 means the minimum corner, a value of 1 means the maximum corner.
+ * @return The corner of the bounding box specified by the mask.
+ */
+template <typename T>
+[[nodiscard]] Point3T<T> Corner(const Bounds3<T>& b, uint8_t mask);
 
-Bounds3 Intersect(const Bounds3& B1, const Bounds3& B2);
+/**
+ * Returns the diagonal of the bounding box.
+ * @tparam T Data type of the bounding box.
+ * @param b The bounding box.
+ * @return The diagonal of the bounding box pointing from min to max point.
+ */
+template <typename T>
+[[nodiscard]] Vector3T<T> Diagonal(const Bounds3<T>& b);
 
-bool Overlaps(const Bounds3& B1, const Bounds3& B2);
+/**
+ * Calculates the surface area of the bounding box.
+ * @tparam T Data type of the bounding box.
+ * @param b The bounding box.
+ * @return The surface area of the bounding box.
+ */
+template <typename T>
+[[nodiscard]] T SurfaceArea(const Bounds3<T>& b);
 
-bool Inside(const Point3& P, const Bounds3& B);
+/**
+ * Calculates the volume of the bounding box.
+ * @tparam T Data type of the bounding box.
+ * @param b The bounding box.
+ * @return The volume of the bounding box.
+ */
+template <typename T>
+[[nodiscard]] T Volume(const Bounds3<T>& b);
 
-// The point is not counted if it is on the upper boundry of the box
-bool InsideInclusive(const Point3& P, const Bounds3& B);
+/**
+ * Returns the index of the axis with the maximum extent.
+ * @tparam T Data type of the bounding box.
+ * @param b The bounding box.
+ * @return The index of the axis with the maximum extent.
+ */
+template <typename T>
+[[nodiscard]] int32_t MaximumExtent(const Bounds3<T>& b);
 
-Bounds3 Expand(const Bounds3& B, real Delta);
+/**
+ * Calculate linear interpolation between the min and max point of the bounding box.
+ * @tparam T Data type of the bounding box.
+ * @param b The bounding box.
+ * @param t The interpolation factor. 0 returns the min point, 1 returns the max point.
+ * @return The interpolated point.
+ */
+template <std::floating_point T>
+[[nodiscard]] Point3T<T> Lerp(const Bounds3<T>& b, const Point3T<T>& t);
 
-}  // namespace math
+/**
+ * Calculate the offset of a point from the minimum corner of the bounding box scaled by
+ * the inverse of the bounding box extent.
+ * @tparam T Data type of the bounding box.
+ * @param b The bounding box.
+ * @param p The point.
+ * @return The offset of the point from the minimum corner of the bounding box scaled by the inverse
+ * of the bounding box extent.
+ */
+template <std::floating_point T>
+[[nodiscard]] Vector3T<T> Offset(const Bounds3<T>& b, const Point3T<T>& p);
+
+/**
+ * Calculates a sphere that bounds the bounding box.
+ * @tparam T Data type of the bounding box.
+ * @param b The bounding box.
+ * @param out_center The center of the sphere.
+ * @param out_radius The radius of the sphere.
+ */
+template <std::floating_point T>
+void BoundingSphere(const Bounds3<T>& b, Point3T<T>& out_center, T& out_radius);
+
+/**
+ * Calculates the extent of the bounding box.
+ * @tparam T Data type of the bounding box.
+ * @param b The bounding box.
+ * @return The extent of the bounding box.
+ */
+template <typename T>
+[[nodiscard]] Vector3T<T> Extent(const Bounds3<T>& b);
+
+/**
+ * Calculates the union of a bounding box and a point.
+ * @tparam T Data type of the bounding box.
+ * @param b The bounding box.
+ * @param p The point.
+ * @return The union of the bounding box and the point.
+ */
+template <typename T>
+[[nodiscard]] Bounds3<T> Union(const Bounds3<T>& b, const Point3T<T>& p);
+
+/**
+ * Calculates the union of two bounding boxes.
+ * @tparam T Data type of the bounding boxes.
+ * @param b1 First bounding box.
+ * @param b2 Second bounding box.
+ * @return The union of the two bounding boxes.
+ */
+template <typename T>
+[[nodiscard]] Bounds3<T> Union(const Bounds3<T>& b1, const Bounds3<T>& b2);
+
+/**
+ * Expands the bounding box by a constant amount in all directions.
+ * @tparam T Data type of the bounding box.
+ * @param b The bounding box.
+ * @param delta The amount to expand the bounding box by.
+ * @return The expanded bounding box.
+ */
+template <typename T>
+[[nodiscard]] Bounds3<T> Expand(const Bounds3<T>& b, T delta);
+
+/**
+ * Checks if two bounding boxes overlap.
+ * @tparam T Data type of the bounding boxes.
+ * @param b1 First bounding box.
+ * @param b2 Second bounding box.
+ * @return True if the bounding boxes overlap, false otherwise.
+ */
+template <typename T>
+bool Overlaps(const Bounds3<T>& b1, const Bounds3<T>& b2);
+
+/**
+ * Calculates the intersection of two bounding boxes.
+ * @tparam T Data type of the bounding boxes.
+ * @param b1 First bounding box.
+ * @param b2 Second bounding box.
+ * @return The intersection of the two bounding boxes. If the bounding boxes do not overlap, the
+ * result is undefined. Use Overlaps() to check if the bounding boxes overlap.
+ */
+template <typename T>
+[[nodiscard]] Bounds3<T> Intersect(const Bounds3<T>& b1, const Bounds3<T>& b2);
+
+/**
+ * Checks if a point is inside a bounding box. Note that the point is not counted if it is on the
+ * upper boundary of the box.
+ * @tparam T Data type of the bounding box.
+ * @param b The bounding box.
+ * @param p The point.
+ * @return True if the point is inside the bounding box, false otherwise.
+ */
+template <typename T>
+bool Inside(const Bounds3<T>& b, const Point3T<T>& p);
+
+/**
+ * Checks if a point is inside a bounding box. Note that the point is counted if it is on the
+ * upper boundary of the box as well.
+ * @tparam T Data type of the bounding box.
+ * @param b The bounding box.
+ * @param p The point.
+ * @return True if the point is inside the bounding box, false otherwise.
+ */
+template <typename T>
+bool InsideInclusive(const Bounds3<T>& b, const Point3T<T>& p);
+
+}  // namespace Math
+
+// Implementation //////////////////////////////////////////////////////////////////////////////////
+
+template <typename T>
+constexpr Math::Bounds3<T>::Bounds3()
+{
+    // Do nothing.
+}
+
+template <typename T>
+constexpr Math::Bounds3<T>::Bounds3(const Point3T<T>& p) : min(p), max(p)
+{
+}
+
+template <typename T>
+Math::Bounds3<T>::Bounds3(const Point3T<T>& p1, const Point3T<T>& p2)
+{
+    min = Point3T<T>(math::Min(p1.x, p2.x), math::Min(p1.y, p2.y), math::Min(p1.z, p2.z));
+    max = Point3T<T>(math::Max(p1.x, p2.x), math::Max(p1.y, p2.y), math::Max(p1.z, p2.z));
+}
+
+template <typename T>
+Math::Point3T<T>& Math::Bounds3<T>::operator[](int32_t index)
+{
+    return (&min)[index];
+}
+
+template <typename T>
+const Math::Point3T<T>& Math::Bounds3<T>::operator[](int32_t index) const
+{
+    return (&min)[index];
+}
+
+template <typename T>
+bool Math::Bounds3<T>::operator==(const Bounds3& other) const
+{
+    return min == other.min && max == other.max;
+}
+
+template <typename T>
+bool Math::Bounds3<T>::operator!=(const Bounds3& other) const
+{
+    return min != other.min || max != other.max;
+}
+
+template <typename T>
+Math::Point3T<T> Math::Corner(const Bounds3<T>& b, uint8_t mask)
+{
+    return Point3T<T>((mask & 1) ? b.max.x : b.min.x, (mask & 2) ? b.max.y : b.min.y,
+                      (mask & 4) ? b.max.z : b.min.z);
+}
+
+template <typename T>
+Math::Vector3T<T> Math::Diagonal(const Bounds3<T>& b)
+{
+    return b.max - b.min;
+}
+
+template <typename T>
+T Math::SurfaceArea(const Bounds3<T>& b)
+{
+    const Vector3T<T> diag = Diagonal(b);
+    return 2 * (diag.x * diag.y + diag.x * diag.z + diag.y * diag.z);
+}
+
+template <typename T>
+T Math::Volume(const Bounds3<T>& b)
+{
+    const Vector3T<T> diag = Diagonal(b);
+    return diag.x * diag.y * diag.z;
+}
+
+template <typename T>
+int32_t Math::MaximumExtent(const Bounds3<T>& b)
+{
+    const Vector3T<T> diag = Diagonal(b);
+    if (diag.x > diag.y && diag.x > diag.z)
+    {
+        return 0;
+    }
+    if (diag.y > diag.z)
+    {
+        return 1;
+    }
+    return 2;
+}
+
+template <std::floating_point T>
+Math::Point3T<T> Math::Lerp(const Bounds3<T>& b, const Point3T<T>& t)
+{
+    return Point3T<T>(math::Lerp(t.x, b.min.x, b.max.x), math::Lerp(t.y, b.min.y, b.max.y),
+                      math::Lerp(t.z, b.min.z, b.max.z));
+}
+
+template <std::floating_point T>
+Math::Vector3T<T> Math::Offset(const Bounds3<T>& b, const Point3T<T>& p)
+{
+    Vector3T<T> o = p - b.min;
+    if (b.max.x > b.min.x)
+    {
+        o.x /= b.max.x - b.min.x;
+    }
+    if (b.max.y > b.min.y)
+    {
+        o.y /= b.max.y - b.min.y;
+    }
+    if (b.max.z > b.min.z)
+    {
+        o.z /= b.max.z - b.min.z;
+    }
+    return o;
+}
+
+template <std::floating_point T>
+void Math::BoundingSphere(const Bounds3<T>& b, Point3T<T>& out_center, T& out_radius)
+{
+    out_center = b.min + (b.max - b.min) / static_cast<T>(2);
+    out_radius = Inside(b, out_center) ? static_cast<T>(Distance(out_center, b.max)) : 0;
+}
+
+template <typename T>
+Math::Vector3T<T> Math::Extent(const Bounds3<T>& b)
+{
+    return Math::Abs(b.max - b.min);
+}
+
+template <typename T>
+Math::Bounds3<T> Math::Union(const Bounds3<T>& b, const Point3T<T>& p)
+{
+    return Bounds3<T>(Point3T<T>(math::Min(b.min.x, p.x), math::Min(b.min.y, p.y),
+                                 math::Min(b.min.z, p.z)),
+                      Point3T<T>(math::Max(b.max.x, p.x), math::Max(b.max.y, p.y),
+                                 math::Max(b.max.z, p.z)));
+}
+
+template <typename T>
+Math::Bounds3<T> Math::Union(const Bounds3<T>& b1, const Bounds3<T>& b2)
+{
+    return Bounds3<T>(Point3T<T>(math::Min(b1.min.x, b2.min.x), math::Min(b1.min.y, b2.min.y),
+                                 math::Min(b1.min.z, b2.min.z)),
+                      Point3T<T>(math::Max(b1.max.x, b2.max.x), math::Max(b1.max.y, b2.max.y),
+                                 math::Max(b1.max.z, b2.max.z)));
+}
+
+template <typename T>
+Math::Bounds3<T> Math::Expand(const Bounds3<T>& b, T delta)
+{
+    return Bounds3<T>(b.min - Vector3T<T>(delta, delta, delta),
+                      b.max + Vector3T<T>(delta, delta, delta));
+}
+
+template <typename T>
+bool Math::Overlaps(const Bounds3<T>& b1, const Bounds3<T>& b2)
+{
+    bool x = (b1.max.x >= b2.min.x) && (b1.min.x <= b2.max.x);
+    bool y = (b1.max.y >= b2.min.y) && (b1.min.y <= b2.max.y);
+    bool z = (b1.max.z >= b2.min.z) && (b1.min.z <= b2.max.z);
+    return x && y && z;
+}
+
+template <typename T>
+Math::Bounds3<T> Math::Intersect(const Bounds3<T>& b1, const Bounds3<T>& b2)
+{
+    return Bounds3<T>(Point3T<T>(math::Max(b1.min.x, b2.min.x), math::Max(b1.min.y, b2.min.y),
+                                 math::Max(b1.min.z, b2.min.z)),
+                      Point3T<T>(math::Min(b1.max.x, b2.max.x), math::Min(b1.max.y, b2.max.y),
+                                 math::Min(b1.max.z, b2.max.z)));
+}
+
+template <typename T>
+bool Math::Inside(const Bounds3<T>& b, const Point3T<T>& p)
+{
+    return (p.x >= b.min.x && p.x < b.max.x && p.y >= b.min.y && p.y < b.max.y &&
+            p.z >= b.min.z && p.z < b.max.z);
+}
+
+template <typename T>
+bool Math::InsideInclusive(const Bounds3<T>& b, const Point3T<T>& p)
+{
+    return (p.x >= b.min.x && p.x <= b.max.x && p.y >= b.min.y && p.y <= b.max.y &&
+            p.z >= b.min.z && p.z <= b.max.z);
+}
