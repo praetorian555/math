@@ -2,7 +2,7 @@
 
 #include "math/vector3.h"
 
-namespace math
+namespace Math
 {
 
 /**
@@ -16,35 +16,35 @@ struct Rotator
      * Rotation around the right axis (around Z axis), Looking up and down (0=Straight Ahead, +Up,
      * -Down).
      */
-    real Pitch = 0;
+    float Pitch = 0;
 
     /**
      * Rotation around the up axis (around Y axis), Running in circles +Left, -Right.
      */
-    real Yaw = 0;
+    float Yaw = 0;
 
     /**
      * Rotation around the forward axis (around X axis), Tilting your head, 0=Straight, +CW, -CCW.
      */
-    real Roll = 0;
+    float Roll = 0;
 
     Rotator() = default;
 
     /**
      * Constructor. Angles are in degrees.
      */
-    Rotator(real Pitch, real Yaw, real Roll);
+    Rotator(float Pitch, float Yaw, float Roll);
 
     /**
      * Returns normalized vector in the direction defined by the rotator.
      */
-    [[nodiscard]] Vector3 ToVector() const;
+    [[nodiscard]] Vector3<float> ToVector() const;
 
     /**
      * Returns a vector where each component stores the rotation angle in degrees around
      * corresponding axis.
      */
-    [[nodiscard]] Vector3 ToEuler() const;
+    [[nodiscard]] Vector3<float> ToEuler() const;
 
     bool operator==(const Rotator& Other) const;
     bool operator!=(const Rotator& Other) const;
@@ -54,16 +54,16 @@ struct Rotator
     Rotator operator-(const Rotator& Other) const;
     Rotator& operator-=(const Rotator& Other);
 
-    Rotator operator*(real Val) const;
-    Rotator& operator*=(real Val);
+    Rotator operator*(float Val) const;
+    Rotator& operator*=(float Val);
 
-    void Add(real DeltaPitch, real DeltaYaw, real DeltaRoll);
+    void Add(float DeltaPitch, float DeltaYaw, float DeltaRoll);
 
-    [[nodiscard]] Vector3 RotateVector(const Vector3& Vec) const;
+    [[nodiscard]] Vector3<float> RotateVector(const Vector3<float>& Vec) const;
 
     static const Rotator Zero;
 };
 
-Rotator operator*(real Val, const Rotator& Other);
+Rotator operator*(float Val, const Rotator& Other);
 
 }  // namespace math

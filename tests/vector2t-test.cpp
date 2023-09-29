@@ -1,10 +1,10 @@
 #include <gtest/gtest.h>
 
-#include "math/vector2t.h"
+#include "math/vector2.h"
 
-using Vec2f = Math::Vector2T<float>;
-using Vec2d = Math::Vector2T<double>;
-using Vec2i = Math::Vector2T<int>;
+using Vec2f = Math::Vector2<float>;
+using Vec2d = Math::Vector2<double>;
+using Vec2i = Math::Vector2<int>;
 
 TEST(Vector2Tests, Construction)
 {

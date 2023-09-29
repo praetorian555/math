@@ -1,13 +1,13 @@
 #include <gtest/gtest.h>
 
-#include "math/point3t.h"
+#include "math/point3.h"
 
-using Point3f = Math::Point3T<float>;
-using Point3d = Math::Point3T<double>;
-using Point3i = Math::Point3T<int>;
-using Vec3f = Math::Vector3T<float>;
-using Vec3d = Math::Vector3T<double>;
-using Vec3i = Math::Vector3T<int>;
+using Point3f = Math::Point3<float>;
+using Point3d = Math::Point3<double>;
+using Point3i = Math::Point3<int>;
+using Vec3f = Math::Vector3<float>;
+using Vec3d = Math::Vector3<double>;
+using Vec3i = Math::Vector3<int>;
 
 TEST(Point3Tests, Construction)
 {

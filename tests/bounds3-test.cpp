@@ -2,15 +2,15 @@
 
 #include <gtest/gtest.h>
 
-using Point3f = Math::Point3T<float>;
+using Point3f = Math::Point3<float>;
 using Bounds3f = Math::Bounds3<float>;
-using Vector3f = Math::Vector3T<float>;
-using Point3d = Math::Point3T<double>;
+using Vector3f = Math::Vector3<float>;
+using Point3d = Math::Point3<double>;
 using Bounds3d = Math::Bounds3<double>;
-using Vector3d = Math::Vector3T<double>;
-using Point3i = Math::Point3T<int32_t>;
+using Vector3d = Math::Vector3<double>;
+using Point3i = Math::Point3<int32_t>;
 using Bounds3i = Math::Bounds3<int32_t>;
-using Vector3i = Math::Vector3T<int32_t>;
+using Vector3i = Math::Vector3<int32_t>;
 
 TEST(Bounds3Tests, Creation)
 {

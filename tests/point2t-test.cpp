@@ -1,13 +1,13 @@
 #include <gtest/gtest.h>
 
-#include "math/point2t.h"
+#include "math/point2.h"
 
-using Point2f = Math::Point2T<float>;
-using Point2d = Math::Point2T<double>;
-using Point2i = Math::Point2T<int>;
-using Vec2f = Math::Vector2T<float>;
-using Vec2d = Math::Vector2T<double>;
-using Vec2i = Math::Vector2T<int>;
+using Point2f = Math::Point2<float>;
+using Point2d = Math::Point2<double>;
+using Point2i = Math::Point2<int>;
+using Vec2f = Math::Vector2<float>;
+using Vec2d = Math::Vector2<double>;
+using Vec2i = Math::Vector2<int>;
 
 TEST(Point2Tests, Construction)
 {

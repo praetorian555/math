@@ -1,8 +1,8 @@
 #pragma once
 
 #include "math/base.h"
-#include "math/point2t.h"
-#include "math/vector2t.h"
+#include "math/point2.h"
+#include "math/vector2.h"
 
 namespace Math
 {
@@ -13,8 +13,8 @@ namespace Math
 template <typename T>
 struct Bounds2
 {
-    Point2T<T> min;
-    Point2T<T> max;
+    Point2<T> min;
+    Point2<T> max;
 
     /**
      * Default constructor. No initialization is done.
@@ -25,7 +25,7 @@ struct Bounds2
      * Construct consisting of a single point.
      * @param p The point to initialize the bounds with.
      */
-    constexpr explicit Bounds2(const Point2T<T>& p);
+    constexpr explicit Bounds2(const Point2<T>& p);
 
     /**
      * Constructs a bounding box by specifying any two points. The points do not need to be in any
@@ -33,15 +33,15 @@ struct Bounds2
      * @param p1 First point.
      * @param p2 Second point.
      */
-    Bounds2(const Point2T<T>& p1, const Point2T<T>& p2);
+    Bounds2(const Point2<T>& p1, const Point2<T>& p2);
 
     /**
      * Access min or max by index.
      * @param index 0 for min, 1 for max.
      * @return The min or max point.
      */
-    Point2T<T>& operator[](int32_t index);
-    const Point2T<T>& operator[](int32_t index) const;
+    Point2<T>& operator[](int32_t index);
+    const Point2<T>& operator[](int32_t index) const;
 
     /** Operators. */
     bool operator==(const Bounds2& other) const;
@@ -58,7 +58,7 @@ struct Bounds2
  * @return The corner of the bounding box specified by the mask.
  */
 template <typename T>
-[[nodiscard]] Point2T<T> Corner(const Bounds2<T>& b, uint8_t mask);
+[[nodiscard]] Point2<T> Corner(const Bounds2<T>& b, uint8_t mask);
 
 /**
  * Returns the diagonal of the bounding box.
@@ -67,7 +67,7 @@ template <typename T>
  * @return The diagonal of the bounding box pointing from min to max point.
  */
 template <typename T>
-[[nodiscard]] Vector2T<T> Diagonal(const Bounds2<T>& b);
+[[nodiscard]] Vector2<T> Diagonal(const Bounds2<T>& b);
 
 /**
  * Calculates the surface area of the bounding box.
@@ -95,7 +95,7 @@ template <typename T>
  * @return The interpolated point.
  */
 template <std::floating_point T>
-[[nodiscard]] Point2T<T> Lerp(const Bounds2<T>& b, const Point2T<T>& t);
+[[nodiscard]] Point2<T> Lerp(const Bounds2<T>& b, const Point2<T>& t);
 
 /**
  * Calculate the offset of a point from the minimum corner of the bounding box scaled by
@@ -107,7 +107,7 @@ template <std::floating_point T>
  * of the bounding box extent.
  */
 template <std::floating_point T>
-[[nodiscard]] Vector2T<T> Offset(const Bounds2<T>& b, const Point2T<T>& p);
+[[nodiscard]] Vector2<T> Offset(const Bounds2<T>& b, const Point2<T>& p);
 
 /**
  * Calculates a sphere that bounds the bounding box.
@@ -117,7 +117,7 @@ template <std::floating_point T>
  * @param out_radius The radius of the sphere.
  */
 template <std::floating_point T>
-void BoundingSphere(const Bounds2<T>& b, Point2T<T>& out_center, T& out_radius);
+void BoundingSphere(const Bounds2<T>& b, Point2<T>& out_center, T& out_radius);
 
 /**
  * Calculates the extent of the bounding box.
@@ -126,7 +126,7 @@ void BoundingSphere(const Bounds2<T>& b, Point2T<T>& out_center, T& out_radius);
  * @return The extent of the bounding box.
  */
 template <typename T>
-[[nodiscard]] Vector2T<T> Extent(const Bounds2<T>& b);
+[[nodiscard]] Vector2<T> Extent(const Bounds2<T>& b);
 
 /**
  * Calculates the union of a bounding box and a point.
@@ -136,7 +136,7 @@ template <typename T>
  * @return The union of the bounding box and the point.
  */
 template <typename T>
-[[nodiscard]] Bounds2<T> Union(const Bounds2<T>& b, const Point2T<T>& p);
+[[nodiscard]] Bounds2<T> Union(const Bounds2<T>& b, const Point2<T>& p);
 
 /**
  * Calculates the union of two bounding boxes.
@@ -188,7 +188,7 @@ template <typename T>
  * @return True if the point is inside the bounding box, false otherwise.
  */
 template <typename T>
-bool Inside(const Bounds2<T>& b, const Point2T<T>& p);
+bool Inside(const Bounds2<T>& b, const Point2<T>& p);
 
 /**
  * Checks if a point is inside a bounding box. Note that the point is counted if it is on the
@@ -199,7 +199,7 @@ bool Inside(const Bounds2<T>& b, const Point2T<T>& p);
  * @return True if the point is inside the bounding box, false otherwise.
  */
 template <typename T>
-bool InsideInclusive(const Bounds2<T>& b, const Point2T<T>& p);
+bool InsideInclusive(const Bounds2<T>& b, const Point2<T>& p);
 
 }  // namespace Math
 
@@ -212,25 +212,25 @@ constexpr Math::Bounds2<T>::Bounds2()
 }
 
 template <typename T>
-constexpr Math::Bounds2<T>::Bounds2(const Point2T<T>& p) : min(p), max(p)
+constexpr Math::Bounds2<T>::Bounds2(const Point2<T>& p) : min(p), max(p)
 {
 }
 
 template <typename T>
-Math::Bounds2<T>::Bounds2(const Point2T<T>& p1, const Point2T<T>& p2)
+Math::Bounds2<T>::Bounds2(const Point2<T>& p1, const Point2<T>& p2)
 {
-    min = Point2T<T>(math::Min(p1.x, p2.x), math::Min(p1.y, p2.y));
-    max = Point2T<T>(math::Max(p1.x, p2.x), math::Max(p1.y, p2.y));
+    min = Point2<T>(math::Min(p1.x, p2.x), math::Min(p1.y, p2.y));
+    max = Point2<T>(math::Max(p1.x, p2.x), math::Max(p1.y, p2.y));
 }
 
 template <typename T>
-Math::Point2T<T>& Math::Bounds2<T>::operator[](int32_t index)
+Math::Point2<T>& Math::Bounds2<T>::operator[](int32_t index)
 {
     return (&min)[index];
 }
 
 template <typename T>
-const Math::Point2T<T>& Math::Bounds2<T>::operator[](int32_t index) const
+const Math::Point2<T>& Math::Bounds2<T>::operator[](int32_t index) const
 {
     return (&min)[index];
 }
@@ -248,13 +248,13 @@ bool Math::Bounds2<T>::operator!=(const Bounds2& other) const
 }
 
 template <typename T>
-Math::Point2T<T> Math::Corner(const Bounds2<T>& b, uint8_t mask)
+Math::Point2<T> Math::Corner(const Bounds2<T>& b, uint8_t mask)
 {
-    return Point2T<T>((mask & 1) ? b.max.x : b.min.x, (mask & 2) ? b.max.y : b.min.y);
+    return Point2<T>((mask & 1) ? b.max.x : b.min.x, (mask & 2) ? b.max.y : b.min.y);
 }
 
 template <typename T>
-Math::Vector2T<T> Math::Diagonal(const Bounds2<T>& b)
+Math::Vector2<T> Math::Diagonal(const Bounds2<T>& b)
 {
     return b.max - b.min;
 }
@@ -262,27 +262,27 @@ Math::Vector2T<T> Math::Diagonal(const Bounds2<T>& b)
 template <typename T>
 T Math::SurfaceArea(const Bounds2<T>& b)
 {
-    const Vector2T<T> diag = Diagonal(b);
+    const Vector2<T> diag = Diagonal(b);
     return diag.x * diag.y;
 }
 
 template <typename T>
 int32_t Math::MaximumExtent(const Bounds2<T>& b)
 {
-    const Vector2T<T> diag = Diagonal(b);
+    const Vector2<T> diag = Diagonal(b);
     return (diag.x > diag.y) ? 0 : 1;
 }
 
 template <std::floating_point T>
-Math::Point2T<T> Math::Lerp(const Bounds2<T>& b, const Point2T<T>& t)
+Math::Point2<T> Math::Lerp(const Bounds2<T>& b, const Point2<T>& t)
 {
-    return Point2T<T>(math::Lerp(t.x, b.min.x, b.max.x), math::Lerp(t.y, b.min.y, b.max.y));
+    return Point2<T>(math::Lerp(t.x, b.min.x, b.max.x), math::Lerp(t.y, b.min.y, b.max.y));
 }
 
 template <std::floating_point T>
-Math::Vector2T<T> Math::Offset(const Bounds2<T>& b, const Point2T<T>& p)
+Math::Vector2<T> Math::Offset(const Bounds2<T>& b, const Point2<T>& p)
 {
-    Vector2T<T> o = p - b.min;
+    Vector2<T> o = p - b.min;
     if (b.max.x > b.min.x)
     {
         o.x /= b.max.x - b.min.x;
@@ -295,36 +295,36 @@ Math::Vector2T<T> Math::Offset(const Bounds2<T>& b, const Point2T<T>& p)
 }
 
 template <std::floating_point T>
-void Math::BoundingSphere(const Bounds2<T>& b, Point2T<T>& out_center, T& out_radius)
+void Math::BoundingSphere(const Bounds2<T>& b, Point2<T>& out_center, T& out_radius)
 {
     out_center = b.min + (b.max - b.min) / static_cast<T>(2);
     out_radius = Inside(b, out_center) ? static_cast<T>(Distance(out_center, b.max)) : 0;
 }
 
 template <typename T>
-Math::Vector2T<T> Math::Extent(const Bounds2<T>& b)
+Math::Vector2<T> Math::Extent(const Bounds2<T>& b)
 {
     return Math::Abs(b.max - b.min);
 }
 
 template <typename T>
-Math::Bounds2<T> Math::Union(const Bounds2<T>& b, const Point2T<T>& p)
+Math::Bounds2<T> Math::Union(const Bounds2<T>& b, const Point2<T>& p)
 {
-    return Bounds2<T>(Point2T<T>(math::Min(b.min.x, p.x), math::Min(b.min.y, p.y)),
-                      Point2T<T>(math::Max(b.max.x, p.x), math::Max(b.max.y, p.y)));
+    return Bounds2<T>(Point2<T>(math::Min(b.min.x, p.x), math::Min(b.min.y, p.y)),
+                      Point2<T>(math::Max(b.max.x, p.x), math::Max(b.max.y, p.y)));
 }
 
 template <typename T>
 Math::Bounds2<T> Math::Union(const Bounds2<T>& b1, const Bounds2<T>& b2)
 {
-    return Bounds2<T>(Point2T<T>(math::Min(b1.min.x, b2.min.x), math::Min(b1.min.y, b2.min.y)),
-                      Point2T<T>(math::Max(b1.max.x, b2.max.x), math::Max(b1.max.y, b2.max.y)));
+    return Bounds2<T>(Point2<T>(math::Min(b1.min.x, b2.min.x), math::Min(b1.min.y, b2.min.y)),
+                      Point2<T>(math::Max(b1.max.x, b2.max.x), math::Max(b1.max.y, b2.max.y)));
 }
 
 template <typename T>
 Math::Bounds2<T> Math::Expand(const Bounds2<T>& b, T delta)
 {
-    return Bounds2<T>(b.min - Vector2T<T>(delta, delta), b.max + Vector2T<T>(delta, delta));
+    return Bounds2<T>(b.min - Vector2<T>(delta, delta), b.max + Vector2<T>(delta, delta));
 }
 
 template <typename T>
@@ -338,18 +338,18 @@ bool Math::Overlaps(const Bounds2<T>& b1, const Bounds2<T>& b2)
 template <typename T>
 Math::Bounds2<T> Math::Intersect(const Bounds2<T>& b1, const Bounds2<T>& b2)
 {
-    return Bounds2<T>(Point2T<T>(math::Max(b1.min.x, b2.min.x), math::Max(b1.min.y, b2.min.y)),
-                      Point2T<T>(math::Min(b1.max.x, b2.max.x), math::Min(b1.max.y, b2.max.y)));
+    return Bounds2<T>(Point2<T>(math::Max(b1.min.x, b2.min.x), math::Max(b1.min.y, b2.min.y)),
+                      Point2<T>(math::Min(b1.max.x, b2.max.x), math::Min(b1.max.y, b2.max.y)));
 }
 
 template <typename T>
-bool Math::Inside(const Bounds2<T>& b, const Point2T<T>& p)
+bool Math::Inside(const Bounds2<T>& b, const Point2<T>& p)
 {
     return (p.x >= b.min.x && p.x < b.max.x && p.y >= b.min.y && p.y < b.max.y);
 }
 
 template <typename T>
-bool Math::InsideInclusive(const Bounds2<T>& b, const Point2T<T>& p)
+bool Math::InsideInclusive(const Bounds2<T>& b, const Point2<T>& p)
 {
     return (p.x >= b.min.x && p.x <= b.max.x && p.y >= b.min.y && p.y <= b.max.y);
 }

@@ -15,4 +15,4 @@
 #include "math/point2.h"
 #include "math/point3.h"
 #include "math/point4.h"
-#include "math/prettyprint.h"
+#include "math/quaternion.h"
