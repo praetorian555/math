@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include "Math/vector4.h"
+#include "math/vector4.h"
 
 using Vec4f = Math::Vector4<float>;
 using Vec4d = Math::Vector4<double>;

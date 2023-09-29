@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include "Math/normal3.h"
+#include "math/normal3.h"
 
 using Normal3f = Math::Normal3<float>;
 using Normal3d = Math::Normal3<double>;

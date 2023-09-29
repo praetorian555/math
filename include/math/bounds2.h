@@ -1,8 +1,8 @@
 #pragma once
 
-#include "Math/base.h"
-#include "Math/point2.h"
-#include "Math/vector2.h"
+#include "math/base.h"
+#include "math/point2.h"
+#include "math/vector2.h"
 
 namespace Math
 {

@@ -1,4 +1,4 @@
-﻿#include "Math/bounds3.h"
+﻿#include "math/bounds3.h"
 
 #include <gtest/gtest.h>
 
