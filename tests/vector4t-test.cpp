@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include "math/vector4.h"
+#include "Math/vector4.h"
 
 using Vec4f = Math::Vector4<float>;
 using Vec4d = Math::Vector4<double>;
@@ -588,12 +588,12 @@ TEST(Vector4Tests, Normalize)
     {
         const Vec4f vec(2, 3, 5, 6);
         const Vec4f norm = Normalize(vec);
-        EXPECT_TRUE(math::IsEqual(Math::Length(norm), 1.0, 0.00001));
+        EXPECT_TRUE(Math::IsEqual(Math::Length(norm), 1.0, 0.00001));
     }
     {
         const Vec4d vec(2, 3, 5, 6);
         const Vec4d norm = Normalize(vec);
-        EXPECT_TRUE(math::IsEqual(Math::Length(norm), 1.0, 0.00001));
+        EXPECT_TRUE(Math::IsEqual(Math::Length(norm), 1.0, 0.00001));
     }
 }
 

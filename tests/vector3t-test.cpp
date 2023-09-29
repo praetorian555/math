@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include "math/vector3.h"
+#include "Math/vector3.h"
 
 using Vec3f = Math::Vector3<float>;
 using Vec3d = Math::Vector3<double>;
@@ -593,12 +593,12 @@ TEST(Vector3Tests, Normalize)
     {
         const Vec3f vec(2, 3, 5);
         const Vec3f norm = Normalize(vec);
-        EXPECT_TRUE(math::IsEqual(Math::Length(norm), 1.0, 0.00001));
+        EXPECT_TRUE(Math::IsEqual(Math::Length(norm), 1.0, 0.00001));
     }
     {
         const Vec3d vec(2, 3, 5);
         const Vec3d norm = Normalize(vec);
-        EXPECT_TRUE(math::IsEqual(Math::Length(norm), 1.0, 0.00001));
+        EXPECT_TRUE(Math::IsEqual(Math::Length(norm), 1.0, 0.00001));
     }
 }
 

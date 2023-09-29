@@ -1,4 +1,4 @@
-﻿#include "math/bounds3.h"
+﻿#include "Math/bounds3.h"
 
 #include <gtest/gtest.h>
 
@@ -308,7 +308,7 @@ TEST(Bounds3Tests, BoundingSphere)
         BoundingSphere(b, center, radius);
 
         EXPECT_EQ(center, Point3f(3, 3, 3));
-        EXPECT_FLOAT_EQ(radius, math::Sqrt(3.0f));
+        EXPECT_FLOAT_EQ(radius, Math::Sqrt(3.0f));
     }
     {
         const Point3d p1(2, 2, 2);
@@ -320,7 +320,7 @@ TEST(Bounds3Tests, BoundingSphere)
         BoundingSphere(b, center, radius);
 
         EXPECT_EQ(center, Point3d(3, 3, 3));
-        EXPECT_DOUBLE_EQ(radius, math::Sqrt(3.0));
+        EXPECT_DOUBLE_EQ(radius, Math::Sqrt(3.0));
     }
 }
 

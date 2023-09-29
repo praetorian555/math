@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include "math/vector2.h"
+#include "Math/vector2.h"
 
 using Vec2f = Math::Vector2<float>;
 using Vec2d = Math::Vector2<double>;
@@ -523,12 +523,12 @@ TEST(Vector2Tests, Normalize)
     {
         const Vec2f vec(2, 3);
         const Vec2f norm = Normalize(vec);
-        EXPECT_TRUE(math::IsEqual(Math::Length(norm), 1.0, 0.00001));
+        EXPECT_TRUE(Math::IsEqual(Math::Length(norm), 1.0, 0.00001));
     }
     {
         const Vec2d vec(2, 3);
         const Vec2d norm = Normalize(vec);
-        EXPECT_TRUE(math::IsEqual(Math::Length(norm), 1.0, 0.00001));
+        EXPECT_TRUE(Math::IsEqual(Math::Length(norm), 1.0, 0.00001));
     }
 }
 

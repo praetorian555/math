@@ -2,7 +2,7 @@
 
 #include <array>
 
-#include "math/base.h"
+#include "Math/base.h"
 
 namespace Math
 {
@@ -352,9 +352,9 @@ Math::Matrix4x4<T> Math::Inverse(const Matrix4x4<T>& m)
             {
                 if (ipiv[column] == 0)
                 {
-                    if (math::Abs(mat_inv[row][column]) >= big)
+                    if (Math::Abs(mat_inv[row][column]) >= big)
                     {
-                        big = math::Abs(mat_inv[row][column]);
+                        big = Math::Abs(mat_inv[row][column]);
                         index_row = row;
                         index_column = column;
                     }

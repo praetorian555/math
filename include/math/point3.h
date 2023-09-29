@@ -1,6 +1,6 @@
 #pragma once
 
-#include "math/vector3.h"
+#include "Math/vector3.h"
 
 namespace Math
 {
@@ -358,26 +358,26 @@ Math::Point3<T>& Math::Point3<T>::operator/=(U scalar)
 template <typename T>
 bool Math::ContainsNonFinite(const Point3<T>& vec)
 {
-    return !math::IsFinite(vec.x) || !math::IsFinite(vec.y) || !math::IsFinite(vec.z);
+    return !Math::IsFinite(vec.x) || !Math::IsFinite(vec.y) || !Math::IsFinite(vec.z);
 }
 
 template <typename T>
 bool Math::ContainsNaN(const Point3<T>& vec)
 {
-    return math::IsNaN(vec.x) || math::IsNaN(vec.y) || math::IsNaN(vec.z);
+    return Math::IsNaN(vec.x) || Math::IsNaN(vec.y) || Math::IsNaN(vec.z);
 }
 
 template <typename T>
 Math::Point3<T> Math::Abs(const Point3<T>& vec)
 {
-    return {math::Abs(vec.x), math::Abs(vec.y), math::Abs(vec.z)};
+    return {Math::Abs(vec.x), Math::Abs(vec.y), Math::Abs(vec.z)};
 }
 
 template <typename T>
 bool Math::IsEqual(const Point3<T>& vec1, const Point3<T>& vec2, T epsilon)
 {
-    return math::Abs(vec1.x - vec2.x) <= epsilon && math::Abs(vec1.y - vec2.y) <= epsilon &&
-           math::Abs(vec1.z - vec2.z) <= epsilon;
+    return Math::Abs(vec1.x - vec2.x) <= epsilon && Math::Abs(vec1.y - vec2.y) <= epsilon &&
+           Math::Abs(vec1.z - vec2.z) <= epsilon;
 }
 
 template <typename T>
@@ -401,13 +401,13 @@ Math::Point3<T> Math::Lerp(T t, const Point3<T>& p1, const Point3<T>& p2)
 template <typename T>
 Math::Point3<T> Math::Min(const Point3<T>& vec1, const Point3<T>& vec2)
 {
-    return {math::Min(vec1.x, vec2.x), math::Min(vec1.y, vec2.y), math::Min(vec1.z, vec2.z)};
+    return {Math::Min(vec1.x, vec2.x), Math::Min(vec1.y, vec2.y), Math::Min(vec1.z, vec2.z)};
 }
 
 template <typename T>
 Math::Point3<T> Math::Max(const Point3<T>& vec1, const Point3<T>& vec2)
 {
-    return {math::Max(vec1.x, vec2.x), math::Max(vec1.y, vec2.y), math::Max(vec1.z, vec2.z)};
+    return {Math::Max(vec1.x, vec2.x), Math::Max(vec1.y, vec2.y), Math::Max(vec1.z, vec2.z)};
 }
 
 template <typename T>
@@ -425,7 +425,7 @@ Math::Point3<T> Math::Floor(const Point3<T>& p)
     }
     if constexpr (std::is_floating_point_v<T>)
     {
-        return {math::Floor(p.x), math::Floor(p.y), math::Floor(p.z)};
+        return {Math::Floor(p.x), Math::Floor(p.y), Math::Floor(p.z)};
     }
 }
 
@@ -438,7 +438,7 @@ Math::Point3<T> Math::Ceil(const Point3<T>& p)
     }
     if constexpr (std::is_floating_point_v<T>)
     {
-        return {math::Ceil(p.x), math::Ceil(p.y), math::Ceil(p.z)};
+        return {Math::Ceil(p.x), Math::Ceil(p.y), Math::Ceil(p.z)};
     }
 }
 
@@ -451,6 +451,6 @@ Math::Point3<T> Math::Round(const Point3<T>& p)
     }
     if constexpr (std::is_floating_point_v<T>)
     {
-        return {math::Round(p.x), math::Round(p.y), math::Round(p.z)};
+        return {Math::Round(p.x), Math::Round(p.y), Math::Round(p.z)};
     }
 }

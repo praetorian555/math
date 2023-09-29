@@ -1,6 +1,6 @@
 #pragma once
 
-#include "math/vector2.h"
+#include "Math/vector2.h"
 
 namespace Math
 {
@@ -351,25 +351,25 @@ Math::Point2<T>& Math::Point2<T>::operator/=(U scalar)
 template <typename T>
 bool Math::ContainsNonFinite(const Point2<T>& vec)
 {
-    return !math::IsFinite(vec.x) || !math::IsFinite(vec.y);
+    return !Math::IsFinite(vec.x) || !Math::IsFinite(vec.y);
 }
 
 template <typename T>
 bool Math::ContainsNaN(const Point2<T>& vec)
 {
-    return math::IsNaN(vec.x) || math::IsNaN(vec.y);
+    return Math::IsNaN(vec.x) || Math::IsNaN(vec.y);
 }
 
 template <typename T>
 Math::Point2<T> Math::Abs(const Point2<T>& vec)
 {
-    return {math::Abs(vec.x), math::Abs(vec.y)};
+    return {Math::Abs(vec.x), Math::Abs(vec.y)};
 }
 
 template <typename T>
 bool Math::IsEqual(const Point2<T>& vec1, const Point2<T>& vec2, T epsilon)
 {
-    return math::Abs(vec1.x - vec2.x) <= epsilon && math::Abs(vec1.y - vec2.y) <= epsilon;
+    return Math::Abs(vec1.x - vec2.x) <= epsilon && Math::Abs(vec1.y - vec2.y) <= epsilon;
 }
 
 template <typename T>
@@ -393,13 +393,13 @@ Math::Point2<T> Math::Lerp(T t, const Point2<T>& p1, const Point2<T>& p2)
 template <typename T>
 Math::Point2<T> Math::Min(const Point2<T>& vec1, const Point2<T>& vec2)
 {
-    return {math::Min(vec1.x, vec2.x), math::Min(vec1.y, vec2.y)};
+    return {Math::Min(vec1.x, vec2.x), Math::Min(vec1.y, vec2.y)};
 }
 
 template <typename T>
 Math::Point2<T> Math::Max(const Point2<T>& vec1, const Point2<T>& vec2)
 {
-    return {math::Max(vec1.x, vec2.x), math::Max(vec1.y, vec2.y)};
+    return {Math::Max(vec1.x, vec2.x), Math::Max(vec1.y, vec2.y)};
 }
 
 template <typename T>
@@ -417,7 +417,7 @@ Math::Point2<T> Math::Floor(const Point2<T>& p)
     }
     if constexpr (std::is_floating_point_v<T>)
     {
-        return {math::Floor(p.x), math::Floor(p.y)};
+        return {Math::Floor(p.x), Math::Floor(p.y)};
     }
 }
 
@@ -430,7 +430,7 @@ Math::Point2<T> Math::Ceil(const Point2<T>& p)
     }
     if constexpr (std::is_floating_point_v<T>)
     {
-        return {math::Ceil(p.x), math::Ceil(p.y)};
+        return {Math::Ceil(p.x), Math::Ceil(p.y)};
     }
 }
 
@@ -443,6 +443,6 @@ Math::Point2<T> Math::Round(const Point2<T>& p)
     }
     if constexpr (std::is_floating_point_v<T>)
     {
-        return {math::Round(p.x), math::Round(p.y)};
+        return {Math::Round(p.x), Math::Round(p.y)};
     }
 }
