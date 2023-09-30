@@ -76,6 +76,8 @@ Vector3<T> operator*(U scalar, const Vector3<T>& vec);
 
 /**
  * Checks if any of the components are NaN or infinite value.
+ * @tparam T The type of the vector components.
+ * @param vec The vector to check.
  * @return True if any of the components are NaN or infinite value, false otherwise.
  */
 template <typename T>
@@ -83,6 +85,8 @@ template <typename T>
 
 /**
  * Checks if any of the components are NaN.
+ * @tparam T The type of the vector components.
+ * @param vec The vector to check.
  * @return True if any of the components are NaN, false otherwise.
  */
 template <typename T>
