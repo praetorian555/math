@@ -60,4 +60,4 @@ private:
     uint64_t m_inc = 0;
 };
 
-}  // namespace math
+}  // namespace Math

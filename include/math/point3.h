@@ -251,24 +251,24 @@ bool Math::Point3<T>::operator!=(const Point3& other) const
 }
 
 template <typename T>
-Math::Point3<T> Math::Point3<T>::operator+(const Vector3<T>& other) const
+Math::Point3<T> Math::Point3<T>::operator+(const Vector3<T>& vec) const
 {
-    return {x + other.x, y + other.y, z + other.z};
+    return {x + vec.x, y + vec.y, z + vec.z};
 }
 
 template <typename T>
-Math::Point3<T>& Math::Point3<T>::operator+=(const Vector3<T>& other)
+Math::Point3<T>& Math::Point3<T>::operator+=(const Vector3<T>& vec)
 {
-    x += other.x;
-    y += other.y;
-    z += other.z;
+    x += vec.x;
+    y += vec.y;
+    z += vec.z;
     return *this;
 }
 
 template <typename T>
-Math::Point3<T> Math::Point3<T>::operator-(const Vector3<T>& other) const
+Math::Point3<T> Math::Point3<T>::operator-(const Vector3<T>& vec) const
 {
-    return {x - other.x, y - other.y, z - other.z};
+    return {x - vec.x, y - vec.y, z - vec.z};
 }
 
 template <typename T>
@@ -278,11 +278,11 @@ Math::Vector3<T> Math::Point3<T>::operator-(const Point3& other) const
 }
 
 template <typename T>
-Math::Point3<T>& Math::Point3<T>::operator-=(const Vector3<T>& other)
+Math::Point3<T>& Math::Point3<T>::operator-=(const Vector3<T>& vec)
 {
-    x -= other.x;
-    y -= other.y;
-    z -= other.z;
+    x -= vec.x;
+    y -= vec.y;
+    z -= vec.z;
     return *this;
 }
 
@@ -293,9 +293,9 @@ Math::Point3<T> Math::Point3<T>::operator-() const
 }
 
 template <typename T, typename U>
-Math::Point3<T> Math::operator*(U scalar, const Point3<T>& vec)
+Math::Point3<T> Math::operator*(U scalar, const Point3<T>& p)
 {
-    return vec * scalar;
+    return p * scalar;
 }
 
 template <typename T>
@@ -356,28 +356,28 @@ Math::Point3<T>& Math::Point3<T>::operator/=(U scalar)
 }
 
 template <typename T>
-bool Math::ContainsNonFinite(const Point3<T>& vec)
+bool Math::ContainsNonFinite(const Point3<T>& p)
 {
-    return !Math::IsFinite(vec.x) || !Math::IsFinite(vec.y) || !Math::IsFinite(vec.z);
+    return !Math::IsFinite(p.x) || !Math::IsFinite(p.y) || !Math::IsFinite(p.z);
 }
 
 template <typename T>
-bool Math::ContainsNaN(const Point3<T>& vec)
+bool Math::ContainsNaN(const Point3<T>& p)
 {
-    return Math::IsNaN(vec.x) || Math::IsNaN(vec.y) || Math::IsNaN(vec.z);
+    return Math::IsNaN(p.x) || Math::IsNaN(p.y) || Math::IsNaN(p.z);
 }
 
 template <typename T>
-Math::Point3<T> Math::Abs(const Point3<T>& vec)
+Math::Point3<T> Math::Abs(const Point3<T>& p)
 {
-    return {Math::Abs(vec.x), Math::Abs(vec.y), Math::Abs(vec.z)};
+    return {Math::Abs(p.x), Math::Abs(p.y), Math::Abs(p.z)};
 }
 
 template <typename T>
-bool Math::IsEqual(const Point3<T>& vec1, const Point3<T>& vec2, T epsilon)
+bool Math::IsEqual(const Point3<T>& p1, const Point3<T>& p2, T epsilon)
 {
-    return Math::Abs(vec1.x - vec2.x) <= epsilon && Math::Abs(vec1.y - vec2.y) <= epsilon &&
-           Math::Abs(vec1.z - vec2.z) <= epsilon;
+    return Math::Abs(p1.x - p2.x) <= epsilon && Math::Abs(p1.y - p2.y) <= epsilon &&
+           Math::Abs(p1.z - p2.z) <= epsilon;
 }
 
 template <typename T>
@@ -399,21 +399,21 @@ Math::Point3<T> Math::Lerp(T t, const Point3<T>& p1, const Point3<T>& p2)
 }
 
 template <typename T>
-Math::Point3<T> Math::Min(const Point3<T>& vec1, const Point3<T>& vec2)
+Math::Point3<T> Math::Min(const Point3<T>& p1, const Point3<T>& p2)
 {
-    return {Math::Min(vec1.x, vec2.x), Math::Min(vec1.y, vec2.y), Math::Min(vec1.z, vec2.z)};
+    return {Math::Min(p1.x, p2.x), Math::Min(p1.y, p2.y), Math::Min(p1.z, p2.z)};
 }
 
 template <typename T>
-Math::Point3<T> Math::Max(const Point3<T>& vec1, const Point3<T>& vec2)
+Math::Point3<T> Math::Max(const Point3<T>& p1, const Point3<T>& p2)
 {
-    return {Math::Max(vec1.x, vec2.x), Math::Max(vec1.y, vec2.y), Math::Max(vec1.z, vec2.z)};
+    return {Math::Max(p1.x, p2.x), Math::Max(p1.y, p2.y), Math::Max(p1.z, p2.z)};
 }
 
 template <typename T>
-Math::Point3<T> Math::Permute(const Point3<T>& vec, int x, int y, int z)
+Math::Point3<T> Math::Permute(const Point3<T>& p, int x, int y, int z)
 {
-    return {vec[x], vec[y], vec[z]};
+    return {p[x], p[y], p[z]};
 }
 
 template <typename T>
