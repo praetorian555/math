@@ -44,8 +44,8 @@ struct Normal3
     constexpr Normal3(T xx, T yy, T zz);
 
     /**
-     * Converts a given ntor to a normal.
-     * @param n The ntor to convert.
+     * Converts a given vector to a normal.
+     * @param vec The vector to convert.
      */
     constexpr explicit Normal3(const Vector3<T>& vec);
 
@@ -283,7 +283,7 @@ constexpr Math::Normal3<T>::Normal3(T xx, T yy, T zz) : x(xx), y(yy), z(zz)
 }
 
 template <typename T>
-constexpr Math::Normal3<T>::Normal3(const Vector3<T>& n) : x(n.x), y(n.y), z(n.z)
+constexpr Math::Normal3<T>::Normal3(const Vector3<T>& vec) : x(vec.x), y(vec.y), z(vec.z)
 {
 }
 

@@ -16,7 +16,6 @@ option(MATH_REAL_AS_DOUBLE "Use double precision" OFF)
 
 message(STATUS "MATH_SANITIZER ${MATH_SANITIZER}")
 message(STATUS "MATH_UNITY ${MATH_UNITY}")
-message(STATUS "MATH_REAL_AS_DOUBLE ${MATH_REAL_AS_DOUBLE}")
 
 # Only do these if this is the main project, and not if it is included through add_subdirectory
 if (CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)

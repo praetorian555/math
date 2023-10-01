@@ -54,7 +54,7 @@ struct Point2
     Point2& operator+=(const Vector2<T>& vec);
 
     Point2 operator-(const Vector2<T>& vec) const;
-    Vector2<T> operator-(const Point2& other) const;
+    Vector2<T> operator-(const Point2& vec) const;
     Point2& operator-=(const Vector2<T>& vec);
 
     Point2 operator-() const;
@@ -249,36 +249,36 @@ bool Math::Point2<T>::operator!=(const Point2& other) const
 }
 
 template <typename T>
-Math::Point2<T> Math::Point2<T>::operator+(const Vector2<T>& other) const
+Math::Point2<T> Math::Point2<T>::operator+(const Vector2<T>& vec) const
 {
-    return {x + other.x, y + other.y};
+    return {x + vec.x, y + vec.y};
 }
 
 template <typename T>
-Math::Point2<T>& Math::Point2<T>::operator+=(const Vector2<T>& other)
+Math::Point2<T>& Math::Point2<T>::operator+=(const Vector2<T>& vec)
 {
-    x += other.x;
-    y += other.y;
+    x += vec.x;
+    y += vec.y;
     return *this;
 }
 
 template <typename T>
-Math::Point2<T> Math::Point2<T>::operator-(const Vector2<T>& other) const
+Math::Point2<T> Math::Point2<T>::operator-(const Vector2<T>& vec) const
 {
-    return {x - other.x, y - other.y};
+    return {x - vec.x, y - vec.y};
 }
 
 template <typename T>
-Math::Vector2<T> Math::Point2<T>::operator-(const Point2& other) const
+Math::Vector2<T> Math::Point2<T>::operator-(const Point2& vec) const
 {
-    return {x - other.x, y - other.y};
+    return {x - vec.x, y - vec.y};
 }
 
 template <typename T>
-Math::Point2<T>& Math::Point2<T>::operator-=(const Vector2<T>& other)
+Math::Point2<T>& Math::Point2<T>::operator-=(const Vector2<T>& vec)
 {
-    x -= other.x;
-    y -= other.y;
+    x -= vec.x;
+    y -= vec.y;
     return *this;
 }
 
@@ -289,9 +289,9 @@ Math::Point2<T> Math::Point2<T>::operator-() const
 }
 
 template <typename T, typename U>
-Math::Point2<T> Math::operator*(U scalar, const Point2<T>& vec)
+Math::Point2<T> Math::operator*(U scalar, const Point2<T>& p)
 {
-    return vec * scalar;
+    return p * scalar;
 }
 
 template <typename T>
@@ -349,27 +349,27 @@ Math::Point2<T>& Math::Point2<T>::operator/=(U scalar)
 }
 
 template <typename T>
-bool Math::ContainsNonFinite(const Point2<T>& vec)
+bool Math::ContainsNonFinite(const Point2<T>& p)
 {
-    return !Math::IsFinite(vec.x) || !Math::IsFinite(vec.y);
+    return !Math::IsFinite(p.x) || !Math::IsFinite(p.y);
 }
 
 template <typename T>
-bool Math::ContainsNaN(const Point2<T>& vec)
+bool Math::ContainsNaN(const Point2<T>& p)
 {
-    return Math::IsNaN(vec.x) || Math::IsNaN(vec.y);
+    return Math::IsNaN(p.x) || Math::IsNaN(p.y);
 }
 
 template <typename T>
-Math::Point2<T> Math::Abs(const Point2<T>& vec)
+Math::Point2<T> Math::Abs(const Point2<T>& p)
 {
-    return {Math::Abs(vec.x), Math::Abs(vec.y)};
+    return {Math::Abs(p.x), Math::Abs(p.y)};
 }
 
 template <typename T>
-bool Math::IsEqual(const Point2<T>& vec1, const Point2<T>& vec2, T epsilon)
+bool Math::IsEqual(const Point2<T>& p1, const Point2<T>& p2, T epsilon)
 {
-    return Math::Abs(vec1.x - vec2.x) <= epsilon && Math::Abs(vec1.y - vec2.y) <= epsilon;
+    return Math::Abs(p1.x - p2.x) <= epsilon && Math::Abs(p1.y - p2.y) <= epsilon;
 }
 
 template <typename T>
@@ -391,21 +391,21 @@ Math::Point2<T> Math::Lerp(T t, const Point2<T>& p1, const Point2<T>& p2)
 }
 
 template <typename T>
-Math::Point2<T> Math::Min(const Point2<T>& vec1, const Point2<T>& vec2)
+Math::Point2<T> Math::Min(const Point2<T>& p1, const Point2<T>& p2)
 {
-    return {Math::Min(vec1.x, vec2.x), Math::Min(vec1.y, vec2.y)};
+    return {Math::Min(p1.x, p2.x), Math::Min(p1.y, p2.y)};
 }
 
 template <typename T>
-Math::Point2<T> Math::Max(const Point2<T>& vec1, const Point2<T>& vec2)
+Math::Point2<T> Math::Max(const Point2<T>& p1, const Point2<T>& p2)
 {
-    return {Math::Max(vec1.x, vec2.x), Math::Max(vec1.y, vec2.y)};
+    return {Math::Max(p1.x, p2.x), Math::Max(p1.y, p2.y)};
 }
 
 template <typename T>
-Math::Point2<T> Math::Permute(const Point2<T>& vec, int x, int y)
+Math::Point2<T> Math::Permute(const Point2<T>& p, int x, int y)
 {
-    return {vec[x], vec[y]};
+    return {p[x], p[y]};
 }
 
 template <typename T>
