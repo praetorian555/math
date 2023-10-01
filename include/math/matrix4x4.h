@@ -82,6 +82,16 @@ template <typename T, integral_or_floating_point U>
 Matrix4x4<T> operator*(U scalar, const Matrix4x4<T>& m);
 
 /**
+ * Check if two matrices are equal.
+ * @param m1 The first matrix.
+ * @param m2 The second matrix.
+ * @param epsilon The epsilon value to use for comparison.
+ * @return True if the matrices are equal, false otherwise.
+ */
+template <typename T>
+bool IsEqual(const Matrix4x4<T>& m1, const Matrix4x4<T>& m2, T epsilon);
+
+/**
  * Transpose the matrix.
  * @param m The matrix to transpose.
  * @return The transposed matrix.
@@ -312,6 +322,22 @@ template <typename T, Math::integral_or_floating_point U>
 Math::Matrix4x4<T> Math::operator*(U scalar, const Matrix4x4<T>& m)
 {
     return m * static_cast<T>(scalar);
+}
+
+template <typename T>
+bool Math::IsEqual(const Matrix4x4<T>& m1, const Matrix4x4<T>& m2, T epsilon)
+{
+    for (int32_t i = 0; i < Matrix4x4<T>::k_row_count; ++i)
+    {
+        for (int32_t j = 0; j < Matrix4x4<T>::k_column_count; ++j)
+        {
+            if (!Math::IsEqual(m1.elements[i][j], m2.elements[i][j], epsilon))
+            {
+                return false;
+            }
+        }
+    }
+    return true;
 }
 
 template <typename T>
