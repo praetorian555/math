@@ -10,60 +10,177 @@ namespace Math
  * Default orientation (all zeros) means that the forward vector is along the x-axis, up vector is
  * along the y-axis and right vector is along the z-axis.
  */
+template <std::floating_point T>
 struct Rotator
 {
     /**
      * Rotation around the right axis (around Z axis), Looking up and down (0=Straight Ahead, +Up,
      * -Down).
      */
-    float Pitch = 0;
+    T pitch;
 
     /**
      * Rotation around the up axis (around Y axis), Running in circles +Left, -Right.
      */
-    float Yaw = 0;
+    T yaw;
 
     /**
      * Rotation around the forward axis (around X axis), Tilting your head, 0=Straight, +CW, -CCW.
      */
-    float Roll = 0;
+    T roll;
 
-    Rotator() = default;
+    /**
+     * Default constructor. No initialization.
+     */
+    constexpr Rotator();
 
     /**
      * Constructor. Angles are in degrees.
      */
-    Rotator(float Pitch, float Yaw, float Roll);
+    constexpr Rotator(T pitch, T yaw, T roll);
 
     /**
-     * Returns normalized vector in the direction defined by the rotator.
+     * Returns rotator with zero rotation.
+     * @return Rotator with zero rotation.
      */
-    [[nodiscard]] Vector3<float> ToVector() const;
+    static Rotator Zero();
 
-    /**
-     * Returns a vector where each component stores the rotation angle in degrees around
-     * corresponding axis.
-     */
-    [[nodiscard]] Vector3<float> ToEuler() const;
+    /** Operator overloads. */
 
-    bool operator==(const Rotator& Other) const;
-    bool operator!=(const Rotator& Other) const;
+    bool operator==(const Rotator& other) const;
+    bool operator!=(const Rotator& other) const;
 
-    Rotator operator+(const Rotator& Other) const;
-    Rotator& operator+=(const Rotator& Other);
-    Rotator operator-(const Rotator& Other) const;
-    Rotator& operator-=(const Rotator& Other);
+    Rotator operator+(const Rotator& other) const;
+    Rotator& operator+=(const Rotator& other);
+    Rotator operator-(const Rotator& other) const;
+    Rotator& operator-=(const Rotator& other);
 
-    Rotator operator*(float Val) const;
-    Rotator& operator*=(float Val);
-
-    void Add(float DeltaPitch, float DeltaYaw, float DeltaRoll);
-
-    [[nodiscard]] Vector3<float> RotateVector(const Vector3<float>& Vec) const;
-
-    static const Rotator Zero;
+    Rotator operator*(T val) const;
+    Rotator& operator*=(T val);
 };
 
-Rotator operator*(float Val, const Rotator& Other);
+template <std::floating_point T>
+Rotator<T> operator*(T val, const Rotator<T>& rot);
 
-}  // namespace math
+/**
+ * Returns a normalized vector defined by the angles in the rotator.
+ * @tparam T Rotator data type.
+ * @param rot Rotator.
+ * @return Normalized vector.
+ */
+template <std::floating_point T>
+[[nodiscard]] Vector3<T> RotatorToVector(const Rotator<T>& rot);
+
+/**
+ * Returns a vector where each component stores the rotation angle in degrees around
+ * corresponding axis.
+ * @tparam T Rotator data type.
+ * @param rot Rotator.
+ * @return Vector with rotation angles.
+ */
+template <std::floating_point T>
+[[nodiscard]] Vector3<T> RotatorToEuler(const Rotator<T>& rot);
+
+}  // namespace Math
+
+// Implementation //////////////////////////////////////////////////////////////////////////////////
+
+template <std::floating_point T>
+constexpr Math::Rotator<T>::Rotator()
+{
+    // Do nothing.
+}
+
+template <std::floating_point T>
+constexpr Math::Rotator<T>::Rotator(T pitch, T yaw, T roll)
+    : pitch(pitch), yaw(yaw), roll(roll)
+{
+}
+
+template <std::floating_point T>
+Math::Rotator<T> Math::Rotator<T>::Zero()
+{
+    return Rotator<T>{0, 0, 0};
+}
+
+template <std::floating_point T>
+bool Math::Rotator<T>::operator==(const Rotator& other) const
+{
+    return pitch == other.pitch && yaw == other.yaw && roll == other.roll;
+}
+
+template <std::floating_point T>
+bool Math::Rotator<T>::operator!=(const Rotator& other) const
+{
+    return !(*this == other);
+}
+
+template <std::floating_point T>
+Math::Rotator<T> Math::Rotator<T>::operator+(const Rotator& other) const
+{
+    return Rotator<T>{pitch + other.pitch, yaw + other.yaw, roll + other.roll};
+}
+
+template <std::floating_point T>
+Math::Rotator<T>& Math::Rotator<T>::operator+=(const Rotator& other)
+{
+    pitch += other.pitch;
+    yaw += other.yaw;
+    roll += other.roll;
+    return *this;
+}
+
+template <std::floating_point T>
+Math::Rotator<T> Math::Rotator<T>::operator-(const Rotator& other) const
+{
+    return Rotator<T>{pitch - other.pitch, yaw - other.yaw, roll - other.roll};
+}
+
+template <std::floating_point T>
+Math::Rotator<T>& Math::Rotator<T>::operator-=(const Rotator& other)
+{
+    pitch -= other.pitch;
+    yaw -= other.yaw;
+    roll -= other.roll;
+    return *this;
+}
+
+template <std::floating_point T>
+Math::Rotator<T> Math::Rotator<T>::operator*(T val) const
+{
+    return Rotator<T>{pitch * val, yaw * val, roll * val};
+}
+
+template <std::floating_point T>
+Math::Rotator<T>& Math::Rotator<T>::operator*=(T val)
+{
+    pitch *= val;
+    yaw *= val;
+    roll *= val;
+    return *this;
+}
+
+template <std::floating_point T>
+Math::Rotator<T> Math::operator*(T val, const Rotator<T>& rot)
+{
+    return rot * val;
+}
+
+template <std::floating_point T>
+Math::Vector3<T> Math::RotatorToVector(const Rotator<T>& rot)
+{
+    const T pitch_no_winding = Mod(rot.pitch, static_cast<T>(360.0));
+    const T yaw_no_winding = Mod(rot.yaw, static_cast<T>(360.0));
+
+    const T sp = Sin(Radians(pitch_no_winding));
+    const T cp = Cos(Radians(pitch_no_winding));
+    const T sy = Sin(Radians(yaw_no_winding));
+    const T cy = Cos(Radians(yaw_no_winding));
+    return Vector3{cp * cy, sp, -cp * sy};
+}
+
+template <std::floating_point T>
+Math::Vector3<T> Math::RotatorToEuler(const Rotator<T>& rot)
+{
+    return Vector3<T>{rot.roll, rot.yaw, rot.pitch};
+}
