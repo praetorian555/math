@@ -3,6 +3,11 @@
 #include <array>
 
 #include "math/base.h"
+#include "math/normal3.h"
+#include "math/point3.h"
+#include "math/point4.h"
+#include "math/vector3.h"
+#include "math/vector4.h"
 
 namespace Math
 {
@@ -73,6 +78,12 @@ struct Matrix4x4
     Matrix4x4 operator/(U scalar) const;
     template <typename U>
     Matrix4x4& operator/=(U scalar);
+
+    Point3<T> operator*(const Point3<T>& p) const;
+    Point4<T> operator*(const Point4<T>& p) const;
+    Vector3<T> operator*(const Vector3<T>& v) const;
+    Vector4<T> operator*(const Vector4<T>& v) const;
+    Normal3<T> operator*(const Normal3<T>& n) const;
 };
 
 template <typename T>
@@ -316,6 +327,62 @@ Math::Matrix4x4<T>& Math::Matrix4x4<T>::operator/=(U scalar)
 {
     *this = *this / scalar;
     return *this;
+}
+
+template <typename T>
+Math::Point3<T> Math::Matrix4x4<T>::operator*(const Point3<T>& p) const
+{
+    const T x = elements[0][0] * p.x + elements[0][1] * p.y + elements[0][2] * p.z + elements[0][3];
+    const T y = elements[1][0] * p.x + elements[1][1] * p.y + elements[1][2] * p.z + elements[1][3];
+    const T z = elements[2][0] * p.x + elements[2][1] * p.y + elements[2][2] * p.z + elements[2][3];
+    const T w = elements[3][0] * p.x + elements[3][1] * p.y + elements[3][2] * p.z + elements[3][3];
+    return Point3<T>(x / w, y / w, z / w);
+}
+
+template <typename T>
+Math::Point4<T> Math::Matrix4x4<T>::operator*(const Point4<T>& p) const
+{
+    const T x =
+        elements[0][0] * p.x + elements[0][1] * p.y + elements[0][2] * p.z + elements[0][3] * p.w;
+    const T y =
+        elements[1][0] * p.x + elements[1][1] * p.y + elements[1][2] * p.z + elements[1][3] * p.w;
+    const T z =
+        elements[2][0] * p.x + elements[2][1] * p.y + elements[2][2] * p.z + elements[2][3] * p.w;
+    const T w =
+        elements[3][0] * p.x + elements[3][1] * p.y + elements[3][2] * p.z + elements[3][3] * p.w;
+    return Point4<T>(x, y, z, w);
+}
+
+template <typename T>
+Math::Vector3<T> Math::Matrix4x4<T>::operator*(const Vector3<T>& v) const
+{
+    const T x = elements[0][0] * v.x + elements[0][1] * v.y + elements[0][2] * v.z;
+    const T y = elements[1][0] * v.x + elements[1][1] * v.y + elements[1][2] * v.z;
+    const T z = elements[2][0] * v.x + elements[2][1] * v.y + elements[2][2] * v.z;
+    return Vector3<T>(x, y, z);
+}
+
+template <typename T>
+Math::Vector4<T> Math::Matrix4x4<T>::operator*(const Vector4<T>& v) const
+{
+    const T x =
+        elements[0][0] * v.x + elements[0][1] * v.y + elements[0][2] * v.z + elements[0][3] * v.w;
+    const T y =
+        elements[1][0] * v.x + elements[1][1] * v.y + elements[1][2] * v.z + elements[1][3] * v.w;
+    const T z =
+        elements[2][0] * v.x + elements[2][1] * v.y + elements[2][2] * v.z + elements[2][3] * v.w;
+    const T w =
+        elements[3][0] * v.x + elements[3][1] * v.y + elements[3][2] * v.z + elements[3][3] * v.w;
+    return Vector4<T>(x, y, z, w);
+}
+
+template <typename T>
+Math::Normal3<T> Math::Matrix4x4<T>::operator*(const Normal3<T>& n) const
+{
+    const T x = elements[0][0] * n.x + elements[1][0] * n.y + elements[2][0] * n.z;
+    const T y = elements[0][1] * n.x + elements[1][1] * n.y + elements[2][1] * n.z;
+    const T z = elements[0][2] * n.x + elements[1][2] * n.y + elements[2][2] * n.z;
+    return Normal3<T>(x, y, z);
 }
 
 template <typename T, Math::integral_or_floating_point U>

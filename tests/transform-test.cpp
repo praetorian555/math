@@ -1,13 +1,18 @@
 ﻿#include <gtest/gtest.h>
 
 #include "math/transform.h"
+#include "math/normal3.h"
 
 using Vector3f = Math::Vector3<float>;
 using Vector3d = Math::Vector3<double>;
 using Vector3i = Math::Vector3<int>;
+using Vector4f = Math::Vector4<float>;
+using Vector4d = Math::Vector4<double>;
 using Point3f = Math::Point3<float>;
 using Point3d = Math::Point3<double>;
 using Point3i = Math::Point3<int>;
+using Point4f = Math::Point4<float>;
+using Point4d = Math::Point4<double>;
 using Matrix4f = Math::Matrix4x4<float>;
 using Matrix4d = Math::Matrix4x4<double>;
 using Matrix4i = Math::Matrix4x4<int>;
@@ -15,6 +20,8 @@ using Quatf = Math::Quaternion<float>;
 using Quatd = Math::Quaternion<double>;
 using Rotf = Math::Rotator<float>;
 using Rotd = Math::Rotator<double>;
+using Normal3f = Math::Normal3<float>;
+using Normal3d = Math::Normal3<double>;
 
 TEST(TransformTests, Identity)
 {
@@ -566,5 +573,85 @@ TEST(TransformTests, RotateAndTranslate)
         EXPECT_DOUBLE_EQ(t2.elements[3][1], 0);
         EXPECT_DOUBLE_EQ(t2.elements[3][2], 0);
         EXPECT_DOUBLE_EQ(t2.elements[3][3], 1);
+    }
+}
+
+TEST(TransformTests, ApplyingTransforms)
+{
+    {
+        const Matrix4f t1 = Math::Translate(Vector3f(2, 3, 5));
+        const Matrix4f t2 = Math::Scale(2.0f);
+        const Point3f p1(1, 1, 1);
+        const Point3f p2 = t1 * p1;
+        EXPECT_FLOAT_EQ(p2.x, 3);
+        EXPECT_FLOAT_EQ(p2.y, 4);
+        EXPECT_FLOAT_EQ(p2.z, 6);
+        const Point4f p3 = t1 * Point4f(1, 1, 1, 1);
+        EXPECT_FLOAT_EQ(p3.x, 3);
+        EXPECT_FLOAT_EQ(p3.y, 4);
+        EXPECT_FLOAT_EQ(p3.z, 6);
+        EXPECT_FLOAT_EQ(p3.w, 1);
+        const Vector3f v1(1, 1, 1);
+        const Vector3f v2 = t1 * v1;
+        EXPECT_FLOAT_EQ(v2.x, 1);
+        EXPECT_FLOAT_EQ(v2.y, 1);
+        EXPECT_FLOAT_EQ(v2.z, 1);
+        const Vector4f v3 = t1 * Vector4f(1, 1, 1, 1);
+        EXPECT_FLOAT_EQ(v3.x, 3);
+        EXPECT_FLOAT_EQ(v3.y, 4);
+        EXPECT_FLOAT_EQ(v3.z, 6);
+        EXPECT_FLOAT_EQ(v3.w, 1);
+        const Vector3f v4 = t2 * v1;
+        EXPECT_FLOAT_EQ(v4.x, 2);
+        EXPECT_FLOAT_EQ(v4.y, 2);
+        EXPECT_FLOAT_EQ(v4.z, 2);
+        const Vector4f v5 = t2 * Vector4f(1, 1, 1, 1);
+        EXPECT_FLOAT_EQ(v5.x, 2);
+        EXPECT_FLOAT_EQ(v5.y, 2);
+        EXPECT_FLOAT_EQ(v5.z, 2);
+        EXPECT_FLOAT_EQ(v5.w, 1);
+        const Normal3f n1(1, 1, 1);
+        const Normal3f n2 = t1 * n1;
+        EXPECT_FLOAT_EQ(n2.x, 1);
+        EXPECT_FLOAT_EQ(n2.y, 1);
+        EXPECT_FLOAT_EQ(n2.z, 1);
+    }
+    {
+        const Matrix4d t1 = Math::Translate(Vector3d(2, 3, 5));
+        const Matrix4d t2 = Math::Scale(2.0);
+        const Point3d p1(1, 1, 1);
+        const Point3d p2 = t1 * p1;
+        EXPECT_DOUBLE_EQ(p2.x, 3);
+        EXPECT_DOUBLE_EQ(p2.y, 4);
+        EXPECT_DOUBLE_EQ(p2.z, 6);
+        const Point4d p3 = t1 * Point4d(1, 1, 1, 1);
+        EXPECT_DOUBLE_EQ(p3.x, 3);
+        EXPECT_DOUBLE_EQ(p3.y, 4);
+        EXPECT_DOUBLE_EQ(p3.z, 6);
+        EXPECT_DOUBLE_EQ(p3.w, 1);
+        const Vector3d v1(1, 1, 1);
+        const Vector3d v2 = t1 * v1;
+        EXPECT_DOUBLE_EQ(v2.x, 1);
+        EXPECT_DOUBLE_EQ(v2.y, 1);
+        EXPECT_DOUBLE_EQ(v2.z, 1);
+        const Vector4d v3 = t1 * Vector4d(1, 1, 1, 1);
+        EXPECT_DOUBLE_EQ(v3.x, 3);
+        EXPECT_DOUBLE_EQ(v3.y, 4);
+        EXPECT_DOUBLE_EQ(v3.z, 6);
+        EXPECT_DOUBLE_EQ(v3.w, 1);
+        const Vector3d v4 = t2 * v1;
+        EXPECT_DOUBLE_EQ(v4.x, 2);
+        EXPECT_DOUBLE_EQ(v4.y, 2);
+        EXPECT_DOUBLE_EQ(v4.z, 2);
+        const Vector4d v5 = t2 * Vector4d(1, 1, 1, 1);
+        EXPECT_DOUBLE_EQ(v5.x, 2);
+        EXPECT_DOUBLE_EQ(v5.y, 2);
+        EXPECT_DOUBLE_EQ(v5.z, 2);
+        EXPECT_DOUBLE_EQ(v5.w, 1);
+        const Normal3d n1(1, 1, 1);
+        const Normal3d n2 = t1 * n1;
+        EXPECT_DOUBLE_EQ(n2.x, 1);
+        EXPECT_DOUBLE_EQ(n2.y, 1);
+        EXPECT_DOUBLE_EQ(n2.z, 1);
     }
 }
