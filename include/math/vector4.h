@@ -45,6 +45,12 @@ struct Vector4
      */
     constexpr Vector4(T xx, T yy, T zz, T ww);
 
+    /**
+     * Returns vector with all components set to zero.
+     * @return Vector with all components set to zero.
+     */
+    static Vector4 Zero();
+
     /** Operators **/
     T& operator[](int index);
     const T& operator[](int index) const;
@@ -254,6 +260,12 @@ constexpr Math::Vector4<T>::Vector4(T value) : x(value), y(value), z(value), w(v
 template <typename T>
 constexpr Math::Vector4<T>::Vector4(T xx, T yy, T zz, T ww) : x(xx), y(yy), z(zz), w(ww)
 {
+}
+
+template <typename T>
+Math::Vector4<T> Math::Vector4<T>::Zero()
+{
+    return {0, 0, 0, 0};
 }
 
 template <typename T>

@@ -49,6 +49,12 @@ struct Normal3
      */
     constexpr explicit Normal3(const Vector3<T>& vec);
 
+    /**
+     * Returns a normal with all components set to zero.
+     * @return A normal with all components set to zero.
+     */
+    static Normal3 Zero();
+
     /** Operators **/
     T& operator[](int index);
     const T& operator[](int index) const;
@@ -285,6 +291,12 @@ constexpr Math::Normal3<T>::Normal3(T xx, T yy, T zz) : x(xx), y(yy), z(zz)
 template <typename T>
 constexpr Math::Normal3<T>::Normal3(const Vector3<T>& vec) : x(vec.x), y(vec.y), z(vec.z)
 {
+}
+
+template <typename T>
+Math::Normal3<T> Math::Normal3<T>::Zero()
+{
+    return {0, 0, 0};
 }
 
 template <typename T>

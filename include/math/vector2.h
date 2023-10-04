@@ -43,6 +43,12 @@ struct Vector2
      */
     constexpr Vector2(T xx, T yy);
 
+    /**
+     * Returns a vector with all components set to zero.
+     * @return A vector with all components set to zero.
+     */
+    static Vector2 Zero();
+
     /** Operators **/
     T& operator[](int index);
     const T& operator[](int index) const;
@@ -269,6 +275,12 @@ constexpr Math::Vector2<T>::Vector2(T value) : x(value), y(value)
 template <typename T>
 constexpr Math::Vector2<T>::Vector2(T xx, T yy) : x(xx), y(yy)
 {
+}
+
+template <typename T>
+Math::Vector2<T> Math::Vector2<T>::Zero()
+{
+    return {0, 0};
 }
 
 template <typename T>

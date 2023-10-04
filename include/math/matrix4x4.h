@@ -56,6 +56,12 @@ struct Matrix4x4
                         T t30, T t31, T t32, T t33);
     // clang-format on
 
+    /**
+     * Create a 4x4 zero matrix.
+     * @return The zero matrix.
+     */
+    static Matrix4x4 Zero();
+
     /** Operators **/
     T& operator()(int32_t row, int32_t column);
     const T& operator()(int32_t row, int32_t column) const;
@@ -176,6 +182,12 @@ constexpr Math::Matrix4x4<T>::Matrix4x4(T t00,
     elements[2][0] = t20; elements[2][1] = t21; elements[2][2] = t22; elements[2][3] = t23;
     elements[3][0] = t30; elements[3][1] = t31; elements[3][2] = t32; elements[3][3] = t33;
     // clang-format on
+}
+
+template <typename T>
+Math::Matrix4x4<T> Math::Matrix4x4<T>::Zero()
+{
+    return Matrix4x4<T>(0);
 }
 
 template <typename T>

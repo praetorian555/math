@@ -44,6 +44,12 @@ struct Vector3
      */
     constexpr Vector3(T xx, T yy, T zz);
 
+    /**
+     * Returns a vector with all components set to zero.
+     * @return A vector with all components set to zero.
+     */
+    static Vector3 Zero();
+
     /** Operators **/
     T& operator[](int index);
     const T& operator[](int index) const;
@@ -285,6 +291,12 @@ constexpr Math::Vector3<T>::Vector3(T value) : x(value), y(value), z(value)
 template <typename T>
 constexpr Math::Vector3<T>::Vector3(T xx, T yy, T zz) : x(xx), y(yy), z(zz)
 {
+}
+
+template <typename T>
+Math::Vector3<T> Math::Vector3<T>::Zero()
+{
+    return Vector3<T>{0, 0, 0};
 }
 
 template <typename T>

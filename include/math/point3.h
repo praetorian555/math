@@ -44,6 +44,12 @@ struct Point3
      */
     constexpr Point3(T xx, T yy, T zz);
 
+    /**
+     * Returns a point with all components set to zero.
+     * @return A point with all components set to zero.
+     */
+    static Point3 Zero();
+
     /** Operators **/
     T& operator[](int index);
     const T& operator[](int index) const;
@@ -224,6 +230,12 @@ constexpr Math::Point3<T>::Point3(T value) : x(value), y(value), z(value)
 template <typename T>
 constexpr Math::Point3<T>::Point3(T xx, T yy, T zz) : x(xx), y(yy), z(zz)
 {
+}
+
+template <typename T>
+Math::Point3<T> Math::Point3<T>::Zero()
+{
+    return {0, 0, 0};
 }
 
 template <typename T>

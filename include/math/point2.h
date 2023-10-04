@@ -43,6 +43,12 @@ struct Point2
      */
     constexpr Point2(T xx, T yy);
 
+    /**
+     * Returns a point with all components set to zero.
+     * @return A point with all components set to zero.
+     */
+    static Point2 Zero();
+
     /** Operators **/
     T& operator[](int index);
     const T& operator[](int index) const;
@@ -222,6 +228,12 @@ constexpr Math::Point2<T>::Point2(T value) : x(value), y(value)
 template <typename T>
 constexpr Math::Point2<T>::Point2(T xx, T yy) : x(xx), y(yy)
 {
+}
+
+template <typename T>
+Math::Point2<T> Math::Point2<T>::Zero()
+{
+    return {0, 0};
 }
 
 template <typename T>

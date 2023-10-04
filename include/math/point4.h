@@ -45,6 +45,12 @@ struct Point4
      */
     constexpr Point4(T xx, T yy, T zz, T ww);
 
+    /**
+     * Returns a point with all components set to zero.
+     * @return A point with all components set to zero.
+     */
+    static Point4 Zero();
+
     /** Operators **/
     T& operator[](int index);
     const T& operator[](int index) const;
@@ -226,6 +232,12 @@ constexpr Math::Point4<T>::Point4(T value) : x(value), y(value), z(value), w(val
 template <typename T>
 constexpr Math::Point4<T>::Point4(T xx, T yy, T zz, T ww) : x(xx), y(yy), z(zz), w(ww)
 {
+}
+
+template <typename T>
+Math::Point4<T> Math::Point4<T>::Zero()
+{
+    return {0, 0, 0, 0};
 }
 
 template <typename T>
