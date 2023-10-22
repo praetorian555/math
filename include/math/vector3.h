@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include "math/base.h"
 
@@ -135,6 +135,17 @@ template <typename T>
  */
 template <typename T>
 bool IsEqual(const Vector3<T>& vec1, const Vector3<T>& vec2, T epsilon);
+
+/**
+ * Returns the linear interpolation between two vectors.
+ * @tparam T The type of the vector components.
+ * @param t The interpolation factor.
+ * @param vec1 The first vector.
+ * @param vec2 The second vector.
+ * @return The linear interpolation between two vectors.
+ */
+template <typename T>
+Vector3<T> Lerp(T t, const Vector3<T>& vec1, const Vector3<T>& vec2);
 
 /**
  * Returns the dot product of two vectors.
@@ -472,6 +483,12 @@ bool Math::IsEqual(const Vector3<T>& vec1, const Vector3<T>& vec2, T epsilon)
 {
     return Math::Abs(vec1.x - vec2.x) <= epsilon && Math::Abs(vec1.y - vec2.y) <= epsilon &&
            Math::Abs(vec1.z - vec2.z) <= epsilon;
+}
+
+template <typename T>
+Math::Vector3<T> Math::Lerp(T t, const Vector3<T>& vec1, const Vector3<T>& vec2)
+{
+    return (1 - t) * vec1 + t * vec2;
 }
 
 template <typename T>

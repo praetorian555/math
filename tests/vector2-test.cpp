@@ -465,6 +465,26 @@ TEST(Vector2Tests, Length)
     }
 }
 
+TEST(Vector2Tests, Lerp)
+{
+    {
+        const Vec2f v1(1, 2);
+        const Vec2f v2(3, 4);
+
+        const Vec2f v3 = Math::Lerp(0.5f, v1, v2);
+        EXPECT_FLOAT_EQ(v3.x, 2.0f);
+        EXPECT_FLOAT_EQ(v3.y, 3.0f);
+    }
+    {
+        const Vec2d v1(1, 2);
+        const Vec2d v2(3, 4);
+
+        const Vec2d v3 = Math::Lerp(0.5, v1, v2);
+        EXPECT_DOUBLE_EQ(v3.x, 2.0f);
+        EXPECT_DOUBLE_EQ(v3.y, 3.0f);
+    }
+}
+
 TEST(Vector2Tests, Dot)
 {
     {

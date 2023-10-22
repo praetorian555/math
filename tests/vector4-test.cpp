@@ -555,6 +555,30 @@ TEST(Vector4Tests, Length)
     }
 }
 
+TEST(Vector4Tests, Lerp)
+{
+    {
+        const Vec4f v1(1, 2, 3, 4);
+        const Vec4f v2(3, 4, 5, 6);
+
+        const Vec4f v3 = Math::Lerp(0.5f, v1, v2);
+        EXPECT_FLOAT_EQ(v3.x, 2.0f);
+        EXPECT_FLOAT_EQ(v3.y, 3.0f);
+        EXPECT_FLOAT_EQ(v3.z, 4.0f);
+        EXPECT_FLOAT_EQ(v3.w, 5.0f);
+    }
+    {
+        const Vec4d v1(1, 2, 3, 4);
+        const Vec4d v2(3, 4, 5, 6);
+
+        const Vec4d v3 = Math::Lerp(0.5, v1, v2);
+        EXPECT_DOUBLE_EQ(v3.x, 2.0f);
+        EXPECT_DOUBLE_EQ(v3.y, 3.0f);
+        EXPECT_DOUBLE_EQ(v3.z, 4.0f);
+        EXPECT_DOUBLE_EQ(v3.w, 5.0f);
+    }
+}
+
 TEST(Vector4Tests, Dot)
 {
     {

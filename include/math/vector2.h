@@ -132,6 +132,17 @@ template <typename T>
 bool IsEqual(const Vector2<T>& vec1, const Vector2<T>& vec2, T epsilon);
 
 /**
+ * Returns the linear interpolation between two vectors.
+ * @tparam T The type of the vector components.
+ * @param t The interpolation factor.
+ * @param vec1 Start vector.
+ * @param vec2 End vector.
+ * @return The linear interpolation between two vectors.
+ */
+template <typename T>
+Vector2<T> Lerp(T t, const Vector2<T>& vec1, const Vector2<T>& vec2);
+
+/**
  * Returns the dot product of two vectors.
  * @tparam T The type of the vector components.
  * @param vec1 The first vector.
@@ -449,6 +460,12 @@ template <typename T>
 bool Math::IsEqual(const Vector2<T>& vec1, const Vector2<T>& vec2, T epsilon)
 {
     return Math::Abs(vec1.x - vec2.x) <= epsilon && Math::Abs(vec1.y - vec2.y) <= epsilon;
+}
+
+template <typename T>
+Math::Vector2<T> Math::Lerp(T t, const Vector2<T>& vec1, const Vector2<T>& vec2)
+{
+    return (1 - t) * vec1 + t * vec2;
 }
 
 template <typename T>
