@@ -419,7 +419,7 @@ TEST(QuaternionTests, Lerp)
     {
         const Quatf q1 = Quatf::FromAxisAngleDegrees(Vector3f(1, 0, 0), 30);
         const Quatf q2 = Quatf::FromAxisAngleDegrees(Vector3f(1, 0, 0), 90);
-        const Quatf q3 = Lerp(q1, q2, 0.5f);
+        const Quatf q3 = Lerp(0.5f, q1, q2);
         const Quatf q4 = Quatf::FromAxisAngleDegrees(Vector3f(1, 0, 0), 60);
         EXPECT_FLOAT_EQ(q3.vec.x, q4.vec.x);
         EXPECT_FLOAT_EQ(q3.vec.y, q4.vec.y);
@@ -429,7 +429,7 @@ TEST(QuaternionTests, Lerp)
     {
         const Quatf q1 = Quatf::FromAxisAngleDegrees(Vector3f(1, 0, 0), 30);
         const Quatf q2 = Quatf::FromAxisAngleDegrees(Vector3f(1, 0, 0), 90);
-        const Quatf q3 = Lerp(q1, q2, 0.4f);
+        const Quatf q3 = Lerp(0.4f, q1, q2);
         const Quatf q4 = Quatf::FromAxisAngleDegrees(Vector3f(1, 0, 0), 54);
         EXPECT_TRUE(Math::IsEqual(q3.vec.x, q4.vec.x, 0.01f));
         EXPECT_FLOAT_EQ(q3.vec.y, q4.vec.y);
@@ -439,7 +439,7 @@ TEST(QuaternionTests, Lerp)
     {
         const Quatd q1 = Quatd::FromAxisAngleDegrees(Vector3d(1, 0, 0), 30);
         const Quatd q2 = Quatd::FromAxisAngleDegrees(Vector3d(1, 0, 0), 90);
-        const Quatd q3 = Lerp(q1, q2, 0.5);
+        const Quatd q3 = Lerp(0.5, q1, q2);
         const Quatd q4 = Quatd::FromAxisAngleDegrees(Vector3d(1, 0, 0), 60);
         EXPECT_DOUBLE_EQ(q3.vec.x, q4.vec.x);
         EXPECT_DOUBLE_EQ(q3.vec.y, q4.vec.y);
@@ -454,7 +454,7 @@ TEST(QuaternionTests, Slerp)
         {
             const Quatf q1 = Quatf::FromAxisAngleDegrees(Vector3f(1, 0, 0), 30);
             const Quatf q2 = Quatf::FromAxisAngleDegrees(Vector3f(1, 0, 0), 90);
-            const Quatf q3 = Math::Slerp(q1, q2, 0.5f);
+            const Quatf q3 = Math::Slerp(0.5f, q1, q2);
             const Quatf q4 = Quatf::FromAxisAngleDegrees(Vector3f(1, 0, 0), 60);
             EXPECT_FLOAT_EQ(q3.vec.x, q4.vec.x);
             EXPECT_FLOAT_EQ(q3.vec.y, q4.vec.y);
@@ -464,7 +464,7 @@ TEST(QuaternionTests, Slerp)
         {
             const Quatf q1 = Quatf::FromAxisAngleDegrees(Vector3f(1, 0, 0), 30);
             const Quatf q2 = Quatf::FromAxisAngleDegrees(Vector3f(1, 0, 0), 90);
-            const Quatf q3 = Math::Slerp(q1, q2, 0.4f);
+            const Quatf q3 = Math::Slerp(0.4f, q1, q2);
             const Quatf q4 = Quatf::FromAxisAngleDegrees(Vector3f(1, 0, 0), 54);
             EXPECT_FLOAT_EQ(q3.vec.x, q4.vec.x);
             EXPECT_FLOAT_EQ(q3.vec.y, q4.vec.y);
@@ -476,7 +476,7 @@ TEST(QuaternionTests, Slerp)
         {
             const Quatd q1 = Quatd::FromAxisAngleDegrees(Vector3d(1, 0, 0), 30);
             const Quatd q2 = Quatd::FromAxisAngleDegrees(Vector3d(1, 0, 0), 90);
-            const Quatd q3 = Math::Slerp(q1, q2, 0.5);
+            const Quatd q3 = Math::Slerp(0.5, q1, q2);
             const Quatd q4 = Quatd::FromAxisAngleDegrees(Vector3d(1, 0, 0), 60);
             EXPECT_DOUBLE_EQ(q3.vec.x, q4.vec.x);
             EXPECT_DOUBLE_EQ(q3.vec.y, q4.vec.y);
@@ -486,7 +486,7 @@ TEST(QuaternionTests, Slerp)
         {
             const Quatd q1 = Quatd::FromAxisAngleDegrees(Vector3d(1, 0, 0), 30);
             const Quatd q2 = Quatd::FromAxisAngleDegrees(Vector3d(1, 0, 0), 90);
-            const Quatd q3 = Math::Slerp(q1, q2, 0.4);
+            const Quatd q3 = Math::Slerp(0.4, q1, q2);
             const Quatd q4 = Quatd::FromAxisAngleDegrees(Vector3d(1, 0, 0), 54);
             EXPECT_DOUBLE_EQ(q3.vec.x, q4.vec.x);
             EXPECT_DOUBLE_EQ(q3.vec.y, q4.vec.y);

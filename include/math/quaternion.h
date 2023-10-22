@@ -157,16 +157,16 @@ Quaternion<T> Normalize(const Quaternion<T>& q);
 /**
  * Perform linear interpolation between two Quaternions.
  * @tparam T Type of the Quaternions.
+ * @param param Parameter to interpolate between the two Quaternions. Should be between 0 and 1.
  * @param q1 First Quaternion.
  * @param q2 Second Quaternion.
- * @param param Parameter to interpolate between the two Quaternions. Should be between 0 and 1.
  * @return Returns the interpolated Quaternion in a new object.
  * @note This operation is commutative but results in a non-constant angular velocity. If you want
  * absolute precision and constant angular velocity, use Slerp instead.
  * @see Slerp
  */
 template <std::floating_point T>
-Quaternion<T> Lerp(const Quaternion<T>& q1, const Quaternion<T>& q2, T param);
+Quaternion<T> Lerp(T param, const Quaternion<T>& q1, const Quaternion<T>& q2);
 
 /**
  * Perform spherical linear interpolation between two Quaternions.
@@ -181,7 +181,7 @@ Quaternion<T> Lerp(const Quaternion<T>& q1, const Quaternion<T>& q2, T param);
  * @see Lerp
  */
 template <std::floating_point T>
-Quaternion<T> Slerp(const Quaternion<T>& q1, const Quaternion<T>& q2, T param);
+Quaternion<T> Slerp(T param, const Quaternion<T>& q1, const Quaternion<T>& q2);
 
 /**
  * @brief Get the conjugate of a Quaternion.
@@ -449,7 +449,7 @@ Math::Quaternion<T> Math::Normalize(const Quaternion<T>& q)
 }
 
 template <std::floating_point T>
-Math::Quaternion<T> Math::Lerp(const Quaternion<T>& q1, const Quaternion<T>& q2, T param)
+Math::Quaternion<T> Math::Lerp(T param, const Quaternion<T>& q1, const Quaternion<T>& q2)
 {
 #if _DEBUG
     constexpr T k_epsilon = static_cast<T>(0.0001);
@@ -462,7 +462,7 @@ Math::Quaternion<T> Math::Lerp(const Quaternion<T>& q1, const Quaternion<T>& q2,
 }
 
 template <std::floating_point T>
-Math::Quaternion<T> Math::Slerp(const Quaternion<T>& q1, const Quaternion<T>& q2, T param)
+Math::Quaternion<T> Math::Slerp(T param, const Quaternion<T>& q1, const Quaternion<T>& q2)
 {
     // Implementation based on: Understanding Slerp, Then Not Using It, Jonathan Blow
     // http://number-none.com/product/Understanding%20Slerp,%20Then%20Not%20Using%20It/
@@ -474,7 +474,7 @@ Math::Quaternion<T> Math::Slerp(const Quaternion<T>& q1, const Quaternion<T>& q2
     const T cos_theta0 = Dot(q1, q2);
     if (cos_theta0 > static_cast<T>(1.0) - k_epsilon)
     {
-        return Lerp(q1, q2, param);
+        return Lerp(param, q1, q2);
     }
 
     const T theta0 = std::acos(cos_theta0);
