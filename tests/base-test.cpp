@@ -99,6 +99,8 @@ TEST(BaseTests, Mod)
     {
         const float R1 = Math::Mod(2.5f, 2.0f);
         EXPECT_FLOAT_EQ(R1, 0.5f);
+        const float R7 = Math::Mod(3.9f, 2.0f);
+        EXPECT_FLOAT_EQ(R7, 1.9f);
         const float R2 = Math::Mod(-2.5f, 2.0f);
         EXPECT_FLOAT_EQ(R2, -0.5f);
         const float R3 = Math::Mod(2.5f, -2.0f);
@@ -113,6 +115,8 @@ TEST(BaseTests, Mod)
     {
         const double R1 = Math::Mod(2.5, 2.0);
         EXPECT_DOUBLE_EQ(R1, 0.5);
+        const double R7 = Math::Mod(3.9, 2.0);
+        EXPECT_DOUBLE_EQ(R7, 1.9);
         const double R2 = Math::Mod(-2.5, 2.0);
         EXPECT_DOUBLE_EQ(R2, -0.5);
         const double R3 = Math::Mod(2.5, -2.0);
@@ -131,6 +135,8 @@ TEST(BaseTests, Mod)
         EXPECT_EQ(R2, -1);
         const int R3 = Math::Mod(3, -2);
         EXPECT_EQ(R3, 1);
+        const int R4 = Math::Mod(5, 3);
+        EXPECT_EQ(R4, 2);
     }
 }
 

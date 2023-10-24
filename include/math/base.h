@@ -322,7 +322,7 @@ T Math::Mod(T a, T b)
         {
             return NAN;
         }
-        return std::remainder(a, b);
+        return std::fmod(a, b);
     }
 }
 
