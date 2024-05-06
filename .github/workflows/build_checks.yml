@@ -48,5 +48,5 @@ jobs:
       run: cmake --install ${{github.workspace}}/build --prefix ${{github.workspace}}/install-dir --config ${{matrix.config.build_type}}
 
     - name: Test
-      run: ${{github.workspace}}/install-dir/bin/math-test.exe
+      run: ${{github.workspace}}/install-dir/bin/math_test.exe
 
