@@ -99,7 +99,6 @@ if (MATH_BUILD_TESTS)
 			test/base-test.cpp
 			test/bounds2-test.cpp
 			test/bounds3-test.cpp
-			test/main-test.cpp
 			test/matrix4x4-test.cpp
 			test/misc-test.cpp
 			test/normal3-test.cpp
@@ -116,7 +115,7 @@ if (MATH_BUILD_TESTS)
 	target_link_libraries(math_test math)
 	target_link_libraries(math_test math_warnings)
 	target_link_libraries(math_test math_options)
-	target_link_libraries(math_test gtest)
+	target_link_libraries(math_test gtest gtest_main)
 	enable_testing()
 	add_test(NAME math_test COMMAND math_test)
 	# Install the test executable
