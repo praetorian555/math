@@ -1,7 +1,7 @@
 ﻿#include <gtest/gtest.h>
 
-#include "math/transform.h"
 #include "math/normal3.h"
+#include "math/transform.h"
 
 using Vector3f = Math::Vector3<float>;
 using Vector3d = Math::Vector3<double>;
@@ -653,5 +653,77 @@ TEST(TransformTests, ApplyingTransforms)
         EXPECT_DOUBLE_EQ(n2.x, 1);
         EXPECT_DOUBLE_EQ(n2.y, 1);
         EXPECT_DOUBLE_EQ(n2.z, 1);
+    }
+}
+
+TEST(TransformTests, LookAt_RH)
+{
+    {
+        const Point3f eye(0, 0, 0);
+        const Point3f target(0, 0, 1);
+        const Vector3f up(0, 1, 0);
+        const Matrix4f t = Math::LookAt_RH(eye, target, up);
+        const Matrix4f ref = Math::RotateY(-180.0f);
+        EXPECT_TRUE(Math::IsEqual(t, ref, 0.0001f));
+    }
+    {
+        const Point3f eye(0, 0, 0);
+        const Point3f target(0, 0, -1);
+        const Vector3f up(0, 1, 0);
+        const Matrix4f t = Math::LookAt_RH(eye, target, up);
+        const Matrix4f ref = Math::Identity<float>();
+        EXPECT_TRUE(Math::IsEqual(t, ref, 0.0001f));
+    }
+    {
+        const Point3f eye(0, 0, 0);
+        const Point3f target(1, 0, 0);
+        const Vector3f up(0, 1, 0);
+        const Matrix4f t = Math::LookAt_RH(eye, target, up);
+        const Matrix4f ref = Math::RotateY(90.0f);
+        EXPECT_TRUE(Math::IsEqual(t, ref, 0.0001f));
+    }
+    {
+        const Point3f eye(0, 0, 5);
+        const Point3f target(-5, 0, 0);
+        const Vector3f up(0, 1, 0);
+        const Matrix4f t = Math::LookAt_RH(eye, target, up);
+        const Matrix4f ref = Math::RotateY(-45.0f) * Math::Translate(Math::Point3<float>(0, 0, -5));
+        EXPECT_TRUE(Math::IsEqual(t, ref, 0.0001f));
+    }
+}
+
+TEST(TransformTests, LookAt_LH)
+{
+    {
+        const Point3f eye(0, 0, 0);
+        const Point3f target(0, 0, 1);
+        const Vector3f up(0, 1, 0);
+        const Matrix4f t = Math::LookAt_LH(eye, target, up);
+        const Matrix4f ref = Math::Identity<float>();
+        EXPECT_TRUE(Math::IsEqual(t, ref, 0.0001f));
+    }
+    {
+        const Point3f eye(0, 0, 0);
+        const Point3f target(0, 0, -1);
+        const Vector3f up(0, 1, 0);
+        const Matrix4f t = Math::LookAt_LH(eye, target, up);
+        const Matrix4f ref = Math::RotateY(-180.0f);
+        EXPECT_TRUE(Math::IsEqual(t, ref, 0.0001f));
+    }
+    {
+        const Point3f eye(0, 0, 0);
+        const Point3f target(1, 0, 0);
+        const Vector3f up(0, 1, 0);
+        const Matrix4f t = Math::LookAt_LH(eye, target, up);
+        const Matrix4f ref = Math::RotateY(-90.0f);
+        EXPECT_TRUE(Math::IsEqual(t, ref, 0.0001f));
+    }
+    {
+        const Point3f eye(0, 0, 5);
+        const Point3f target(-5, 0, 0);
+        const Vector3f up(0, 1, 0);
+        const Matrix4f t = Math::LookAt_LH(eye, target, up);
+        Matrix4f ref = Math::RotateY(135.0f) * Math::Translate(Math::Point3<float>(0, 0, -5));
+        EXPECT_TRUE(Math::IsEqual(t, ref, 0.0001f));
     }
 }

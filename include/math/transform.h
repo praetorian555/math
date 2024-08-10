@@ -130,6 +130,28 @@ Matrix4x4<T> RotateAndTranslate(const Rotator<T>& rot, const Point3<T>& t);
 template <typename T>
 Matrix4x4<T> RotateAndTranslate(const Rotator<T>& rot, const Vector3<T>& t);
 
+/**
+ *  Create a world to camera (view) transform for a right-handed coordinate system.
+ * @tparam T The data type.
+ * @param eye The position of the camera.
+ * @param target The position the camera is looking at.
+ * @param up The up vector.
+ * @return The view matrix.
+ */
+template <typename T>
+Matrix4x4<T> LookAt_RH(const Point3<T>& eye, const Point3<T>& target, const Vector3<T>& up);
+
+/**
+ * Create a world to camera (view) transform for a left-handed coordinate system.
+ * @tparam T The data type.
+ * @param eye The position of the camera.
+ * @param target The position the camera is looking at.
+ * @param up The up vector.
+ * @return The view matrix.
+ */
+template <typename T>
+Matrix4x4<T> LookAt_LH(const Point3<T>& eye, const Point3<T>& target, const Vector3<T>& up);
+
 }  // namespace Math
 
 // Implementation //////////////////////////////////////////////////////////////////////////////////
@@ -301,3 +323,58 @@ Math::Matrix4x4<T> Math::RotateAndTranslate(const Rotator<T>& rot, const Vector3
 {
     return Translate(t) * Rotate(rot);
 }
+
+template <typename T>
+Math::Matrix4x4<T> Math::LookAt_RH(const Point3<T>& eye,
+                                   const Point3<T>& target,
+                                   const Vector3<T>& up)
+{
+    const Vector3<T> forward = Normalize(eye - target);
+    const Vector3<T> right = Normalize(Cross(up, forward));
+    const Vector3<T> new_up = Cross(forward, right);
+    const Vector3<T> eye_vector = eye - Point3<T>::Zero();
+
+    Matrix4x4 result(1.0f);
+    result(0, 0) = right.x;
+    result(0, 1) = right.y;
+    result(0, 2) = right.z;
+    result(1, 0) = new_up.x;
+    result(1, 1) = new_up.y;
+    result(1, 2) = new_up.z;
+    result(2, 0) = forward.x;
+    result(2, 1) = forward.y;
+    result(2, 2) = forward.z;
+    result(0, 3) = -Dot(right, eye_vector);
+    result(1, 3) = -Dot(new_up, eye_vector);
+    result(2, 3) = -Dot(forward, eye_vector);
+
+    return result;
+}
+
+template <typename T>
+Math::Matrix4x4<T> Math::LookAt_LH(const Point3<T>& eye,
+                                   const Point3<T>& target,
+                                   const Vector3<T>& up)
+{
+    const Vector3<T> forward = Normalize(target - eye);
+    const Vector3<T> right = Normalize(Cross(up, forward));
+    const Vector3<T> new_up = Cross(forward, right);
+    const Vector3<T> eye_vector = eye - Point3<T>::Zero();
+
+    Matrix4x4 result(1.0f);
+    result(0, 0) = right.x;
+    result(0, 1) = right.y;
+    result(0, 2) = right.z;
+    result(1, 0) = new_up.x;
+    result(1, 1) = new_up.y;
+    result(1, 2) = new_up.z;
+    result(2, 0) = forward.x;
+    result(2, 1) = forward.y;
+    result(2, 2) = forward.z;
+    result(0, 3) = -Dot(right, eye_vector);
+    result(1, 3) = -Dot(new_up, eye_vector);
+    result(2, 3) = -Dot(forward, eye_vector);
+
+    return result;
+}
+
