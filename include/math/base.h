@@ -9,17 +9,15 @@
 namespace Math
 {
 
+// Define a concept for floating point types.
 template <typename T>
-constexpr static bool k_is_floating_point = false;
-
+inline constexpr bool k_is_floating_point_value = false;
 template <>
-constexpr bool k_is_floating_point<float> = true;
-
+inline constexpr bool k_is_floating_point_value<float> = true;
 template <>
-constexpr bool k_is_floating_point<double> = true;
-
+inline constexpr bool k_is_floating_point_value<double> = true;
 template <typename T>
-concept FloatingPoint = k_is_floating_point<T>;
+concept FloatingPoint = k_is_floating_point_value<T>;
 
 /**
  * @brief Returns the absolute value of the given value.
