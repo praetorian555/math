@@ -3,6 +3,7 @@
 #include <cmath>
 #include <cstdint>
 #include <cassert>
+#include <concepts>
 
 namespace Math
 {
