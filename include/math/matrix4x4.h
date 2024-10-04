@@ -93,7 +93,7 @@ struct Matrix4x4
 };
 
 template <typename T>
-concept integral_or_floating_point = std::integral<T> || std::floating_point<T>;
+concept integral_or_floating_point = std::integral<T> || Math::FloatingPoint<T>;
 
 template <typename T, integral_or_floating_point U>
 Matrix4x4<T> operator*(U scalar, const Matrix4x4<T>& m);
@@ -121,7 +121,7 @@ template <typename T>
  * @param m The matrix to invert.
  * @return The inverted matrix.
  */
-template <std::floating_point T>
+template <Math::FloatingPoint T>
 [[nodiscard]] Matrix4x4<T> Inverse(const Matrix4x4<T>& m);
 
 }  // namespace Math
@@ -433,7 +433,7 @@ Math::Matrix4x4<T> Math::Transpose(const Matrix4x4<T>& m)
     return result;
 }
 
-template <std::floating_point T>
+template <Math::FloatingPoint T>
 Math::Matrix4x4<T> Math::Inverse(const Matrix4x4<T>& m)
 {
     std::array<int, 4> indxc = {0, 0, 0, 0};

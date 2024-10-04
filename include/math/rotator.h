@@ -10,7 +10,7 @@ namespace Math
  * Default orientation (all zeros) means that the forward vector is along the x-axis, up vector is
  * along the y-axis and right vector is along the z-axis.
  */
-template <std::floating_point T>
+template <Math::FloatingPoint T>
 struct Rotator
 {
     /**
@@ -59,7 +59,7 @@ struct Rotator
     Rotator& operator*=(T val);
 };
 
-template <std::floating_point T>
+template <Math::FloatingPoint T>
 Rotator<T> operator*(T val, const Rotator<T>& rot);
 
 /**
@@ -68,7 +68,7 @@ Rotator<T> operator*(T val, const Rotator<T>& rot);
  * @param rot Rotator.
  * @return Normalized vector.
  */
-template <std::floating_point T>
+template <Math::FloatingPoint T>
 [[nodiscard]] Vector3<T> RotatorToVector(const Rotator<T>& rot);
 
 /**
@@ -78,50 +78,50 @@ template <std::floating_point T>
  * @param rot Rotator.
  * @return Vector with rotation angles.
  */
-template <std::floating_point T>
+template <Math::FloatingPoint T>
 [[nodiscard]] Vector3<T> RotatorToEuler(const Rotator<T>& rot);
 
 }  // namespace Math
 
 // Implementation //////////////////////////////////////////////////////////////////////////////////
 
-template <std::floating_point T>
+template <Math::FloatingPoint T>
 constexpr Math::Rotator<T>::Rotator()
 {
     // Do nothing.
 }
 
-template <std::floating_point T>
+template <Math::FloatingPoint T>
 constexpr Math::Rotator<T>::Rotator(T pitch, T yaw, T roll)
     : pitch(pitch), yaw(yaw), roll(roll)
 {
 }
 
-template <std::floating_point T>
+template <Math::FloatingPoint T>
 Math::Rotator<T> Math::Rotator<T>::Zero()
 {
     return Rotator<T>{0, 0, 0};
 }
 
-template <std::floating_point T>
+template <Math::FloatingPoint T>
 bool Math::Rotator<T>::operator==(const Rotator& other) const
 {
     return pitch == other.pitch && yaw == other.yaw && roll == other.roll;
 }
 
-template <std::floating_point T>
+template <Math::FloatingPoint T>
 bool Math::Rotator<T>::operator!=(const Rotator& other) const
 {
     return !(*this == other);
 }
 
-template <std::floating_point T>
+template <Math::FloatingPoint T>
 Math::Rotator<T> Math::Rotator<T>::operator+(const Rotator& other) const
 {
     return Rotator<T>{pitch + other.pitch, yaw + other.yaw, roll + other.roll};
 }
 
-template <std::floating_point T>
+template <Math::FloatingPoint T>
 Math::Rotator<T>& Math::Rotator<T>::operator+=(const Rotator& other)
 {
     pitch += other.pitch;
@@ -130,13 +130,13 @@ Math::Rotator<T>& Math::Rotator<T>::operator+=(const Rotator& other)
     return *this;
 }
 
-template <std::floating_point T>
+template <Math::FloatingPoint T>
 Math::Rotator<T> Math::Rotator<T>::operator-(const Rotator& other) const
 {
     return Rotator<T>{pitch - other.pitch, yaw - other.yaw, roll - other.roll};
 }
 
-template <std::floating_point T>
+template <Math::FloatingPoint T>
 Math::Rotator<T>& Math::Rotator<T>::operator-=(const Rotator& other)
 {
     pitch -= other.pitch;
@@ -145,13 +145,13 @@ Math::Rotator<T>& Math::Rotator<T>::operator-=(const Rotator& other)
     return *this;
 }
 
-template <std::floating_point T>
+template <Math::FloatingPoint T>
 Math::Rotator<T> Math::Rotator<T>::operator*(T val) const
 {
     return Rotator<T>{pitch * val, yaw * val, roll * val};
 }
 
-template <std::floating_point T>
+template <Math::FloatingPoint T>
 Math::Rotator<T>& Math::Rotator<T>::operator*=(T val)
 {
     pitch *= val;
@@ -160,13 +160,13 @@ Math::Rotator<T>& Math::Rotator<T>::operator*=(T val)
     return *this;
 }
 
-template <std::floating_point T>
+template <Math::FloatingPoint T>
 Math::Rotator<T> Math::operator*(T val, const Rotator<T>& rot)
 {
     return rot * val;
 }
 
-template <std::floating_point T>
+template <Math::FloatingPoint T>
 Math::Vector3<T> Math::RotatorToVector(const Rotator<T>& rot)
 {
     const T pitch_no_winding = Mod(rot.pitch, static_cast<T>(360.0));
@@ -179,7 +179,7 @@ Math::Vector3<T> Math::RotatorToVector(const Rotator<T>& rot)
     return Vector3{cp * cy, sp, -cp * sy};
 }
 
-template <std::floating_point T>
+template <Math::FloatingPoint T>
 Math::Vector3<T> Math::RotatorToEuler(const Rotator<T>& rot)
 {
     return Vector3<T>{rot.roll, rot.yaw, rot.pitch};

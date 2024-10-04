@@ -94,7 +94,7 @@ template <typename T>
  * @param t The interpolation factor. 0 returns the min point, 1 returns the max point.
  * @return The interpolated point.
  */
-template <std::floating_point T>
+template <FloatingPoint T>
 [[nodiscard]] Point2<T> Lerp(const Bounds2<T>& b, const Point2<T>& t);
 
 /**
@@ -106,7 +106,7 @@ template <std::floating_point T>
  * @return The offset of the point from the minimum corner of the bounding box scaled by the inverse
  * of the bounding box extent.
  */
-template <std::floating_point T>
+template <FloatingPoint T>
 [[nodiscard]] Vector2<T> Offset(const Bounds2<T>& b, const Point2<T>& p);
 
 /**
@@ -116,7 +116,7 @@ template <std::floating_point T>
  * @param out_center The center of the sphere.
  * @param out_radius The radius of the sphere.
  */
-template <std::floating_point T>
+template <FloatingPoint T>
 void BoundingSphere(const Bounds2<T>& b, Point2<T>& out_center, T& out_radius);
 
 /**
@@ -273,13 +273,13 @@ int32_t Math::MaximumExtent(const Bounds2<T>& b)
     return (diag.x > diag.y) ? 0 : 1;
 }
 
-template <std::floating_point T>
+template <Math::FloatingPoint T>
 Math::Point2<T> Math::Lerp(const Bounds2<T>& b, const Point2<T>& t)
 {
     return Point2<T>(Math::Lerp(t.x, b.min.x, b.max.x), Math::Lerp(t.y, b.min.y, b.max.y));
 }
 
-template <std::floating_point T>
+template <Math::FloatingPoint T>
 Math::Vector2<T> Math::Offset(const Bounds2<T>& b, const Point2<T>& p)
 {
     Vector2<T> o = p - b.min;
@@ -294,7 +294,7 @@ Math::Vector2<T> Math::Offset(const Bounds2<T>& b, const Point2<T>& p)
     return o;
 }
 
-template <std::floating_point T>
+template <Math::FloatingPoint T>
 void Math::BoundingSphere(const Bounds2<T>& b, Point2<T>& out_center, T& out_radius)
 {
     out_center = b.min + (b.max - b.min) / static_cast<T>(2);

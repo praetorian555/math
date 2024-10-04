@@ -3,47 +3,23 @@
 #include <cmath>
 #include <cstdint>
 #include <cassert>
-#include <concepts>
+
+#include "constants.h"
 
 namespace Math
 {
 
-// Constants
-static constexpr float k_pi_float = 3.14159265358979323846f;
-static constexpr float k_inv_pi_float = 0.31830988618379067154f;
-static constexpr float k_inv_2pi_float = 0.15915494309189533577f;
-static constexpr float k_inv_4pi_float = 0.07957747154594766788f;
-static constexpr float k_pi_over_2_float = 1.57079632679489661923f;
-static constexpr float k_pi_over_4_float = 0.78539816339744830961f;
-static constexpr float k_sqrt_2_float = 1.41421356237309504880f;
-static constexpr double k_pi_double =
-    3.1415926535897932384626433832795028841971693993751058209749445923;
-static constexpr double k_inv_pi_double =
-    0.3183098861837906715377675267450287240689192914809128974953346881;
-static constexpr double k_inv_2pi_double =
-    0.1591549430918953357688837633725143620344596457404564487476673440;
-static constexpr double k_inv_4pi_double =
-    0.0795774715459476678844418816862571810172298228702282243738336720;
-static constexpr double k_pi_over_2_double =
-    1.5707963267948966192313216916397514420985846996875529104874722961;
-static constexpr double k_pi_over_4_double =
-    0.7853981633974483096156608458198757210492923498437764552437361480;
-static constexpr double k_sqrt_2_double =
-    1.4142135623730950488016887242096980785696718753769480731766797379;
+template <typename T>
+constexpr static bool k_is_floating_point = false;
 
-#if defined(_MSC_VER)
-static constexpr float k_inf_float = static_cast<float>(1e300 * 1e300);
-static constexpr float k_neg_inf_float = -k_inf_float;
-static constexpr double k_inf_double = 1e300 * 1e300;
-static constexpr double k_neg_inf_double = -k_inf_double;
-#else
-#error No definition for infinity constants!
-#endif
+template <>
+constexpr bool k_is_floating_point<float> = true;
 
-static constexpr float k_largest_float = 3.4028234664e38f;
-static constexpr float k_smallest_float = -3.4028234664e38f;
-static constexpr double k_largest_double = 1.7976931348623158e308;
-static constexpr double k_smallest_double = -1.7976931348623158e308;
+template <>
+constexpr bool k_is_floating_point<double> = true;
+
+template <typename T>
+concept FloatingPoint = k_is_floating_point<T>;
 
 /**
  * @brief Returns the absolute value of the given value.
@@ -109,7 +85,7 @@ bool IsFinite(T value);
  * @param degrees The degrees to convert.
  * @return The given degrees in radians.
  */
-template <std::floating_point T>
+template <FloatingPoint T>
 T Radians(T degrees);
 
 /**
@@ -118,7 +94,7 @@ T Radians(T degrees);
  * @param radians The radians to convert.
  * @return The given radians in degrees.
  */
-template <std::floating_point T>
+template <FloatingPoint T>
 T Degrees(T radians);
 
 /**
@@ -148,7 +124,7 @@ T Mod(T a, T b);
  * @param value The value to take the square root of.
  * @return The square root of the given value.
  */
-template <std::floating_point T>
+template <FloatingPoint T>
 T Sqrt(T value);
 
 /**
@@ -159,7 +135,7 @@ T Sqrt(T value);
  * @param p1 The second value.
  * @return The linear interpolation between the given values.
  */
-template <std::floating_point T>
+template <FloatingPoint T>
 T Lerp(T t, T p0, T p1);
 
 /**
@@ -169,7 +145,7 @@ T Lerp(T t, T p0, T p1);
  * @return The rounded value. If the value is exactly halfway between two integers, the rounding is
  * done away from zero.
  */
-template <std::floating_point T>
+template <FloatingPoint T>
 T Round(T value);
 
 /**
@@ -178,7 +154,7 @@ T Round(T value);
  * @param value The value to take the floor of.
  * @return The floor of the given value.
  */
-template <std::floating_point T>
+template <FloatingPoint T>
 T Floor(T value);
 
 /**
@@ -187,7 +163,7 @@ T Floor(T value);
  * @param value The value to take the ceil of.
  * @return The ceil of the given value.
  */
-template <std::floating_point T>
+template <FloatingPoint T>
 T Ceil(T value);
 
 /**
@@ -196,7 +172,7 @@ T Ceil(T value);
  * @param radians The value to take the sine of in radians.
  * @return The sine of the given value.
  */
-template <std::floating_point T>
+template <FloatingPoint T>
 T Sin(T radians);
 
 /**
@@ -205,7 +181,7 @@ T Sin(T radians);
  * @param radians The value to take the cosine of in radians.
  * @return The cosine of the given value.
  */
-template <std::floating_point T>
+template <FloatingPoint T>
 T Cos(T radians);
 
 /**
@@ -214,7 +190,7 @@ T Cos(T radians);
  * @param radians The value to take the tangent of in radians.
  * @return The tangent of the given value.
  */
-template <std::floating_point T>
+template <FloatingPoint T>
 T Tan(T radians);
 
 /**
@@ -224,7 +200,7 @@ T Tan(T radians);
  * @param exponent The exponent.
  * @return The base raised to the exponent power.
  */
-template <std::floating_point T>
+template <FloatingPoint T>
 T Power(T base, T exponent);
 
 /**
@@ -235,7 +211,7 @@ T Power(T base, T exponent);
  * returns negative infinity. If value is positive infinity, it returns positive infinity. If value
  * is negative, negative infinity or NaN, it returns NaN.
  */
-template <std::floating_point T>
+template <FloatingPoint T>
 T LogNatural(T value);
 
 /**
@@ -245,7 +221,7 @@ T LogNatural(T value);
  * returns negative infinity. If value is positive infinity, it returns positive infinity. If value
  * is negative, negative infinity or NaN, it returns NaN.
  */
-template <std::floating_point T>
+template <FloatingPoint T>
 T Log2(T value);
 
 }  // namespace Math
@@ -288,7 +264,7 @@ bool Math::IsFinite(T value)
     return std::isfinite(value);
 }
 
-template <std::floating_point T>
+template <Math::FloatingPoint T>
 T Math::Radians(T degrees)
 {
     constexpr T k_half_circle_degrees = static_cast<T>(180.0);
@@ -296,7 +272,7 @@ T Math::Radians(T degrees)
     return (k_pi / k_half_circle_degrees) * degrees;
 }
 
-template <std::floating_point T>
+template <Math::FloatingPoint T>
 T Math::Degrees(T radians)
 {
     constexpr T k_half_circle_degrees = static_cast<T>(180.0);
@@ -327,67 +303,67 @@ T Math::Mod(T a, T b)
     }
 }
 
-template <std::floating_point T>
+template <Math::FloatingPoint T>
 T Math::Sqrt(T value)
 {
     return std::sqrt(value);
 }
 
-template <std::floating_point T>
+template <Math::FloatingPoint T>
 T Math::Lerp(T t, T p0, T p1)
 {
     return (1 - t) * p0 + t * p1;
 }
 
-template <std::floating_point T>
+template <Math::FloatingPoint T>
 T Math::Round(T value)
 {
     return std::round(value);
 }
 
-template <std::floating_point T>
+template <Math::FloatingPoint T>
 T Math::Floor(T value)
 {
     return std::floor(value);
 }
 
-template <std::floating_point T>
+template <Math::FloatingPoint T>
 T Math::Ceil(T value)
 {
     return std::ceil(value);
 }
 
-template <std::floating_point T>
+template <Math::FloatingPoint T>
 T Math::Sin(T radians)
 {
     return std::sin(radians);
 }
 
-template <std::floating_point T>
+template <Math::FloatingPoint T>
 T Math::Cos(T radians)
 {
     return std::cos(radians);
 }
 
-template <std::floating_point T>
+template <Math::FloatingPoint T>
 T Math::Tan(T radians)
 {
     return std::tan(radians);
 }
 
-template <std::floating_point T>
+template <Math::FloatingPoint T>
 T Math::Power(T base, T exponent)
 {
     return std::pow(base, exponent);
 }
 
-template <std::floating_point T>
+template <Math::FloatingPoint T>
 T Math::LogNatural(T value)
 {
     return std::log(value);
 }
 
-template <std::floating_point T>
+template <Math::FloatingPoint T>
 T Math::Log2(T value)
 {
     constexpr T k_inv_log2 =

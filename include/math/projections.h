@@ -12,7 +12,7 @@ namespace Math
  * @param near Distance from a viewer to the near clipping plane. Always positive or zero.
  * @param far Distance from a viewer to the far clipping plane. Always positive or zero.
  */
-template <std::floating_point T>
+template <Math::FloatingPoint T>
 Matrix4x4<T> Orthographic_LH_N0(T left, T right, T bottom, T top, T near, T far);
 
 /**
@@ -22,7 +22,7 @@ Matrix4x4<T> Orthographic_LH_N0(T left, T right, T bottom, T top, T near, T far)
  * @param near Distance from a viewer to the near clipping plane. Always positive or zero.
  * @param far Distance from a viewer to the far clipping plane. Always positive or zero.
  */
-template <std::floating_point T>
+template <Math::FloatingPoint T>
 Matrix4x4<T> Orthographic_LH_N1(T left, T right, T bottom, T top, T near, T far);
 
 /**
@@ -32,7 +32,7 @@ Matrix4x4<T> Orthographic_LH_N1(T left, T right, T bottom, T top, T near, T far)
  * @param near Distance from a viewer to the near clipping plane. Always positive or zero.
  * @param far Distance from a viewer to the far clipping plane. Always positive or zero.
  */
-template <std::floating_point T>
+template <Math::FloatingPoint T>
 Matrix4x4<T> Orthographic_RH_N0(T left, T right, T bottom, T top, T near, T far);
 
 /**
@@ -42,7 +42,7 @@ Matrix4x4<T> Orthographic_RH_N0(T left, T right, T bottom, T top, T near, T far)
  * @param near Distance from a viewer to the near clipping plane. Always positive or zero.
  * @param far Distance from a viewer to the far clipping plane. Always positive or zero.
  */
-template <std::floating_point T>
+template <Math::FloatingPoint T>
 Matrix4x4<T> Orthographic_RH_N1(T left, T right, T bottom, T top, T near, T far);
 
 /**
@@ -55,7 +55,7 @@ Matrix4x4<T> Orthographic_RH_N1(T left, T right, T bottom, T top, T near, T far)
  * @param near Distance from a viewer to the near clipping plane. Always positive.
  * @param far Distance from a viewer to the far clipping plane. Always positive.
  */
-template <std::floating_point T>
+template <Math::FloatingPoint T>
 Matrix4x4<T> Perspective_LH_N0(T vertical_fov, T aspect_ratio, T near, T far);
 
 /**
@@ -68,7 +68,7 @@ Matrix4x4<T> Perspective_LH_N0(T vertical_fov, T aspect_ratio, T near, T far);
  * @param near Distance from a viewer to the near clipping plane. Always positive.
  * @param far Distance from a viewer to the far clipping plane. Always positive.
  */
-template <std::floating_point T>
+template <Math::FloatingPoint T>
 Matrix4x4<T> Perspective_LH_N1(T vertical_fov, T aspect_ratio, T near, T far);
 
 /**
@@ -81,7 +81,7 @@ Matrix4x4<T> Perspective_LH_N1(T vertical_fov, T aspect_ratio, T near, T far);
  * @param near Distance from a viewer to the near clipping plane. Always positive.
  * @param far Distance from a viewer to the far clipping plane. Always positive.
  */
-template <std::floating_point T>
+template <Math::FloatingPoint T>
 Matrix4x4<T> Perspective_RH_N0(T vertical_fov, T aspect_ratio, T near, T far);
 
 /**
@@ -94,14 +94,14 @@ Matrix4x4<T> Perspective_RH_N0(T vertical_fov, T aspect_ratio, T near, T far);
  * @param near Distance from a viewer to the near clipping plane. Always positive.
  * @param far Distance from a viewer to the far clipping plane. Always positive.
  */
-template <std::floating_point T>
+template <Math::FloatingPoint T>
 Matrix4x4<T> Perspective_RH_N1(T vertical_fov, T aspect_ratio, T near, T far);
 
 }  // namespace Math
 
 // Implementation //////////////////////////////////////////////////////////////////////////////////
 
-template <std::floating_point T>
+template <Math::FloatingPoint T>
 Math::Matrix4x4<T> Math::Orthographic_LH_N0(T left, T right, T bottom, T top, T near, T far)
 {
     Matrix4x4<T> mat(1);
@@ -114,7 +114,7 @@ Math::Matrix4x4<T> Math::Orthographic_LH_N0(T left, T right, T bottom, T top, T 
     return mat;
 }
 
-template <std::floating_point T>
+template <Math::FloatingPoint T>
 Math::Matrix4x4<T> Math::Orthographic_LH_N1(T left, T right, T bottom, T top, T near, T far)
 {
     Matrix4x4<T> mat(1);
@@ -127,7 +127,7 @@ Math::Matrix4x4<T> Math::Orthographic_LH_N1(T left, T right, T bottom, T top, T 
     return mat;
 }
 
-template <std::floating_point T>
+template <Math::FloatingPoint T>
 Math::Matrix4x4<T> Math::Orthographic_RH_N0(T left, T right, T bottom, T top, T near, T far)
 {
     Matrix4x4<T> mat(1);
@@ -140,7 +140,7 @@ Math::Matrix4x4<T> Math::Orthographic_RH_N0(T left, T right, T bottom, T top, T 
     return mat;
 }
 
-template <std::floating_point T>
+template <Math::FloatingPoint T>
 Math::Matrix4x4<T> Math::Orthographic_RH_N1(T left, T right, T bottom, T top, T near, T far)
 {
     Matrix4x4<T> mat(1);
@@ -153,7 +153,7 @@ Math::Matrix4x4<T> Math::Orthographic_RH_N1(T left, T right, T bottom, T top, T 
     return mat;
 }
 
-template <std::floating_point T>
+template <Math::FloatingPoint T>
 Math::Matrix4x4<T> Math::Perspective_LH_N0(T vertical_fov, T aspect_ratio, T near, T far)
 {
     assert(aspect_ratio != 0);
@@ -171,7 +171,7 @@ Math::Matrix4x4<T> Math::Perspective_LH_N0(T vertical_fov, T aspect_ratio, T nea
     return mat;
 }
 
-template <std::floating_point T>
+template <Math::FloatingPoint T>
 Math::Matrix4x4<T> Math::Perspective_LH_N1(T vertical_fov, T aspect_ratio, T near, T far)
 {
     assert(aspect_ratio != 0);
@@ -189,7 +189,7 @@ Math::Matrix4x4<T> Math::Perspective_LH_N1(T vertical_fov, T aspect_ratio, T nea
     return mat;
 }
 
-template <std::floating_point T>
+template <Math::FloatingPoint T>
 Math::Matrix4x4<T> Math::Perspective_RH_N0(T vertical_fov, T aspect_ratio, T near, T far)
 {
     assert(aspect_ratio != 0);
@@ -211,7 +211,7 @@ Math::Matrix4x4<T> Math::Perspective_RH_N0(T vertical_fov, T aspect_ratio, T nea
     return mat;
 }
 
-template <std::floating_point T>
+template <Math::FloatingPoint T>
 Math::Matrix4x4<T> Math::Perspective_RH_N1(T vertical_fov, T aspect_ratio, T near, T far)
 {
     assert(aspect_ratio != 0);
