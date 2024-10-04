@@ -1,8 +1,8 @@
 #pragma once
 
+#include "math/matrix4x4.h"
 #include "math/point3.h"
 #include "math/vector3.h"
-#include "math/matrix4x4.h"
 
 namespace Math
 {
@@ -21,12 +21,12 @@ public:
 
     /**
      * @brief Construct a Quaternion using four T values.
+     * @param w - The T part of the Quaternion.
      * @param x - The i part of the Quaternion.
      * @param y - The j part of the Quaternion.
      * @param z - The k part of the Quaternion.
-     * @param w - The T part of the Quaternion.
      */
-    Quaternion(T x, T y, T z, T w);
+    Quaternion(T w, T x, T y, T z);
 
     /**
      * @brief Construct a Quaternion from a matrix. This uses only the upper left 3x3 part of the
@@ -34,6 +34,9 @@ public:
      * @param transform - The transform to construct the Quaternion from.
      */
     explicit Quaternion(const Matrix4x4<T>& transform);
+
+    template <std::floating_point U>
+    Quaternion(const Quaternion<U>& other);
 
     /**
      * @brief Construct a Quaternion from an axis and an angle.
@@ -52,10 +55,15 @@ public:
     static Quaternion FromAxisAngleRadians(const Vector3<T>& axis, T angle_radians);
 
     /**
-     * @brief Construct an identity Quaternion.
-     * @return The identity Quaternion.
+     * @brief Construct an identity Quaternion. This is a Quaternion with all components set to zero
+     * except for the real component which is set to one. It represents no rotation.
      */
     static Quaternion Identity();
+
+    /**
+     * Quaternion with all components set to zero.
+     */
+    static Quaternion Zero();
 
     /** Operator overloads. */
 
@@ -212,7 +220,7 @@ Math::Quaternion<T>::Quaternion()
 }
 
 template <std::floating_point T>
-Math::Quaternion<T>::Quaternion(T x, T y, T z, T w) : vec(x, y, z), w(w)
+Math::Quaternion<T>::Quaternion(T w, T x, T y, T z) : w(w), vec(x, y, z)
 {
 }
 
@@ -265,6 +273,14 @@ Math::Quaternion<T>::Quaternion(const Matrix4x4<T>& transform)
 }
 
 template <std::floating_point T>
+template <std::floating_point U>
+Math::Quaternion<T>::Quaternion(const Quaternion<U>& other)
+    : w(static_cast<T>(other.w)),
+      vec(static_cast<T>(other.vec.x), static_cast<T>(other.vec.y), static_cast<T>(other.vec.z))
+{
+}
+
+template <std::floating_point T>
 Math::Quaternion<T> Math::Quaternion<T>::FromAxisAngleDegrees(const Vector3<T>& axis,
                                                               T angle_degrees)
 {
@@ -272,18 +288,25 @@ Math::Quaternion<T> Math::Quaternion<T>::FromAxisAngleDegrees(const Vector3<T>& 
 }
 
 template <std::floating_point T>
-Math::Quaternion<T> Math::Quaternion<T>::FromAxisAngleRadians(const Vector3<T>& axis, T angle_radians)
+Math::Quaternion<T> Math::Quaternion<T>::FromAxisAngleRadians(const Vector3<T>& axis,
+                                                              T angle_radians)
 {
     const T s = Sin(angle_radians / 2);
     const T c = Cos(angle_radians / 2);
     const Vector3 vec = Normalize(axis);
-    return {vec.x * s, vec.y * s, vec.z * s, c};
+    return {c, vec.x * s, vec.y * s, vec.z * s};
 }
 
 template <std::floating_point T>
 Math::Quaternion<T> Math::Quaternion<T>::Identity()
 {
-    return {0, 0, 0, 1};
+    return {1, 0, 0, 0};
+}
+
+template <std::floating_point T>
+Math::Quaternion<T> Math::Quaternion<T>::Zero()
+{
+    return {0, 0, 0, 0};
 }
 
 template <std::floating_point T>
@@ -333,7 +356,6 @@ Math::Quaternion<T>& Math::Quaternion<T>::operator*=(T scalar)
     w *= scalar;
     return *this;
 }
-
 
 template <std::floating_point T>
 Math::Quaternion<T>& Math::Quaternion<T>::operator/=(T scalar)
@@ -394,16 +416,17 @@ Math::Quaternion<T> Math::operator*(T scalar, const Quaternion<T>& q)
 template <std::floating_point T>
 Math::Vector3<T> Math::operator*(const Quaternion<T>& q, const Vector3<T>& vec)
 {
-    const Vector3<T> t = 2 * Cross(q.vec, vec);
-    return vec + q.w * t + Cross(q.vec, t);
+    const Quaternion<T> qp(0, vec.x, vec.y, vec.z);
+    const Quaternion<T> result = q * qp * Inverse(q);
+    return {result.vec.x, result.vec.y, result.vec.z};
 }
 
 template <std::floating_point T>
 Math::Point3<T> Math::operator*(const Quaternion<T>& q, const Point3<T>& p)
 {
-        const Quaternion<T> qp(p.x, p.y, p.z, 0);
-        const Quaternion<T> result = q * qp * Inverse(q);
-        return {result.vec.x, result.vec.y, result.vec.z};
+    const Quaternion<T> qp(0, p.x, p.y, p.z);
+    const Quaternion<T> result = q * qp * Inverse(q);
+    return {result.vec.x, result.vec.y, result.vec.z};
 }
 
 template <std::floating_point T>
